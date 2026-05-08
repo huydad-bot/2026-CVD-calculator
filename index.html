@@ -326,7 +326,7 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
     <label class="ck"><input type="checkbox" class="enh"> hs-CRP ≥ 2.0 mg/L</label>
     <label class="ck"><input type="checkbox" class="enh"> ABI &lt; 0.9 (말초동맥질환)</label>
     <label class="ck"><input type="checkbox" class="enh" id="carotidPlaque"> 경동맥 초음파 plaque ≥ 1.5 mm</label>
-    <div style="font-size:10px;color:#888780;padding:1px 0 4px 19px;line-height:1.5">ESC/EAS 2025 Class IIa 위험수정인자 · ACC/AHA: CAC 불가 시 subclinical ASCVD 대안 증거 — LDL 목표 &lt;100 mg/dL</div>
+    <div id="carotidDesc" style="display:none;font-size:10px;color:#888780;padding:1px 0 4px 19px;line-height:1.5">ESC/EAS 2025 Class IIa 위험수정인자 · ACC/AHA: CAC 불가 시 subclinical ASCVD 대안 증거 — LDL 목표 &lt;100 mg/dL</div>
     <label class="ck"><input type="checkbox" class="enh"> 중성지방 ≥ 200 mg/dL <span style="color:#888780;font-size:10px">(2026 개정: 구 기준 175→200)</span></label>
     <label class="ck"><input type="checkbox" class="enh"> Lp(a) ≥ 50 mg/dL 또는 ≥125 nmol/L</label>
     <div id="ckdEnhDisplay" style="display:none;align-items:flex-start;gap:6px;padding:3px 0 2px;font-size:12px;color:#1a1a18">
@@ -339,14 +339,42 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
     <label class="ck"><input type="checkbox" class="enh"> 생식 위험인자</label>
     <div style="font-size:10px;color:#888780;padding:1px 0 4px 19px;line-height:1.5">조기 폐경 &lt;45세 · 자간전증 · 임신성 당뇨/고혈압 · 조산</div>
     <label class="ck"><input type="checkbox" class="enh"> 고위험 조상 <span style="color:#888780;font-size:10px">(남아시아계·필리핀계 등 죽상경화 고위험 민족)</span></label>
-    <div style="margin-top:3px;padding:6px 8px;background:#f8f7f5;border:1px solid #e2e0db;border-radius:7px">
-      <div style="font-size:10px;font-weight:700;color:#888780;letter-spacing:.05em;margin-bottom:4px">관상동맥 석회화 (CAC) — 택 1</div>
-      <label class="ck"><input type="checkbox" class="enh" id="cac1to99"> CAC 1–99</label>
-      <div style="font-size:10px;color:#888780;padding:1px 0 4px 19px;line-height:1.5">위험증강인자 — LDL 목표 &lt;100, 저위험에서 스타틴 유예 가능</div>
-      <label class="ck"><input type="checkbox" class="enh" id="cacCheck"> CAC 100–299 또는 ≥75 백분위</label>
-      <div style="font-size:10px;color:#888780;padding:1px 0 4px 19px;line-height:1.5">스타틴 충분조건 — LDL 목표 &lt;70</div>
-      <label class="ck"><input type="checkbox" class="enh" id="cac300"> CAC 300–999 <span style="color:#888780;font-size:10px">(LDL 목표 &lt;55)</span></label>
-      <label class="ck"><input type="checkbox" class="enh" id="cac1000"> CAC ≥1000 <span style="color:#888780;font-size:10px">(초고위험 수준 — LDL 목표 &lt;55, 최대강도)</span></label>
+    <!-- CAC 메인 토글 버튼 -->
+    <label class="ck" style="margin-top:3px">
+      <input type="checkbox" id="cacMain">
+      <span>관상동맥 석회화 (CAC) 점수 입력</span>
+    </label>
+    <!-- CAC 패널 (숨김 기본) -->
+    <div id="cacPanel" style="display:none;margin-top:5px;padding:8px 10px;background:#f8f7f5;border:1px solid #e2e0db;border-radius:8px">
+      <div style="font-size:10px;font-weight:700;color:#888780;letter-spacing:.05em;margin-bottom:7px">CAC 등급 선택 — 택 1</div>
+      <!-- 기존 JS 호환용 숨김 체크박스 (계산 로직 유지) -->
+      <input type="checkbox" class="enh" id="cac1to99" style="display:none">
+      <input type="checkbox" class="enh" id="cacCheck" style="display:none">
+      <input type="checkbox" class="enh" id="cac300"   style="display:none">
+      <input type="checkbox" class="enh" id="cac1000"  style="display:none">
+      <!-- 버튼형 택1 선택 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px">
+        <div class="cac-opt" data-cac="cac1to99"
+          style="padding:7px 9px;border:1px solid #d0cec8;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s">
+          <div style="font-size:12px;font-weight:700;color:#1a1a18">CAC 1–99</div>
+          <div style="font-size:10px;color:#888780;margin-top:2px;line-height:1.45">위험증강인자<br>LDL 목표 &lt;100</div>
+        </div>
+        <div class="cac-opt" data-cac="cacCheck"
+          style="padding:7px 9px;border:1px solid #d0cec8;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s">
+          <div style="font-size:12px;font-weight:700;color:#1a1a18">CAC 100–299</div>
+          <div style="font-size:10px;color:#888780;margin-top:2px;line-height:1.45">또는 ≥75 백분위<br>스타틴 충분조건 · LDL &lt;70</div>
+        </div>
+        <div class="cac-opt" data-cac="cac300"
+          style="padding:7px 9px;border:1px solid #d0cec8;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s">
+          <div style="font-size:12px;font-weight:700;color:#1a1a18">CAC 300–999</div>
+          <div style="font-size:10px;color:#888780;margin-top:2px;line-height:1.45">고강도 스타틴<br>LDL 목표 &lt;55</div>
+        </div>
+        <div class="cac-opt" data-cac="cac1000"
+          style="padding:7px 9px;border:1px solid #d0cec8;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s">
+          <div style="font-size:12px;font-weight:700;color:#1a1a18">CAC ≥1000</div>
+          <div style="font-size:10px;color:#888780;margin-top:2px;line-height:1.45">초고위험 수준<br>LDL 목표 &lt;55 · 최대강도</div>
+        </div>
+      </div>
     </div>
     <div class="nb suc" style="margin-top:5px">※ CAC 1–99는 위험증강인자로 분류 (절대 적응증 아님) — 경계·중간위험에서 스타틴 시작을 지지하나, CAC=0이면 10년 유예 합리적.</div>
     <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-top:8px;border-top:1px solid #e2e0db">
@@ -1555,7 +1583,11 @@ function upd(){
     {
       key:'cac',
       active:(cacActive||cac300Active||cac1000Active)&&!ascvd,
-      label:'CAC ≥ 100 (또는 ≥75 백분위) — 스타틴 충분조건',
+      label:cac1000Active
+        ?'CAC ≥1000 — 초고위험 수준, 스타틴 충분조건 (LDL 목표 <55 mg/dL, 최대강도)'
+        :cac300Active
+          ?'CAC 300–999 — 무증상 죽상경화 광범위, 스타틴 충분조건 (LDL 목표 <55 mg/dL)'
+          :'CAC 100–299 (또는 ≥75 백분위) — 스타틴 충분조건 (LDL 목표 <70 mg/dL)',
       detail:(cacActive||cac300Active||cac1000Active)
         ?(cac1000Active
             ?'무증상 죽상경화 광범위(CAC ≥1000) — 고강도 스타틴, LDL 목표 &lt;55 mg/dL'
@@ -1769,6 +1801,10 @@ g('ascvdHx').addEventListener('change',function(){
 g('veryHigh').addEventListener('change',function(){
   if(g('vhrDesc')) g('vhrDesc').style.display=this.checked?'block':'none';
 });
+// 경동맥 초음파 체크 시 설명문 표시/숨김
+g('carotidPlaque').addEventListener('change',function(){
+  if(g('carotidDesc')) g('carotidDesc').style.display=this.checked?'block':'none';
+});
 // onStatin 체크 시 postLipidBox 즉시 표시 + 필수값 미입력 시 힌트 표시
 function updateStatinHint(){
   if(!g('postLipidBox') || !g('statinBaselineHint')) return;
@@ -1794,10 +1830,40 @@ g('onStatin').addEventListener('change', updateStatinHint);
   g(id)?.addEventListener('input', updateStatinHint);
 });
 document.querySelectorAll('input[name=sex]').forEach(el=>el.addEventListener('change', updateStatinHint));
-// CAC 등급 상호 배타 (택 1)
-['cac1to99','cacCheck','cac300','cac1000'].forEach(id=>{
-  g(id)?.addEventListener('change',function(){
-    if(this.checked) ['cac1to99','cacCheck','cac300','cac1000'].filter(x=>x!==id).forEach(x=>{ if(g(x)) g(x).checked=false; });
+// CAC 메인 토글 — 패널 표시/숨김 및 선택 초기화
+g('cacMain').addEventListener('change', function(){
+  const panel = g('cacPanel');
+  panel.style.display = this.checked ? 'block' : 'none';
+  if(!this.checked){
+    ['cac1to99','cacCheck','cac300','cac1000'].forEach(id=>{
+      if(g(id)){ g(id).checked=false; }
+    });
+    document.querySelectorAll('.cac-opt').forEach(el=>{
+      el.style.background='#fff';
+      el.style.borderColor='#d0cec8';
+      el.querySelector('div').style.color='#1a1a18';
+    });
+    upd();
+  }
+});
+// CAC 버튼형 택1 선택
+document.querySelectorAll('.cac-opt').forEach(btn=>{
+  btn.addEventListener('click', function(){
+    const targetId = this.dataset.cac;
+    // 버튼 스타일 초기화
+    document.querySelectorAll('.cac-opt').forEach(el=>{
+      el.style.background='#fff';
+      el.style.borderColor='#d0cec8';
+      el.querySelectorAll('div').forEach(d=>{ d.style.color=''; });
+    });
+    // 현재 버튼 활성화
+    this.style.background='#1a1a18';
+    this.style.borderColor='#1a1a18';
+    this.querySelectorAll('div').forEach(d=>d.style.color='#fff');
+    // 숨김 체크박스 동기화 (택1)
+    ['cac1to99','cacCheck','cac300','cac1000'].forEach(id=>{
+      if(g(id)) g(id).checked = (id===targetId);
+    });
     upd();
   });
 });
