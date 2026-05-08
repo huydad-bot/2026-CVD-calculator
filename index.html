@@ -429,7 +429,7 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
       <thead><tr><th>항목</th><th>치료 전</th><th>치료 중/현재</th><th>목표</th><th>상태</th></tr></thead>
       <tbody id="lipidTbl"></tbody>
     </table>
-    <div style="font-size:10px;color:#888780;margin-top:5px">ApoB 수치는 LDL-C 기반 추정값이며 실제 측정값과 다를 수 있음 (직접 측정 권장)</div>
+    <div style="font-size:10px;color:#888780;margin-top:5px">ApoB 추정값: 0.789 × LDL-C + 0.73 (Sathiyakumar et al., <i>Circulation</i> 2018) — 직접 측정 권장</div>
   </div>
 
   <!-- 3. ACC/AHA PREVENT Risk Category -->
@@ -1291,8 +1291,8 @@ function upd(){
 
   const nonHDL=tc-hdl;
   const currentNonHDL=currentTc-currentHdl;
-  const apoB_est=Math.round(ldl*0.70); // rough estimate; direct measurement preferred
-  const currentApoB_est=Math.round(currentLdl*0.70);
+  const apoB_est=Math.round(0.789*ldl+0.73); // Sathiyakumar et al., Circulation 2018
+  const currentApoB_est=Math.round(0.789*currentLdl+0.73);
 
   // ApoB — measured value (2026 ACC/AHA: selective measurement recommended)
   const apobRaw=g('apob')?.value;
