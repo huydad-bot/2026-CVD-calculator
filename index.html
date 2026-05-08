@@ -199,10 +199,7 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
         <span class="fl"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 성별</span>
         <div class="rg"><label><input type="radio" name="sex" value="F"><span>여성</span></label><label><input type="radio" name="sex" value="M"><span>남성</span></label></div>
       </div>
-      <div style="flex:0 0 auto;padding-top:18px">
-        <label class="ck"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> ASCVD 기왕력 (2차 예방) <input type="checkbox" id="ascvdHx"></label>
-        <label class="ck" id="vhrRow" style="display:none;padding-left:14px"><input type="checkbox" id="veryHigh"><span style="font-size:11px">초고위험: 복수 주요 사건 또는 1사건+다수 고위험 조건</span></label>
-      </div>
+      
     </div>
 
     <div class="divider"></div>
@@ -219,6 +216,9 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
     <label class="ck" style="margin-bottom:6px;padding:5px 9px;background:#f0efe9;border:1px solid #d0cec8;border-radius:7px;display:inline-flex"><input type="checkbox" id="onStatin"> <b>현재 스타틴 복용 중</b></label>
     <div id="postLipidBox" style="display:none;margin-bottom:6px;padding:9px 11px;background:#f8f7f5;border:1px solid #e2e0db;border-radius:8px">
       <div style="font-size:10px;font-weight:700;color:#888780;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px">스타틴 치료 후 / 현재 지질 검사</div>
+      <div id="statinBaselineHint" class="nb info" style="display:none;margin-bottom:7px">
+        ℹ 투약후 검사 결과를 입력하면 <b>on-treatment 위험도</b>가 우측 결과 패널에 계산됩니다.
+      </div>
       <div class="row2">
         <div class="field"><span class="fl">치료 후 TC</span><input type="number" id="postTc" min="60" max="450" placeholder="선택"></div>
         <div class="field"><span class="fl">치료 후 HDL-C</span><input type="number" id="postHdl" min="15" max="120" placeholder="선택"></div>
@@ -232,7 +232,7 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
     <div class="divider"></div>
 
     <!-- 혈압 및 임상 인자 -->
-    <div style="font-size:10px;font-weight:700;color:#5f5e5a;letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px">혈압 및 신장기능</div>
+    <div style="font-size:10px;font-weight:700;color:#5f5e5a;letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px">혈압 및 신장, 당뇨병, ASCVD 기왕력</div>
     <div style="display:flex;align-items:center;gap:14px;margin-bottom:6px;flex-wrap:wrap">
       <div style="display:flex;align-items:center;gap:5px">
         <span style="font-size:11px;color:#5f5e5a;white-space:nowrap"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 수축기 혈압</span>
@@ -250,6 +250,35 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
       <label class="ck"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 항고혈압제 <input type="checkbox" id="bpTx"></label>
       <label class="ck"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 흡연 <input type="checkbox" id="smoker"></label>
       <label class="ck"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 당뇨병 <input type="checkbox" id="dm"></label>
+    </div>
+    <div style="margin-top:6px">
+      <label class="ck"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> ASCVD 기왕력 (2차 예방) <input type="checkbox" id="ascvdHx"></label>
+      <label class="ck" id="vhrRow" style="display:none;padding-left:14px"><input type="checkbox" id="veryHigh"><span style="font-size:11px">초고위험: 복수 주요 사건 또는 1사건+다수 고위험 조건</span></label>
+      <div id="vhrDesc" style="display:none;margin-top:6px;margin-left:6px;padding:10px 12px;background:#fcebeb;border-radius:8px;border-left:3px solid #a32d2d">
+        <div style="font-size:11px;font-weight:700;color:#a32d2d;margin-bottom:6px">▲ 초고위험 ASCVD (Very High Risk) — LDL-C 목표 &lt;55 mg/dL</div>
+        <div style="font-size:11px;color:#1a1a18;line-height:1.75">
+          <b style="color:#a32d2d">해당 조건 (다음 중 하나):</b><br>
+          ① 복수의 주요 ASCVD 사건<br>
+          <span style="color:#5f5e5a;padding-left:10px;display:block">MI, 허혈성 뇌졸중, PAD 등 2개 이상 발생</span>
+          ② 단일 ASCVD 사건 + 고위험 조건 2개 이상<br>
+          <span style="color:#5f5e5a;padding-left:10px;display:block">당뇨병 · 고혈압 · CKD(eGFR&lt;60) · 흡연 지속 · LDL≥70(최대 스타틴 중) · 심부전</span>
+        </div>
+        <div style="margin-top:8px;padding-top:7px;border-top:1px solid #e8b4b4">
+          <div style="font-size:11px;font-weight:700;color:#a32d2d;margin-bottom:4px">권고 치료 전략</div>
+          <div style="font-size:11px;color:#1a1a18;line-height:1.75">
+            ▸ <b>고강도 스타틴</b> (rosuvastatin 20–40 mg 또는 atorvastatin 40–80 mg)<br>
+            ▸ LDL-C 목표 <b>&lt;55 mg/dL</b>, 가능하면 <b>&lt;40 mg/dL</b> 지향<br>
+            ▸ 최대 내약 스타틴에도 LDL 미달성 시 → <b>Ezetimibe 추가</b><br>
+            ▸ 그래도 미달성 시 → <b>PCSK9 억제제</b> (evolocumab / alirocumab) 병용<br>
+            ▸ Lp(a) ≥50 mg/dL 동반 시 → PCSK9 억제제 우선 고려<br>
+            ▸ TG ≥200 mg/dL 잔여 위험 → Icosapent ethyl (EPA) 고려
+          </div>
+        </div>
+        <div style="margin-top:6px;font-size:10px;color:#a32d2d;line-height:1.6">
+          ※ 2026 ACC/AHA Dyslipidemia Guideline — Class I, LOE A<br>
+          ※ 2차 예방에서 LDL &lt;55 달성 시 추가 사건 위험 ~20% 추가 감소 (CTT meta-analysis)
+        </div>
+      </div>
     </div>
   </div>
 
@@ -388,6 +417,9 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
       </div>
     </div>
     <div style="font-size:10px;color:#888780;margin-top:5px">30년 위험도는 30–59세에서만 표시됩니다 (PREVENT 2023 기준)</div>
+    <div id="ascvdHxNotice" style="display:none;margin-top:8px;padding:8px 11px;background:#faeeda;border-radius:7px;border-left:3px solid #ef9f27">
+      <span style="font-size:11px;color:#854f0b">⚠ <b>ASCVD 기왕력</b>은 위험도 계산이 아닌 <b>치료 결정 경로 전환</b>에 사용됩니다. PREVENT 점수는 1차 예방 도구로 이 환자에게 적용되지 않으며, 우측 <b>스타틴 처방 권고</b> 결과를 참고하십시오.</span>
+    </div>
   </div>
 
   <!-- 2. Lipid Parameters -->
@@ -1726,10 +1758,42 @@ function upd(){
 document.querySelectorAll('input,select').forEach(el=>el.addEventListener('change',upd));
 ['tc','hdl','ldl','tg','postTc','postHdl','postLdl','postTg','sbp','egfr','uacr','hba1c','bmi','ht','wt','hscrp','apob','postApob'].forEach(id=>{ if(g(id)) g(id).addEventListener('input',upd); });
 g('age').addEventListener('input',upd);
-// onStatin 체크 시 postLipidBox 즉시 표시 (upd() 조기 return과 무관하게)
-g('onStatin').addEventListener('change',function(){
-  if(g('postLipidBox')) g('postLipidBox').style.display=this.checked?'block':'none';
+// ascvdHx 체크 시 vhrRow 즉시 표시 (upd() 조기 return과 무관하게)
+g('ascvdHx').addEventListener('change',function(){
+  if(g('vhrRow')) g('vhrRow').style.display=this.checked?'flex':'none';
+  if(!this.checked && g('veryHigh')) g('veryHigh').checked=false;
+  if(!this.checked && g('vhrDesc')) g('vhrDesc').style.display='none';
+  if(g('ascvdHxNotice')) g('ascvdHxNotice').style.display=this.checked?'block':'none';
 });
+// veryHigh 체크 시 초고위험 설명 패널 즉시 표시
+g('veryHigh').addEventListener('change',function(){
+  if(g('vhrDesc')) g('vhrDesc').style.display=this.checked?'block':'none';
+});
+// onStatin 체크 시 postLipidBox 즉시 표시 + 필수값 미입력 시 힌트 표시
+function updateStatinHint(){
+  if(!g('postLipidBox') || !g('statinBaselineHint')) return;
+  const onStatin = g('onStatin').checked;
+  g('postLipidBox').style.display = onStatin ? 'block' : 'none';
+  if(onStatin){
+    const ageRaw = g('age').value;
+    const sexVal = document.querySelector('input[name=sex]:checked')?.value;
+    const tcRaw = g('tc').value;
+    const hdlRaw = g('hdl').value;
+    const ldlRaw = g('ldl').value;
+    const tgRaw = g('tg').value;
+    const sbpRaw = g('sbp').value;
+    const baselineComplete = ageRaw && sexVal && tcRaw && hdlRaw && ldlRaw && tgRaw && sbpRaw;
+    g('statinBaselineHint').style.display = baselineComplete ? 'none' : 'block';
+  } else {
+    g('statinBaselineHint').style.display = 'none';
+  }
+}
+g('onStatin').addEventListener('change', updateStatinHint);
+// 기본 정보 입력 시에도 힌트 자동 갱신
+['age','tc','hdl','ldl','tg','sbp'].forEach(id=>{
+  g(id)?.addEventListener('input', updateStatinHint);
+});
+document.querySelectorAll('input[name=sex]').forEach(el=>el.addEventListener('change', updateStatinHint));
 // CAC 등급 상호 배타 (택 1)
 ['cac1to99','cacCheck','cac300','cac1000'].forEach(id=>{
   g(id)?.addEventListener('change',function(){
