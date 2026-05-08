@@ -189,7 +189,7 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
       <div class="field" style="flex:0 0 auto;min-width:140px">
         <span class="fl"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 나이 (세)</span>
         <div style="display:flex;align-items:center;gap:6px">
-          <input type="number" id="age" min="20" max="90"
+          <input type="number" id="age" min="20" max="90" value="" autocomplete="off"
             style="width:68px;padding:5px 8px;border:1px solid #d0cec8;border-radius:7px;font-size:16px;font-weight:700;color:#1a1a18;text-align:center">
           <span style="font-size:10px;color:#185fa5;font-weight:600">30–79세: PREVENT 검증 범위</span>
         </div>
@@ -207,10 +207,10 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
     <!-- 치료 전 지질 -->
     <div style="font-size:10px;font-weight:700;color:#5f5e5a;letter-spacing:.04em;text-transform:uppercase;margin-bottom:4px">치료 전 지질 검사 — baseline (mg/dL)</div>
     <div class="row2" style="margin-bottom:4px">
-      <div class="field"><span class="fl"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 총 콜레스테롤 (TC)</span><input type="number" id="tc" min="100" max="450" placeholder="mg/dL"></div>
-      <div class="field"><span class="fl"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> HDL-C</span><input type="number" id="hdl" min="15" max="120" placeholder="mg/dL"></div>
-      <div class="field"><span class="fl"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> LDL-C</span><input type="number" id="ldl" min="30" max="400" placeholder="mg/dL"></div>
-      <div class="field"><span class="fl"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 중성지방 (TG)</span><input type="number" id="tg" min="0" max="2000" placeholder="mg/dL"></div>
+      <div class="field"><span class="fl"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 총 콜레스테롤 (TC)</span><input type="number" autocomplete="off" id="tc" min="100" max="450" placeholder="mg/dL"></div>
+      <div class="field"><span class="fl"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> HDL-C</span><input type="number" autocomplete="off" id="hdl" min="15" max="120" placeholder="mg/dL"></div>
+      <div class="field"><span class="fl"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> LDL-C</span><input type="number" autocomplete="off" id="ldl" min="30" max="400" placeholder="mg/dL"></div>
+      <div class="field"><span class="fl"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 중성지방 (TG)</span><input type="number" autocomplete="off" id="tg" min="0" max="2000" placeholder="mg/dL"></div>
     </div>
     <div class="nb info" style="margin-bottom:6px">※ 치료 전 값은 baseline risk category와 치료 적응증 판단에 사용합니다.</div>
     <label class="ck" style="margin-bottom:6px;padding:5px 9px;background:#f0efe9;border:1px solid #d0cec8;border-radius:7px;display:inline-flex"><input type="checkbox" id="onStatin"> <b>현재 스타틴 복용 중</b></label>
@@ -220,11 +220,11 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
         ℹ 투약후 검사 결과를 입력하면 <b>on-treatment 위험도</b>가 우측 결과 패널에 계산됩니다.
       </div>
       <div class="row2">
-        <div class="field"><span class="fl">치료 후 TC</span><input type="number" id="postTc" min="60" max="450" placeholder="선택"></div>
-        <div class="field"><span class="fl">치료 후 HDL-C</span><input type="number" id="postHdl" min="15" max="120" placeholder="선택"></div>
-        <div class="field"><span class="fl">치료 후 LDL-C</span><input type="number" id="postLdl" min="0" max="400" placeholder="현재 LDL"></div>
-        <div class="field"><span class="fl">치료 후 TG</span><input type="number" id="postTg" min="0" max="2000" placeholder="현재 TG"></div>
-        <div class="field"><span class="fl">치료 후 ApoB (mg/dL)</span><input type="number" id="postApob" min="20" max="300" placeholder="미입력 시 추정값 사용"></div>
+        <div class="field"><span class="fl">치료 후 TC</span><input type="number" autocomplete="off" id="postTc" min="60" max="450" placeholder="선택"></div>
+        <div class="field"><span class="fl">치료 후 HDL-C</span><input type="number" autocomplete="off" id="postHdl" min="15" max="120" placeholder="선택"></div>
+        <div class="field"><span class="fl">치료 후 LDL-C</span><input type="number" autocomplete="off" id="postLdl" min="0" max="400" placeholder="현재 LDL"></div>
+        <div class="field"><span class="fl">치료 후 TG</span><input type="number" autocomplete="off" id="postTg" min="0" max="2000" placeholder="현재 TG"></div>
+        <div class="field"><span class="fl">치료 후 ApoB (mg/dL)</span><input type="number" autocomplete="off" id="postApob" min="20" max="300" placeholder="미입력 시 추정값 사용"></div>
       </div>
       <div class="nb warn" style="margin-top:5px">치료 후 값은 현재 조절 상태와 on-treatment risk 표시용입니다. 치료 적응증/기저 위험군은 치료 전 baseline 값으로 유지됩니다.</div>
     </div>
@@ -236,12 +236,12 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
     <div style="display:flex;align-items:center;gap:14px;margin-bottom:6px;flex-wrap:wrap">
       <div style="display:flex;align-items:center;gap:5px">
         <span style="font-size:11px;color:#5f5e5a;white-space:nowrap"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 수축기 혈압</span>
-        <input type="number" id="sbp" min="80" max="220" placeholder="mmHg" style="width:68px;padding:4px 6px;border:1px solid #d0cec8;border-radius:6px;font-size:12px">
+        <input type="number" autocomplete="off" id="sbp" min="80" max="220" placeholder="mmHg" style="width:68px;padding:4px 6px;border:1px solid #d0cec8;border-radius:6px;font-size:12px">
         <span style="font-size:11px;color:#888780">mmHg</span>
       </div>
       <div style="display:flex;align-items:center;gap:5px">
         <span style="font-size:11px;color:#5f5e5a;white-space:nowrap"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> eGFR</span>
-        <input type="number" id="egfr" min="5" max="130" placeholder="수치" style="width:62px;padding:4px 6px;border:1px solid #d0cec8;border-radius:6px;font-size:12px">
+        <input type="number" autocomplete="off" id="egfr" min="5" max="130" placeholder="수치" style="width:62px;padding:4px 6px;border:1px solid #d0cec8;border-radius:6px;font-size:12px">
         <span style="font-size:11px;color:#888780">mL/min/1.73m²</span>
         <span style="font-size:10px;color:#b4b2a9;white-space:nowrap">※ 미입력 시 90으로 자동계산</span>
       </div>
@@ -288,16 +288,16 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
       <div class="field"><span class="fl">UACR (mg/g) — 선택</span><input type="number" id="uacr" value="" min="0" max="15000" placeholder="미입력 시 제외"></div>
     </div>
     <div class="row2">
-      <div class="field"><span class="fl">HbA1c (%) — 당뇨 시</span><input type="number" id="hba1c" step="0.1" min="5" max="16" placeholder="선택"></div>
+      <div class="field"><span class="fl">HbA1c (%) — 당뇨 시</span><input type="number" autocomplete="off" id="hba1c" step="0.1" min="5" max="16" placeholder="선택"></div>
       <div class="field">
         <span class="fl">신장 / 체중 → BMI 자동 계산</span>
         <div style="display:flex;align-items:center;gap:5px">
-          <input type="number" id="ht" step="1" min="100" max="220" placeholder="신장 cm" style="width:50%">
-          <input type="number" id="wt" step="0.1" min="20" max="200" placeholder="체중 kg" style="width:50%">
+          <input type="number" autocomplete="off" id="ht" step="1" min="100" max="220" placeholder="신장 cm" style="width:50%">
+          <input type="number" autocomplete="off" id="wt" step="0.1" min="20" max="200" placeholder="체중 kg" style="width:50%">
         </div>
         <div style="display:flex;align-items:center;gap:7px;margin-top:5px">
           <span class="fl" style="margin-bottom:0;white-space:nowrap">BMI (kg/m²)</span>
-          <input type="number" id="bmi" step="0.1" min="14" max="65" placeholder="직접 입력 가능" style="flex:1">
+          <input type="number" autocomplete="off" id="bmi" step="0.1" min="14" max="65" placeholder="직접 입력 가능" style="flex:1">
           <span id="bmiOut" style="font-size:12px;font-weight:700;color:#1a1a18;min-width:52px;text-align:right"></span>
         </div>
       </div>
@@ -306,11 +306,11 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
     <div class="row2" style="margin-top:6px">
       <div class="field">
         <span class="fl">hs-CRP (mg/L) — 선택</span>
-        <input type="number" id="hscrp" step="0.1" min="0" max="100" placeholder="미입력 시 제외">
+        <input type="number" autocomplete="off" id="hscrp" step="0.1" min="0" max="100" placeholder="미입력 시 제외">
       </div>
       <div class="field">
         <span class="fl">ApoB — 직접 측정값 (mg/dL)</span>
-        <input type="number" id="apob" step="1" min="20" max="300" placeholder="미입력 시 추정값 사용">
+        <input type="number" autocomplete="off" id="apob" step="1" min="20" max="300" placeholder="미입력 시 추정값 사용">
       </div>
     </div>
     <div id="apobIndBox" style="display:none;margin-top:5px;padding:7px 10px;background:#e6f1fb;border-radius:7px;border-left:3px solid #185fa5">
