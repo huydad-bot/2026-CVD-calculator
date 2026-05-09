@@ -1054,7 +1054,11 @@ function statinSentence(acc){
 }
 function addonSentence(currentLdl, target, acc, onStatin){
   if(target===null || !Number.isFinite(Number(target))) return 'LDL-C 목표는 개별 임상 상황에 따라 설정';
-  if(Number(currentLdl)<=Number(target)) return '목표 LDL-C를 달성하여 현재 치료 유지 및 주기적 추적 관찰을 권고';
+  if(Number(currentLdl)<=Number(target)){
+    return onStatin
+      ? '목표 LDL-C를 달성하여 현재 치료를 유지하며 주기적 추적 관찰을 권고'
+      : '목표 LDL-C 범위 내로 확인됨. 생활습관 교정을 유지하며 주기적 추적 관찰을 권고';
+  }
   if(acc && (acc.c==='hi' || acc.c==='mo')){
     const start = onStatin ? '목표 미달성 시 최대내약 스타틴으로 강화/확인 후' : '목표 미달성 시 스타틴 시작 또는 최대내약 용량으로 조정 후';
     if(target<=55) return `${start} ezetimibe 추가, 이후 PCSK9 inhibitor 또는 inclisiran 추가를 고려`;
@@ -1068,6 +1072,25 @@ function makeEmrSummary({prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt, acc
   const txState = onStatin ? `현재 LDL-C는 ${currentLdl} mg/dL이며, ` : '';
   const addonText = addonSentence(currentLdl, dispLdlTgt, acc, onStatin);
   const tgText = Number(currentTg)>=500 ? `\n단, 현재 TG ${currentTg} mg/dL로 500 mg/dL 이상이어서 급성 췌장염 예방 관점의 2차 원인 평가 및 fibrate/처방 omega-3 계열 치료도 별도 고려.` : '';
+
+  // ── [특수1] LDL < 70: 이미 낮음 — 이차성 원인 감별 필요 ──
+  if(acc.ldlTgt === null){
+    const ldlLowNote = onStatin
+      ? `현재 스타틴 복용 중이며, on-treatment LDL-C ${currentLdl} mg/dL로 이미 낮은 수준임.`
+      : `치료 전 LDL-C ${ldl} mg/dL로 이미 낮은 수준임. 현재 스타틴 치료 적응증에 해당하지 않음.`;
+    return `PREVENT 2023 기준 10-year ASCVD risk는 ${prevAscvd.toFixed(1)}%로 ${riskLabel}에 해당.\n${ldlLowNote}\n이차성 원인(갑상선기능저하증·간질환·영양불량·흡수장애·약물 등) 및 기저 질환 감별을 권고함. 추적 관찰 시행.` + tgText;
+  }
+
+  // ── [특수2] 저위험/경계위험, 스타틴 불필요 (acc.c='lo'/'no', 절대 적응증 없음) ──
+  if((acc.c==='lo'||acc.c==='no') && !anyAbs && !carotidOverride){
+    const riskNote = acc.c==='lo'
+      ? '저위험(<3%)으로 스타틴 일상적 권고 대상이 아님. 식이·운동·금연 등 생활습관 교정을 우선함.'
+      : '경계위험(3–<5%)으로 위험증강인자 부재 시 스타틴 선호도 낮음. 생활습관 교정을 우선하며, 필요 시 CAC 점수로 스타틴 결정을 보조할 수 있음.';
+    const ldlNote = ldl >= (dispLdlTgt||130)
+      ? `치료 전 LDL-C ${ldl} mg/dL로 목표 <${dispLdlTgt||130} mg/dL 미달성. 생활습관 교정 강화 권고.`
+      : `치료 전 LDL-C ${ldl} mg/dL로 목표 <${dispLdlTgt||130} mg/dL 범위 내.`;
+    return `PREVENT 2023 기준 10-year ASCVD risk는 ${prevAscvd.toFixed(1)}%로 ${riskLabel}에 해당.\n${riskNote}\n${ldlNote} 주기적 추적 관찰 시행.` + tgText;
+  }
 
   // 위험증강인자 목록 문장 생성 (경계·중간위험에서 statin 권고 근거)
   const enhText = (activeEnhLabels && activeEnhLabels.length > 0 && (acc.c==='mo'||acc.c==='hi') && !anyAbs && !carotidOverride)
