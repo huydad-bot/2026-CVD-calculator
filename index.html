@@ -765,7 +765,7 @@ function clamp(v){return Math.min(100,Math.max(0,v));}
 /* ── ACC/AHA 2026 Statin Recommendation ── */
 /* 2026 ACC/AHA/Multisociety Dyslipidemia Guideline (Blumenthal RS et al, JACC/Circulation 2026) */
 /* Risk thresholds based on PREVENT-ASCVD: Low <3%, Borderline 3-5%, Intermediate 5-10%, High ≥10% */
-function accRec(age,risk,ldl,dm,ascvd,vhr,nE,tg){
+function accRec(age,risk,ldl,dm,ascvd,vhr,nE,tg,smoker,bpTx){
   if(ascvd){
     if(vhr)return{c:'hi',l:'고강도',ind:'2차 예방 — 초고위험',d:['Rosuvastatin 20–40 mg','Atorvastatin 40–80 mg'],n:'LDL <55 미달성 → Ezetimibe 추가 → PCSK9 억제제 또는 Inclisiran (2a)',nt:'dng',ldlTgt:55,nhTgt:85};
     return{c:'hi',l:'고강도',ind:'2차 예방 (ASCVD 기왕력, 비초고위험)',d:['Rosuvastatin 20–40 mg','Atorvastatin 40–80 mg'],n:'LDL <70 미달성 → Ezetimibe 추가 고려',nt:'info',ldlTgt:70,nhTgt:100};
@@ -1662,7 +1662,7 @@ function upd(){
     (onStatin&&hasPostRisk?`<br>치료 중: 10년 ASCVD ${txPrevAscvd.toFixed(1)}% · 10년 Total CVD ${txPrev.toFixed(1)}% · 10년 HF ${txPrevHf.toFixed(1)}%`:``);
 
   // ACC/AHA rec — baseline indication; current values are used for control/add-on assessment
-  let acc=accRec(age,primRisk,ldl,dm,ascvd,vhr,nE,tg);
+  let acc=accRec(age,primRisk,ldl,dm,ascvd,vhr,nE,tg,smoker,bpTx);
 
   // ── LDL≥190 정밀 맞춤: 기본정보 기준 <100이나 위험증강인자 명시적 체크 시 <70으로 강화 ──
   // 기본정보로 이미 <70이면 불필요. <100인 경우에만 위험증강인자로 강화
@@ -1835,7 +1835,7 @@ function upd(){
   `;
 
   // Base rec without risk enhancers (for impact comparison) — baseline
-  const accBase=accRec(age,primRisk,ldl,dm,ascvd,vhr,0,tg);
+  const accBase=accRec(age,primRisk,ldl,dm,ascvd,vhr,0,tg,smoker,bpTx);
   const upgraded=!ascvd&&nE>0&&accBase.l!==acc.l;
 
   g('accRecOut').innerHTML=recHTML(acc,'ACC/AHA · PREVENT 기반 — baseline 위험도 기준');
