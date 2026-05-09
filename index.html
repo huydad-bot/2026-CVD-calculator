@@ -384,7 +384,7 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
         <div class="cac-opt" data-cac="cac300"
           style="padding:7px 9px;border:1px solid #d0cec8;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s">
           <div style="font-size:12px;font-weight:700;color:#1a1a18">CAC 300–999</div>
-          <div style="font-size:10px;color:#888780;margin-top:2px;line-height:1.45">고강도 스타틴<br>LDL 목표 &lt;55</div>
+          <div style="font-size:10px;color:#888780;margin-top:2px;line-height:1.45">고강도 스타틴<br>LDL &lt;70 · 선택적 &lt;55</div>
         </div>
         <div class="cac-opt" data-cac="cac1000"
           style="padding:7px 9px;border:1px solid #d0cec8;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s">
@@ -1543,7 +1543,7 @@ function upd(){
     if(!excludeAscvd && ascvd) notes.push(vhr?'ASCVD 기왕력 (초고위험: LDL<55 목표)':'ASCVD 기왕력 (고강도 스타틴, LDL<70 목표)');
     if(ldl190Abs) notes.push('LDL-C ≥190 mg/dL — FH 의심, 위험도 무관 고강도 스타틴');
     if(cac1000Active&&!ascvd) notes.push('CAC ≥1000 — 초고위험 수준, LDL<55 목표');
-    if(cac300Active&&!ascvd) notes.push('CAC 300–999 — LDL<55 목표');
+    if(cac300Active&&!ascvd) notes.push('CAC 300–999 — LDL<70 목표 (선택적 <55 강화 고려)');
     if(cacActive&&!ascvd) notes.push('CAC 100–299 또는 ≥75 백분위 — 스타틴 충분조건, LDL<70 목표');
     if(ckdAbs&&!ascvd) notes.push('CKD (eGFR 15–59) + 나이≥40세 — 위험도 무관 중등강도 스타틴');
     if(dmAbs&&!ascvd) notes.push(`당뇨병 — 위험도 무관 ${primRisk>=10?'고강도':'중등강도'} 스타틴`);
@@ -1668,12 +1668,13 @@ function upd(){
            n:'CAC ≥1000: 광범위 무증상 죽상경화. 2026 ACC/AHA — ASCVD 초고위험에 준하는 관리. LDL &lt;55 mg/dL 목표, 최대내약 스타틴 + Ezetimibe 추가 고려.',
            nt:'dng',ldlTgt:55,nhTgt:85};
     }
-    // CAC 300–999: LDL <55 (2026 ACC/AHA: CAC ≥300 → target <55 mg/dL)
-    else if(cac300Active && (!acc.ldlTgt || acc.ldlTgt > 55)){
-      acc={c:'hi',l:'고강도',ind:'CAC 300–999 — LDL <55 mg/dL 목표',
+    // CAC 300–999: 가이드라인 원문에 별도 목표 없음 — ≥100 AU 범주 적용, LDL <70
+    // 가이드라인 저자 JACC 에디토리얼: CAC ≥300에서 <55는 "optional goal"
+    else if(cac300Active && (!acc.ldlTgt || acc.ldlTgt > 70)){
+      acc={c:'hi',l:'고강도',ind:'CAC 300–999 — LDL <70 mg/dL 목표 (필요 시 <55 고려)',
            d:['Rosuvastatin 20–40 mg','Atorvastatin 40–80 mg'],
-           n:'CAC 300–999: 광범위 무증상 죽상경화증. 2026 ACC/AHA — 고강도 스타틴 및 LDL &lt;55 mg/dL 목표. 최대내약 스타틴으로 미달성 시 Ezetimibe 추가 고려.',
-           nt:'dng',ldlTgt:55,nhTgt:85};
+           n:'CAC 300–999: 광범위 무증상 죽상경화증. 2026 ACC/AHA — ≥100 AU 범주 적용, 고강도 스타틴 및 LDL &lt;70 mg/dL 목표. 가이드라인 저자 권고: CAC ≥300에서 <55 mg/dL은 임상적 판단에 따른 선택적 강화 목표.',
+           nt:'warn',ldlTgt:70,nhTgt:100};
     }
     // CAC 100–299 또는 ≥75 백분위: LDL <70, 스타틴 충분조건
     else if(cacActive && (!acc.ldlTgt || acc.ldlTgt > 70)){
@@ -1719,13 +1720,13 @@ function upd(){
       label:cac1000Active
         ?'CAC ≥1000 — 초고위험 수준, 스타틴 충분조건 (LDL 목표 <55 mg/dL, 최대강도)'
         :cac300Active
-          ?'CAC 300–999 — 무증상 죽상경화 광범위, 스타틴 충분조건 (LDL 목표 <55 mg/dL)'
+          ?'CAC 300–999 — 무증상 죽상경화 광범위, 스타틴 충분조건 (LDL 목표 <70 mg/dL, 필요 시 <55 선택적 고려)'
           :'CAC 100–299 (또는 ≥75 백분위) — 스타틴 충분조건 (LDL 목표 <70 mg/dL)',
       detail:(cacActive||cac300Active||cac1000Active)
         ?(cac1000Active
             ?'무증상 죽상경화 광범위(CAC ≥1000) — 고강도 스타틴, LDL 목표 &lt;55 mg/dL'
             :cac300Active
-              ?'무증상 죽상경화 광범위(CAC 300–999) — 고강도 스타틴, LDL 목표 &lt;55 mg/dL'
+              ?'무증상 죽상경화 광범위(CAC 300–999) — 고강도 스타틴, LDL 목표 &lt;70 mg/dL. 가이드라인 저자: <55 mg/dL은 선택적 강화 고려'
               :'무증상 죽상경화의 객관적 증거(CAC 100–299) — 고강도 스타틴, LDL 목표 &lt;70 mg/dL')
         :'해당 없음',
       strength:cac1000Active||cac300Active?'고강도':'고강도 고려',
@@ -1782,7 +1783,7 @@ function upd(){
   if(ckdAbs && dispLdlTgt > 100){ dispLdlTgt=100; dispNhTgt=Math.min(dispNhTgt,130); }
   if(!ascvd){
     if(cac1000Active && dispLdlTgt > 55){ dispLdlTgt=55; dispNhTgt=Math.min(dispNhTgt,85); }
-    else if(cac300Active && dispLdlTgt > 55){ dispLdlTgt=55; dispNhTgt=Math.min(dispNhTgt,85); }
+    else if(cac300Active && dispLdlTgt > 70){ dispLdlTgt=70; dispNhTgt=Math.min(dispNhTgt,100); }
     else if(cacActive && dispLdlTgt > 70){ dispLdlTgt=70; dispNhTgt=Math.min(dispNhTgt,100); }
     else if(cac1to99Active && dispLdlTgt > 100){ dispLdlTgt=100; dispNhTgt=Math.min(dispNhTgt,130); }
   }
