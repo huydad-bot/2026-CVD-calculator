@@ -770,7 +770,18 @@ function accRec(age,risk,ldl,dm,ascvd,vhr,nE,tg){
     if(vhr)return{c:'hi',l:'고강도',ind:'2차 예방 — 초고위험',d:['Rosuvastatin 20–40 mg','Atorvastatin 40–80 mg'],n:'LDL <55 미달성 → Ezetimibe 추가 → PCSK9 억제제 또는 Inclisiran (2a)',nt:'dng',ldlTgt:55,nhTgt:85};
     return{c:'hi',l:'고강도',ind:'2차 예방 (ASCVD 기왕력, 비초고위험)',d:['Rosuvastatin 20–40 mg','Atorvastatin 40–80 mg'],n:'LDL <70 미달성 → Ezetimibe 추가 고려',nt:'info',ldlTgt:70,nhTgt:100};
   }
-  if(ldl>=190)return{c:'hi',l:'고강도',ind:'중증 고콜레스테롤혈증 LDL ≥190 (FH 의심)',d:['Rosuvastatin 20–40 mg','Atorvastatin 40–80 mg'],n:'LDL <70 mg/dL 목표. 미달성 시 Ezetimibe ± PCSK9 억제제. FH 전문가 의뢰 고려.',nt:'dng',ldlTgt:70,nhTgt:100};
+  if(ldl>=190){
+    // 2026 ACC/AHA: LDL≥190 기본 목표 <100, 고위험 조건(DM·risk≥10%·nE≥2·TG≥200) 동반 시 <70
+    const fhHighRisk = dm || risk>=10 || nE>=2 || tg>=200;
+    return{c:'hi',l:'고강도',ind:'중증 고콜레스테롤혈증 LDL ≥190 (FH 감별 필요)',
+      d:['Rosuvastatin 20–40 mg','Atorvastatin 40–80 mg'],
+      n: fhHighRisk
+        ? 'LDL ≥190 + 고위험 조건 동반: LDL <70 mg/dL 목표. 최대내약 스타틴 후 미달성 시 Ezetimibe → PCSK9 억제제 순서로 추가. FH 전문가 의뢰 고려.'
+        : 'LDL ≥190 단독 1차 예방: 최대내약 고강도 스타틴으로 LDL <100 mg/dL 목표. DM·복수 위험인자·CAC 양성 동반 시 <70 mg/dL로 강화. FH 전문가 의뢰 고려.',
+      nt: fhHighRisk ? 'dng' : 'warn',
+      ldlTgt: fhHighRisk ? 70 : 100,
+      nhTgt: fhHighRisk ? 100 : 130};
+  }
   if(age<30){
     if(ldl>=160||nE>=1)return{c:'mo',l:'중등강도',ind:'30세 미만 — FH 또는 고위험 특성',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],n:'2026 신규: FH 또는 LDL ≥160인 30세 미만 — 조기 치료로 누적 위험 감소',nt:'info',ldlTgt:100,nhTgt:130};
     return{c:'no',l:'생활습관 교정',ind:'30세 미만',d:[],n:'LDL ≥160 또는 조기 가족력 없으면 생활습관 교정 우선. 30년 위험 평가 가능.',nt:'info',ldlTgt:130,nhTgt:160};
@@ -789,8 +800,9 @@ function accRec(age,risk,ldl,dm,ascvd,vhr,nE,tg){
     return{c:'no',l:'생활습관 교정',ind:'경계위험 (3–5%)',d:[],n:'스타틴 선호도 낮음. 위험증강인자 재확인 후에도 없을 경우, CAC 점수 측정으로 결정 보조. LDL <100 목표.',nt:'info',ldlTgt:100,nhTgt:130};
   }
   if(risk<10){
-    if(nE>=2||tg>=200)return{c:'hi',l:'고강도 고려',ind:'중간위험 (5–10%) + 다수 위험증가 인자',d:['Atorvastatin 40 mg','Rosuvastatin 20 mg'],n:'위험증가 인자 다수: 고강도 상향 고려. LDL <70 mg/dL 목표.',nt:'warn',ldlTgt:70,nhTgt:100};
-    return{c:'mo',l:'중등강도',ind:'중간위험 (5–10%)',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg','Pitavastatin 2–4 mg','Pravastatin 40–80 mg'],n:'중등강도 스타틴 권고. LDL <100 mg/dL 목표. CAC=0이면 유예 가능.',nt:'info',ldlTgt:100,nhTgt:130};
+    // 2026 ACC/AHA: 중간위험 + enhancer도 기본 중등강도/<100, CAC 재분류 시 고강도/<70으로 강화
+    if(nE>=2||tg>=200)return{c:'mo',l:'중등강도, 필요 시 강화 고려',ind:'중간위험 (5–<10%) + 다수 위험증가 인자',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg','Pitavastatin 2–4 mg'],n:'중등강도 스타틴 권고. 기본 LDL <100 mg/dL 목표. Risk enhancer 다수이면 고강도 상향 또는 CAC로 재분류 고려 — CAC ≥100 확인 시 LDL <70 mg/dL로 강화.',nt:'warn',ldlTgt:100,nhTgt:130};
+    return{c:'mo',l:'중등강도',ind:'중간위험 (5–<10%)',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg','Pitavastatin 2–4 mg','Pravastatin 40–80 mg'],n:'중등강도 스타틴 권고. LDL <100 mg/dL 목표. CAC=0이면 유예 가능.',nt:'info',ldlTgt:100,nhTgt:130};
   }
   return{c:'hi',l:'고강도',ind:'고위험 ≥ 10% (PREVENT-ASCVD)',d:['Atorvastatin 40–80 mg','Rosuvastatin 20–40 mg'],n:'고강도 스타틴 권고. LDL <70 mg/dL 목표.',nt:'warn',ldlTgt:70,nhTgt:100};
 }
@@ -801,7 +813,12 @@ function preventClass(primRisk,ldl,ascvd,dm,egfr,age,sex,sbp,bpTx,smoker,hdl,nE,
     if(vhr) return{cat:'2차 예방 — 초고위험 ASCVD',l:55,nh:85,ab:55,c:'#a32d2d',bg:'#fcebeb',basis:'Clinical ASCVD + very high-risk: LDL-C threshold <55 mg/dL 지향',row:null};
     return{cat:'2차 예방 — ASCVD',l:70,nh:100,ab:70,c:'#a32d2d',bg:'#fcebeb',basis:'Clinical ASCVD: high-intensity/max tolerated statin 및 LDL-C <70 mg/dL threshold',row:null};
   }
-  if(ldl>=190) return{cat:'Severe hypercholesterolemia',l:70,nh:100,ab:70,c:'#a32d2d',bg:'#fcebeb',basis:'LDL-C ≥190 mg/dL: 10년 위험도와 무관하게 high-intensity statin',row:null};
+  if(ldl>=190){
+    const fhHighRisk = dm || primRisk>=10 || nE>=2 || tg>=200;
+    return fhHighRisk
+      ? {cat:'Severe hypercholesterolemia + 위험인자',l:70,nh:100,ab:70,c:'#a32d2d',bg:'#fcebeb',basis:'LDL-C ≥190 mg/dL + 고위험 조건(DM/risk≥10%/복수 enhancer/TG≥200) 동반: high-intensity statin + LDL-C <70 mg/dL 목표',row:null}
+      : {cat:'Severe hypercholesterolemia',l:100,nh:130,ab:90,c:'#a32d2d',bg:'#fcebeb',basis:'LDL-C ≥190 mg/dL 단독 1차 예방: high-intensity statin + LDL-C <100 mg/dL 기본 목표. 고위험 조건 동반 시 <70으로 강화',row:null};
+  }
   if(dm){
     if(primRisk>=10) return{cat:'당뇨병 + PREVENT 고위험',l:70,nh:100,ab:70,c:'#a32d2d',bg:'#fcebeb',basis:`당뇨병 + PREVENT-ASCVD ${primRisk.toFixed(1)}% ≥10%`,row:'pr-high'};
     return{cat:'당뇨병',l:100,nh:130,ab:90,c:'#854f0b',bg:'#faeeda',basis:`당뇨병: 최소 중등강도 statin, PREVENT-ASCVD ${primRisk.toFixed(1)}%`,row:primRisk>=5?'pr-inter':primRisk>=3?'pr-border':'pr-low'};
@@ -809,26 +826,47 @@ function preventClass(primRisk,ldl,ascvd,dm,egfr,age,sex,sbp,bpTx,smoker,hdl,nE,
   if(primRisk<3) return{cat:'저위험',l:130,nh:160,ab:90,c:'#3b6d11',bg:'#eaf3de',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% <3%`,row:'pr-low'};
   if(primRisk<5) return{cat:'경계위험',l:100,nh:130,ab:90,c:'#3b6d11',bg:'#eaf3de',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% 3–<5%. Risk enhancer가 있으면 statin 고려`,row:'pr-border'};
   if(primRisk<10){
-    if(nE>=2||tg>=200||ldl>=160) return{cat:'중간위험 + risk enhancer',l:70,nh:100,ab:70,c:'#854f0b',bg:'#faeeda',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% 5–<10% + risk enhancer`,row:'pr-inter'};
+    // 2026 ACC/AHA: 중간위험+enhancer 기본 목표 <100, CAC 재분류 후 <70
+    if(nE>=2||tg>=200||ldl>=160) return{cat:'중간위험 + risk enhancer',l:100,nh:130,ab:90,c:'#854f0b',bg:'#faeeda',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% 5–<10% + risk enhancer: 기본 목표 <100, CAC ≥100 등 고위험 재분류 시 <70으로 강화`,row:'pr-inter'};
     return{cat:'중간위험',l:100,nh:130,ab:90,c:'#854f0b',bg:'#faeeda',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% 5–<10%`,row:'pr-inter'};
   }
   return{cat:'고위험',l:70,nh:100,ab:70,c:'#a32d2d',bg:'#fcebeb',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% ≥10%`,row:'pr-high'};
 }
 
 /* ── Stepwise Flow ── */
-function makeFlow(acc,preventCat,ldl,ascvd,vhr,onStatin=false,baselineLdl=null){
-  const tgt=vhr?55:ascvd?(vhr?55:70):(acc.ldlTgt||preventCat.l);
+function makeFlow(acc,preventCat,ldl,ascvd,vhr,onStatin=false,baselineLdl=null,targetOverride=null){
+  // ── [Bug A] LDL<70 케이스: ldlTgt=null → 단계적 치료 흐름 불필요 ──
+  if(!onStatin && acc.ldlTgt===null){
+    return `<div class="nb suc" style="margin-top:4px">
+      ✓ 현재 LDL-C (${ldl} mg/dL)가 이미 낮아 단계적 지질강하 치료 흐름이 적용되지 않습니다.<br>
+      <span style="font-size:10px;color:#3b6d11">이차성 원인(갑상선기능저하증·간질환·영양불량 등) 및 기저 질환을 확인하십시오.</span>
+    </div>`;
+  }
+
+  // targetOverride: dispLdlTgt 전달 시 지질표와 stepwise flow의 목표값 일치 보장
+  const tgt = targetOverride ?? (vhr?55:ascvd?(vhr?55:70):(acc.ldlTgt||preventCat.l));
   // Predicted LDL reductions
-  const afterHi=Math.round(ldl*0.50);
-  const afterMo=Math.round(ldl*0.65);
-  // 생활습관 교정이 Step 1인 경우(저위험/경계위험): 스타틴이 Step 2 → Ezetimibe는 Step 3
+  const afterHi=Math.round(ldl*0.50);   // 고강도 스타틴 ~50% 감소
+  const afterMo=Math.round(ldl*0.65);   // 중등강도 스타틴 ~35% 감소
+
+  // ── [Bug B] FH(LDL≥190) 판정 — Inclisiran Step 4 표시 여부 ──
+  // baselineLdl: 치료 전 LDL (makeFlow의 7번째 인자로 전달됨)
+  const isFH = (baselineLdl !== null ? baselineLdl : ldl) >= 190;
+
+  // ── 생활습관 교정이 Step 1인 경우 (저위험/경계위험 인자 없음, 30세 미만 일반) ──
   const isLifestyle = !onStatin && (acc.c==='lo' || acc.c==='no');
   const startLdl=onStatin?ldl:(acc.c==='hi'?afterHi:(acc.c==='mo'?afterMo:ldl));
   // Ezetimibe add-on: lifestyle case는 중등강도 스타틴 후 기준으로 계산
   const statinLdlForLifestyle=Math.round(ldl*0.65);
   const afterEze=isLifestyle?Math.round(statinLdlForLifestyle*0.82):Math.round(startLdl*0.82);
-  const afterPCSK9=Math.round(afterEze*0.55);
+  // PCSK9 mAb: ~55% 추가 감소 → 잔여 45% (×0.45), Inclisiran: ~48% 감소 → 잔여 52% (×0.52)
+  // Bempedoic acid: ~20% 추가 감소 → 잔여 80% (×0.80) — 스타틴 불내성 대안
+  const afterPCSK9=Math.round(afterEze*0.45);
+  const afterBemp=Math.round(afterEze*0.80);
   const afterIncl=Math.round(afterEze*0.52);
+
+  // ── 1차 예방 여부 (PCSK9 건강보험 기준 note용) ──
+  const isPrimaryPrev = !ascvd && !isFH;
 
   function rdot(num,clr){return`<div class="sw-dot" style="background:${clr};color:#fff">${num}</div>`;}
   function rbox(num,name,drugs,ldlVal,active,dim,note){
@@ -846,7 +884,7 @@ function makeFlow(acc,preventCat,ldl,ascvd,vhr,onStatin=false,baselineLdl=null){
       </div>
     </div>`;
   }
-  function rboxtop(num,name,drugs,ldlVal,active,dim){
+  function rboxtop(num,name,drugs,ldlVal,active,dim,note=''){
     // last item (no line below)
     const cls=dim?'sw-box dim':active?'sw-box active':'sw-box';
     const rc=ldlVal<=tgt?'#3b6d11':'#a32d2d';
@@ -858,13 +896,33 @@ function makeFlow(acc,preventCat,ldl,ascvd,vhr,onStatin=false,baselineLdl=null){
         <div class="sw-name">${name}</div>
         <div class="sw-drugs">${drugs}</div>
         <div class="sw-result" style="color:${rc}">예상 LDL: ~${ldlVal} mg/dL ${ldlVal<=tgt?'✓ 목표 달성':('↑ 목표 '+tgt+' 미달')}</div>
+        ${note?`<div class="nb info" style="margin-top:4px;font-size:10px">${note}</div>`:''}
       </div>
     </div>`;
   }
 
-  const s1name=onStatin?'현재 스타틴 치료 상태':(acc.c==='hi'?'최대 내약 고강도 스타틴':acc.c==='mo'?'중등강도 스타틴':'생활습관 교정');
-  const s1drugs=onStatin?'치료 후/현재 LDL-C 기준으로 목표 달성 여부를 평가합니다.':(acc.c==='hi'?'Rosuvastatin 20–40 mg &nbsp;|&nbsp; Atorvastatin 40–80 mg':acc.c==='mo'?'Atorvastatin 10–20 mg &nbsp;|&nbsp; Rosuvastatin 5–10 mg':'식이·운동·금연');
+  // ── [Bug D] '고강도 고려' vs '최대 내약 고강도' 구분 ──
+  const isHiConsider = acc.c==='hi' && acc.l && acc.l.includes('고려');
+  const s1name = onStatin
+    ? '현재 스타틴 치료 상태'
+    : acc.c==='hi'
+      ? (isHiConsider ? '고강도 스타틴 (위험증강인자 고려, SDM 후 시작)' : '최대 내약 고강도 스타틴')
+      : acc.c==='mo'
+        ? '중등강도 스타틴'
+        : '생활습관 교정';
+  const s1drugs=onStatin
+    ? '치료 후/현재 LDL-C 기준으로 목표 달성 여부를 평가합니다.'
+    : acc.c==='hi'
+      ? 'Rosuvastatin 20–40 mg &nbsp;|&nbsp; Atorvastatin 40–80 mg'
+      : acc.c==='mo'
+        ? 'Atorvastatin 10–20 mg &nbsp;|&nbsp; Rosuvastatin 5–10 mg'
+        : '식이·운동·금연';
   const s1ldl=onStatin?ldl:(acc.c==='hi'?afterHi:acc.c==='mo'?afterMo:ldl);
+
+  // ── [Bug C] onStatin: Step1 note에 스타틴 최대화 확인 문구 추가 ──
+  const s1note = onStatin
+    ? '⚑ 먼저 현재 스타틴이 최대 내약 용량인지 확인하십시오. 용량 증량 여지가 있으면 고강도로 전환 후 재평가합니다. 그래도 목표 미달 시 아래 단계를 적용합니다.'
+    : '';
 
   let html=`<div style="font-size:11px;color:#888780;margin-bottom:10px">
     <b style="color:#1a1a18">LDL 목표: &lt;${tgt} mg/dL</b> &nbsp;·&nbsp; ${onStatin?'현재':'치료 전'} LDL: <b>${ldl} mg/dL</b>
@@ -872,37 +930,45 @@ function makeFlow(acc,preventCat,ldl,ascvd,vhr,onStatin=false,baselineLdl=null){
     &nbsp;·&nbsp; 추가 감소 필요량: <b style="color:${ldl>tgt?'#a32d2d':'#3b6d11'}">${Math.max(0,ldl-tgt)} mg/dL</b>
   </div><div class="sw">`;
 
-  html+=rbox(1,s1name,s1drugs,s1ldl,true,false,onStatin?'기저 위험군은 baseline으로 유지하며, 현재 LDL 목표 미달성 시 추가 치료를 검토합니다.':'');
+  html+=rbox(1,s1name,s1drugs,s1ldl,true,false,s1note);
+
+  // ── [Bug E] 1차 예방 PCSK9 note ──
+  const pcsk9Note = isPrimaryPrev
+    ? `PCSK9 mAb 예상 LDL: ~${afterPCSK9} mg/dL · Bempedoic acid 예상 LDL: ~${afterBemp} mg/dL<br>⚠ PCSK9 억제제는 1차 예방에서 국내 건강보험 급여 기준 미충족 — 비급여 처방 또는 FH·ASCVD 해당 여부 재확인 필요. Bempedoic acid는 스타틴 불내성 시 선택적으로 고려.`
+    : `PCSK9 mAb 예상 LDL: ~${afterPCSK9} mg/dL · Bempedoic acid 예상 LDL: ~${afterBemp} mg/dL<br>2026 신규: CLEAR OUTCOMES 근거. 스타틴 불내성 환자에서 Bempedoic acid 사용 (Class 2a). 건강보험 기준: FH 또는 ASCVD + 최대내약 스타틴 + Ezetimibe 후 LDL ≥70.`;
 
   if(isLifestyle){
-    // 저위험/경계위험: Step2 = 중등강도 스타틴, Step3 = Ezetimibe, Step4 = PCSK9
+    // 저위험/경계위험: Step1=생활습관 → Step2=중등강도 스타틴 → Step3=Ezetimibe → Step4=PCSK9
     const needStatin=s1ldl>tgt;
     html+=rbox(2,'중등강도 스타틴 시작',
       'Atorvastatin 10–20 mg &nbsp;|&nbsp; Rosuvastatin 5–10 mg<br>LDL 감소 ~35% (중등강도 기준)',
       statinLdlForLifestyle,needStatin,!needStatin,
-      '생활습관 교정 후 목표 미달성 시 스타틴 추가. 위험증강인자 재평가 후 shared decision-making.');
+      '생활습관 교정 후 목표 미달성 시 스타틴 추가. 위험증강인자 재평가 및 환자 공동 결정(shared decision-making) 후 시작.');
     const needEze=statinLdlForLifestyle>tgt;
     html+=rbox(3,'Ezetimibe 추가 (스타틴 기반)',
       'Ezetimibe (Zetia®) 10 mg 1회/일<br>추가 LDL 감소 ~15–20% (스타틴 후 add-on)',
       afterEze,needEze,!needEze,'');
     const needPCSK9=afterEze>tgt;
     html+=rboxtop(4,'PCSK9 억제제 또는 Bempedoic acid',
-      '<b>PCSK9 억제제</b> (LDL ~55% 추가 감소)<br>Evolocumab (Repatha®) 140 mg SC Q2W / 420 mg QM<br>Alirocumab (Praluent®) 75–150 mg SC Q2W<br><b>Bempedoic acid</b> (스타틴 불내성 시 대안, LDL ~18–25% 감소)<br>Bempedoic acid 180 mg/일 ± Ezetimibe 복합제',
-      afterPCSK9,needPCSK9,!needPCSK9);
+      `<b>PCSK9 mAb</b> (LDL ~55% 추가 감소): Evolocumab (Repatha®) / Alirocumab (Praluent®)<br><b>Bempedoic acid</b> (LDL ~20% 추가 감소, 스타틴 불내성 시 대안): 180 mg/일 ± Ezetimibe 복합제`,
+      afterPCSK9,needPCSK9,!needPCSK9,pcsk9Note);
   } else {
-    // 중등·고강도 스타틴이 Step1 (또는 현재 스타틴 중): 기존 흐름 유지
+    // 중등·고강도 스타틴이 Step1 (또는 현재 스타틴 중)
     const needEze=s1ldl>tgt;
-    html+=rbox(2,'Ezetimibe 추가','Ezetimibe (Zetia®) 10 mg 1회/일<br>추가 LDL 감소 ~15–20%',afterEze,needEze,!needEze,'');
+    html+=rbox(2,'Ezetimibe 추가 (스타틴 기반)',
+      'Ezetimibe (Zetia®) 10 mg 1회/일<br>추가 LDL 감소 ~15–20%',
+      afterEze,needEze,!needEze,'');
     const needPCSK9=afterEze>tgt;
+    // Inclisiran: ASCVD, VHR, 또는 FH(LDL≥190) 케이스에 Step 4 표시
+    const showInclisiran = ascvd || vhr || isFH;
     html+=rbox(3,'PCSK9 억제제 또는 Bempedoic acid',
-      '<b>PCSK9 억제제</b> (LDL ~55% 추가 감소)<br>Evolocumab (Repatha®) 140 mg SC Q2W / 420 mg QM<br>Alirocumab (Praluent®) 75–150 mg SC Q2W<br><b>Bempedoic acid</b> (스타틴 불내성 시 대안, LDL ~18–25% 감소)<br>Bempedoic acid 180 mg/일 ± Ezetimibe 복합제',
-      afterPCSK9,needPCSK9,!needPCSK9,'2026 신규: CLEAR OUTCOMES 근거. 스타틴 불내성 환자에서 Bempedoic acid 사용 (Class 2a). 건강보험 기준: FH 또는 ASCVD+최대내약 스타틴+에제 후 LDL ≥70');
-    // Inclisiran for ASCVD
-    if(ascvd||vhr){
+      `<b>PCSK9 mAb</b> (LDL ~55% 추가 감소): Evolocumab (Repatha®) 140 mg SC Q2W / 420 mg QM &nbsp;|&nbsp; Alirocumab (Praluent®) 75–150 mg SC Q2W<br><b>Bempedoic acid</b> (LDL ~20% 추가 감소, 스타틴 불내성 시 대안): 180 mg/일 ± Ezetimibe 복합제`,
+      afterPCSK9,needPCSK9,!needPCSK9,pcsk9Note);
+    if(showInclisiran){
       const needIncl=afterEze>tgt;
       html+=rboxtop(4,'Inclisiran (Leqvio®) — siRNA PCSK9 억제제',
-        '284 mg SC: 초회 → 3개월 후 → 이후 6개월마다<br>LDL 감소 ~50% (스타틴 기준), 연 2회 투여로 순응도 우수',
-        afterIncl,false,!needIncl);
+        '284 mg SC: 초회 → 3개월 후 → 이후 6개월마다<br>LDL 감소 ~48% (스타틴 기준), 연 2회 투여로 순응도 우수<br><span style="font-size:10px;color:#888780">적응증: ASCVD 또는 HeFH — 2026 ACC/AHA Class 2a. Hard CV outcome 감소 근거는 임상시험 진행 중.</span>',
+        afterIncl,needIncl,!needIncl,'');
     }
   }
   html+='</div>';
@@ -1586,12 +1652,12 @@ function upd(){
            n:'CAC ≥1000: 광범위 무증상 죽상경화. 2026 ACC/AHA — ASCVD 초고위험에 준하는 관리. LDL &lt;55 mg/dL 목표, 최대내약 스타틴 + Ezetimibe 추가 고려.',
            nt:'dng',ldlTgt:55,nhTgt:85};
     }
-    // CAC 300–999: LDL <55
-    else if(cac300Active && (!acc.ldlTgt || acc.ldlTgt > 55)){
-      acc={c:'hi',l:'고강도',ind:'CAC 300–999 — LDL <55 mg/dL 목표',
+    // CAC 300–999: LDL <70 (기본), 다중 위험인자 동반 시 <55 강화 고려
+    else if(cac300Active && (!acc.ldlTgt || acc.ldlTgt > 70)){
+      acc={c:'hi',l:'고강도',ind:'CAC 300–999 — LDL <70 mg/dL 목표 (필요 시 <55 고려)',
            d:['Rosuvastatin 20–40 mg','Atorvastatin 40–80 mg'],
-           n:'CAC 300–999: 2026 ACC/AHA — LDL &lt;55 mg/dL 목표. PREVENT 위험도 무관 고강도 스타틴 권고.',
-           nt:'dng',ldlTgt:55,nhTgt:85};
+           n:'CAC 300–999: 광범위 무증상 죽상경화증. 고강도 스타틴 및 LDL &lt;70 mg/dL 목표. 다중 위험인자 또는 매우 높은 plaque burden 동반 시 &lt;55 mg/dL 강화 고려. 2026 ACC/AHA.',
+           nt:'warn',ldlTgt:70,nhTgt:100};
     }
     // CAC 100–299 또는 ≥75 백분위: LDL <70, 스타틴 충분조건
     else if(cacActive && (!acc.ldlTgt || acc.ldlTgt > 70)){
@@ -1627,7 +1693,7 @@ function upd(){
       key:'ldl190',
       active:ldl>=190,
       label:'LDL-C ≥ 190 mg/dL (중증 고콜레스테롤혈증 / FH 의심)',
-      detail:ldl>=190?`현재 LDL ${ldl} mg/dL — 고강도 스타틴, LDL 목표 &lt;70 mg/dL`:'해당 없음',
+      detail:ldl>=190?(()=>{const fhHR=dm||primRisk>=10||nE>=2||tg>=200;return`현재 LDL ${ldl} mg/dL — 고강도 스타틴, 기본 LDL 목표 &lt;${fhHR?70:100} mg/dL${fhHR?'':' (DM·복수 위험인자·CAC 양성 동반 시 &lt;70으로 강화)'}`})():'해당 없음',
       strength:'고강도',
       basis:'누적 LDL 노출 과다, 가족성 고콜레스테롤혈증 감별 필요'
     },
@@ -1637,13 +1703,13 @@ function upd(){
       label:cac1000Active
         ?'CAC ≥1000 — 초고위험 수준, 스타틴 충분조건 (LDL 목표 <55 mg/dL, 최대강도)'
         :cac300Active
-          ?'CAC 300–999 — 무증상 죽상경화 광범위, 스타틴 충분조건 (LDL 목표 <55 mg/dL)'
+          ?'CAC 300–999 — 무증상 죽상경화 광범위, 스타틴 충분조건 (LDL 목표 <70 mg/dL, 필요 시 <55 고려)'
           :'CAC 100–299 (또는 ≥75 백분위) — 스타틴 충분조건 (LDL 목표 <70 mg/dL)',
       detail:(cacActive||cac300Active||cac1000Active)
         ?(cac1000Active
             ?'무증상 죽상경화 광범위(CAC ≥1000) — 고강도 스타틴, LDL 목표 &lt;55 mg/dL'
             :cac300Active
-              ?'무증상 죽상경화 광범위(CAC 300–999) — 고강도 스타틴, LDL 목표 &lt;55 mg/dL'
+              ?'무증상 죽상경화 광범위(CAC 300–999) — 고강도 스타틴, LDL 목표 &lt;70 mg/dL (다중 위험인자 동반 시 &lt;55 강화 고려)'
               :'무증상 죽상경화의 객관적 증거(CAC 100–299) — 고강도 스타틴, LDL 목표 &lt;70 mg/dL')
         :'해당 없음',
       strength:cac1000Active||cac300Active?'고강도':'고강도 고려',
@@ -1699,7 +1765,8 @@ function upd(){
   // acc override로 대부분 처리되나, preventCat.l fallback 경로를 위해 유지
   if(ckdAbs && dispLdlTgt > 100){ dispLdlTgt=100; dispNhTgt=Math.min(dispNhTgt,130); }
   if(!ascvd){
-    if((cac1000Active||cac300Active) && dispLdlTgt > 55){ dispLdlTgt=55; dispNhTgt=Math.min(dispNhTgt,85); }
+    if(cac1000Active && dispLdlTgt > 55){ dispLdlTgt=55; dispNhTgt=Math.min(dispNhTgt,85); }
+    else if(cac300Active && dispLdlTgt > 70){ dispLdlTgt=70; dispNhTgt=Math.min(dispNhTgt,100); }
     else if(cacActive && dispLdlTgt > 70){ dispLdlTgt=70; dispNhTgt=Math.min(dispNhTgt,100); }
     else if(cac1to99Active && dispLdlTgt > 100){ dispLdlTgt=100; dispNhTgt=Math.min(dispNhTgt,130); }
   }
@@ -1780,7 +1847,8 @@ function upd(){
   }
 
   // Stepwise flow — current/on-treatment LDL if present, otherwise baseline LDL
-  g('swFlow').innerHTML=makeFlow(acc,preventCat,currentLdl,ascvd,vhr,onStatin,ldl);
+  // dispLdlTgt를 targetOverride로 전달: 지질표 목표치와 stepwise flow 목표치 일치 보장
+  g('swFlow').innerHTML=makeFlow(acc,preventCat,currentLdl,ascvd,vhr,onStatin,ldl,dispLdlTgt);
 
   // EMR copy summary
   if(g('emrSummary')){
