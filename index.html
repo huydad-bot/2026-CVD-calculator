@@ -771,13 +771,16 @@ function accRec(age,risk,ldl,dm,ascvd,vhr,nE,tg){
     return{c:'hi',l:'고강도',ind:'2차 예방 (ASCVD 기왕력, 비초고위험)',d:['Rosuvastatin 20–40 mg','Atorvastatin 40–80 mg'],n:'LDL <70 미달성 → Ezetimibe 추가 고려',nt:'info',ldlTgt:70,nhTgt:100};
   }
   if(ldl>=190){
-    // 2026 ACC/AHA: LDL≥190 기본 목표 <100, 고위험 조건(DM·risk≥10%·nE≥2·TG≥200) 동반 시 <70
-    const fhHighRisk = dm || risk>=10 || nE>=2 || tg>=200;
+    // 2026 ACC/AHA: LDL≥190 기본 목표 <100
+    // 기본정보에서 확인되는 전통적 ASCVD 위험인자 동반 시 <70으로 강화
+    // (DM·PREVENT≥10%·TG≥200·흡연·항고혈압제)
+    // ※ 위험증강인자(nE)는 별도 체크 시 <70 강화 — 미체크=미검사로 간주, 기본 목표는 <100 유지
+    const fhHighRisk = dm || risk>=10 || tg>=200 || smoker || bpTx;
     return{c:'hi',l:'고강도',ind:'중증 고콜레스테롤혈증 LDL ≥190 (FH 감별 필요)',
       d:['Rosuvastatin 20–40 mg','Atorvastatin 40–80 mg'],
       n: fhHighRisk
-        ? 'LDL ≥190 + 고위험 조건 동반: LDL <70 mg/dL 목표. 최대내약 스타틴 후 미달성 시 Ezetimibe → PCSK9 억제제 순서로 추가. FH 전문가 의뢰 고려.'
-        : 'LDL ≥190 단독 1차 예방: 최대내약 고강도 스타틴으로 LDL <100 mg/dL 목표. DM·복수 위험인자·CAC 양성 동반 시 <70 mg/dL로 강화. FH 전문가 의뢰 고려.',
+        ? 'ASCVD 위험인자(DM·HTN·흡연·PREVENT≥10%·TG≥200) 동반: LDL <70 mg/dL 목표. 최대내약 스타틴 후 미달성 시 Ezetimibe → PCSK9 억제제. FH 전문가 의뢰 고려.'
+        : 'LDL ≥190 단독 1차 예방: 최대내약 고강도 스타틴으로 LDL <100 mg/dL 기본 목표. 위험증강인자(조기 가족력·Lp(a)≥50·ABI·CAC 등) 추가 확인 시 <70 mg/dL로 강화. FH 전문가 의뢰 고려.',
       nt: fhHighRisk ? 'dng' : 'warn',
       ldlTgt: fhHighRisk ? 70 : 100,
       nhTgt: fhHighRisk ? 100 : 130};
@@ -814,10 +817,13 @@ function preventClass(primRisk,ldl,ascvd,dm,egfr,age,sex,sbp,bpTx,smoker,hdl,nE,
     return{cat:'2차 예방 — ASCVD',l:70,nh:100,ab:70,c:'#a32d2d',bg:'#fcebeb',basis:'Clinical ASCVD: high-intensity/max tolerated statin 및 LDL-C <70 mg/dL threshold',row:null};
   }
   if(ldl>=190){
-    const fhHighRisk = dm || primRisk>=10 || nE>=2 || tg>=200;
+    // 기본정보 기반 전통적 위험인자만으로 <70 판정 (위험증강인자는 별도 체크 시 강화)
+    const fhHighRisk = dm || primRisk>=10 || tg>=200 || smoker || bpTx;
     return fhHighRisk
-      ? {cat:'Severe hypercholesterolemia + 위험인자',l:70,nh:100,ab:70,c:'#a32d2d',bg:'#fcebeb',basis:'LDL-C ≥190 mg/dL + 고위험 조건(DM/risk≥10%/복수 enhancer/TG≥200) 동반: high-intensity statin + LDL-C <70 mg/dL 목표',row:null}
-      : {cat:'Severe hypercholesterolemia',l:100,nh:130,ab:90,c:'#a32d2d',bg:'#fcebeb',basis:'LDL-C ≥190 mg/dL 단독 1차 예방: high-intensity statin + LDL-C <100 mg/dL 기본 목표. 고위험 조건 동반 시 <70으로 강화',row:null};
+      ? {cat:'Severe hypercholesterolemia + ASCVD 위험인자',l:70,nh:100,ab:70,c:'#a32d2d',bg:'#fcebeb',
+         basis:'LDL-C ≥190 mg/dL + 전통적 위험인자(DM/PREVENT≥10%/TG≥200/흡연/HTN) 동반: high-intensity statin + LDL-C <70 mg/dL 목표',row:null}
+      : {cat:'Severe hypercholesterolemia',l:100,nh:130,ab:90,c:'#a32d2d',bg:'#fcebeb',
+         basis:'LDL-C ≥190 mg/dL 단독: high-intensity statin + LDL-C <100 mg/dL 기본 목표. 위험증강인자 추가 확인 시 <70으로 강화',row:null};
   }
   if(dm){
     if(primRisk>=10) return{cat:'당뇨병 + PREVENT 고위험',l:70,nh:100,ab:70,c:'#a32d2d',bg:'#fcebeb',basis:`당뇨병 + PREVENT-ASCVD ${primRisk.toFixed(1)}% ≥10%`,row:'pr-high'};
@@ -1635,6 +1641,16 @@ function upd(){
   // ACC/AHA rec — baseline indication; current values are used for control/add-on assessment
   let acc=accRec(age,primRisk,ldl,dm,ascvd,vhr,nE,tg);
 
+  // ── LDL≥190 정밀 맞춤: 기본정보 기준 <100이나 위험증강인자 명시적 체크 시 <70으로 강화 ──
+  // 기본정보로 이미 <70이면 불필요. <100인 경우에만 위험증강인자로 강화
+  if(ldl190Abs && !ascvd && acc.ldlTgt===100 && nE>=1){
+    acc={...acc,
+      ldlTgt:70, nhTgt:100,
+      n:'LDL ≥190 + 위험증강인자 확인: <70 mg/dL로 목표 강화. 최대내약 스타틴 후 미달성 시 Ezetimibe → PCSK9 억제제. FH 전문가 의뢰 고려.',
+      nt:'dng'
+    };
+  }
+
   // ── accRec override: 위험도 무관 절대 적응증이 accRec에서 미반영된 경우 보정 ──
   // (ASCVD·LDL≥190은 accRec에서 이미 처리됨; CKD·CAC는 미처리)
   if(!ascvd && !ldl190Abs){
@@ -1652,12 +1668,12 @@ function upd(){
            n:'CAC ≥1000: 광범위 무증상 죽상경화. 2026 ACC/AHA — ASCVD 초고위험에 준하는 관리. LDL &lt;55 mg/dL 목표, 최대내약 스타틴 + Ezetimibe 추가 고려.',
            nt:'dng',ldlTgt:55,nhTgt:85};
     }
-    // CAC 300–999: LDL <70 (기본), 다중 위험인자 동반 시 <55 강화 고려
-    else if(cac300Active && (!acc.ldlTgt || acc.ldlTgt > 70)){
-      acc={c:'hi',l:'고강도',ind:'CAC 300–999 — LDL <70 mg/dL 목표 (필요 시 <55 고려)',
+    // CAC 300–999: LDL <55 (2026 ACC/AHA: CAC ≥300 → target <55 mg/dL)
+    else if(cac300Active && (!acc.ldlTgt || acc.ldlTgt > 55)){
+      acc={c:'hi',l:'고강도',ind:'CAC 300–999 — LDL <55 mg/dL 목표',
            d:['Rosuvastatin 20–40 mg','Atorvastatin 40–80 mg'],
-           n:'CAC 300–999: 광범위 무증상 죽상경화증. 고강도 스타틴 및 LDL &lt;70 mg/dL 목표. 다중 위험인자 또는 매우 높은 plaque burden 동반 시 &lt;55 mg/dL 강화 고려. 2026 ACC/AHA.',
-           nt:'warn',ldlTgt:70,nhTgt:100};
+           n:'CAC 300–999: 광범위 무증상 죽상경화증. 2026 ACC/AHA — 고강도 스타틴 및 LDL &lt;55 mg/dL 목표. 최대내약 스타틴으로 미달성 시 Ezetimibe 추가 고려.',
+           nt:'dng',ldlTgt:55,nhTgt:85};
     }
     // CAC 100–299 또는 ≥75 백분위: LDL <70, 스타틴 충분조건
     else if(cacActive && (!acc.ldlTgt || acc.ldlTgt > 70)){
@@ -1693,7 +1709,7 @@ function upd(){
       key:'ldl190',
       active:ldl>=190,
       label:'LDL-C ≥ 190 mg/dL (중증 고콜레스테롤혈증 / FH 의심)',
-      detail:ldl>=190?(()=>{const fhHR=dm||primRisk>=10||nE>=2||tg>=200;return`현재 LDL ${ldl} mg/dL — 고강도 스타틴, 기본 LDL 목표 &lt;${fhHR?70:100} mg/dL${fhHR?'':' (DM·복수 위험인자·CAC 양성 동반 시 &lt;70으로 강화)'}`})():'해당 없음',
+      detail:ldl>=190?(()=>{const fhHR=dm||primRisk>=10||tg>=200||smoker||bpTx;return`현재 LDL ${ldl} mg/dL — 고강도 스타틴, LDL 목표 &lt;${fhHR?70:100} mg/dL${fhHR?'':' · 위험증강인자(조기 가족력·Lp(a)≥50·ABI·CAC 등) 확인 시 &lt;70으로 강화'}`})():'해당 없음',
       strength:'고강도',
       basis:'누적 LDL 노출 과다, 가족성 고콜레스테롤혈증 감별 필요'
     },
@@ -1703,13 +1719,13 @@ function upd(){
       label:cac1000Active
         ?'CAC ≥1000 — 초고위험 수준, 스타틴 충분조건 (LDL 목표 <55 mg/dL, 최대강도)'
         :cac300Active
-          ?'CAC 300–999 — 무증상 죽상경화 광범위, 스타틴 충분조건 (LDL 목표 <70 mg/dL, 필요 시 <55 고려)'
+          ?'CAC 300–999 — 무증상 죽상경화 광범위, 스타틴 충분조건 (LDL 목표 <55 mg/dL)'
           :'CAC 100–299 (또는 ≥75 백분위) — 스타틴 충분조건 (LDL 목표 <70 mg/dL)',
       detail:(cacActive||cac300Active||cac1000Active)
         ?(cac1000Active
             ?'무증상 죽상경화 광범위(CAC ≥1000) — 고강도 스타틴, LDL 목표 &lt;55 mg/dL'
             :cac300Active
-              ?'무증상 죽상경화 광범위(CAC 300–999) — 고강도 스타틴, LDL 목표 &lt;70 mg/dL (다중 위험인자 동반 시 &lt;55 강화 고려)'
+              ?'무증상 죽상경화 광범위(CAC 300–999) — 고강도 스타틴, LDL 목표 &lt;55 mg/dL'
               :'무증상 죽상경화의 객관적 증거(CAC 100–299) — 고강도 스타틴, LDL 목표 &lt;70 mg/dL')
         :'해당 없음',
       strength:cac1000Active||cac300Active?'고강도':'고강도 고려',
@@ -1766,7 +1782,7 @@ function upd(){
   if(ckdAbs && dispLdlTgt > 100){ dispLdlTgt=100; dispNhTgt=Math.min(dispNhTgt,130); }
   if(!ascvd){
     if(cac1000Active && dispLdlTgt > 55){ dispLdlTgt=55; dispNhTgt=Math.min(dispNhTgt,85); }
-    else if(cac300Active && dispLdlTgt > 70){ dispLdlTgt=70; dispNhTgt=Math.min(dispNhTgt,100); }
+    else if(cac300Active && dispLdlTgt > 55){ dispLdlTgt=55; dispNhTgt=Math.min(dispNhTgt,85); }
     else if(cacActive && dispLdlTgt > 70){ dispLdlTgt=70; dispNhTgt=Math.min(dispNhTgt,100); }
     else if(cac1to99Active && dispLdlTgt > 100){ dispLdlTgt=100; dispNhTgt=Math.min(dispNhTgt,130); }
   }
