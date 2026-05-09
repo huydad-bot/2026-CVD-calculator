@@ -1067,11 +1067,16 @@ function addonSentence(currentLdl, target, acc, onStatin){
   }
   return '목표 미달성 시 생활습관 교정 강화와 statin 적응증 재평가를 고려';
 }
-function makeEmrSummary({prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt, acc, onStatin, currentTg, absInds, anyAbs, carotidOverride, activeEnhLabels}){
+function makeEmrSummary({prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt, acc, onStatin, currentTg, absInds, anyAbs, carotidOverride, activeEnhLabels, ckdActive, egfr}){
   const riskLabel = preventCat && preventCat.cat ? preventCat.cat : riskBandText(prevAscvd);
   const txState = onStatin ? `현재 LDL-C는 ${currentLdl} mg/dL이며, ` : '';
   const addonText = addonSentence(currentLdl, dispLdlTgt, acc, onStatin);
   const tgText = Number(currentTg)>=500 ? `\n단, 현재 TG ${currentTg} mg/dL로 500 mg/dL 이상이어서 급성 췌장염 예방 관점의 2차 원인 평가 및 fibrate/처방 omega-3 계열 치료도 별도 고려.` : '';
+
+  // CKD 스타틴 주의 문구 (스타틴이 권고되는 경우에만)
+  const ckdStNote = (ckdActive && acc.c!=='lo' && acc.c!=='no')
+    ? `\nCKD 주의: Rosuvastatin 신배설 높음 → Atorvastatin 우선 고려${Number(egfr)<30?' (eGFR '+egfr+' mL/min: Rosuvastatin 10 mg 이하로 용량 제한).':`  (eGFR ${egfr} mL/min).`}`
+    : '';
 
   // ── [특수1] LDL < 70: 이미 낮음 — 이차성 원인 감별 필요 ──
   if(acc.ldlTgt === null){
@@ -1081,7 +1086,7 @@ function makeEmrSummary({prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt, acc
     return `PREVENT 2023 기준 10-year ASCVD risk는 ${prevAscvd.toFixed(1)}%로 ${riskLabel}에 해당.\n${ldlLowNote}\n이차성 원인(갑상선기능저하증·간질환·영양불량·흡수장애·약물 등) 및 기저 질환 감별을 권고함. 추적 관찰 시행.` + tgText;
   }
 
-  // ── [특수2] 저위험/경계위험, 스타틴 불필요 (acc.c='lo'/'no', 절대 적응증 없음) ──
+  // ── [특수2] 저위험/경계위험, 스타틴 불필요 ──
   if((acc.c==='lo'||acc.c==='no') && !anyAbs && !carotidOverride){
     const riskNote = acc.c==='lo'
       ? '저위험(<3%)으로 스타틴 일상적 권고 대상이 아님. 식이·운동·금연 등 생활습관 교정을 우선함.'
@@ -1092,7 +1097,7 @@ function makeEmrSummary({prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt, acc
     return `PREVENT 2023 기준 10-year ASCVD risk는 ${prevAscvd.toFixed(1)}%로 ${riskLabel}에 해당.\n${riskNote}\n${ldlNote} 주기적 추적 관찰 시행.` + tgText;
   }
 
-  // 위험증강인자 목록 문장 생성 (경계·중간위험에서 statin 권고 근거)
+  // 위험증강인자 목록 문장 생성
   const enhText = (activeEnhLabels && activeEnhLabels.length > 0 && (acc.c==='mo'||acc.c==='hi') && !anyAbs && !carotidOverride)
     ? `\n확인된 위험증강인자 (${activeEnhLabels.length}개): ${activeEnhLabels.join('; ')}.`
     : '';
@@ -1102,16 +1107,15 @@ function makeEmrSummary({prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt, acc
     const indNames = activeInds.map(i=>i.label).join('; ');
     const needHigh = activeInds.some(i=>i.strength==='고강도' || i.strength==='중~고강도');
     const strengthText = needHigh ? '고강도' : '중등강도';
-    return `PREVENT 2023 기준 10-year ASCVD risk는 ${prevAscvd.toFixed(1)}% (${riskLabel})이나, 아래 위험도 분류 무관 스타틴 적응증에 해당하여 PREVENT 점수와 무관하게 치료를 권고함.\n적응증: ${indNames}.\n치료 전 LDL-C는 ${ldl} mg/dL이며, ${txState}LDL-C 목표는 <${dispLdlTgt} mg/dL.\n${strengthText} 스타틴 치료를 권고하며, ${addonText}.` + tgText;
+    return `PREVENT 2023 기준 10-year ASCVD risk는 ${prevAscvd.toFixed(1)}% (${riskLabel})이나, 아래 위험도 분류 무관 스타틴 적응증에 해당하여 PREVENT 점수와 무관하게 치료를 권고함.\n적응증: ${indNames}.\n치료 전 LDL-C는 ${ldl} mg/dL이며, ${txState}LDL-C 목표는 <${dispLdlTgt} mg/dL.\n${strengthText} 스타틴 치료를 권고하며, ${addonText}.${ckdStNote}` + tgText;
   }
 
-  // 경동맥 plaque override
   if(carotidOverride){
-    return `PREVENT 2023 기준 10-year ASCVD risk는 ${prevAscvd.toFixed(1)}%로 ${riskLabel}에 해당.\n그러나 경동맥 초음파상 plaque ≥1.5 mm가 확인되어 무증상 죽상경화증의 객관적 증거로 판단됨.\nESC/EAS 2025 Class IIa 및 ACC/AHA 2026 권고에 따라 PREVENT 위험도와 무관하게 스타틴 치료를 고려함.\n치료 전 LDL-C는 ${ldl} mg/dL이며, ${txState}LDL-C 목표는 <${dispLdlTgt} mg/dL.\n중등강도 스타틴 치료를 고려하며, ${addonText}.` + tgText;
+    return `PREVENT 2023 기준 10-year ASCVD risk는 ${prevAscvd.toFixed(1)}%로 ${riskLabel}에 해당.\n그러나 경동맥 초음파상 plaque ≥1.5 mm가 확인되어 무증상 죽상경화증의 객관적 증거로 판단됨.\nESC/EAS 2025 Class IIa 및 ACC/AHA 2026 권고에 따라 PREVENT 위험도와 무관하게 스타틴 치료를 고려함.\n치료 전 LDL-C는 ${ldl} mg/dL이며, ${txState}LDL-C 목표는 <${dispLdlTgt} mg/dL.\n중등강도 스타틴 치료를 고려하며, ${addonText}.${ckdStNote}` + tgText;
   }
 
   const statinText = statinSentence(acc);
-  return `PREVENT 2023 기준 10-year ASCVD risk는 ${prevAscvd.toFixed(1)}%로 ${riskLabel}에 해당.\n${enhText ? enhText.trimStart() + '\n' : ''}치료 전 LDL-C는 ${ldl} mg/dL이며, ${txState}현재 LDL-C 목표는 <${dispLdlTgt} mg/dL로 판단됨.\n이에 따라 ${statinText}하며, ${addonText}.` + tgText;
+  return `PREVENT 2023 기준 10-year ASCVD risk는 ${prevAscvd.toFixed(1)}%로 ${riskLabel}에 해당.\n${enhText ? enhText.trimStart() + '\n' : ''}치료 전 LDL-C는 ${ldl} mg/dL이며, ${txState}현재 LDL-C 목표는 <${dispLdlTgt} mg/dL로 판단됨.\n이에 따라 ${statinText}하며, ${addonText}.${ckdStNote}` + tgText;
 }
 
 function getRadioValue(name){
@@ -1655,7 +1659,7 @@ function upd(){
       <span style="font-size:12px;font-weight:600">기저 LDL-C 치료 기준/목표 &lt;${preventCat.l} mg/dL</span>
     </div>
     <div style="font-size:11px;color:#5f5e5a">근거: ${preventCat.basis}</div>
-    ${ksolExc.length?`<div style="font-size:11px;color:#a32d2d;margin-top:5px;line-height:1.6">⚠ 위험도 분류 무관 적응증 해당 — ${ksolExc.map(n=>`(${n})`).join(' ')}</div>`:''}`;
+    ${ksolExc.length?`<div style="font-size:12px;font-weight:700;color:#a32d2d;margin-top:6px;line-height:1.6">⚠ 위험도 분류 무관 적응증 해당 — ${ksolExc.map(n=>`(${n})`).join(' ')}</div>`:''}`;
   g('preventDetail').innerHTML=
     `치료 전 baseline: 10년 ASCVD ${prevAscvd.toFixed(1)}% · 10년 Total CVD ${prev.toFixed(1)}% · 10년 HF ${prevHf.toFixed(1)}%<br>`+
     `치료 전 baseline: 30년 ASCVD ${prev30Ascvd.toFixed(1)}% · 30년 Total CVD ${prev30.toFixed(1)}% · 30년 HF ${prev30Hf.toFixed(1)}%`+
@@ -1860,6 +1864,18 @@ function upd(){
     </div>`;
   }
 
+  // ── CKD 스타틴 선택 주의 (eGFR 15–59) ──
+  if((ckdAbs||ckdEnh) && acc.c!=='lo' && acc.c!=='no'){
+    const ckdEgrNote = Number(egfr)<30
+      ? `eGFR ${egfr} mL/min (<30): <b>Rosuvastatin 10 mg 이하로 용량 제한 필요.</b> Atorvastatin 우선 권고 (주로 간 대사, 신기능 영향 적음).`
+      : `eGFR ${egfr} mL/min (15–59): Rosuvastatin은 신배설 비율이 높아 용량 주의. <b>Atorvastatin 우선 고려</b> (간 대사 → 신기능 영향 적음). eGFR &lt;30 시 Rosuvastatin 10 mg 이하로 제한.`;
+    g('accRecOut').innerHTML+=`<div style="margin-top:8px;padding:10px 12px;background:#e8f0f7;border-radius:8px;border-left:4px solid #3a6fa3">
+      <div style="font-size:11px;font-weight:700;color:#3a6fa3;margin-bottom:4px">⚑ CKD 스타틴 선택 주의</div>
+      <div style="font-size:12px;color:#1a1a18;line-height:1.6">${ckdEgrNote}</div>
+      <div style="font-size:10px;color:#3a6fa3;margin-top:5px;line-height:1.5">※ Pravastatin·Fluvastatin도 신장 대사 부담 적은 대안. Simvastatin은 신기능 저하 시 근병증 위험 증가로 주의.</div>
+    </div>`;
+  }
+
   // Risk enhancer impact visualization
   if(nE>0&&!ascvd){
     const isLowRisk = primRisk < 3;
@@ -1898,7 +1914,7 @@ function upd(){
       return label ? label.textContent.trim().replace(/\s+/g,' ') : '';
     }).filter(Boolean);
     if(ckdEnh) activeEnhLabels.push('CKD (eGFR 15–59, 40세 미만 — 위험증강인자)');
-    g('emrSummary').value=makeEmrSummary({prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt, acc, onStatin, currentTg, absInds, anyAbs, carotidOverride, activeEnhLabels});
+    g('emrSummary').value=makeEmrSummary({prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt, acc, onStatin, currentTg, absInds, anyAbs, carotidOverride, activeEnhLabels, ckdActive:(ckdAbs||ckdEnh), egfr});
   }
   if(g('copyStatus')){
     g('copyStatus').style.display='none'; if(g('copyStatusTop')) g('copyStatusTop').style.display='none';
