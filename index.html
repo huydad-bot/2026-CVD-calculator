@@ -344,7 +344,7 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
     </div>
     <label class="ck"><input type="checkbox" class="enh" id="carotidPlaque"> 경동맥 초음파 plaque ≥ 1.5 mm</label>
     <div id="carotidDesc" style="display:none;font-size:10px;color:#888780;padding:1px 0 4px 19px;line-height:1.5">ESC/EAS 2025 Class IIa 위험수정인자 · ACC/AHA: CAC 불가 시 subclinical ASCVD 대안 증거 — LDL 목표 &lt;100 mg/dL</div>
-    <label class="ck"><input type="checkbox" class="enh"> 중성지방 ≥ 200 mg/dL <span style="color:#888780;font-size:10px">(2026 개정: 구 기준 175→200)</span></label>
+    <label class="ck"><input type="checkbox" class="enh" id="enhTg200"> 중성지방 ≥ 200 mg/dL <span style="color:#888780;font-size:10px">(2026 개정: 구 기준 175→200)</span></label>
     <label class="ck"><input type="checkbox" class="enh"> Lp(a) ≥ 50 mg/dL 또는 ≥125 nmol/L</label>
     <div id="ckdEnhDisplay" style="display:none;align-items:flex-start;gap:6px;padding:3px 0 2px;font-size:12px;color:#1a1a18">
       <span style="display:inline-flex;align-items:center;justify-content:center;width:13px;height:13px;flex-shrink:0;margin-top:1px;background:#e24b4a;border-radius:3px">
@@ -821,8 +821,12 @@ function makeFlow(acc,preventCat,ldl,ascvd,vhr,onStatin=false,baselineLdl=null){
   // Predicted LDL reductions
   const afterHi=Math.round(ldl*0.50);
   const afterMo=Math.round(ldl*0.65);
+  // 생활습관 교정이 Step 1인 경우(저위험/경계위험): 스타틴이 Step 2 → Ezetimibe는 Step 3
+  const isLifestyle = !onStatin && (acc.c==='lo' || acc.c==='no');
   const startLdl=onStatin?ldl:(acc.c==='hi'?afterHi:(acc.c==='mo'?afterMo:ldl));
-  const afterEze=Math.round(startLdl*0.82);
+  // Ezetimibe add-on: lifestyle case는 중등강도 스타틴 후 기준으로 계산
+  const statinLdlForLifestyle=Math.round(ldl*0.65);
+  const afterEze=isLifestyle?Math.round(statinLdlForLifestyle*0.82):Math.round(startLdl*0.82);
   const afterPCSK9=Math.round(afterEze*0.55);
   const afterIncl=Math.round(afterEze*0.52);
 
@@ -869,18 +873,37 @@ function makeFlow(acc,preventCat,ldl,ascvd,vhr,onStatin=false,baselineLdl=null){
   </div><div class="sw">`;
 
   html+=rbox(1,s1name,s1drugs,s1ldl,true,false,onStatin?'기저 위험군은 baseline으로 유지하며, 현재 LDL 목표 미달성 시 추가 치료를 검토합니다.':'');
-  const needEze=s1ldl>tgt;
-  html+=rbox(2,'Ezetimibe 추가','Ezetimibe (Zetia®) 10 mg 1회/일<br>추가 LDL 감소 ~15–20%',afterEze,needEze,!needEze,'');
-  const needPCSK9=afterEze>tgt;
-  html+=rbox(3,'PCSK9 억제제 또는 Bempedoic acid',
-    '<b>PCSK9 억제제</b> (LDL ~55% 추가 감소)<br>Evolocumab (Repatha®) 140 mg SC Q2W / 420 mg QM<br>Alirocumab (Praluent®) 75–150 mg SC Q2W<br><b>Bempedoic acid</b> (스타틴 불내성 시 대안, LDL ~18–25% 감소)<br>Bempedoic acid 180 mg/일 ± Ezetimibe 복합제',
-    afterPCSK9,needPCSK9,!needPCSK9,'2026 신규: CLEAR OUTCOMES 근거. 스타틴 불내성 환자에서 Bempedoic acid 사용 (Class 2a). 건강보험 기준: FH 또는 ASCVD+최대내약 스타틴+에제 후 LDL ≥70');
-  // Inclisiran for ASCVD
-  if(ascvd||vhr){
-    const needIncl=afterEze>tgt;
-    html+=rboxtop(4,'Inclisiran (Leqvio®) — siRNA PCSK9 억제제',
-      '284 mg SC: 초회 → 3개월 후 → 이후 6개월마다<br>LDL 감소 ~50% (스타틴 기준), 연 2회 투여로 순응도 우수',
-      afterIncl,false,!needIncl);
+
+  if(isLifestyle){
+    // 저위험/경계위험: Step2 = 중등강도 스타틴, Step3 = Ezetimibe, Step4 = PCSK9
+    const needStatin=s1ldl>tgt;
+    html+=rbox(2,'중등강도 스타틴 시작',
+      'Atorvastatin 10–20 mg &nbsp;|&nbsp; Rosuvastatin 5–10 mg<br>LDL 감소 ~35% (중등강도 기준)',
+      statinLdlForLifestyle,needStatin,!needStatin,
+      '생활습관 교정 후 목표 미달성 시 스타틴 추가. 위험증강인자 재평가 후 shared decision-making.');
+    const needEze=statinLdlForLifestyle>tgt;
+    html+=rbox(3,'Ezetimibe 추가 (스타틴 기반)',
+      'Ezetimibe (Zetia®) 10 mg 1회/일<br>추가 LDL 감소 ~15–20% (스타틴 후 add-on)',
+      afterEze,needEze,!needEze,'');
+    const needPCSK9=afterEze>tgt;
+    html+=rboxtop(4,'PCSK9 억제제 또는 Bempedoic acid',
+      '<b>PCSK9 억제제</b> (LDL ~55% 추가 감소)<br>Evolocumab (Repatha®) 140 mg SC Q2W / 420 mg QM<br>Alirocumab (Praluent®) 75–150 mg SC Q2W<br><b>Bempedoic acid</b> (스타틴 불내성 시 대안, LDL ~18–25% 감소)<br>Bempedoic acid 180 mg/일 ± Ezetimibe 복합제',
+      afterPCSK9,needPCSK9,!needPCSK9);
+  } else {
+    // 중등·고강도 스타틴이 Step1 (또는 현재 스타틴 중): 기존 흐름 유지
+    const needEze=s1ldl>tgt;
+    html+=rbox(2,'Ezetimibe 추가','Ezetimibe (Zetia®) 10 mg 1회/일<br>추가 LDL 감소 ~15–20%',afterEze,needEze,!needEze,'');
+    const needPCSK9=afterEze>tgt;
+    html+=rbox(3,'PCSK9 억제제 또는 Bempedoic acid',
+      '<b>PCSK9 억제제</b> (LDL ~55% 추가 감소)<br>Evolocumab (Repatha®) 140 mg SC Q2W / 420 mg QM<br>Alirocumab (Praluent®) 75–150 mg SC Q2W<br><b>Bempedoic acid</b> (스타틴 불내성 시 대안, LDL ~18–25% 감소)<br>Bempedoic acid 180 mg/일 ± Ezetimibe 복합제',
+      afterPCSK9,needPCSK9,!needPCSK9,'2026 신규: CLEAR OUTCOMES 근거. 스타틴 불내성 환자에서 Bempedoic acid 사용 (Class 2a). 건강보험 기준: FH 또는 ASCVD+최대내약 스타틴+에제 후 LDL ≥70');
+    // Inclisiran for ASCVD
+    if(ascvd||vhr){
+      const needIncl=afterEze>tgt;
+      html+=rboxtop(4,'Inclisiran (Leqvio®) — siRNA PCSK9 억제제',
+        '284 mg SC: 초회 → 3개월 후 → 이후 6개월마다<br>LDL 감소 ~50% (스타틴 기준), 연 2회 투여로 순응도 우수',
+        afterIncl,false,!needIncl);
+    }
   }
   html+='</div>';
   return html;
@@ -1248,6 +1271,17 @@ function upd(){
       if(g('enhLdl160').dataset.autoChecked === 'true') g('enhLdl160').checked = false;
     }
     g('enhLdl160').dataset.autoChecked = (ldl >= 160 && ldl < 190) ? 'true' : 'false';
+  }
+
+  // TG ≥ 200: 기본정보 TG 입력값에 따라 위험증강인자 자동 체크
+  if(g('enhTg200')){
+    if(tg >= 200){
+      g('enhTg200').checked = true;
+      g('enhTg200').dataset.autoChecked = 'true';
+    } else {
+      if(g('enhTg200').dataset.autoChecked === 'true') g('enhTg200').checked = false;
+      g('enhTg200').dataset.autoChecked = 'false';
+    }
   }
 
   // eGFR 조기 파싱 — CKD 분류는 체크박스 없이 eGFR 수치에서 직접 판정
