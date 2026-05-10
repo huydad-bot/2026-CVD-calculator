@@ -1433,6 +1433,18 @@ function upd(){
   const sbpRaw=g('sbp').value;
 
   // 필수 입력값 미충족 시 결과 초기화 후 종료
+  // TG 자동 체크 — 다른 필수값 미입력 시에도 TG 단독 입력으로 즉시 반영
+  if(g('enhTg175')){
+    const _tg=parseFloat(tgRaw);
+    if(!isNaN(_tg) && _tg >= 175){
+      g('enhTg175').checked = true;
+      g('enhTg175').dataset.autoChecked = 'true';
+    } else if(g('enhTg175').dataset.autoChecked === 'true'){
+      g('enhTg175').checked = false;
+      g('enhTg175').dataset.autoChecked = 'false';
+    }
+  }
+
   if(!ageRaw||!sexVal||!tcRaw||!hdlRaw||!ldlRaw||!tgRaw||!sbpRaw){
     clearResults();
     const _egfr=parseFloat(g('egfr').value)||90;
