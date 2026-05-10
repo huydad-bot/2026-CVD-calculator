@@ -271,7 +271,7 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
             ▸ 최대 내약 스타틴에도 LDL 미달성 시 → <b>Ezetimibe 추가</b><br>
             ▸ 그래도 미달성 시 → <b>PCSK9 억제제</b> (evolocumab / alirocumab) 병용<br>
             ▸ Lp(a) ≥50 mg/dL 동반 시 → PCSK9 억제제 우선 고려<br>
-            ▸ TG ≥200 mg/dL 잔여 위험 → Icosapent ethyl (EPA) 고려
+            ▸ TG ≥175 mg/dL 잔여 위험 → Icosapent ethyl (EPA) 고려
           </div>
         </div>
         <div style="margin-top:6px;font-size:10px;color:#a32d2d;line-height:1.6">
@@ -321,9 +321,52 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
 
   <div class="card" style="border-top:3px solid #639922">
     <div class="sec">위험 증가 인자 (Risk Enhancers)</div>
+    <div style="font-size:10px;color:#888780;margin-bottom:6px;line-height:1.4">※ 2026 ACC/AHA Table 13 순서 · 해당 항목 체크 시 결과에 즉시 반영</div>
+
+    <!-- ── Table 13 #1 ── -->
     <label class="ck"><input type="checkbox" class="enh"> 조기 ASCVD 가족력 (남 &lt;55세, 여 &lt;65세)</label>
-    <label class="ck"><input type="checkbox" class="enh" id="enhLdl160"> LDL ≥160 mg/dL <span style="color:#888780;font-size:10px">(또는 non-HDL ≥190 mg/dL)</span></label>
-    <label class="ck"><input type="checkbox" class="enh"> hs-CRP ≥ 2.0 mg/L</label>
+
+    <!-- ── Table 13 #2 ── -->
+    <label class="ck"><input type="checkbox" class="enh"> 고위험 조상 <span style="color:#888780;font-size:10px">(남아시아계·필리핀계 등 죽상경화 고위험 민족)</span></label>
+
+    <!-- ── Table 13 #3 ── -->
+    <label class="ck"><input type="checkbox" class="enh"> 고위험 다유전자 위험 점수 (CAD PRS) <span style="color:#888780;font-size:10px">(유전자 검사 시행 시 — 2026 ACC/AHA Table 13, Class 2a)</span></label>
+
+    <!-- ── Table 13 #4 + #8 ── -->
+    <label class="ck"><input type="checkbox" class="enh"> 심혈관-신장-대사 (CKM) 증후군 / 만성 염증성 질환 <span style="color:#888780;font-size:10px">(RA, 루푸스, 건선, HIV, 만성 간염 등)</span></label>
+
+    <!-- ── Table 13 #5 ── -->
+    <label class="ck"><input type="checkbox" class="enh"> Lp(a) ≥ 50 mg/dL 또는 ≥125 nmol/L</label>
+
+    <!-- ── Table 13 #6 ── -->
+    <label class="ck"><input type="checkbox" class="enh"> hs-CRP ≥ 2.0 mg/L <span style="color:#888780;font-size:10px">(2회 이상 측정 확인 시 · 2026 ACC/AHA Table 13)</span></label>
+
+    <!-- ── Table 13 #7 ── -->
+    <label class="ck"><input type="checkbox" class="enh" id="enhTg175"> 중성지방 ≥ 175 mg/dL <span style="color:#888780;font-size:10px">(비공복 기준 / 공복 시 ≥150 · 2026 ACC/AHA Table 13)</span></label>
+
+    <!-- ── Table 13 #9 ── -->
+    <label class="ck"><input type="checkbox" class="enh" id="enhLdl160"> LDL-C ≥160–189 mg/dL <span style="color:#888780;font-size:10px">또는 non-HDL ≥190 mg/dL / ApoB ≥120 mg/dL (2026 ACC/AHA Table 13)</span></label>
+
+    <!-- ── Table 13 #10 ── -->
+    <label class="ck"><input type="checkbox" class="enh"> 생식 위험인자</label>
+    <div style="font-size:10px;color:#888780;padding:1px 0 4px 19px;line-height:1.5">조기 폐경 &lt;45세 · 자간전증 · 임신성 당뇨/고혈압 · 조산</div>
+
+    <!-- ─────────────────────────────────────────────────────────── -->
+    <!-- Table 13 이외 — Subclinical ASCVD 지표 (하단 배치 유지)   -->
+    <!-- ─────────────────────────────────────────────────────────── -->
+    <div style="font-size:10px;font-weight:700;color:#888780;letter-spacing:.04em;margin:8px 0 4px;padding-top:6px;border-top:1px dashed #d0cec8">
+      ─ Subclinical ASCVD 지표 (Table 13 외 · CAC/ABI/경동맥) ─
+    </div>
+
+    <!-- CKD 40세 미만: 위험증강인자 자동 반영 -->
+    <div id="ckdEnhDisplay" style="display:none;align-items:flex-start;gap:6px;padding:3px 0 2px;font-size:12px;color:#1a1a18">
+      <span style="display:inline-flex;align-items:center;justify-content:center;width:13px;height:13px;flex-shrink:0;margin-top:1px;background:#e24b4a;border-radius:3px">
+        <svg width="9" height="9" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span>CKD (eGFR 15–59) <span style="color:#888780;font-size:10px">— 40세 미만: 위험증강인자 자동 반영 (eGFR 입력값 기준)</span></span>
+    </div>
+
+    <!-- ABI -->
     <label class="ck"><input type="checkbox" class="enh" id="abiCheck"> ABI &lt; 0.9 (말초동맥질환)</label>
     <div id="abiDesc" style="display:none;margin:2px 0 5px 19px;padding:8px 10px;background:#faeeda;border-radius:7px;border-left:3px solid #ef9f27;font-size:11px;line-height:1.7;color:#1a1a18">
       <div style="font-weight:700;color:#854f0b;margin-bottom:4px">⚠ ABI &lt; 0.9 — ASCVD 해당 여부 확인 필요</div>
@@ -342,34 +385,22 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
       </div>
       <div style="margin-top:5px;font-size:10px;color:#888780">※ ABI &gt; 1.40은 혈관 석회화(당뇨·CKD)로 비압박성 — 신뢰 불가, toe-brachial index 시행 권장</div>
     </div>
+
+    <!-- 경동맥 plaque -->
     <label class="ck"><input type="checkbox" class="enh" id="carotidPlaque"> 경동맥 초음파 plaque ≥ 1.5 mm</label>
     <div id="carotidDesc" style="display:none;font-size:10px;color:#888780;padding:1px 0 4px 19px;line-height:1.5">ESC/EAS 2025 Class IIa 위험수정인자 · ACC/AHA: CAC 불가 시 subclinical ASCVD 대안 증거 — LDL 목표 &lt;100 mg/dL</div>
-    <label class="ck"><input type="checkbox" class="enh" id="enhTg200"> 중성지방 ≥ 200 mg/dL <span style="color:#888780;font-size:10px">(2026 개정: 구 기준 175→200)</span></label>
-    <label class="ck"><input type="checkbox" class="enh"> Lp(a) ≥ 50 mg/dL 또는 ≥125 nmol/L</label>
-    <div id="ckdEnhDisplay" style="display:none;align-items:flex-start;gap:6px;padding:3px 0 2px;font-size:12px;color:#1a1a18">
-      <span style="display:inline-flex;align-items:center;justify-content:center;width:13px;height:13px;flex-shrink:0;margin-top:1px;background:#e24b4a;border-radius:3px">
-        <svg width="9" height="9" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </span>
-      <span>CKD (eGFR 15–59) <span style="color:#888780;font-size:10px">— 40세 미만: 위험증강인자 자동 반영 (eGFR 입력값 기준)</span></span>
-    </div>
-    <label class="ck"><input type="checkbox" class="enh"> 심혈관-신장-대사 (CKM) 증후군 / 만성 염증성 질환 <span style="color:#888780;font-size:10px">(RA, 루푸스, 건선, HIV, 만성 간염 등)</span></label>
-    <label class="ck"><input type="checkbox" class="enh"> 생식 위험인자</label>
-    <div style="font-size:10px;color:#888780;padding:1px 0 4px 19px;line-height:1.5">조기 폐경 &lt;45세 · 자간전증 · 임신성 당뇨/고혈압 · 조산</div>
-    <label class="ck"><input type="checkbox" class="enh"> 고위험 조상 <span style="color:#888780;font-size:10px">(남아시아계·필리핀계 등 죽상경화 고위험 민족)</span></label>
-    <!-- CAC 메인 토글 버튼 -->
+
+    <!-- CAC -->
     <label class="ck" style="margin-top:3px">
       <input type="checkbox" id="cacMain">
       <span>관상동맥 석회화 (CAC) 점수 입력</span>
     </label>
-    <!-- CAC 패널 (숨김 기본) -->
     <div id="cacPanel" style="display:none;margin-top:5px;padding:8px 10px;background:#f8f7f5;border:1px solid #e2e0db;border-radius:8px">
       <div style="font-size:10px;font-weight:700;color:#888780;letter-spacing:.05em;margin-bottom:7px">CAC 등급 선택 — 택 1</div>
-      <!-- 기존 JS 호환용 숨김 체크박스 (계산 로직 유지) -->
       <input type="checkbox" class="enh" id="cac1to99" style="display:none">
       <input type="checkbox" class="enh" id="cacCheck" style="display:none">
       <input type="checkbox" class="enh" id="cac300"   style="display:none">
       <input type="checkbox" class="enh" id="cac1000"  style="display:none">
-      <!-- 버튼형 택1 선택 -->
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px">
         <div class="cac-opt" data-cac="cac1to99"
           style="padding:7px 9px;border:1px solid #d0cec8;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s">
@@ -773,14 +804,14 @@ function accRec(age,risk,ldl,dm,ascvd,vhr,nE,tg,smoker,bpTx){
   if(ldl>=190){
     // 2026 ACC/AHA: LDL≥190 기본 목표 <100
     // 기본정보에서 확인되는 전통적 ASCVD 위험인자 동반 시 <70으로 강화
-    // (DM·PREVENT≥10%·TG≥200·흡연·항고혈압제)
+    // (DM·PREVENT≥10%·TG≥175·흡연·항고혈압제)
     // ※ 위험증강인자(nE)는 별도 체크 시 <70 강화 — 미체크=미검사로 간주, 기본 목표는 <100 유지
-    const fhHighRisk = dm || risk>=10 || tg>=200 || smoker || bpTx;
+    const fhHighRisk = dm || risk>=10 || tg>=175 || smoker || bpTx;
     return{c:'hi',l:'고강도',ind:'중증 고콜레스테롤혈증 LDL ≥190 (FH 감별 필요)',
       d:['Rosuvastatin 20–40 mg','Atorvastatin 40–80 mg'],
       n: fhHighRisk
-        ? 'ASCVD 위험인자(DM·HTN·흡연·PREVENT≥10%·TG≥200) 동반: LDL <70 mg/dL 목표. 최대내약 스타틴 후 미달성 시 Ezetimibe → PCSK9 억제제. FH 전문가 의뢰 고려.'
-        : 'LDL ≥190 단독 1차 예방: 최대내약 고강도 스타틴으로 LDL <100 mg/dL 기본 목표. 위험증강인자(조기 가족력·Lp(a)≥50·ABI·CAC 등) 추가 확인 시 <70 mg/dL로 강화. FH 전문가 의뢰 고려.',
+        ? 'ASCVD 위험인자(DM·HTN·흡연·PREVENT≥10%·TG≥175) 동반: LDL <70 mg/dL 목표. 최대내약 스타틴 후 미달성 시 Ezetimibe → PCSK9 억제제. FH 전문가 의뢰 고려.'
+        : 'LDL ≥190 단독 1차 예방: 최대내약 고강도 스타틴으로 LDL <100 mg/dL 기본 목표. 위험증강인자(조기 가족력·Lp(a)≥50·ABI·CAC·ApoB≥120 등) 추가 확인 시 <70 mg/dL로 강화. FH 전문가 의뢰 고려.',
       nt: fhHighRisk ? 'dng' : 'warn',
       ldlTgt: fhHighRisk ? 70 : 100,
       nhTgt: fhHighRisk ? 100 : 130};
@@ -804,7 +835,7 @@ function accRec(age,risk,ldl,dm,ascvd,vhr,nE,tg,smoker,bpTx){
   }
   if(risk<10){
     // 2026 ACC/AHA: 중간위험 + enhancer도 기본 중등강도/<100, CAC 재분류 시 고강도/<70으로 강화
-    if(nE>=2||tg>=200)return{c:'mo',l:'중등강도, 필요 시 강화 고려',ind:'중간위험 (5–<10%) + 다수 위험증가 인자',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg','Pitavastatin 2–4 mg'],n:'중등강도 스타틴 권고. 기본 LDL <100 mg/dL 목표. Risk enhancer 다수이면 고강도 상향 또는 CAC로 재분류 고려 — CAC ≥100 확인 시 LDL <70 mg/dL로 강화.',nt:'warn',ldlTgt:100,nhTgt:130};
+    if(nE>=2||tg>=175)return{c:'mo',l:'중등강도, 필요 시 강화 고려',ind:'중간위험 (5–<10%) + 다수 위험증가 인자',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg','Pitavastatin 2–4 mg'],n:'중등강도 스타틴 권고. 기본 LDL <100 mg/dL 목표. Risk enhancer 다수이면 고강도 상향 또는 CAC로 재분류 고려 — CAC ≥100 확인 시 LDL <70 mg/dL로 강화.',nt:'warn',ldlTgt:100,nhTgt:130};
     return{c:'mo',l:'중등강도',ind:'중간위험 (5–<10%)',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg','Pitavastatin 2–4 mg','Pravastatin 40–80 mg'],n:'중등강도 스타틴 권고. LDL <100 mg/dL 목표. CAC=0이면 유예 가능.',nt:'info',ldlTgt:100,nhTgt:130};
   }
   return{c:'hi',l:'고강도',ind:'고위험 ≥ 10% (PREVENT-ASCVD)',d:['Atorvastatin 40–80 mg','Rosuvastatin 20–40 mg'],n:'고강도 스타틴 권고. LDL <70 mg/dL 목표.',nt:'warn',ldlTgt:70,nhTgt:100};
@@ -818,10 +849,10 @@ function preventClass(primRisk,ldl,ascvd,dm,egfr,age,sex,sbp,bpTx,smoker,hdl,nE,
   }
   if(ldl>=190){
     // 기본정보 기반 전통적 위험인자만으로 <70 판정 (위험증강인자는 별도 체크 시 강화)
-    const fhHighRisk = dm || primRisk>=10 || tg>=200 || smoker || bpTx;
+    const fhHighRisk = dm || primRisk>=10 || tg>=175 || smoker || bpTx;
     return fhHighRisk
       ? {cat:'Severe hypercholesterolemia + ASCVD 위험인자',l:70,nh:100,ab:70,c:'#a32d2d',bg:'#fcebeb',
-         basis:'LDL-C ≥190 mg/dL + 전통적 위험인자(DM/PREVENT≥10%/TG≥200/흡연/HTN) 동반: high-intensity statin + LDL-C <70 mg/dL 목표',row:null}
+         basis:'LDL-C ≥190 mg/dL + 전통적 위험인자(DM/PREVENT≥10%/TG≥175/흡연/HTN) 동반: high-intensity statin + LDL-C <70 mg/dL 목표',row:null}
       : {cat:'Severe hypercholesterolemia',l:100,nh:130,ab:90,c:'#a32d2d',bg:'#fcebeb',
          basis:'LDL-C ≥190 mg/dL 단독: high-intensity statin + LDL-C <100 mg/dL 기본 목표. 위험증강인자 추가 확인 시 <70으로 강화',row:null};
   }
@@ -833,7 +864,7 @@ function preventClass(primRisk,ldl,ascvd,dm,egfr,age,sex,sbp,bpTx,smoker,hdl,nE,
   if(primRisk<5) return{cat:'경계위험',l:100,nh:130,ab:90,c:'#3b6d11',bg:'#eaf3de',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% 3–<5%. Risk enhancer가 있으면 statin 고려`,row:'pr-border'};
   if(primRisk<10){
     // 2026 ACC/AHA: 중간위험+enhancer 기본 목표 <100, CAC 재분류 후 <70
-    if(nE>=2||tg>=200||ldl>=160) return{cat:'중간위험 + risk enhancer',l:100,nh:130,ab:90,c:'#854f0b',bg:'#faeeda',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% 5–<10% + risk enhancer: 기본 목표 <100, CAC ≥100 등 고위험 재분류 시 <70으로 강화`,row:'pr-inter'};
+    if(nE>=2||tg>=175||ldl>=160) return{cat:'중간위험 + risk enhancer',l:100,nh:130,ab:90,c:'#854f0b',bg:'#faeeda',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% 5–<10% + risk enhancer: 기본 목표 <100, CAC ≥100 등 고위험 재분류 시 <70으로 강화`,row:'pr-inter'};
     return{cat:'중간위험',l:100,nh:130,ab:90,c:'#854f0b',bg:'#faeeda',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% 5–<10%`,row:'pr-inter'};
   }
   return{cat:'고위험',l:70,nh:100,ab:70,c:'#a32d2d',bg:'#fcebeb',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% ≥10%`,row:'pr-high'};
@@ -1358,28 +1389,34 @@ function upd(){
   const vhr=g('veryHigh').checked;
 
   // LDL 수치에 따른 자동 체크
-  // LDL ≥190: 위험도 무관 절대 적응증 (absInds에서 자동 판정) — enhancer 체크 해제
-  // LDL 160–189: 위험증강인자 자동 체크, 수동 해제 가능
+  // LDL 160–189 / non-HDL ≥190 / ApoB ≥120: 위험증강인자 자동 체크 (2026 ACC/AHA Table 13)
+  // LDL ≥190: 절대 적응증으로 분리 — enhancer 중복 제외
   if(g('enhLdl160')){
+    const nonHdl = (tc && hdl) ? (tc - hdl) : null;
+    const apobMeasEarly = parseFloat(g('apob')?.value) || null;
+    const ldlTrigger  = ldl >= 160 && ldl < 190;
+    const nonHdlTrigger = nonHdl !== null && nonHdl >= 190 && ldl < 190;
+    const apobTrigger = apobMeasEarly !== null && apobMeasEarly >= 120 && ldl < 190;
+    const shouldAutoCheck = ldlTrigger || nonHdlTrigger || apobTrigger;
+
     if(ldl >= 190){
-      g('enhLdl160').checked = false;   // ≥190은 절대 적응증으로 분리, enhancer 중복 제외
-    } else if(ldl >= 160){
+      if(g('enhLdl160').dataset.autoChecked === 'true') g('enhLdl160').checked = false;
+    } else if(shouldAutoCheck){
       g('enhLdl160').checked = true;
     } else {
-      // 수동으로 체크한 경우는 유지, LDL <160이면 해제
       if(g('enhLdl160').dataset.autoChecked === 'true') g('enhLdl160').checked = false;
     }
-    g('enhLdl160').dataset.autoChecked = (ldl >= 160 && ldl < 190) ? 'true' : 'false';
+    g('enhLdl160').dataset.autoChecked = (ldl < 190 && shouldAutoCheck) ? 'true' : 'false';
   }
 
-  // TG ≥ 200: 기본정보 TG 입력값에 따라 위험증강인자 자동 체크
-  if(g('enhTg200')){
-    if(tg >= 200){
-      g('enhTg200').checked = true;
-      g('enhTg200').dataset.autoChecked = 'true';
+  // TG ≥ 175 (비공복 기준): 기본정보 TG 입력값에 따라 위험증강인자 자동 체크
+  if(g('enhTg175')){
+    if(tg >= 175){
+      g('enhTg175').checked = true;
+      g('enhTg175').dataset.autoChecked = 'true';
     } else {
-      if(g('enhTg200').dataset.autoChecked === 'true') g('enhTg200').checked = false;
-      g('enhTg200').dataset.autoChecked = 'false';
+      if(g('enhTg175').dataset.autoChecked === 'true') g('enhTg175').checked = false;
+      g('enhTg175').dataset.autoChecked = 'false';
     }
   }
 
@@ -1484,7 +1521,7 @@ function upd(){
 
   // 2026 guideline ApoB measurement indication check
   const apobIndications=[];
-  if(tg>200) apobIndications.push('TG > 200 mg/dL');
+  if(tg>=175) apobIndications.push('TG ≥ 175 mg/dL');
   if(dm) apobIndications.push('당뇨병');
   if(onStatin && currentLdl<70) apobIndications.push('달성 LDL-C < 70 mg/dL');
   const apobIndBox=g('apobIndBox');
@@ -1737,7 +1774,7 @@ function upd(){
       key:'ldl190',
       active:ldl>=190,
       label:'LDL-C ≥ 190 mg/dL (중증 고콜레스테롤혈증 / FH 의심)',
-      detail:ldl>=190?(()=>{const fhHR=dm||primRisk>=10||tg>=200||smoker||bpTx;return`현재 LDL ${ldl} mg/dL — 고강도 스타틴, LDL 목표 &lt;${fhHR?70:100} mg/dL${fhHR?'':' · 위험증강인자(조기 가족력·Lp(a)≥50·ABI·CAC 등) 확인 시 &lt;70으로 강화'}`})():'해당 없음',
+      detail:ldl>=190?(()=>{const fhHR=dm||primRisk>=10||tg>=175||smoker||bpTx;return`현재 LDL ${ldl} mg/dL — 고강도 스타틴, LDL 목표 &lt;${fhHR?70:100} mg/dL${fhHR?'':' · 위험증강인자(조기 가족력·Lp(a)≥50·ABI·CAC 등) 확인 시 &lt;70으로 강화'}`})():'해당 없음',
       strength:'고강도',
       basis:'누적 LDL 노출 과다, 가족성 고콜레스테롤혈증 감별 필요'
     },
