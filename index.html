@@ -330,7 +330,38 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
     <label class="ck"><input type="checkbox" class="enh"> 고위험 조상 <span style="color:#888780;font-size:10px">(남아시아계·필리핀계 등 죽상경화 고위험 민족)</span></label>
 
     <!-- ── Table 13 #3 ── -->
-    <label class="ck"><input type="checkbox" class="enh"> 고위험 다유전자 위험 점수 (CAD PRS) <span style="color:#888780;font-size:10px">(유전자 검사 시행 시 — 2026 ACC/AHA Table 13, Class 2a)</span></label>
+    <label class="ck" style="margin-bottom:2px">
+      <input type="checkbox" class="enh" id="prsCheck">
+      고위험 다유전자 위험 점수 (CAD PRS)
+      <span style="color:#888780;font-size:10px">(유전자 검사 시행 시 — 2026 ACC/AHA Table 13, Class 2a)</span>
+    </label>
+    <div id="prsPanel" style="display:none;margin:2px 0 6px 19px;padding:9px 11px;background:#eaf2fb;border-radius:7px;border-left:3px solid #185fa5;font-size:11px;line-height:1.7">
+      <div style="font-weight:700;color:#185fa5;margin-bottom:6px">📊 CAD Polygenic Risk Score 결과 입력</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:5px">
+        <span style="color:#1a1a18">위험 등급:</span>
+        <label style="display:inline-flex;align-items:center;gap:4px;cursor:pointer">
+          <input type="radio" name="prsGrade" value="high" id="prsHigh"> <span style="color:#a32d2d;font-weight:700">고위험 (상위 10% 이내 또는 ≥2배 상대위험도)</span>
+        </label>
+        <label style="display:inline-flex;align-items:center;gap:4px;cursor:pointer">
+          <input type="radio" name="prsGrade" value="inter" id="prsInter"> <span style="color:#854f0b">중간</span>
+        </label>
+        <label style="display:inline-flex;align-items:center;gap:4px;cursor:pointer">
+          <input type="radio" name="prsGrade" value="low" id="prsLow"> <span style="color:#3b6d11">저위험</span>
+        </label>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px">
+        <span style="color:#5f5e5a">백분위 (선택):</span>
+        <input type="number" id="prsPercentile" min="1" max="100" step="1" placeholder="예) 5"
+          style="width:60px;padding:2px 6px;border:1px solid #c0ccd8;border-radius:5px;font-size:11px">
+        <span style="color:#5f5e5a">번째 상위 백분위</span>
+      </div>
+      <div id="prsNote" style="font-size:10px;color:#185fa5;line-height:1.5"></div>
+      <div style="font-size:10px;color:#888780;margin-top:4px;line-height:1.5">
+        ※ 2026 ACC/AHA: <b>고위험 CAD PRS = 다른 risk enhancer와 동등한 위험</b><br>
+        ※ 고위험(≥2배 RR) 확인 시에만 위험증강인자로 반영 · 중간/저위험은 참고용<br>
+        ※ 검사 미시행 시 체크 해제
+      </div>
+    </div>
 
     <!-- ── Table 13 #4 + #8 ── -->
     <label class="ck"><input type="checkbox" class="enh"> 심혈관-신장-대사 (CKM) 증후군 / 만성 염증성 질환 <span style="color:#888780;font-size:10px">(RA, 루푸스, 건선, HIV, 만성 간염 등)</span></label>
@@ -2021,6 +2052,36 @@ g('carotidPlaque').addEventListener('change',function(){
 g('abiCheck').addEventListener('change',function(){
   if(g('abiDesc')) g('abiDesc').style.display=this.checked?'block':'none';
 });
+// PRS 체크 시 패널 표시 + 등급별 동작
+if(g('prsCheck')){
+  g('prsCheck').addEventListener('change', function(){
+    if(g('prsPanel')) g('prsPanel').style.display = this.checked ? 'block' : 'none';
+    if(!this.checked){
+      document.querySelectorAll('input[name=prsGrade]').forEach(r=>r.checked=false);
+      if(g('prsPercentile')) g('prsPercentile').value='';
+      if(g('prsNote')) g('prsNote').textContent='';
+    }
+    upd();
+  });
+  document.querySelectorAll('input[name=prsGrade]').forEach(r=>{
+    r.addEventListener('change', function(){
+      const notes={
+        high:'⚑ 고위험 CAD PRS 확인 — risk enhancer로 반영됩니다. 스타틴 치료 결정에 적극 활용.',
+        inter:'참고: 중간 위험 PRS — 단독으로 risk enhancer 기준 미충족. 다른 위험인자와 종합 판단.',
+        low:'참고: 저위험 PRS — risk enhancer 해당 없음. 체크 해제를 고려하십시오.'
+      };
+      const colors={high:'#a32d2d',inter:'#854f0b',low:'#3b6d11'};
+      if(g('prsNote')){
+        g('prsNote').textContent=notes[this.value]||'';
+        g('prsNote').style.color=colors[this.value]||'#5f5e5a';
+      }
+      // 고위험만 .enh 클래스 부여 → nE 카운트에 반영
+      if(g('prsCheck')) g('prsCheck').className=this.value==='high'?'enh':'';
+      upd();
+    });
+  });
+  if(g('prsPercentile')) g('prsPercentile').addEventListener('input', upd);
+}
 // onStatin 체크 시 postLipidBox 즉시 표시 + 필수값 미입력 시 힌트 표시
 function updateStatinHint(){
   if(!g('postLipidBox') || !g('statinBaselineHint')) return;
