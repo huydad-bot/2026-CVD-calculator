@@ -125,7 +125,7 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
     <div class="ps">
       AHA PREVENT 2023 — 10년/30년 Total CVD · ASCVD · Heart Failure risk<br>
       2026 ACC/AHA/Multisociety Dyslipidemia Guideline · 2022 ACC Expert Consensus Pathway<br>
-      <span style="color:#1a1a18;font-weight:600">제작 : 경북대학교병원 내분비대사내과 김정국</span>
+      <span style="color:#73726c">제작 : 경북대학교병원 내분비대사내과 김정국</span>
     </div>
   </div>
   <div style="display:flex;flex-direction:column;gap:5px;align-items:flex-end;flex-shrink:0" class="no-print">
@@ -302,25 +302,24 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
         </div>
       </div>
     </div>
-
-    <div class="row2" style="margin-top:6px">
-      <div class="field">
-        <span class="fl">hs-CRP (mg/L) — 선택</span>
-        <input type="number" autocomplete="off" id="hscrp" step="0.1" min="0" max="100" placeholder="미입력 시 제외">
-      </div>
-      <div class="field">
-        <span class="fl">ApoB — 직접 측정값 (mg/dL)</span>
-        <input type="number" autocomplete="off" id="apob" step="1" min="20" max="300" placeholder="미입력 시 추정값 사용">
-      </div>
+    <div class="divider" style="margin-top:8px"></div>
+    <div class="field" style="margin-top:7px;margin-bottom:0">
+      <span class="fl">ApoB — 직접 측정값 (mg/dL)</span>
+      <input type="number" autocomplete="off" id="apob" step="1" min="20" max="300" placeholder="미입력 시 LDL-C 기반 추정값 자동 사용">
+      <div style="font-size:10px;color:#888780;margin-top:3px;line-height:1.5">※ TG ≥175 · 당뇨 · 치료 중 LDL &lt;70 · LDL·non-HDL 불일치 해당 시 직접 측정 권장 (2026 ACC/AHA Class IIa)</div>
     </div>
     <div id="apobIndBox" style="display:none;margin-top:5px;padding:7px 10px;background:#e6f1fb;border-radius:7px;border-left:3px solid #185fa5">
-      <div style="font-size:10px;font-weight:700;color:#185fa5;margin-bottom:2px">▸ 2026 ACC/AHA — ApoB 직접 측정 권장 조건 해당</div>
+      <div style="font-size:10px;font-weight:700;color:#185fa5;margin-bottom:2px">▸ 2026 ACC/AHA — 현재 입력값 기준 ApoB 직접 측정 권장 조건 해당</div>
       <div id="apobIndText" style="font-size:11px;color:#185fa5;line-height:1.6"></div>
     </div>
   </div>
 
   <div class="card" style="border-top:3px solid #639922">
-    <div class="sec">위험 증가 인자 (Risk Enhancers)</div>
+    <div class="sec" onclick="toggleSection('riskEnhancerBody','riskEnhancerArrow')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none">
+      <span>위험 증가 인자 (Risk Enhancers) <span style="font-size:10px;font-weight:600;color:#639922;letter-spacing:0;text-transform:none;background:#eaf3de;padding:2px 7px;border-radius:5px;margin-left:4px">정밀 맞춤 예방 목적이며, 클릭 시 자세한 내용을 확인할 수 있습니다.</span></span>
+      <span id="riskEnhancerArrow" style="font-size:12px;color:#888780;transition:transform .2s;display:inline-block">▶</span>
+    </div>
+    <div id="riskEnhancerBody" style="display:none">
     <div style="font-size:10px;color:#888780;margin-bottom:6px;line-height:1.4">※ 해당 항목 체크 시 결과에 즉시 반영</div>
 
     <!-- ── Table 13 #1 ── -->
@@ -386,10 +385,17 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
 
     <!-- ── Table 13 #6 ── -->
     <label class="ck">
-      <input type="checkbox" class="enh">
+      <input type="checkbox" class="enh" id="enhHsCRP">
       <div><div style="font-weight:600;color:#1a1a18">hs-CRP ≥ 2.0 mg/L</div>
       <div style="font-size:10px;color:#888780;margin-top:1px">2회 이상 측정에서 확인 시</div></div>
     </label>
+    <div style="display:flex;align-items:center;gap:6px;margin:2px 0 6px 19px">
+      <span style="font-size:10px;color:#5f5e5a;white-space:nowrap">수치 직접 입력:</span>
+      <input type="number" autocomplete="off" id="hscrp" step="0.1" min="0" max="100" placeholder="mg/L"
+        style="width:80px;padding:3px 7px;border:1px solid #d0cec8;border-radius:6px;font-size:12px">
+      <span id="hscrpAutoNote" style="font-size:10px;color:#639922;display:none">→ ≥2.0 자동 체크됨</span>
+      <span style="font-size:10px;color:#888780">mg/L — 입력 시 ≥2.0이면 자동 체크</span>
+    </div>
 
     <!-- ── Table 13 #7 ── -->
     <label class="ck">
@@ -500,15 +506,21 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
       </span>
       <span style="font-size:10px;color:#888780">— 변경 시 즉시 반영됨</span>
     </div>
+    </div><!-- /riskEnhancerBody -->
   </div>
 
   <!-- ══ 위험도 무관 스타틴 절대 적응증 ══ -->
   <div class="card">
-    <div class="sec">위험도 분류 무관 스타틴 적응증 <span style="font-size:9px;font-weight:400;color:#888780;letter-spacing:0;text-transform:none">(PREVENT 점수에 구속되지 않음)</span></div>
+    <div class="sec" onclick="toggleSection('absIndBody','absIndArrow')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none">
+      <span>위험도 분류 무관 스타틴 적응증 <span style="font-size:10px;font-weight:600;color:#639922;letter-spacing:0;text-transform:none;background:#eaf3de;padding:2px 7px;border-radius:5px;margin-left:4px">정밀 맞춤 예방 목적이며, 클릭 시 자세한 내용을 확인할 수 있습니다.</span><span style="font-size:9px;font-weight:400;color:#888780;letter-spacing:0;text-transform:none"> (PREVENT 점수에 구속되지 않음)</span></span>
+      <span id="absIndArrow" style="font-size:12px;color:#888780;transition:transform .2s;display:inline-block">▶</span>
+    </div>
+    <div id="absIndBody" style="display:none">
     <div id="absIndList"></div>
     <div class="nb info" style="margin-top:7px">※ 위 조건은 입력값에서 자동 판정됩니다. 해당 시 PREVENT 위험도와 무관하게 스타틴 치료를 시작합니다.</div>
-    <div class="nb warn" style="margin-top:5px">※ 당뇨의 경우 PREVENT ≥10%이면 고강도, &lt;10%이면 중등강도 스타틴으로 강도가 달라집니다.</div>
-    <div class="nb info" style="margin-top:5px">※ CKD (eGFR 15–59) + 나이 ≥40세는 <b>위험도 무관 스타틴 적응증</b>으로 위 목록에 자동 표시 / &lt;40세는 위험증강인자 섹션에 자동 반영됩니다.</div>
+    <div class="nb info" style="margin-top:5px">※ 당뇨의 경우 PREVENT ≥10%이면 고강도, &lt;10%이면 중등강도 스타틴으로 강도가 달라집니다.</div>
+    <div class="nb info" style="margin-top:5px">※ CKD (eGFR 15–59) + 나이 ≥40세는 위험도 무관 스타틴 적응증으로 위 목록에 자동 표시 / &lt;40세는 위험증강인자 섹션에 자동 반영됩니다.</div>
+    </div><!-- /absIndBody -->
   </div>
 
 </div>
@@ -1439,7 +1451,7 @@ function clearResults(){
   if(g('accRecOut')) g('accRecOut').innerHTML=blank;
   if(g('swFlow')) g('swFlow').innerHTML='';
   if(g('lipidTbl')) g('lipidTbl').innerHTML='';
-  if(g('absIndList')) g('absIndList').innerHTML='';
+  if(g('absIndList')) renderAbsIndsDefault();
 }
 
 function upd(){
@@ -1929,16 +1941,20 @@ function upd(){
   }
   absInds.forEach(ind=>{
     const c=ind.active?'#1a1a18':'#b4b2a9';
-    const bg=ind.active?'#f8f7f5':'#fafaf9';
-    const dot=ind.active?`<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#a32d2d;margin-right:6px;flex-shrink:0"></span>`:`<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#d0cec8;margin-right:6px;flex-shrink:0"></span>`;
-    absHtml+=`<div style="display:flex;align-items:flex-start;gap:0;padding:6px 9px;background:${bg};border-radius:7px;border:1px solid ${ind.active?'#e8b4b4':'#e2e0db'};margin-bottom:5px">
-      <div style="display:flex;align-items:center;margin-top:2px">${dot}</div>
+    const bg=ind.active?'#fff5f5':'#fafaf9';
+    const border=ind.active?'#d88;border:2px solid #d88':'#e2e0db;border:1px solid #e2e0db';
+    const dot=ind.active
+      ?`<span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#a32d2d;margin-right:7px;flex-shrink:0;margin-top:2px;box-shadow:0 0 0 3px #fcebeb"></span>`
+      :`<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#d0cec8;margin-right:7px;flex-shrink:0;margin-top:3px"></span>`;
+    const opacity=ind.active?'1':'0.6';
+    absHtml+=`<div style="display:flex;align-items:flex-start;padding:${ind.active?'9px 11px':'7px 10px'};background:${bg};border-radius:7px;border:${ind.active?'2px solid #e8b4b4':'1px solid #e2e0db'};margin-bottom:5px;opacity:${opacity}${ind.active?';box-shadow:0 1px 6px rgba(163,45,45,0.08)':''}">
+      <div style="display:flex;align-items:flex-start;margin-top:1px">${dot}</div>
       <div style="flex:1">
         <div style="font-size:12px;font-weight:${ind.active?'700':'400'};color:${c}">${ind.label}</div>
-        <div style="font-size:10px;color:${ind.active?'#a32d2d':'#b4b2a9'};margin-top:1px">${ind.detail}</div>
-        ${ind.active?`<div style="font-size:10px;color:#888780;margin-top:2px">${ind.basis}</div>`:''}
+        <div style="font-size:10px;color:${ind.active?'#a32d2d':'#b4b2a9'};margin-top:2px">${ind.detail}</div>
+        ${ind.active?`<div style="font-size:10px;color:#888780;margin-top:3px;line-height:1.5">${ind.basis}</div>`:''}
       </div>
-      ${ind.active?`<div style="flex-shrink:0;padding:2px 7px;background:#fcebeb;border-radius:5px;font-size:10px;font-weight:700;color:#a32d2d;margin-left:6px;white-space:nowrap">${ind.strength}</div>`:''}
+      ${ind.active?`<div style="flex-shrink:0;padding:3px 9px;background:#fcebeb;border-radius:5px;font-size:10px;font-weight:700;color:#a32d2d;margin-left:8px;white-space:nowrap;border:1px solid #e8b4b4">${ind.strength}</div>`:''}
     </div>`;
   });
   if(g('absIndList')) g('absIndList').innerHTML=absHtml;
@@ -2107,8 +2123,56 @@ function upd(){
 }
 
 document.querySelectorAll('input,select').forEach(el=>el.addEventListener('change',upd));
-['tc','hdl','ldl','tg','postTc','postHdl','postLdl','postTg','sbp','egfr','uacr','hba1c','bmi','ht','wt','hscrp','apob','postApob'].forEach(id=>{ if(g(id)) g(id).addEventListener('input',upd); });
+['tc','hdl','ldl','tg','postTc','postHdl','postLdl','postTg','sbp','egfr','uacr','hba1c','bmi','ht','wt','apob','postApob'].forEach(id=>{ if(g(id)) g(id).addEventListener('input',upd); });
 g('age').addEventListener('input',upd);
+function renderAbsIndsDefault(){
+  const items=[
+    {label:'ASCVD 기왕력 (2차 예방)',         sub:'심근경색 · 뇌졸중 · TIA · ACS · 관상동맥 재개통술 · 말초동맥질환 등'},
+    {label:'LDL-C ≥ 190 mg/dL (중증 고콜레스테롤혈증 / FH 의심)', sub:'누적 LDL 노출 과다, 가족성 고콜레스테롤혈증 감별 필요'},
+    {label:'CAC 100–299 / 300–999 / ≥1000 — 스타틴 충분조건', sub:'2026 ACC/AHA: PREVENT 위험도 무관 스타틴 시작의 충분조건'},
+    {label:'CKD (eGFR 15–59) + 나이 ≥ 40세', sub:'전통적 위험방정식이 CKD에서 위험을 과소평가; 투석 환자는 별도 판단'},
+    {label:'당뇨병 (30–79세)',                 sub:'당뇨 단독으로도 최소 중등강도 스타틴; PREVENT 점수에 관계없이 치료 시작'},
+  ];
+  let html='';
+  items.forEach(item=>{
+    html+=`<div style="display:flex;align-items:flex-start;padding:7px 10px;background:#fafaf9;border-radius:7px;border:1px solid #e2e0db;margin-bottom:5px;opacity:0.7">
+      <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#d0cec8;margin-right:7px;flex-shrink:0;margin-top:3px"></span>
+      <div style="flex:1">
+        <div style="font-size:12px;font-weight:400;color:#b4b2a9">${item.label}</div>
+        <div style="font-size:10px;color:#c8c6c0;margin-top:2px">${item.sub}</div>
+      </div>
+    </div>`;
+  });
+  if(g('absIndList')) g('absIndList').innerHTML=html;
+}
+function toggleSection(bodyId, arrowId){
+  const body = g(bodyId);
+  const arrow = g(arrowId);
+  if(!body) return;
+  const open = body.style.display !== 'none';
+  body.style.display = open ? 'none' : 'block';
+  if(arrow) arrow.textContent = open ? '▶' : '▼';
+}
+// hs-CRP 수치 입력 시 자동 체크
+if(g('hscrp')){
+  g('hscrp').addEventListener('input', function(){
+    const val = parseFloat(this.value);
+    const cb = g('enhHsCRP');
+    const note = g('hscrpAutoNote');
+    if(!isNaN(val)){
+      if(val >= 2.0){
+        if(cb) cb.checked = true;
+        if(note) note.style.display = 'inline';
+      } else {
+        if(cb) cb.checked = false;
+        if(note) note.style.display = 'none';
+      }
+    } else {
+      if(note) note.style.display = 'none';
+    }
+    upd();
+  });
+}
 // ascvdHx 체크 시 vhrRow 즉시 표시 (upd() 조기 return과 무관하게)
 g('ascvdHx').addEventListener('change',function(){
   if(g('vhrRow')) g('vhrRow').style.display=this.checked?'flex':'none';
