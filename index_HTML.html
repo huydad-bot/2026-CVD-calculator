@@ -1,0 +1,2226 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-8RM1HWKB9B"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-8RM1HWKB9B');
+</script>
+<title>ACC/AHA PREVENT CVD 위험도 & 지질치료 결정 도구 v4</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif;font-size:13px;background:#f4f3f0;color:#1a1a18;line-height:1.5}
+.wrap{max-width:1080px;margin:0 auto;padding:18px 14px}
+.ph{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;gap:10px}
+.pt{font-size:18px;font-weight:700;color:#1a1a18}
+.ps{font-size:11px;color:#73726c;margin-top:3px;line-height:1.6}
+.mgrid{display:grid;grid-template-columns:330px 1fr;gap:14px;align-items:start}
+@media(max-width:760px){.mgrid{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid #e2e0db;border-radius:11px;padding:11px 14px;margin-bottom:11px}
+.card:last-child{margin-bottom:0}
+.sec{font-size:13px;font-weight:700;color:#555350;letter-spacing:.04em;text-transform:uppercase;border-bottom:1px solid #e2e0db;padding-bottom:6px;margin-bottom:9px}
+.fl{display:block;font-size:11px;color:#5f5e5a;margin-bottom:2px}
+.field{margin-bottom:7px}
+input[type=number],select{width:100%;padding:5px 8px;border:1px solid #d0cec8;border-radius:6px;font-size:12px;background:#fff;color:#1a1a18;outline:none;font-family:inherit}
+input[type=number]:focus,select:focus{border-color:#888;box-shadow:0 0 0 2px rgba(0,0,0,.06)}
+input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.rg{display:flex;gap:5px}
+.rg label{flex:1;cursor:pointer}
+.rg label span{display:block;text-align:center;padding:4px;border:1px solid #d0cec8;border-radius:6px;font-size:12px;color:#5f5e5a;user-select:none;transition:all .12s}
+.rg input[type=radio]{display:none}
+.rg input:checked+span{background:#1a1a18;color:#fff;border-color:#1a1a18}
+.ck{display:flex;align-items:flex-start;gap:6px;padding:2px 0;font-size:12px;cursor:pointer;color:#5f5e5a}
+.ck input[type=checkbox]{width:13px;height:13px;flex-shrink:0;margin-top:1px;accent-color:#1a1a18;cursor:pointer}
+.divider{height:1px;background:#e2e0db;margin:7px 0}
+
+/* Risk cards */
+.rcmp{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px}
+.rcell{padding:9px 6px;background:#f8f7f5;border-radius:8px;border:1px solid #e2e0db;text-align:center}
+.rcell.hl{border-color:#1a1a18;background:#f0efe9}
+.rlabel{font-size:9px;font-weight:700;color:#888780;margin-bottom:2px;line-height:1.3}
+.rnum{font-size:26px;font-weight:700;line-height:1}
+.rsub{font-size:9px;color:#888780;margin-top:3px;line-height:1.4}
+.bw{height:5px;background:#e2e0db;border-radius:3px;overflow:hidden;margin:5px 0}
+.bar{height:100%;border-radius:3px;transition:width .4s,background .4s;width:0}
+.badge{display:inline-block;padding:2px 9px;border-radius:6px;font-size:11px;font-weight:600}
+
+/* Tables */
+.lt{width:100%;font-size:12px;border-collapse:collapse}
+.lt th{text-align:left;font-size:10px;font-weight:700;color:#888780;padding:4px 6px;border-bottom:1px solid #e2e0db;text-transform:uppercase;letter-spacing:.04em}
+.lt td{padding:5px 6px;border-bottom:1px solid #f1efe8;color:#1a1a18}
+.lt tr:last-child td{border-bottom:none}
+.met{color:#3b6d11;font-weight:600}
+.unmet{color:#a32d2d;font-weight:600}
+
+/* Rec boxes */
+.rb{padding:9px 12px;border-radius:8px;border-left:3px solid #d0cec8;background:#f8f7f5;margin-bottom:7px}
+.rb.hi{border-left-color:#e24b4a}
+.rb.mo{border-left-color:#ef9f27}
+.rb.lo{border-left-color:#639922}
+.rb.no{border-left-color:#d0cec8}
+.rsrc{font-size:10px;font-weight:700;color:#888780;margin-bottom:2px}
+.ri{font-size:14px;font-weight:700;color:#1a1a18}
+.rind{font-size:10px;color:#888780;margin-top:1px}
+.rdrugs{margin-top:6px;font-size:12px;color:#5f5e5a}
+.rdrugs li{list-style:none;padding:1.5px 0}
+.rdrugs li::before{content:"▸ ";color:#b4b2a9;font-size:10px}
+.nb{padding:6px 9px;border-radius:7px;font-size:11px;line-height:1.55;margin-top:6px}
+.nb.info{background:#e6f1fb;color:#185fa5}
+.nb.warn{background:#faeeda;color:#854f0b}
+.nb.dng{background:#fcebeb;color:#a32d2d}
+.nb.suc{background:#eaf3de;color:#3b6d11}
+
+/* Stepwise vertical flow */
+.sw{margin:0}
+.sw-row{display:flex;gap:10px;align-items:stretch;margin-bottom:0}
+.sw-left{display:flex;flex-direction:column;align-items:center;width:26px;flex-shrink:0}
+.sw-dot{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.sw-line{flex:1;width:2px;background:#e2e0db;margin:3px 0}
+.sw-box{flex:1;border:1px solid #e2e0db;border-radius:8px;padding:9px 11px;margin-bottom:10px;background:#fff}
+.sw-box.active{border-color:#1a1a18;background:#f8f7f5}
+.sw-box.dim{opacity:.4;background:#f8f7f5}
+.sw-step{font-size:10px;font-weight:700;color:#888780;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+.sw-name{font-size:13px;font-weight:700;color:#1a1a18}
+.sw-drugs{font-size:11px;color:#5f5e5a;margin-top:3px;line-height:1.6}
+.sw-result{font-size:11px;font-weight:600;margin-top:5px}
+.sw-miss{font-size:10px;color:#888780;margin:2px 0 4px 0;padding-left:3px}
+
+/* Risk category badge */
+.kbadge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:700}
+
+/* Print */
+.pbtn{display:flex;align-items:center;gap:6px;padding:7px 14px;background:#1a1a18;color:#fff;border:none;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;flex-shrink:0}
+.pbtn:hover{background:#2d2d2a}
+.print-only{display:none}
+.print-header{margin-bottom:12px}
+
+@media print{
+  body{background:#fff;font-size:12px}
+  .wrap{max-width:100%;padding:8px}
+  .no-print{display:none!important}
+  .print-only{display:block!important}
+  .mgrid{grid-template-columns:1fr!important}
+  .card{break-inside:avoid;border:1px solid #ccc!important}
+  .rcmp{grid-template-columns:1fr 1fr 1fr}
+  #refBody{display:block!important}
+  #refToggle .refArrow{display:none!important}
+  @page{margin:1.5cm}
+}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HEADER -->
+<div class="ph" style="align-items:flex-start">
+  <div>
+    <div class="pt">ACC/AHA PREVENT CVD 위험도 &amp; 지질치료 결정 도구 <span style="font-size:12px;font-weight:400;color:#888780">v8.0</span></div>
+    <div class="ps">
+      AHA PREVENT 2023 — 10년/30년 Total CVD · ASCVD · Heart Failure risk<br>
+      2026 ACC/AHA/Multisociety Dyslipidemia Guideline · 2022 ACC Expert Consensus Pathway<br>
+      <span style="color:#1a1a18;font-weight:600">제작 : 경북대학교병원 내분비대사내과 김정국</span>
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:5px;align-items:flex-end;flex-shrink:0" class="no-print">
+    <button class="pbtn" onclick="window.print()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      인쇄 / PDF 저장
+    </button>
+    <button class="pbtn" type="button" onclick="copyResultSummary()" style="font-size:11px;padding:5px 11px;width:100%">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      결과요약 복사
+    </button>
+    <button class="pbtn" type="button" onclick="exportInputDataToExcel()" style="background:#185fa5;font-size:11px;padding:5px 11px;width:100%">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      엑셀 추출
+    </button>
+    <div id="copyStatusTop" class="nb info" style="display:none;font-size:11px;margin:0;text-align:right"></div>
+    <div id="excelStatusTop" class="nb info" style="display:none;font-size:11px;margin:0;text-align:right"></div>
+  </div>
+</div>
+
+<!-- PRINT SUMMARY (shows only when printing) -->
+<div class="print-only" id="psum"></div>
+
+<!-- CPR BANNER -->
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px">
+  <div style="background:#fff;border:1px solid #e2e0db;border-top:3px solid #185fa5;border-radius:8px;padding:10px 13px">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+      <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#185fa5;color:#fff;font-size:15px;font-weight:800;flex-shrink:0">C</span>
+      <span style="font-size:11px;font-weight:700;color:#185fa5;line-height:1.3">Cumulative LDL Burden<br><span style="color:#5f5e5a;font-weight:400">누적 LDL 부담</span></span>
+    </div>
+    <div style="font-size:10px;color:#5f5e5a;line-height:1.6">"얼마나 높은가"보다 <b style="color:#1a1a18">얼마나 오래 노출됐는가</b>가 더 중요. 더 일찍, 더 낮게, 더 오래 치료.</div>
+  </div>
+  <div style="background:#fff;border:1px solid #e2e0db;border-top:3px solid #639922;border-radius:8px;padding:10px 13px">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+      <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#639922;color:#fff;font-size:15px;font-weight:800;flex-shrink:0">P</span>
+      <span style="font-size:11px;font-weight:700;color:#639922;line-height:1.3">Precision Prevention<br><span style="color:#5f5e5a;font-weight:400">정밀 맞춤 예방</span></span>
+    </div>
+    <div style="font-size:10px;color:#5f5e5a;line-height:1.6">PREVENT 위험도 + 위험증가 인자 + CAC + ApoB + CKM 병기를 <b style="color:#1a1a18">개인별 조합</b>으로 결정.</div>
+  </div>
+  <div style="background:#fff;border:1px solid #e2e0db;border-top:3px solid #a32d2d;border-radius:8px;padding:10px 13px">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+      <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#a32d2d;color:#fff;font-size:15px;font-weight:800;flex-shrink:0">R</span>
+      <span style="font-size:11px;font-weight:700;color:#a32d2d;line-height:1.3">Residual Risk beyond LDL<br><span style="color:#5f5e5a;font-weight:400">LDL 너머의 잔여 위험</span></span>
+    </div>
+    <div style="font-size:10px;color:#5f5e5a;line-height:1.6">스타틴으로 LDL 조절 후에도 <b style="color:#1a1a18">ApoB · Lp(a) · non-HDL · TG</b>로 잔여 위험을 포착하고 추가 치료.</div>
+  </div>
+</div>
+<div style="font-size:9px;color:#b4b2a9;margin-top:-10px;margin-bottom:12px;text-align:right">2026 ACC/AHA Dyslipidemia Guideline 핵심 철학 — CPR Framework</div>
+
+<div class="mgrid">
+
+<!-- ══════ LEFT: INPUT PANEL ══════ -->
+<div class="no-print">
+  <div class="card" style="border-top:3px solid #185fa5">
+    <div class="sec">기본 정보 &amp; 검사 입력
+      <span style="font-size:9px;font-weight:600;color:#a32d2d;background:#fcebeb;border:1px solid #e8b4b4;border-radius:4px;padding:2px 7px;margin-left:8px;letter-spacing:0;text-transform:none">입력 필수</span>
+    </div>
+
+    <!-- 나이·성별·병력 -->
+    <div style="display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;margin-bottom:6px">
+      <div class="field" style="flex:0 0 auto;min-width:140px">
+        <span class="fl"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 나이 (세)</span>
+        <div style="display:flex;align-items:center;gap:6px">
+          <input type="number" id="age" min="20" max="90" value="" autocomplete="off"
+            style="width:68px;padding:5px 8px;border:1px solid #d0cec8;border-radius:7px;font-size:16px;font-weight:700;color:#1a1a18;text-align:center">
+          <span style="font-size:10px;color:#185fa5;font-weight:600">30–79세: PREVENT 검증 범위</span>
+        </div>
+        <div id="ageOutOfRange" style="display:none;margin-top:4px;padding:5px 9px;border-radius:6px;font-size:11px;line-height:1.55"></div>
+      </div>
+      <div class="field" style="flex:0 0 auto">
+        <span class="fl"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 성별</span>
+        <div class="rg"><label><input type="radio" name="sex" value="F"><span>여성</span></label><label><input type="radio" name="sex" value="M"><span>남성</span></label></div>
+      </div>
+      
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- 치료 전 지질 -->
+    <div style="font-size:10px;font-weight:700;color:#5f5e5a;letter-spacing:.04em;text-transform:uppercase;margin-bottom:4px">치료 전 지질 검사 — baseline (mg/dL)</div>
+    <div class="row2" style="margin-bottom:4px">
+      <div class="field"><span class="fl"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 총 콜레스테롤 (TC)</span><input type="number" autocomplete="off" id="tc" min="100" max="450" placeholder="mg/dL"></div>
+      <div class="field"><span class="fl"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> HDL-C</span><input type="number" autocomplete="off" id="hdl" min="15" max="120" placeholder="mg/dL"></div>
+      <div class="field"><span class="fl"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> LDL-C</span><input type="number" autocomplete="off" id="ldl" min="30" max="400" placeholder="mg/dL"></div>
+      <div class="field"><span class="fl"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 중성지방 (TG)</span><input type="number" autocomplete="off" id="tg" min="0" max="2000" placeholder="mg/dL"></div>
+    </div>
+    <div class="nb info" style="margin-bottom:6px">※ 치료 전 값은 baseline risk category와 치료 적응증 판단에 사용합니다.</div>
+    <label class="ck" style="margin-bottom:6px;padding:5px 9px;background:#f0efe9;border:1px solid #d0cec8;border-radius:7px;display:inline-flex"><input type="checkbox" id="onStatin"> <b>현재 스타틴 복용 중</b></label>
+    <div id="postLipidBox" style="display:none;margin-bottom:6px;padding:9px 11px;background:#f8f7f5;border:1px solid #e2e0db;border-radius:8px">
+      <div style="font-size:10px;font-weight:700;color:#888780;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px">스타틴 치료 후 / 현재 지질 검사</div>
+      <div id="statinBaselineHint" class="nb info" style="display:none;margin-bottom:7px">
+        ℹ 투약후 검사 결과를 입력하면 <b>on-treatment 위험도</b>가 우측 결과 패널에 계산됩니다.
+      </div>
+      <div class="row2">
+        <div class="field"><span class="fl">치료 후 TC</span><input type="number" autocomplete="off" id="postTc" min="60" max="450" placeholder="선택"></div>
+        <div class="field"><span class="fl">치료 후 HDL-C</span><input type="number" autocomplete="off" id="postHdl" min="15" max="120" placeholder="선택"></div>
+        <div class="field"><span class="fl">치료 후 LDL-C</span><input type="number" autocomplete="off" id="postLdl" min="0" max="400" placeholder="현재 LDL"></div>
+        <div class="field"><span class="fl">치료 후 TG</span><input type="number" autocomplete="off" id="postTg" min="0" max="2000" placeholder="현재 TG"></div>
+        <div class="field"><span class="fl">치료 후 ApoB (mg/dL)</span><input type="number" autocomplete="off" id="postApob" min="20" max="300" placeholder="미입력 시 추정값 사용"></div>
+      </div>
+      <div class="nb warn" style="margin-top:5px">치료 후 값은 현재 조절 상태와 on-treatment risk 표시용입니다. 치료 적응증/기저 위험군은 치료 전 baseline 값으로 유지됩니다.</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- 혈압 및 임상 인자 -->
+    <div style="font-size:10px;font-weight:700;color:#5f5e5a;letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px">혈압 및 신장, 당뇨병, ASCVD 기왕력</div>
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:6px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:5px">
+        <span style="font-size:11px;color:#5f5e5a;white-space:nowrap"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 수축기 혈압</span>
+        <input type="number" autocomplete="off" id="sbp" min="80" max="220" placeholder="mmHg" style="width:68px;padding:4px 6px;border:1px solid #d0cec8;border-radius:6px;font-size:12px">
+        <span style="font-size:11px;color:#888780">mmHg</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:5px">
+        <span style="font-size:11px;color:#5f5e5a;white-space:nowrap"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> eGFR</span>
+        <input type="number" autocomplete="off" id="egfr" min="5" max="130" placeholder="수치" style="width:62px;padding:4px 6px;border:1px solid #d0cec8;border-radius:6px;font-size:12px">
+        <span style="font-size:11px;color:#888780">mL/min/1.73m²</span>
+        <span style="font-size:10px;color:#b4b2a9;white-space:nowrap">※ 미입력 시 90으로 자동계산</span>
+      </div>
+    </div>
+    <div style="display:flex;gap:14px;flex-wrap:wrap">
+      <label class="ck"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 항고혈압제 <input type="checkbox" id="bpTx"></label>
+      <label class="ck"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 흡연 <input type="checkbox" id="smoker"></label>
+      <label class="ck"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 당뇨병 <input type="checkbox" id="dm"></label>
+    </div>
+    <div style="margin-top:6px">
+      <label class="ck"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> ASCVD 기왕력 (2차 예방) <input type="checkbox" id="ascvdHx"></label>
+      <label class="ck" id="vhrRow" style="display:none;padding-left:14px"><input type="checkbox" id="veryHigh"><span style="font-size:11px">초고위험: 복수 주요 사건 또는 1사건+다수 고위험 조건</span></label>
+      <div id="vhrDesc" style="display:none;margin-top:6px;margin-left:6px;padding:10px 12px;background:#fcebeb;border-radius:8px;border-left:3px solid #a32d2d">
+        <div style="font-size:11px;font-weight:700;color:#a32d2d;margin-bottom:6px">▲ 초고위험 ASCVD (Very High Risk) — LDL-C 목표 &lt;55 mg/dL</div>
+        <div style="font-size:11px;color:#1a1a18;line-height:1.75">
+          <b style="color:#a32d2d">해당 조건 (다음 중 하나):</b><br>
+          ① 복수의 주요 ASCVD 사건<br>
+          <span style="color:#5f5e5a;padding-left:10px;display:block">MI, 허혈성 뇌졸중, PAD 등 2개 이상 발생</span>
+          ② 단일 ASCVD 사건 + 고위험 조건 2개 이상<br>
+          <span style="color:#5f5e5a;padding-left:10px;display:block">당뇨병 · 고혈압 · CKD(eGFR&lt;60) · 흡연 지속 · LDL≥70(최대 스타틴 중) · 심부전</span>
+        </div>
+        <div style="margin-top:8px;padding-top:7px;border-top:1px solid #e8b4b4">
+          <div style="font-size:11px;font-weight:700;color:#a32d2d;margin-bottom:4px">권고 치료 전략</div>
+          <div style="font-size:11px;color:#1a1a18;line-height:1.75">
+            ▸ <b>고강도 스타틴</b> (rosuvastatin 20–40 mg 또는 atorvastatin 40–80 mg)<br>
+            ▸ LDL-C 목표 <b>&lt;55 mg/dL</b>, 가능하면 <b>&lt;40 mg/dL</b> 지향<br>
+            ▸ 최대 내약 스타틴에도 LDL 미달성 시 → <b>Ezetimibe 추가</b><br>
+            ▸ 그래도 미달성 시 → <b>PCSK9 억제제</b> (evolocumab / alirocumab) 병용<br>
+            ▸ Lp(a) ≥50 mg/dL 동반 시 → PCSK9 억제제 우선 고려<br>
+            ▸ TG ≥175 mg/dL 잔여 위험 → Icosapent ethyl (EPA) 고려
+          </div>
+        </div>
+        <div style="margin-top:6px;font-size:10px;color:#a32d2d;line-height:1.6">
+          ※ 2026 ACC/AHA Dyslipidemia Guideline — Class I, LOE A<br>
+          ※ 2차 예방에서 LDL &lt;55 달성 시 추가 사건 위험 ~20% 추가 감소 (CTT meta-analysis)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="border-top:3px solid #185fa5">
+    <div class="sec">PREVENT 2023 추가 입력 (선택)</div>
+    <div class="row2">
+      <div class="field"><span class="fl">UACR (mg/g) — 선택</span><input type="number" id="uacr" value="" min="0" max="15000" placeholder="미입력 시 제외"></div>
+    </div>
+    <div class="row2">
+      <div class="field"><span class="fl">HbA1c (%) — 당뇨 시</span><input type="number" autocomplete="off" id="hba1c" step="0.1" min="5" max="16" placeholder="선택"></div>
+      <div class="field">
+        <span class="fl">신장 / 체중 → BMI 자동 계산</span>
+        <div style="display:flex;align-items:center;gap:5px">
+          <input type="number" autocomplete="off" id="ht" step="1" min="100" max="220" placeholder="신장 cm" style="width:50%">
+          <input type="number" autocomplete="off" id="wt" step="0.1" min="20" max="200" placeholder="체중 kg" style="width:50%">
+        </div>
+        <div style="display:flex;align-items:center;gap:7px;margin-top:5px">
+          <span class="fl" style="margin-bottom:0;white-space:nowrap">BMI (kg/m²)</span>
+          <input type="number" autocomplete="off" id="bmi" step="0.1" min="14" max="65" placeholder="직접 입력 가능" style="flex:1">
+          <span id="bmiOut" style="font-size:12px;font-weight:700;color:#1a1a18;min-width:52px;text-align:right"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row2" style="margin-top:6px">
+      <div class="field">
+        <span class="fl">hs-CRP (mg/L) — 선택</span>
+        <input type="number" autocomplete="off" id="hscrp" step="0.1" min="0" max="100" placeholder="미입력 시 제외">
+      </div>
+      <div class="field">
+        <span class="fl">ApoB — 직접 측정값 (mg/dL)</span>
+        <input type="number" autocomplete="off" id="apob" step="1" min="20" max="300" placeholder="미입력 시 추정값 사용">
+      </div>
+    </div>
+    <div id="apobIndBox" style="display:none;margin-top:5px;padding:7px 10px;background:#e6f1fb;border-radius:7px;border-left:3px solid #185fa5">
+      <div style="font-size:10px;font-weight:700;color:#185fa5;margin-bottom:2px">▸ 2026 ACC/AHA — ApoB 직접 측정 권장 조건 해당</div>
+      <div id="apobIndText" style="font-size:11px;color:#185fa5;line-height:1.6"></div>
+    </div>
+  </div>
+
+  <div class="card" style="border-top:3px solid #639922">
+    <div class="sec">위험 증가 인자 (Risk Enhancers)</div>
+    <div style="font-size:10px;color:#888780;margin-bottom:6px;line-height:1.4">※ 해당 항목 체크 시 결과에 즉시 반영</div>
+
+    <!-- ── Table 13 #1 ── -->
+    <label class="ck">
+      <input type="checkbox" class="enh">
+      <div><div style="font-weight:600;color:#1a1a18">조기 ASCVD 가족력</div>
+      <div style="font-size:10px;color:#888780;margin-top:1px">남 &lt;55세, 여 &lt;65세 발병</div></div>
+    </label>
+
+    <!-- ── Table 13 #2 ── -->
+    <label class="ck">
+      <input type="checkbox" class="enh">
+      <div><div style="font-weight:600;color:#1a1a18">고위험 조상 (Higher risk ancestry)</div>
+      <div style="font-size:10px;color:#888780;margin-top:1px">남아시아계·필리핀계 등 죽상경화 고위험 민족</div></div>
+    </label>
+
+    <!-- ── Table 13 #3 ── -->
+    <label class="ck" style="margin-bottom:2px">
+      <input type="checkbox" class="enh" id="prsCheck">
+      <div><div style="font-weight:600;color:#1a1a18">고위험 다유전자 위험 점수 (CAD PRS)</div>
+      <div style="font-size:10px;color:#888780;margin-top:1px">유전자 검사 시행 시 · Class 2a</div></div>
+    </label>
+    <div id="prsPanel" style="display:none;margin:2px 0 6px 19px;padding:9px 11px;background:#eaf2fb;border-radius:7px;border-left:3px solid #185fa5;font-size:11px;line-height:1.7">
+      <div style="font-weight:700;color:#185fa5;margin-bottom:6px">📊 CAD Polygenic Risk Score 결과 입력</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:5px">
+        <span style="color:#1a1a18">위험 등급:</span>
+        <label style="display:inline-flex;align-items:center;gap:4px;cursor:pointer">
+          <input type="radio" name="prsGrade" value="high" id="prsHigh"> <span style="color:#a32d2d;font-weight:700">고위험 (상위 10% 이내 또는 ≥2배 상대위험도)</span>
+        </label>
+        <label style="display:inline-flex;align-items:center;gap:4px;cursor:pointer">
+          <input type="radio" name="prsGrade" value="inter" id="prsInter"> <span style="color:#854f0b">중간</span>
+        </label>
+        <label style="display:inline-flex;align-items:center;gap:4px;cursor:pointer">
+          <input type="radio" name="prsGrade" value="low" id="prsLow"> <span style="color:#3b6d11">저위험</span>
+        </label>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:5px">
+        <span style="color:#5f5e5a">백분위 (선택):</span>
+        <input type="number" id="prsPercentile" min="1" max="100" step="1" placeholder="예) 5"
+          style="width:60px;padding:2px 6px;border:1px solid #c0ccd8;border-radius:5px;font-size:11px">
+        <span style="color:#5f5e5a">번째 상위 백분위</span>
+      </div>
+      <div id="prsNote" style="font-size:10px;color:#185fa5;line-height:1.5"></div>
+      <div style="font-size:10px;color:#888780;margin-top:4px;line-height:1.5">
+        ※ 2026 ACC/AHA: <b>고위험 CAD PRS = 다른 risk enhancer와 동등한 위험</b><br>
+        ※ 고위험(≥2배 RR) 확인 시에만 위험증강인자로 반영 · 중간/저위험은 참고용<br>
+        ※ 검사 미시행 시 체크 해제
+      </div>
+    </div>
+
+    <!-- ── Table 13 #4 + #8 ── -->
+    <label class="ck">
+      <input type="checkbox" class="enh">
+      <div><div style="font-weight:600;color:#1a1a18">심혈관-신장-대사 (CKM) 증후군 / 만성 염증성 질환</div>
+      <div style="font-size:10px;color:#888780;margin-top:1px">RA · 루푸스 · 건선 · HIV · 만성 간염 등</div></div>
+    </label>
+
+    <!-- ── Table 13 #5 ── -->
+    <label class="ck">
+      <input type="checkbox" class="enh">
+      <div><div style="font-weight:600;color:#1a1a18">Lp(a) ≥ 50 mg/dL (≥125 nmol/L)</div></div>
+    </label>
+
+    <!-- ── Table 13 #6 ── -->
+    <label class="ck">
+      <input type="checkbox" class="enh">
+      <div><div style="font-weight:600;color:#1a1a18">hs-CRP ≥ 2.0 mg/L</div>
+      <div style="font-size:10px;color:#888780;margin-top:1px">2회 이상 측정에서 확인 시</div></div>
+    </label>
+
+    <!-- ── Table 13 #7 ── -->
+    <label class="ck">
+      <input type="checkbox" class="enh" id="enhTg175">
+      <div><div style="font-weight:600;color:#1a1a18">중성지방 ≥ 175 mg/dL</div>
+      <div style="font-size:10px;color:#888780;margin-top:1px">비공복 기준 / 공복 시 ≥150 mg/dL</div></div>
+    </label>
+
+    <!-- ── Table 13 #9 ── -->
+    <label class="ck">
+      <input type="checkbox" class="enh" id="enhLdl160">
+      <div><div style="font-weight:600;color:#1a1a18">LDL-C ≥160–189 mg/dL</div>
+      <div style="font-size:10px;color:#888780;margin-top:1px">또는 non-HDL ≥190 mg/dL / ApoB ≥120 mg/dL</div></div>
+    </label>
+
+    <!-- ── Table 13 #10 ── -->
+    <label class="ck">
+      <input type="checkbox" class="enh">
+      <div><div style="font-weight:600;color:#1a1a18">생식 위험인자 (Reproductive risk markers)</div>
+      <div style="font-size:10px;color:#888780;margin-top:1px">조기 폐경 &lt;45세 · 자간전증 · 임신성 당뇨/고혈압 · 조산</div></div>
+    </label>
+
+    <!-- ─────────────────────────────────────────────────────────── -->
+    <!-- Table 13 이외 — Subclinical ASCVD 지표 (하단 배치 유지)   -->
+    <!-- ─────────────────────────────────────────────────────────── -->
+    <div style="font-size:10px;font-weight:700;color:#888780;letter-spacing:.04em;margin:8px 0 4px;padding-top:6px;border-top:1px dashed #d0cec8">
+      ─ Subclinical ASCVD 지표 (Table 13 외 · CAC/ABI/경동맥) ─
+    </div>
+
+    <!-- CKD 40세 미만: 위험증강인자 자동 반영 -->
+    <div id="ckdEnhDisplay" style="display:none;align-items:flex-start;gap:6px;padding:3px 0 2px;font-size:12px;color:#1a1a18">
+      <span style="display:inline-flex;align-items:center;justify-content:center;width:13px;height:13px;flex-shrink:0;margin-top:1px;background:#e24b4a;border-radius:3px">
+        <svg width="9" height="9" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span>CKD (eGFR 15–59) <span style="color:#888780;font-size:10px">— 40세 미만: 위험증강인자 자동 반영 (eGFR 입력값 기준)</span></span>
+    </div>
+
+    <!-- ABI -->
+    <label class="ck">
+      <input type="checkbox" class="enh" id="abiCheck">
+      <div><div style="font-weight:600;color:#1a1a18">ABI &lt; 0.9 (말초동맥질환)</div>
+      <div style="font-size:10px;color:#888780;margin-top:1px">무증상: 위험증강인자 / 증상·시술력: ASCVD 기왕력으로 전환</div></div>
+    </label>
+    <div id="abiDesc" style="display:none;margin:2px 0 5px 19px;padding:8px 10px;background:#faeeda;border-radius:7px;border-left:3px solid #ef9f27;font-size:11px;line-height:1.7;color:#1a1a18">
+      <div style="font-weight:700;color:#854f0b;margin-bottom:4px">⚠ ABI &lt; 0.9 — ASCVD 해당 여부 확인 필요</div>
+      <div style="margin-bottom:5px">
+        <span style="font-weight:700;color:#a32d2d">▶ ASCVD 기왕력 (2차 예방)으로 전환</span><br>
+        아래 중 하나라도 해당되면 좌측 <b>ASCVD 기왕력</b> 체크로 변경하십시오:<br>
+        <span style="color:#5f5e5a;padding-left:8px;display:block">· 간헐적 파행(claudication) 등 <b>증상 동반</b><br>
+        · 하지 혈관 <b>재개통술</b> 시행력 (PTA / stent / bypass)<br>
+        · 허혈성 궤양 · 안정 시 통증 · 하지 절단력<br>
+        · ABI &lt; 0.40 (중증 허혈 — 증상 무관 2차 예방 준용)</span>
+      </div>
+      <div>
+        <span style="font-weight:700;color:#639922">▶ 위험증강인자 유지</span><br>
+        <span style="color:#5f5e5a;padding-left:8px;display:block">증상 없이 검사에서 우연히 발견된 <b>무증상 ABI 저하</b><br>
+        → subclinical ASCVD 증거로 스타틴 시작 보조 (LDL 목표 &lt;100 mg/dL)</span>
+      </div>
+      <div style="margin-top:5px;font-size:10px;color:#888780">※ ABI &gt; 1.40은 혈관 석회화(당뇨·CKD)로 비압박성 — 신뢰 불가, toe-brachial index 시행 권장</div>
+    </div>
+
+    <!-- 경동맥 plaque -->
+    <label class="ck">
+      <input type="checkbox" class="enh" id="carotidPlaque">
+      <div><div style="font-weight:600;color:#1a1a18">경동맥 초음파 plaque ≥ 1.5 mm</div>
+      <div style="font-size:10px;color:#888780;margin-top:1px">ESC/EAS 2025 Class IIa · CAC 불가 시 subclinical ASCVD 대안 증거</div></div>
+    </label>
+    <div id="carotidDesc" style="display:none;font-size:10px;color:#888780;padding:1px 0 4px 19px;line-height:1.5">ESC/EAS 2025 Class IIa 위험수정인자 · ACC/AHA: CAC 불가 시 subclinical ASCVD 대안 증거 — LDL 목표 &lt;100 mg/dL</div>
+
+    <!-- CAC -->
+    <label class="ck" style="margin-top:3px">
+      <input type="checkbox" id="cacMain">
+      <span>관상동맥 석회화 (CAC) 점수 입력</span>
+    </label>
+    <div id="cacPanel" style="display:none;margin-top:5px;padding:8px 10px;background:#f8f7f5;border:1px solid #e2e0db;border-radius:8px">
+      <div style="font-size:10px;font-weight:700;color:#888780;letter-spacing:.05em;margin-bottom:7px">CAC 등급 선택 — 택 1</div>
+      <input type="checkbox" class="enh" id="cac1to99" style="display:none">
+      <input type="checkbox" class="enh" id="cacCheck" style="display:none">
+      <input type="checkbox" class="enh" id="cac300"   style="display:none">
+      <input type="checkbox" class="enh" id="cac1000"  style="display:none">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px">
+        <div class="cac-opt" data-cac="cac1to99"
+          style="padding:7px 9px;border:1px solid #d0cec8;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s">
+          <div style="font-size:12px;font-weight:700;color:#1a1a18">CAC 1–99</div>
+          <div style="font-size:10px;color:#888780;margin-top:2px;line-height:1.45">위험증강인자<br>LDL 목표 &lt;100</div>
+        </div>
+        <div class="cac-opt" data-cac="cacCheck"
+          style="padding:7px 9px;border:1px solid #d0cec8;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s">
+          <div style="font-size:12px;font-weight:700;color:#1a1a18">CAC 100–299</div>
+          <div style="font-size:10px;color:#888780;margin-top:2px;line-height:1.45">또는 ≥75 백분위<br>스타틴 충분조건 · LDL &lt;70</div>
+        </div>
+        <div class="cac-opt" data-cac="cac300"
+          style="padding:7px 9px;border:1px solid #d0cec8;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s">
+          <div style="font-size:12px;font-weight:700;color:#1a1a18">CAC 300–999</div>
+          <div style="font-size:10px;color:#888780;margin-top:2px;line-height:1.45">고강도 스타틴<br>LDL &lt;70 · 선택적 &lt;55</div>
+        </div>
+        <div class="cac-opt" data-cac="cac1000"
+          style="padding:7px 9px;border:1px solid #d0cec8;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s">
+          <div style="font-size:12px;font-weight:700;color:#1a1a18">CAC ≥1000</div>
+          <div style="font-size:10px;color:#888780;margin-top:2px;line-height:1.45">초고위험 수준<br>LDL 목표 &lt;55 · 최대강도</div>
+        </div>
+      </div>
+    </div>
+    <div class="nb suc" style="margin-top:5px">※ CAC 1–99는 위험증강인자로 분류 (절대 적응증 아님) — 경계·중간위험에서 스타틴 시작을 지지하나, CAC=0이면 10년 유예 합리적.</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-top:8px;border-top:1px solid #e2e0db">
+      <span style="font-size:11px;color:#5f5e5a">선택된 위험증가 인자:
+        <span id="enhCount" style="font-weight:700;color:#1a1a18;background:#f0efe9;padding:1px 7px;border-radius:5px;margin-left:3px">0</span>개
+      </span>
+      <span style="font-size:10px;color:#888780">— 변경 시 즉시 반영됨</span>
+    </div>
+  </div>
+
+  <!-- ══ 위험도 무관 스타틴 절대 적응증 ══ -->
+  <div class="card">
+    <div class="sec">위험도 분류 무관 스타틴 적응증 <span style="font-size:9px;font-weight:400;color:#888780;letter-spacing:0;text-transform:none">(PREVENT 점수에 구속되지 않음)</span></div>
+    <div id="absIndList"></div>
+    <div class="nb info" style="margin-top:7px">※ 위 조건은 입력값에서 자동 판정됩니다. 해당 시 PREVENT 위험도와 무관하게 스타틴 치료를 시작합니다.</div>
+    <div class="nb warn" style="margin-top:5px">※ 당뇨의 경우 PREVENT ≥10%이면 고강도, &lt;10%이면 중등강도 스타틴으로 강도가 달라집니다.</div>
+    <div class="nb info" style="margin-top:5px">※ CKD (eGFR 15–59) + 나이 ≥40세는 <b>위험도 무관 스타틴 적응증</b>으로 위 목록에 자동 표시 / &lt;40세는 위험증강인자 섹션에 자동 반영됩니다.</div>
+  </div>
+
+</div>
+
+<!-- ══════ RIGHT: RESULTS PANEL ══════ -->
+<div>
+
+  <!-- Age out-of-range notice -->
+  <div id="ageRangeCard" style="display:none;margin-bottom:11px;padding:11px 14px;border-radius:11px;border:2px solid #ef9f27;background:#fffbf2"></div>
+
+  <!-- 1. Risk Scores -->
+  <div class="card">
+    <div class="sec">치료 전 baseline 위험도와 치료 중 위험도</div>
+    <div class="rcmp">
+      <div class="rcell hl">
+        <div class="rlabel">PREVENT 2023<br>ASCVD Risk</div>
+        <div class="rnum" id="prevAscvdNum">—</div>
+        <div class="bw"><div class="bar" id="prevAscvdBar"></div></div>
+        <div class="rsub">10년 · MI + CHD death + Stroke</div>
+        <div id="prevAscvd30Sub" style="font-size:13px;font-weight:700;color:#5f5e5a;margin-top:4px;letter-spacing:-0.2px">30년: —</div>
+      </div>
+      <div class="rcell hl">
+        <div class="rlabel">PREVENT 2023<br>Heart Failure Risk</div>
+        <div class="rnum" id="prevHfNum">—</div>
+        <div class="bw"><div class="bar" id="prevHfBar"></div></div>
+        <div class="rsub">10년 · 심부전 발생 위험</div>
+        <div id="prevHf30Sub" style="font-size:13px;font-weight:700;color:#5f5e5a;margin-top:4px;letter-spacing:-0.2px">30년: —</div>
+      </div>
+      <div class="rcell">
+        <div class="rlabel">PREVENT 2023<br>Total CVD Risk</div>
+        <div class="rnum" id="prevNum">—</div>
+        <div class="bw"><div class="bar" id="prevBar"></div></div>
+        <div class="rsub">10년 · ASCVD + HF</div>
+        <div id="prevCvd30Sub" style="font-size:13px;font-weight:700;color:#5f5e5a;margin-top:4px;letter-spacing:-0.2px">30년: —</div>
+      </div>
+    </div>
+    <div style="margin-top:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+      <span class="badge" id="riskBadge" style="background:#f1efe8;color:#888780">—</span>
+      <span style="font-size:10px;color:#888780" id="adjNote"></span>
+    </div>
+    <div id="onTxRiskBox" style="margin-top:9px"></div>
+    <div style="margin-top:7px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;font-size:10px">
+      <div style="padding:5px 7px;background:#f0efe9;border-radius:6px;border:1px solid #d0cec8">
+        <span style="font-weight:700;color:#1a1a18">ASCVD</span><span style="color:#5f5e5a"> — MI + 관상동맥질환 사망 + 뇌졸중</span>
+      </div>
+      <div style="padding:5px 7px;background:#f0efe9;border-radius:6px;border:1px solid #d0cec8">
+        <span style="font-weight:700;color:#1a1a18">HF</span><span style="color:#5f5e5a"> — 새로운 심부전 발생. ASCVD와 독립적 CKM 위험</span>
+      </div>
+      <div style="padding:5px 7px;background:#f8f7f5;border-radius:6px;border:1px solid #e2e0db">
+        <span style="font-weight:700;color:#1a1a18">Total CVD</span><span style="color:#5f5e5a"> — ASCVD + HF 통합 위험도</span>
+      </div>
+    </div>
+    <div style="font-size:10px;color:#888780;margin-top:5px">30년 위험도는 30–59세에서만 표시됩니다 (PREVENT 2023 기준)</div>
+    <div id="ascvdHxNotice" style="display:none;margin-top:8px;padding:8px 11px;background:#faeeda;border-radius:7px;border-left:3px solid #ef9f27">
+      <span style="font-size:11px;color:#854f0b">⚠ <b>ASCVD 기왕력</b>은 위험도 계산이 아닌 <b>치료 결정 경로 전환</b>에 사용됩니다. PREVENT 점수는 1차 예방 도구로 이 환자에게 적용되지 않으며, 우측 <b>스타틴 처방 권고</b> 결과를 참고하십시오.</span>
+    </div>
+  </div>
+
+  <!-- 2. Lipid Parameters -->
+  <div class="card">
+    <div class="sec">지질 파라미터 & 목표치</div>
+    <table class="lt">
+      <thead><tr><th>항목</th><th>치료 전</th><th>치료 중/현재</th><th>목표</th><th>상태</th></tr></thead>
+      <tbody id="lipidTbl"></tbody>
+    </table>
+    <div style="font-size:10px;color:#888780;margin-top:5px">ApoB 추정값: 0.789 × LDL-C + 0.73 (Sathiyakumar et al., <i>Circulation</i> 2018) — 직접 측정 권장</div>
+  </div>
+
+  <!-- 3. ACC/AHA PREVENT Risk Category -->
+  <div class="card">
+    <div class="sec">ACC/AHA PREVENT 위험도 분류</div>
+    <div id="ksolaOut"><div style="font-size:12px;color:#888780">입력값을 확인하면 표시됩니다.</div></div>
+    <div style="margin-top:7px">
+      <table class="lt">
+        <thead><tr><th>PREVENT-ASCVD 10년 위험</th><th>분류</th><th>일반적 치료기준</th></tr></thead>
+        <tbody>
+          <tr id="pr-low"><td>&lt;3%</td><td>저위험</td><td>생활습관 교정 중심</td></tr>
+          <tr id="pr-border"><td>3–&lt;5%</td><td>경계위험</td><td>Risk enhancer 있으면 중등강도 statin 고려</td></tr>
+          <tr id="pr-inter"><td>5–&lt;10%</td><td>중간위험</td><td>중등강도 statin 권고, risk enhancer 다수면 강화</td></tr>
+          <tr id="pr-high"><td>≥10%</td><td>고위험</td><td>고강도 statin, LDL-C &lt;70 mg/dL 지향</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="preventDetail" style="margin-top:7px;font-size:11px;color:#5f5e5a"></div>
+  </div>
+
+  <!-- 4. Statin Recommendations -->
+  <div class="card">
+    <div class="sec">스타틴 처방 권고</div>
+    <div style="font-size:10px;font-weight:700;color:#888780;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">ACC/AHA · PREVENT 기반 치료 제안</div>
+    <div id="accRecOut"></div>
+    <div style="margin-top:10px;font-size:11px;color:#5f5e5a;line-height:1.6">
+      Clinical ASCVD, LDL-C ≥190 mg/dL, diabetes, PREVENT-ASCVD 위험도, risk-enhancing factors, TG 수치를 종합하여 권고 강도를 표시합니다.
+    </div>
+  </div>
+
+  <!-- 5. EMR Copy Summary -->
+  <div class="card no-print">
+    <div class="sec">전자차트 복사용 결과요약</div>
+    <div style="font-size:11px;color:#5f5e5a;line-height:1.6;margin-bottom:7px">
+      상단 <b>결과요약 복사</b> 버튼을 누르면 아래 내용이 클립보드에 복사됩니다.
+    </div>
+    <div id="copyStatus" class="nb info" style="display:none;margin-bottom:7px"></div>
+    <div id="excelStatus" class="nb info" style="display:none;margin-bottom:7px"></div>
+    <textarea id="emrSummary" readonly style="width:100%;min-height:108px;border:1px solid #d0cec8;border-radius:8px;padding:8px;font-size:12px;line-height:1.55;font-family:inherit;color:#1a1a18;background:#fbfaf8;resize:vertical"></textarea>
+  </div>
+
+  <!-- 6. Stepwise Add-on Therapy -->
+  <div class="card" style="border-top:3px solid #a32d2d">
+    <div class="sec">LDL 목표 미달성 시 단계적 추가 치료</div>
+    <div id="swFlow"></div>
+  </div>
+
+  <!-- 7. 참고 문헌 및 주의사항 -->
+  <div class="card">
+    <div class="sec" id="refToggle"
+      style="display:flex;align-items:center;justify-content:space-between">
+      <span>참고 문헌 및 주의사항</span>
+      <span class="refArrow" style="font-size:10px;color:#888780;margin-left:8px">▼</span>
+    </div>
+    <div id="refBody" style="display:block;font-size:10px;color:#888780;line-height:1.75;margin-top:8px">
+      · Goff DC Jr et al. 2013 ACC/AHA Cardiovascular Risk Guideline. <i>JACC</i> 2014;63:2935–59<br>
+      · Khan SS et al. Novel Prediction Equations for Absolute Risk Assessment of Total CVD in the US. <i>Circulation</i> 2023;148:1860–72 (PREVENT)<br>
+      · Grundy SM et al. 2018 AHA/ACC Cholesterol Clinical Practice Guideline. <i>JACC</i> 2019;73:e285–350<br>
+      · Lloyd-Jones DM et al. 2022 ACC Expert Consensus Decision Pathway on Nonstatin Therapies. <i>JACC</i> 2022;80:1366–1418<br>
+      · Blumenthal RS et al. 2026 ACC/AHA/Multisociety Guideline on the Management of Dyslipidemia. <i>JACC/Circulation</i> 2026<br>
+      <span style="display:block;margin-top:6px;color:#5f5e5a">※ 본 도구는 임상 의사결정 보조 목적이며, 최종 처방 결정은 개별 환자 상황을 고려한 임상의 판단에 따릅니다.</span>
+    </div>
+  </div>
+
+</div>
+</div>
+</div>
+
+<script>
+const g=id=>document.getElementById(id);
+
+/* ── PCE 2013 ── */
+function calcPCE(age,sex,race,tc,hdl,sbp,bpTx,smoker,dm){
+  const lA=Math.log(age),lT=Math.log(tc),lH=Math.log(hdl),lS=Math.log(sbp);
+  let s,mu,s0;
+  if(sex==='F'&&race==='white'){
+    s=-29.799*lA+4.884*lA*lA+13.540*lT-3.114*lA*lT-13.578*lH+3.149*lA*lH+(bpTx?2.019:1.957)*lS+(smoker?7.574-1.665*lA:0)+(dm?0.661:0);
+    mu=-29.799;s0=0.9665;
+  }else if(sex==='M'&&race==='white'){
+    s=12.344*lA+11.853*lT-2.664*lA*lT-7.990*lH+1.769*lA*lH+(bpTx?1.797:1.764)*lS+(smoker?7.837-1.795*lA:0)+(dm?0.658:0);
+    mu=61.1816;s0=0.9144;
+  }else if(sex==='F'&&race==='aa'){
+    s=17.1141*lA+0.9396*lT-18.9196*lH+4.4748*lA*lH+(bpTx?29.2907*lS-6.4321*lA*lS:27.8197*lS-6.0873*lA*lS)+(smoker?0.8738:0)+(dm?0.8738:0);
+    mu=86.6081;s0=0.9533;
+  }else{
+    s=2.469*lA+0.302*lT-0.307*lH+(bpTx?1.916:1.809)*lS+(smoker?0.549:0)+(dm?0.645:0);
+    mu=19.5425;s0=0.8954;
+  }
+  return clamp((1-Math.pow(s0,Math.exp(s-mu)))*100);
+}
+
+/* ── PREVENT 2023 AHA coefficient-based equations ── */
+/* 10년/30년 total CVD, ASCVD, heart failure. 기존 CVD가 없는 30–79세 1차예방용. */
+const PREVENT_OUTCOMES = ["total_cvd", "ascvd", "heart_failure"];
+const PREVENT_OUTCOME_LABELS = {
+  total_cvd: "Total CVD",
+  ascvd: "ASCVD",
+  heart_failure: "Heart failure"
+};
+
+const PREVENT_COEFS = {
+  base: {
+    y10: {
+      female: {
+        total_cvd: [0.7939329,0,0.0305239,-0.1606857,-0.2394003,0.3600781,0.8667604,0.5360739,0,0,0.6045917,0.0433769,0.3151672,-0.1477655,-0.0663612,0.1197879,-0.0819715,0.0306769,-0.0946348,-0.27057,-0.078715,0,-0.1637806,0,0,0,0,0,0,0,0,-3.307728],
+        ascvd: [0.719883,0,0.1176967,-0.151185,-0.0835358,0.3592852,0.8348585,0.4831078,0,0,0.4864619,0.0397779,0.2265309,-0.0592374,-0.0395762,0.0844423,-0.0567839,0.0325692,-0.1035985,-0.2417542,-0.0791142,0,-0.1671492,0,0,0,0,0,0,0,0,-3.819975],
+        heart_failure: [0.8998235,0,0,0,-0.4559771,0.3576505,1.038346,0.583916,-0.0072294,0.2997706,0.7451638,0.0557087,0.3534442,0,-0.0981511,0,0,0,-0.0946663,-0.3581041,-0.1159453,-0.003878,-0.1884289,0,0,0,0,0,0,0,0,-4.310409]
+      },
+      male: {
+        total_cvd: [0.7688528,0,0.0736174,-0.0954431,-0.4347345,0.3362658,0.7692857,0.4386871,0,0,0.5378979,0.0164827,0.288879,-0.1337349,-0.0475924,0.150273,-0.0517874,0.0191169,-0.1049477,-0.2251948,-0.0895067,0,-0.1543702,0,0,0,0,0,0,0,0,-3.031168],
+        ascvd: [0.7099847,0,0.1658663,-0.1144285,-0.2837212,0.3239977,0.7189597,0.3956973,0,0,0.3690075,0.0203619,0.2036522,-0.0865581,-0.0322916,0.114563,-0.0300005,0.0232747,-0.0927024,-0.2018525,-0.0970527,0,-0.1217081,0,0,0,0,0,0,0,0,-3.500655],
+        heart_failure: [0.8972642,0,0,0,-0.6811466,0.3634461,0.923776,0.5023736,-0.0485841,0.3726929,0.6926917,0.0251827,0.2980922,0,-0.0497731,0,0,0,-0.1289201,-0.3040924,-0.1401688,0.0068126,-0.1797778,0,0,0,0,0,0,0,0,-3.946391]
+      }
+    },
+    y30: {
+      female: {
+        total_cvd: [0.5503079,-0.0928369,0.0409794,-0.1663306,-0.1628654,0.3299505,0.6793894,0.3196112,0,0,0.1857101,0.0553528,0.2894,-0.075688,-0.056367,0.1071019,-0.0751438,0.0301786,-0.0998776,-0.3206166,-0.1607862,0,-0.1450788,0,0,0,0,0,0,0,0,-1.318827],
+        ascvd: [0.4669202,-0.0893118,0.1256901,-0.1542255,-0.0018093,0.322949,0.6296707,0.268292,0,0,0.100106,0.0499663,0.1875292,0.0152476,-0.0276123,0.0736147,-0.0521962,0.0316918,-0.1046101,-0.2727793,-0.1530907,0,-0.1299149,0,0,0,0,0,0,0,0,-1.974074],
+        heart_failure: [0.6254374,-0.0983038,0,0,-0.3919241,0.3142295,0.8330787,0.3438651,0.0594874,0.2525536,0.2981642,0.0667159,0.333921,0,-0.0893177,0,0,0,-0.0974299,-0.404855,-0.1982991,-0.0035619,-0.1564215,0,0,0,0,0,0,0,0,-2.205379]
+      },
+      male: {
+        total_cvd: [0.4627309,-0.0984281,0.0836088,-0.1029824,-0.2140352,0.2904325,0.5331276,0.2141914,0,0,0.1155556,0.0603775,0.232714,-0.0272112,-0.0384488,0.134192,-0.0511759,0.0165865,-0.1101437,-0.2585943,-0.1566406,0,-0.1166776,0,0,0,0,0,0,0,0,-1.148204],
+        ascvd: [0.3994099,-0.0937484,0.1744643,-0.120203,-0.0665117,0.2753037,0.4790257,0.1782635,0,0,-0.0218789,0.0602553,0.1421182,0.0135996,-0.0218265,0.1013148,-0.0312619,0.020673,-0.0920935,-0.2159947,-0.1548811,0,-0.0712547,0,0,0,0,0,0,0,0,-1.736444],
+        heart_failure: [0.5681541,-0.1048388,0,0,-0.4761564,0.30324,0.6840338,0.2656273,0.0833107,0.26999,0.2541805,0.0638923,0.2583631,0,-0.0391938,0,0,0,-0.1269124,-0.3273572,-0.2043019,-0.0182831,-0.1342618,0,0,0,0,0,0,0,0,-1.95751]
+      }
+    }
+  },
+
+  full: {
+    y10: {
+      female: {
+        total_cvd: [0.7716794,0,0.0062109,-0.1547756,-0.1933123,0.3071217,0.496753,0.466605,0,0,0.4780697,0.0529077,0.3034892,-0.1556524,-0.0667026,0.1061825,-0.0742271,0.0288245,-0.0875188,-0.2267102,-0.0676125,0,-0.1493231,0.1361989,0.2261596,0.1804508,0.1645922,0.0198413,0.1298513,0.1412555,-0.0031658,-3.860385],
+        ascvd: [0.7023067,0,0.0898765,-0.1407316,-0.0256648,0.314511,0.4799217,0.4062049,0,0,0.3847744,0.0495174,0.2133861,-0.0678552,-0.0451416,0.0788187,-0.0535985,0.0291762,-0.0961839,-0.2001466,-0.0586472,0,-0.1537791,0.1413965,0.228136,0.1588908,0.1371824,0.0061613,0.123192,0.1410572,0.005866,-4.291503],
+        heart_failure: [0.884209,0,0,0,-0.421474,0.3002919,0.6170359,0.5380269,-0.0191335,0.2764302,0.5975847,0.0654197,0.3313614,0,-0.1002304,0,0,0,-0.0845363,-0.2989062,-0.1111354,0.0008104,-0.1666635,0.1213034,0.2314147,0.1819138,0.1948135,0.0395368,0.176668,0.1614911,-0.0010583,-4.896524]
+      },
+      male: {
+        total_cvd: [0.7847578,0,0.0534485,-0.0911282,-0.4921973,0.2972415,0.4527054,0.3726641,0,0,0.3886854,0.0081661,0.2508052,-0.1538484,-0.0474695,0.1415382,-0.0436455,0.0199549,-0.1022686,-0.1762507,-0.0715873,0,-0.1428668,0.0802431,0.275073,0.144759,0.1772853,0.1095674,0.1165698,0.1048297,-0.0230072,-3.631387],
+        ascvd: [0.7128741,0,0.1465201,-0.1125794,-0.3387216,0.2980252,0.399583,0.3379111,0,0,0.2582604,0.0147769,0.1686621,-0.1073619,-0.0381038,0.1034169,-0.0228755,0.0267453,-0.0897449,-0.1497464,-0.077206,0,-0.1198368,0.0651121,0.2676683,0.1388492,0.1375837,0.0652944,0.101282,0.1092726,-0.0112852,-3.969788],
+        heart_failure: [0.9095703,0,0,0,-0.6765184,0.3111651,0.5535052,0.4326811,-0.0854286,0.3551736,0.5102245,0.015472,0.2570964,0,-0.0591177,0,0,0,-0.1219056,-0.2437577,-0.105363,0.0037907,-0.1660207,0.1106372,0.3371204,0.1694628,0.2164607,0.1702805,0.148297,0.1234088,-0.0234637,-4.663513]
+      }
+    },
+    y30: {
+      female: {
+        total_cvd: [0.5073749,-0.0981751,0.0162303,-0.1617147,-0.1111241,0.282946,0.4004069,0.2918701,0,0,0.1017102,0.0622643,0.2872416,-0.0768135,-0.0557282,0.0917585,-0.0679131,0.029076,-0.0907755,-0.2702118,-0.1373216,0,-0.1255864,0.1067741,0.1853138,0.1567115,0.1028065,-0.0006181,0.0925285,0.0975598,0.0101713,-1.748475],
+        ascvd: [0.4386739,-0.0921956,0.0977728,-0.1453525,0.0590925,0.2862862,0.3669136,0.2354695,0,0,0.0354338,0.0573093,0.1840085,0.0117504,-0.0331945,0.0664311,-0.0492826,0.0288888,-0.0964709,-0.2279648,-0.120405,0,-0.1157635,0.1107632,0.1840367,0.1308962,0.0810739,-0.0147785,0.0794709,0.1002615,0.017301,-2.314066],
+        heart_failure: [0.5927507,-0.1028754,0,0,-0.3593781,0.2628556,0.5113472,0.347344,0.0564656,0.2363857,0.1971295,0.0735227,0.3219386,0,-0.0880321,0,0,0,-0.0863132,-0.3425359,-0.181405,0.0031285,-0.1356989,0.0847634,0.18397,0.1485802,0.1273306,0.0167008,0.1378342,0.1138832,0.0138979,-2.642208]
+      },
+      male: {
+        total_cvd: [0.4427595,-0.1064108,0.0629381,-0.1015427,-0.2542326,0.2549679,0.333835,0.1873833,0,0,0.0246102,0.0552014,0.1979729,-0.0407714,-0.0365522,0.1232822,-0.0441334,0.0177865,-0.1046657,-0.2116113,-0.1277905,0,-0.0955922,0.0256704,0.1887637,0.089241,0.0894596,0.0710124,0.0676202,0.063409,0.0038783,-1.504558],
+        ascvd: [0.3743566,-0.0995499,0.1544808,-0.1215297,-0.1083968,0.2555179,0.2696998,0.1628432,0,0,-0.077507,0.0583407,0.1120322,-0.0025063,-0.0256116,0.0886745,-0.0254507,0.0244639,-0.0869146,-0.165745,-0.1244714,0,-0.0624552,0.015675,0.1864231,0.0845697,0.0560171,0.0252244,0.0501422,0.0722905,0.0114945,-1.985368],
+        heart_failure: [0.5478829,-0.1111928,0,0,-0.4547346,0.2527602,0.4385384,0.2397952,0.0640931,0.2643081,0.1354588,0.0570689,0.220666,0,-0.0436769,0,0,0,-0.1168376,-0.2730055,-0.1573691,-0.0174998,-0.1128676,0.057746,0.2446441,0.1076782,0.1233486,0.1274796,0.0985062,0.0804844,0.0022806,-2.425439]
+      }
+    }
+  }
+};
+
+
+function preventOdds(z) { return Math.exp(z) / (1 + Math.exp(z)); }
+function preventDot(a,b) { return a.reduce((s, x, i) => s + x*b[i], 0); }
+function preventCholToMmol(x) { return x / 38.67; }
+function preventFeatureVector(v, model) {
+  const age = (v.age - 55) / 10;
+  const age2 = age * age;
+  const nonHdl = preventCholToMmol(v.tc - v.hdl) - 3.5;
+  const hdl = (preventCholToMmol(v.hdl) - 1.3) / 0.3;
+  const sbpLt110 = (Math.min(v.sbp, 110) - 110) / 20;
+  const sbpGte110 = (Math.max(v.sbp, 110) - 130) / 20;
+  const dm = v.dm;
+  const smoking = v.smoking;
+  const bmiLt30 = (Math.min(v.bmi, 30) - 25) / 5;
+  const bmiGte30 = (Math.max(v.bmi, 30) - 30) / 5;
+  const egfrLt60 = (Math.min(v.egfr, 60) - 60) / -15;
+  const egfrGte60 = (Math.max(v.egfr, 60) - 90) / -15;
+  const bpTx = v.bpTx;
+  const statin = v.statin;
+
+  let sdi4to6 = 0, sdi7to10 = 0, missingSdi = 0;
+  let lnUacr = 0, missingUacr = 0, hba1cDm = 0, hba1cNoDm = 0, missingHba1c = 0;
+
+  if (model === "full") {
+    missingSdi = 1;
+    if (v.uacr == null) {
+      missingUacr = 1;
+    } else {
+      lnUacr = Math.log(v.uacr);
+    }
+    if (v.hba1c == null) {
+      missingHba1c = 1;
+    } else if (dm === 1) {
+      hba1cDm = v.hba1c - 5.3;
+    } else {
+      hba1cNoDm = v.hba1c - 5.3;
+    }
+  }
+
+  return [
+    age,
+    age2,
+    nonHdl,
+    hdl,
+    sbpLt110,
+    sbpGte110,
+    dm,
+    smoking,
+    bmiLt30,
+    bmiGte30,
+    egfrLt60,
+    egfrGte60,
+    bpTx,
+    statin,
+    bpTx * sbpGte110,
+    statin * nonHdl,
+    age * nonHdl,
+    age * hdl,
+    age * sbpGte110,
+    age * dm,
+    age * smoking,
+    age * bmiGte30,
+    age * egfrLt60,
+    sdi4to6,
+    sdi7to10,
+    missingSdi,
+    lnUacr,
+    missingUacr,
+    hba1cDm,
+    hba1cNoDm,
+    missingHba1c,
+    1
+  ];
+}
+
+function choosePreventModel(v) {
+  if (v.hba1c != null && v.uacr != null) return "full";
+  return "base";
+}
+
+function calculatePreventCoefficients(v) {
+  const model = choosePreventModel(v);
+  const x = preventFeatureVector(v, model);
+  const res = {model, y10: {}, y30: {}};
+  for (const time of ["y10", "y30"]) {
+    for (const out of PREVENT_OUTCOMES) {
+      const c = PREVENT_COEFS[model][time][v.sex][out];
+      res[time][out] = preventOdds(preventDot(c, x));
+    }
+  }
+  return res;
+}
+
+
+function calcPREVENT_ALL(age,sex,nonHDL,hdl,sbp,bpTx,smoker,dm,egfr,uacr,hba1c,bmi,onStatin){
+  const v = {
+    age: age,
+    sex: sex === 'M' ? 'male' : 'female',
+    sbp: sbp,
+    bpTx: bpTx ? 1 : 0,
+    tc: nonHDL + hdl,
+    hdl: hdl,
+    statin: onStatin ? 1 : 0,
+    dm: dm ? 1 : 0,
+    smoking: smoker ? 1 : 0,
+    egfr: egfr > 0 ? egfr : 90,
+    bmi: bmi > 0 ? bmi : 25,
+    hba1c: hba1c > 0 ? hba1c : null,
+    uacr: uacr > 0 ? uacr : null
+  };
+  return calculatePreventCoefficients(v);
+}
+function calcPREVENT(age,sex,nonHDL,hdl,sbp,bpTx,smoker,dm,egfr,uacr,hba1c,bmi,onStatin,hsCRP){
+  const r = calcPREVENT_ALL(age,sex,nonHDL,hdl,sbp,bpTx,smoker,dm,egfr,uacr,hba1c,bmi,onStatin);
+  return clamp(r.y10.total_cvd * 100);
+}
+function calcPREVENT_ASCVD(age,sex,nonHDL,hdl,sbp,bpTx,smoker,dm,egfr,uacr,hba1c,onStatin,hsCRP,bmi){
+  const r = calcPREVENT_ALL(age,sex,nonHDL,hdl,sbp,bpTx,smoker,dm,egfr,uacr,hba1c,bmi||25,onStatin);
+  return clamp(r.y10.ascvd * 100);
+}
+function calcPREVENT_HF(age,sex,nonHDL,hdl,sbp,bpTx,smoker,dm,egfr,uacr,hba1c,bmi,onStatin){
+  const r = calcPREVENT_ALL(age,sex,nonHDL,hdl,sbp,bpTx,smoker,dm,egfr,uacr,hba1c,bmi,onStatin);
+  return clamp(r.y10.heart_failure * 100);
+}
+function calcPREVENT_30(age,sex,nonHDL,hdl,sbp,bpTx,smoker,dm,egfr,uacr,hba1c,bmi,onStatin,outcome){
+  const r = calcPREVENT_ALL(age,sex,nonHDL,hdl,sbp,bpTx,smoker,dm,egfr,uacr,hba1c,bmi,onStatin);
+  return clamp(r.y30[outcome] * 100);
+}
+
+function clamp(v){return Math.min(100,Math.max(0,v));}
+
+/* ── ACC/AHA 2026 Statin Recommendation ── */
+/* 2026 ACC/AHA/Multisociety Dyslipidemia Guideline (Blumenthal RS et al, JACC/Circulation 2026) */
+/* Risk thresholds based on PREVENT-ASCVD: Low <3%, Borderline 3-5%, Intermediate 5-10%, High ≥10% */
+function accRec(age,risk,ldl,dm,ascvd,vhr,nE,tg,smoker,bpTx){
+  if(ascvd){
+    if(vhr)return{c:'hi',l:'고강도',ind:'2차 예방 — 초고위험',d:['Rosuvastatin 20–40 mg','Atorvastatin 40–80 mg'],n:'LDL <55 미달성 → Ezetimibe 추가 → PCSK9 억제제 또는 Inclisiran (2a)',nt:'dng',ldlTgt:55,nhTgt:85};
+    return{c:'hi',l:'고강도',ind:'2차 예방 (ASCVD 기왕력, 비초고위험)',d:['Rosuvastatin 20–40 mg','Atorvastatin 40–80 mg'],n:'LDL <70 미달성 → Ezetimibe 추가 고려',nt:'info',ldlTgt:70,nhTgt:100};
+  }
+  if(ldl>=190){
+    // 2026 ACC/AHA: LDL≥190 기본 목표 <100
+    // 기본정보에서 확인되는 전통적 ASCVD 위험인자 동반 시 <70으로 강화
+    // (DM·PREVENT≥10%·TG≥175·흡연·항고혈압제)
+    // ※ 위험증강인자(nE)는 별도 체크 시 <70 강화 — 미체크=미검사로 간주, 기본 목표는 <100 유지
+    const fhHighRisk = dm || risk>=10 || tg>=175 || smoker || bpTx;
+    return{c:'hi',l:'고강도',ind:'중증 고콜레스테롤혈증 LDL ≥190 (FH 감별 필요)',
+      d:['Rosuvastatin 20–40 mg','Atorvastatin 40–80 mg'],
+      n: fhHighRisk
+        ? 'ASCVD 위험인자(DM·HTN·흡연·PREVENT≥10%·TG≥175) 동반: LDL <70 mg/dL 목표. 최대내약 스타틴 후 미달성 시 Ezetimibe → PCSK9 억제제. FH 전문가 의뢰 고려.'
+        : 'LDL ≥190 단독 1차 예방: 최대내약 고강도 스타틴으로 LDL <100 mg/dL 기본 목표. 위험증강인자(조기 가족력·Lp(a)≥50·ABI·CAC·ApoB≥120 등) 추가 확인 시 <70 mg/dL로 강화. FH 전문가 의뢰 고려.',
+      nt: fhHighRisk ? 'dng' : 'warn',
+      ldlTgt: fhHighRisk ? 70 : 100,
+      nhTgt: fhHighRisk ? 100 : 130};
+  }
+  if(age<30){
+    if(ldl>=160||nE>=1)return{c:'mo',l:'중등강도',ind:'30세 미만 — FH 또는 고위험 특성',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],n:'2026 신규: FH 또는 LDL ≥160인 30세 미만 — 조기 치료로 누적 위험 감소',nt:'info',ldlTgt:100,nhTgt:130};
+    return{c:'no',l:'생활습관 교정',ind:'30세 미만',d:[],n:'LDL ≥160 또는 조기 가족력 없으면 생활습관 교정 우선. 30년 위험 평가 가능.',nt:'info',ldlTgt:130,nhTgt:160};
+  }
+  if(age>79)return{c:'mo',l:'중등강도 (개별화)',ind:'79세 초과',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],n:'다제 복용·근병증·낙상 위험 고려. 기존 스타틴 유지 합리적. 개별 임상 판단.',nt:'info',ldlTgt:100,nhTgt:130};
+  if(ldl<70)return{c:'no',l:'개별 판단',ind:'LDL < 70 mg/dL',d:[],n:'LDL 이미 낮음. 이차성 원인 및 기저 질환 확인.',nt:'info',ldlTgt:null,nhTgt:null};
+  if(dm){
+    if(risk>=10){
+      if(ldl<70)return{c:'no',l:'목표 LDL 달성 (투약 전)',ind:'당뇨 + PREVENT-ASCVD ≥10% — 치료 전 LDL 이미 목표 이하',d:[],
+        n:'치료 전 LDL-C가 목표 &lt;70 mg/dL 이하입니다.<br>2026 ACC/AHA "regardless of LDL-C level" 원칙은 LDL 수치에 무관하게 스타틴을 고려하라는 취지이나, 가이드라인은 <b>투약 전 이미 목표치를 충족한 경우</b>의 스타틴 투약을 명시적으로 요구하지 않습니다. 생활습관 교정 및 주기적 추적 관찰을 권고합니다.',
+        nt:'suc',ldlTgt:70,nhTgt:100};
+      return{c:'hi',l:'고강도',ind:'당뇨 + PREVENT-ASCVD ≥10%',d:['Atorvastatin 40–80 mg','Rosuvastatin 20–40 mg'],n:'고강도 스타틴. LDL <70 mg/dL 목표.',nt:'warn',ldlTgt:70,nhTgt:100};
+    }
+    if(risk>=5){
+      if(ldl<100)return{c:'no',l:'목표 LDL 달성 (투약 전)',ind:'당뇨 + PREVENT-ASCVD 5–10% — 치료 전 LDL 이미 목표 이하',d:[],
+        n:'치료 전 LDL-C가 목표 &lt;100 mg/dL 이하입니다.<br>2026 ACC/AHA "regardless of LDL-C level" 원칙은 LDL 수치에 무관하게 스타틴을 고려하라는 취지이나, 가이드라인은 <b>투약 전 이미 목표치를 충족한 경우</b>의 스타틴 투약을 명시적으로 요구하지 않습니다. 생활습관 교정 및 주기적 추적 관찰을 권고합니다.',
+        nt:'suc',ldlTgt:100,nhTgt:130};
+      return{c:'mo',l:'중등강도',ind:'당뇨 + PREVENT-ASCVD 5–10%',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg','Pitavastatin 2–4 mg'],n:'중등강도 스타틴 권고. LDL <100 mg/dL 목표.',nt:'info',ldlTgt:100,nhTgt:130};
+    }
+    // risk < 5% — 저위험 당뇨 (사용자 질문 케이스)
+    if(ldl<100)return{c:'no',l:'목표 LDL 달성 (투약 전)',ind:'당뇨 (30–79세, PREVENT-ASCVD &lt;5%) — 치료 전 LDL 이미 목표 이하',d:[],
+      n:'치료 전 LDL-C가 목표 &lt;100 mg/dL 이하입니다.<br>2026 ACC/AHA "regardless of LDL-C level" 원칙은 LDL이 낮아도 당뇨에서 스타틴을 고려하라는 취지이나, 가이드라인은 <b>투약 전 이미 목표치를 충족한 경우</b>의 스타틴 투약을 명시적으로 요구하지 않습니다. 생활습관 교정 및 주기적 추적 관찰을 권고합니다.',
+      nt:'suc',ldlTgt:100,nhTgt:130};
+    return{c:'mo',l:'중등강도',ind:'당뇨 (30–79세, PREVENT-ASCVD < 5%)',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],n:'당뇨 단독 저위험: 중등강도 권고. LDL <100 목표.',nt:'info',ldlTgt:100,nhTgt:130};
+  }
+  /* Primary prevention — PREVENT-ASCVD thresholds (2026) */
+  if(risk<3)return{c:'lo',l:'생활습관 교정',ind:'저위험 < 3% (PREVENT-ASCVD)',d:[],n:'스타틴 일상적 권고 불필요. 식이·운동·금연. LDL 목표 < 130 mg/dL.',nt:'info',ldlTgt:130,nhTgt:160};
+  if(risk<5){
+    if(nE>=1||ldl>=160)return{c:'mo',l:'중등강도 고려',ind:'경계위험 (3–5%) + 위험증가 인자',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],n:'스타틴-환자 공동 결정. LDL <100 mg/dL 목표. CAC=0이면 10년 유예 합리적.',nt:'info',ldlTgt:100,nhTgt:130};
+    return{c:'no',l:'생활습관 교정',ind:'경계위험 (3–5%)',d:[],n:'스타틴 선호도 낮음. 위험증강인자 재확인 후에도 없을 경우, CAC 점수 측정으로 결정 보조. LDL <100 목표.',nt:'info',ldlTgt:100,nhTgt:130};
+  }
+  if(risk<10){
+    // 2026 ACC/AHA: 중간위험 + enhancer도 기본 중등강도/<100, CAC 재분류 시 고강도/<70으로 강화
+    if(nE>=2||tg>=175)return{c:'mo',l:'중등강도, 필요 시 강화 고려',ind:'중간위험 (5–<10%) + 다수 위험증가 인자',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg','Pitavastatin 2–4 mg'],n:'중등강도 스타틴 권고. 기본 LDL <100 mg/dL 목표. Risk enhancer 다수이면 고강도 상향 또는 CAC로 재분류 고려 — CAC ≥100 확인 시 LDL <70 mg/dL로 강화.',nt:'warn',ldlTgt:100,nhTgt:130};
+    return{c:'mo',l:'중등강도',ind:'중간위험 (5–<10%)',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg','Pitavastatin 2–4 mg','Pravastatin 40–80 mg'],n:'중등강도 스타틴 권고. LDL <100 mg/dL 목표. CAC=0이면 유예 가능.',nt:'info',ldlTgt:100,nhTgt:130};
+  }
+  return{c:'hi',l:'고강도',ind:'고위험 ≥ 10% (PREVENT-ASCVD)',d:['Atorvastatin 40–80 mg','Rosuvastatin 20–40 mg'],n:'고강도 스타틴 권고. LDL <70 mg/dL 목표.',nt:'warn',ldlTgt:70,nhTgt:100};
+}
+
+/* ── ACC/AHA PREVENT Risk Classification ── */
+function preventClass(primRisk,ldl,ascvd,dm,egfr,age,sex,sbp,bpTx,smoker,hdl,nE,tg,vhr){
+  if(ascvd){
+    if(vhr) return{cat:'2차 예방 — 초고위험 ASCVD',l:55,nh:85,ab:55,c:'#a32d2d',bg:'#fcebeb',basis:'Clinical ASCVD + very high-risk: LDL-C threshold <55 mg/dL 지향',row:null};
+    return{cat:'2차 예방 — ASCVD',l:70,nh:100,ab:70,c:'#a32d2d',bg:'#fcebeb',basis:'Clinical ASCVD: high-intensity/max tolerated statin 및 LDL-C <70 mg/dL threshold',row:null};
+  }
+  if(ldl>=190){
+    // 기본정보 기반 전통적 위험인자만으로 <70 판정 (위험증강인자는 별도 체크 시 강화)
+    const fhHighRisk = dm || primRisk>=10 || tg>=175 || smoker || bpTx;
+    return fhHighRisk
+      ? {cat:'Severe hypercholesterolemia + ASCVD 위험인자',l:70,nh:100,ab:70,c:'#a32d2d',bg:'#fcebeb',
+         basis:'LDL-C ≥190 mg/dL + 전통적 위험인자(DM/PREVENT≥10%/TG≥175/흡연/HTN) 동반: high-intensity statin + LDL-C <70 mg/dL 목표',row:null}
+      : {cat:'Severe hypercholesterolemia',l:100,nh:130,ab:90,c:'#a32d2d',bg:'#fcebeb',
+         basis:'LDL-C ≥190 mg/dL 단독: high-intensity statin + LDL-C <100 mg/dL 기본 목표. 위험증강인자 추가 확인 시 <70으로 강화',row:null};
+  }
+  if(dm){
+    if(primRisk>=10) return{cat:'당뇨병 + PREVENT 고위험',l:70,nh:100,ab:70,c:'#a32d2d',bg:'#fcebeb',basis:`당뇨병 + PREVENT-ASCVD ${primRisk.toFixed(1)}% ≥10%`,row:'pr-high'};
+    return{cat:'당뇨병',l:100,nh:130,ab:90,c:'#854f0b',bg:'#faeeda',basis:`당뇨병: 최소 중등강도 statin, PREVENT-ASCVD ${primRisk.toFixed(1)}%`,row:primRisk>=5?'pr-inter':primRisk>=3?'pr-border':'pr-low'};
+  }
+  if(primRisk<3) return{cat:'저위험',l:130,nh:160,ab:90,c:'#3b6d11',bg:'#eaf3de',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% <3%`,row:'pr-low'};
+  if(primRisk<5) return{cat:'경계위험',l:100,nh:130,ab:90,c:'#3b6d11',bg:'#eaf3de',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% 3–<5%. Risk enhancer가 있으면 statin 고려`,row:'pr-border'};
+  if(primRisk<10){
+    // 2026 ACC/AHA: 중간위험+enhancer 기본 목표 <100, CAC 재분류 후 <70
+    if(nE>=2||tg>=175||ldl>=160) return{cat:'중간위험 + risk enhancer',l:100,nh:130,ab:90,c:'#854f0b',bg:'#faeeda',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% 5–<10% + risk enhancer: 기본 목표 <100, CAC ≥100 등 고위험 재분류 시 <70으로 강화`,row:'pr-inter'};
+    return{cat:'중간위험',l:100,nh:130,ab:90,c:'#854f0b',bg:'#faeeda',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% 5–<10%`,row:'pr-inter'};
+  }
+  return{cat:'고위험',l:70,nh:100,ab:70,c:'#a32d2d',bg:'#fcebeb',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% ≥10%`,row:'pr-high'};
+}
+
+/* ── Stepwise Flow ── */
+function makeFlow(acc,preventCat,ldl,ascvd,vhr,onStatin=false,baselineLdl=null,targetOverride=null){
+  // ── [Bug A] LDL<70 케이스: ldlTgt=null → 단계적 치료 흐름 불필요 ──
+  if(!onStatin && acc.ldlTgt===null){
+    return `<div class="nb suc" style="margin-top:4px">
+      ✓ 현재 LDL-C (${ldl} mg/dL)가 이미 낮아 단계적 지질강하 치료 흐름이 적용되지 않습니다.<br>
+      <span style="font-size:10px;color:#3b6d11">이차성 원인(갑상선기능저하증·간질환·영양불량 등) 및 기저 질환을 확인하십시오.</span>
+    </div>`;
+  }
+
+  // targetOverride: dispLdlTgt 전달 시 지질표와 stepwise flow의 목표값 일치 보장
+  const tgt = targetOverride ?? (vhr?55:ascvd?(vhr?55:70):(acc.ldlTgt||preventCat.l));
+  // Predicted LDL reductions
+  const afterHi=Math.round(ldl*0.50);   // 고강도 스타틴 ~50% 감소
+  const afterMo=Math.round(ldl*0.65);   // 중등강도 스타틴 ~35% 감소
+
+  // ── [Bug B] FH(LDL≥190) 판정 — Inclisiran Step 4 표시 여부 ──
+  // baselineLdl: 치료 전 LDL (makeFlow의 7번째 인자로 전달됨)
+  const isFH = (baselineLdl !== null ? baselineLdl : ldl) >= 190;
+
+  // ── 생활습관 교정이 Step 1인 경우 (저위험/경계위험 인자 없음, 30세 미만 일반) ──
+  const isLifestyle = !onStatin && (acc.c==='lo' || acc.c==='no');
+  const startLdl=onStatin?ldl:(acc.c==='hi'?afterHi:(acc.c==='mo'?afterMo:ldl));
+  // Ezetimibe add-on: lifestyle case는 중등강도 스타틴 후 기준으로 계산
+  const statinLdlForLifestyle=Math.round(ldl*0.65);
+  const afterEze=isLifestyle?Math.round(statinLdlForLifestyle*0.82):Math.round(startLdl*0.82);
+  // PCSK9 mAb: ~55% 추가 감소 → 잔여 45% (×0.45), Inclisiran: ~48% 감소 → 잔여 52% (×0.52)
+  // Bempedoic acid: ~20% 추가 감소 → 잔여 80% (×0.80) — 스타틴 불내성 대안
+  const afterPCSK9=Math.round(afterEze*0.45);
+  const afterBemp=Math.round(afterEze*0.80);
+  const afterIncl=Math.round(afterEze*0.52);
+
+  // ── 1차 예방 여부 (PCSK9 건강보험 기준 note용) ──
+  const isPrimaryPrev = !ascvd && !isFH;
+
+  function rdot(num,clr){return`<div class="sw-dot" style="background:${clr};color:#fff">${num}</div>`;}
+  function rbox(num,name,drugs,ldlVal,active,dim,note){
+    const cls=dim?'sw-box dim':active?'sw-box active':'sw-box';
+    const rc=ldlVal<=tgt?'#3b6d11':'#a32d2d';
+    const dotc=dim?'#d0cec8':active?'#1a1a18':'#888780';
+    return `<div class="sw-row">
+      <div class="sw-left">${rdot(num,dotc)}<div class="sw-line"></div></div>
+      <div class="${cls}">
+        <div class="sw-step">Step ${num}</div>
+        <div class="sw-name">${name}</div>
+        <div class="sw-drugs">${drugs}</div>
+        <div class="sw-result" style="color:${rc}">예상 LDL: ~${ldlVal} mg/dL ${ldlVal<=tgt?'✓ 목표 달성':('↑ 목표 '+tgt+' 미달')}</div>
+        ${note?`<div class="nb info" style="margin-top:4px;font-size:10px">${note}</div>`:''}
+      </div>
+    </div>`;
+  }
+  function rboxtop(num,name,drugs,ldlVal,active,dim,note=''){
+    // last item (no line below)
+    const cls=dim?'sw-box dim':active?'sw-box active':'sw-box';
+    const rc=ldlVal<=tgt?'#3b6d11':'#a32d2d';
+    const dotc=dim?'#d0cec8':active?'#1a1a18':'#888780';
+    return `<div class="sw-row">
+      <div class="sw-left">${rdot(num,dotc)}</div>
+      <div class="${cls}">
+        <div class="sw-step">Step ${num}</div>
+        <div class="sw-name">${name}</div>
+        <div class="sw-drugs">${drugs}</div>
+        <div class="sw-result" style="color:${rc}">예상 LDL: ~${ldlVal} mg/dL ${ldlVal<=tgt?'✓ 목표 달성':('↑ 목표 '+tgt+' 미달')}</div>
+        ${note?`<div class="nb info" style="margin-top:4px;font-size:10px">${note}</div>`:''}
+      </div>
+    </div>`;
+  }
+
+  // ── [Bug D] '고강도 고려' vs '최대 내약 고강도' 구분 ──
+  const isHiConsider = acc.c==='hi' && acc.l && acc.l.includes('고려');
+  const s1name = onStatin
+    ? '현재 스타틴 치료 상태'
+    : acc.c==='hi'
+      ? (isHiConsider ? '고강도 스타틴 (위험증강인자 고려, SDM 후 시작)' : '최대 내약 고강도 스타틴')
+      : acc.c==='mo'
+        ? '중등강도 스타틴'
+        : '생활습관 교정';
+  const s1drugs=onStatin
+    ? '치료 후/현재 LDL-C 기준으로 목표 달성 여부를 평가합니다.'
+    : acc.c==='hi'
+      ? 'Rosuvastatin 20–40 mg &nbsp;|&nbsp; Atorvastatin 40–80 mg'
+      : acc.c==='mo'
+        ? 'Atorvastatin 10–20 mg &nbsp;|&nbsp; Rosuvastatin 5–10 mg'
+        : '식이·운동·금연';
+  const s1ldl=onStatin?ldl:(acc.c==='hi'?afterHi:acc.c==='mo'?afterMo:ldl);
+
+  // ── [Bug C] onStatin: Step1 note에 스타틴 최대화 확인 문구 추가 ──
+  const s1note = onStatin
+    ? '⚑ 먼저 현재 스타틴이 최대 내약 용량인지 확인하십시오. 용량 증량 여지가 있으면 고강도로 전환 후 재평가합니다. 그래도 목표 미달 시 아래 단계를 적용합니다.'
+    : '';
+
+  let html=`<div style="font-size:11px;color:#888780;margin-bottom:10px">
+    <b style="color:#1a1a18">LDL 목표: &lt;${tgt} mg/dL</b> &nbsp;·&nbsp; ${onStatin?'현재':'치료 전'} LDL: <b>${ldl} mg/dL</b>
+    ${onStatin&&baselineLdl!==null?`&nbsp;·&nbsp; 치료 전 LDL: <b>${baselineLdl} mg/dL</b>`:''}
+    &nbsp;·&nbsp; 추가 감소 필요량: <b style="color:${ldl>tgt?'#a32d2d':'#3b6d11'}">${Math.max(0,ldl-tgt)} mg/dL</b>
+  </div><div class="sw">`;
+
+  html+=rbox(1,s1name,s1drugs,s1ldl,true,false,s1note);
+
+  // ── [Bug E] 1차 예방 PCSK9 note ──
+  const pcsk9Note = isPrimaryPrev
+    ? `PCSK9 mAb 예상 LDL: ~${afterPCSK9} mg/dL · Bempedoic acid 예상 LDL: ~${afterBemp} mg/dL<br>⚠ PCSK9 억제제는 1차 예방에서 국내 건강보험 급여 기준 미충족 — 비급여 처방 또는 FH·ASCVD 해당 여부 재확인 필요. Bempedoic acid는 스타틴 불내성 시 선택적으로 고려.`
+    : `PCSK9 mAb 예상 LDL: ~${afterPCSK9} mg/dL · Bempedoic acid 예상 LDL: ~${afterBemp} mg/dL<br>2026 신규: CLEAR OUTCOMES 근거. 스타틴 불내성 환자에서 Bempedoic acid 사용 (Class 2a). 건강보험 기준: FH 또는 ASCVD + 최대내약 스타틴 + Ezetimibe 후 LDL ≥70.`;
+
+  if(isLifestyle){
+    // 저위험/경계위험: Step1=생활습관 → Step2=중등강도 스타틴 → Step3=Ezetimibe → Step4=PCSK9
+    const needStatin=s1ldl>tgt;
+    html+=rbox(2,'중등강도 스타틴 시작',
+      'Atorvastatin 10–20 mg &nbsp;|&nbsp; Rosuvastatin 5–10 mg<br>LDL 감소 ~35% (중등강도 기준)',
+      statinLdlForLifestyle,needStatin,!needStatin,
+      '생활습관 교정 후 목표 미달성 시 스타틴 추가. 위험증강인자 재평가 및 환자 공동 결정(shared decision-making) 후 시작.');
+    const needEze=statinLdlForLifestyle>tgt;
+    html+=rbox(3,'Ezetimibe 추가 (스타틴 기반)',
+      'Ezetimibe (Zetia®) 10 mg 1회/일<br>추가 LDL 감소 ~15–20% (스타틴 후 add-on)',
+      afterEze,needEze,!needEze,'');
+    const needPCSK9=afterEze>tgt;
+    html+=rboxtop(4,'PCSK9 억제제 또는 Bempedoic acid',
+      `<b>PCSK9 mAb</b> (LDL ~55% 추가 감소): Evolocumab (Repatha®) / Alirocumab (Praluent®)<br><b>Bempedoic acid</b> (LDL ~20% 추가 감소, 스타틴 불내성 시 대안): 180 mg/일 ± Ezetimibe 복합제`,
+      afterPCSK9,needPCSK9,!needPCSK9,pcsk9Note);
+  } else {
+    // 중등·고강도 스타틴이 Step1 (또는 현재 스타틴 중)
+    const needEze=s1ldl>tgt;
+    html+=rbox(2,'Ezetimibe 추가 (스타틴 기반)',
+      'Ezetimibe (Zetia®) 10 mg 1회/일<br>추가 LDL 감소 ~15–20%',
+      afterEze,needEze,!needEze,'');
+    const needPCSK9=afterEze>tgt;
+    // Inclisiran: ASCVD, VHR, 또는 FH(LDL≥190) 케이스에 Step 4 표시
+    const showInclisiran = ascvd || vhr || isFH;
+    html+=rbox(3,'PCSK9 억제제 또는 Bempedoic acid',
+      `<b>PCSK9 mAb</b> (LDL ~55% 추가 감소): Evolocumab (Repatha®) 140 mg SC Q2W / 420 mg QM &nbsp;|&nbsp; Alirocumab (Praluent®) 75–150 mg SC Q2W<br><b>Bempedoic acid</b> (LDL ~20% 추가 감소, 스타틴 불내성 시 대안): 180 mg/일 ± Ezetimibe 복합제`,
+      afterPCSK9,needPCSK9,!needPCSK9,pcsk9Note);
+    if(showInclisiran){
+      const needIncl=afterEze>tgt;
+      html+=rboxtop(4,'Inclisiran (Leqvio®) — siRNA PCSK9 억제제',
+        '284 mg SC: 초회 → 3개월 후 → 이후 6개월마다<br>LDL 감소 ~48% (스타틴 기준), 연 2회 투여로 순응도 우수<br><span style="font-size:10px;color:#888780">적응증: ASCVD 또는 HeFH — 2026 ACC/AHA Class 2a. Hard CV outcome 감소 근거는 임상시험 진행 중.</span>',
+        afterIncl,needIncl,!needIncl,'');
+    }
+  }
+  html+='</div>';
+  return html;
+}
+
+/* ── RENDER ── */
+function recHTML(r,src){
+  const isLow = r.c==='lo' || r.c==='no';
+  // 저위험·경계위험: "스타틴" 불필요 레이블 제거, 핵심 메시지를 박스 안에 크게 표시
+  if(isLow){
+    let h=`<div class="rb ${r.c}">
+      <div class="rsrc">${src}</div>
+      <div class="ri" style="font-size:12px;color:#5f5e5a;font-weight:600">${r.l} — ${r.ind||''}</div>
+      ${r.n?`<div style="margin-top:7px;font-size:14px;font-weight:700;color:#185fa5;line-height:1.5">${r.n}</div>`:''}
+    </div>`;
+    return h;
+  }
+  // 중등·고강도 스타틴: 기존 레이아웃 유지
+  let h=`<div class="rb ${r.c}"><div class="rsrc">${src}</div><div class="ri">${r.l} 스타틴</div><div class="rind">${r.ind||''}</div>`;
+  if(r.d.length)h+=`<ul class="rdrugs">${r.d.map(d=>`<li>${d}</li>`).join('')}</ul>`;
+  h+=`</div>`;
+  if(r.n)h+=`<div class="nb ${r.nt}">${r.n}</div>`;
+  return h;
+}
+function colorBar(bar,v){
+  bar.style.background=v<3?'#639922':v<5?'#97c459':v<10?'#ef9f27':'#e24b4a';
+}
+function statusCell(val,tgt){
+  if(val===null||tgt===null) return '';
+  return val<=tgt?`<span class="met">달성 ✓</span>`:`<span class="unmet">+${Math.round(val-tgt)}</span>`;
+}
+function statusHdlCell(val,sex){
+  if(val===null||!Number.isFinite(Number(val))) return '';
+  const tgt=sex==='M'?40:50;
+  return val>=tgt
+    ? `<span class="met">달성 ✓</span>`
+    : `<span class="unmet">미달성</span>`;
+}
+
+/* ── MAIN UPDATE ── */
+function fmtRisk(v){ return Number.isFinite(v)?v.toFixed(1)+'%':'—'; }
+function riskColor(v){
+  if(!Number.isFinite(v)) return '#d0cec8';
+  return v<3?'#639922':v<5?'#97c459':v<10?'#ef9f27':'#e24b4a';
+}
+function riskBandText(v){
+  if(!Number.isFinite(v)) return '계산 불가';
+  if(v<3) return '저위험 범위';
+  if(v<5) return '경계위험 범위';
+  if(v<10) return '중간위험 범위';
+  return '고위험 범위';
+}
+function barWidthPct(v){
+  if(!Number.isFinite(v)) return 0;
+  return Math.min(100, v*4.2);
+}
+function hasNum(v){ return v!==null && v!=='' && !Number.isNaN(Number(v)); }
+function treatmentStateNote(onStatin, hasPostRisk, hasPostLdl){
+  if(!onStatin) return '';
+  if(hasPostRisk && hasPostLdl) return '치료 후 TC/HDL/LDL이 입력되어 on-treatment risk와 현재 LDL 조절 상태를 함께 표시합니다.';
+  if(hasPostRisk) return '치료 후 TC/HDL이 입력되어 on-treatment risk를 표시합니다. 현재 LDL-C를 입력하면 목표 달성 여부도 별도 평가됩니다.';
+  if(hasPostLdl) return '치료 후 LDL-C가 입력되어 현재 LDL 목표 달성 여부를 평가합니다. 치료 후 TC/HDL을 입력하면 on-treatment risk도 계산됩니다.';
+  return '스타틴 사용 중으로 표시되었습니다. 치료 후 지질값을 입력하면 치료 중 위험도와 현재 조절 상태가 표시됩니다.';
+}
+function recommendationVerb(acc){
+  if(!acc || !acc.l) return '권고';
+  if(acc.l.includes('고려') || acc.l.includes('개별') || acc.c==='no' || acc.c==='lo') return '고려';
+  return '권고';
+}
+function statinSentence(acc){
+  if(!acc) return '스타틴 치료를 개별 판단합니다';
+  if(acc.c==='hi') return acc.l.includes('고려') ? '고강도 스타틴 치료를 고려' : '고강도 스타틴 치료를 권고';
+  if(acc.c==='mo') return acc.l.includes('고려') ? '중등강도 스타틴 치료를 고려' : '중등강도 스타틴 치료를 권고';
+  if(acc.c==='lo' || acc.c==='no') return '생활습관 교정을 우선하며 스타틴 치료는 개별적으로 고려';
+  return `${acc.l} 스타틴 치료를 ${recommendationVerb(acc)}`;
+}
+function addonSentence(currentLdl, target, acc, onStatin){
+  if(target===null || !Number.isFinite(Number(target))) return 'LDL-C 목표는 개별 임상 상황에 따라 설정';
+  if(Number(currentLdl)<=Number(target)){
+    return onStatin
+      ? '목표 LDL-C를 달성하여 현재 치료를 유지하며 주기적 추적 관찰을 권고'
+      : '목표 LDL-C 범위 내로 확인됨. 생활습관 교정을 유지하며 주기적 추적 관찰을 권고';
+  }
+  if(acc && (acc.c==='hi' || acc.c==='mo')){
+    const start = onStatin ? '목표 미달성 시 최대내약 스타틴으로 강화/확인 후' : '목표 미달성 시 스타틴 시작 또는 최대내약 용량으로 조정 후';
+    if(target<=55) return `${start} ezetimibe 추가, 이후 PCSK9 inhibitor 또는 inclisiran 추가를 고려`;
+    if(target<=70) return `${start} ezetimibe 추가, 필요 시 PCSK9 inhibitor 또는 inclisiran 추가를 고려`;
+    return `${start} ezetimibe 추가를 고려`;
+  }
+  return '목표 미달성 시 생활습관 교정 강화와 statin 적응증 재평가를 고려';
+}
+function makeEmrSummary({prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt, acc, onStatin, currentTg, absInds, anyAbs, carotidOverride, activeEnhLabels, ckdActive, egfr}){
+  const riskLabel = preventCat && preventCat.cat ? preventCat.cat : riskBandText(prevAscvd);
+  const txState = onStatin ? `현재 LDL-C는 ${currentLdl} mg/dL이며, ` : '';
+  const addonText = addonSentence(currentLdl, dispLdlTgt, acc, onStatin);
+  const tgText = Number(currentTg)>=500 ? `\n단, 현재 TG ${currentTg} mg/dL로 500 mg/dL 이상이어서 급성 췌장염 예방 관점의 2차 원인 평가 및 fibrate/처방 omega-3 계열 치료도 별도 고려.` : '';
+
+  // CKD 스타틴 주의 문구 (스타틴이 권고되는 경우에만)
+  const ckdStNote = (ckdActive && acc.c!=='lo' && acc.c!=='no')
+    ? `\nCKD 주의: Rosuvastatin 신배설 높음 → Atorvastatin 우선 고려${Number(egfr)<30?' (eGFR '+egfr+' mL/min: Rosuvastatin 10 mg 이하로 용량 제한).':`  (eGFR ${egfr} mL/min).`}`
+    : '';
+
+  // ── [특수1] LDL < 70: 이미 낮음 — 이차성 원인 감별 필요 ──
+  if(acc.ldlTgt === null){
+    const ldlLowNote = onStatin
+      ? `현재 스타틴 복용 중이며, on-treatment LDL-C ${currentLdl} mg/dL로 이미 낮은 수준임.`
+      : `치료 전 LDL-C ${ldl} mg/dL로 이미 낮은 수준임. 현재 스타틴 치료 적응증에 해당하지 않음.`;
+    return `PREVENT 2023 기준 10-year ASCVD risk는 ${prevAscvd.toFixed(1)}%로 ${riskLabel}에 해당.\n${ldlLowNote}\n이차성 원인(갑상선기능저하증·간질환·영양불량·흡수장애·약물 등) 및 기저 질환 감별을 권고함. 추적 관찰 시행.` + tgText;
+  }
+
+  // ── [특수2] 저위험/경계위험, 스타틴 불필요 ──
+  if((acc.c==='lo'||acc.c==='no') && !anyAbs && !carotidOverride){
+    const riskNote = acc.c==='lo'
+      ? '저위험(<3%)으로 스타틴 일상적 권고 대상이 아님. 식이·운동·금연 등 생활습관 교정을 우선함.'
+      : '경계위험(3–<5%)으로 위험증강인자 부재 시 스타틴 선호도 낮음. 생활습관 교정을 우선하며, 필요 시 CAC 점수로 스타틴 결정을 보조할 수 있음.';
+    const ldlNote = ldl >= (dispLdlTgt||130)
+      ? `치료 전 LDL-C ${ldl} mg/dL로 목표 <${dispLdlTgt||130} mg/dL 미달성. 생활습관 교정 강화 권고.`
+      : `치료 전 LDL-C ${ldl} mg/dL로 목표 <${dispLdlTgt||130} mg/dL 범위 내.`;
+    return `PREVENT 2023 기준 10-year ASCVD risk는 ${prevAscvd.toFixed(1)}%로 ${riskLabel}에 해당.\n${riskNote}\n${ldlNote} 주기적 추적 관찰 시행.` + tgText;
+  }
+
+  // 위험증강인자 목록 문장 생성
+  const enhText = (activeEnhLabels && activeEnhLabels.length > 0 && (acc.c==='mo'||acc.c==='hi') && !anyAbs && !carotidOverride)
+    ? `\n확인된 위험증강인자 (${activeEnhLabels.length}개): ${activeEnhLabels.join('; ')}.`
+    : '';
+
+  if(anyAbs && absInds){
+    const activeInds = absInds.filter(i=>i.active);
+    const indNames = activeInds.map(i=>i.label).join('; ');
+    const needHigh = activeInds.some(i=>i.strength==='고강도' || i.strength==='중~고강도');
+    const strengthText = needHigh ? '고강도' : '중등강도';
+    // DM/CKD 단독 적응증 + 투약 전 LDL 이미 목표 달성 → 스타틴 불필요 문구
+    const onlyDmCkdActive = activeInds.length > 0 && activeInds.every(i=>i.key==='dm'||i.key==='ckd');
+    if(onlyDmCkdActive && acc.c==='no' && ldl < (dispLdlTgt||100)){
+      return `PREVENT 2023 기준 10-year ASCVD risk는 ${prevAscvd.toFixed(1)}% (${riskLabel})이며, 위험도 무관 스타틴 적응증(${indNames})에 해당함.\n그러나 치료 전 LDL-C ${ldl} mg/dL이 이미 목표 <${dispLdlTgt} mg/dL 이하로 달성되어 있음.\n2026 ACC/AHA "regardless of LDL-C level" 원칙은 LDL 수치와 무관하게 스타틴을 고려하라는 취지이나, 가이드라인은 투약 전 이미 목표치를 충족한 경우의 스타틴 투약을 명시적으로 요구하지 않음.\n생활습관 교정 및 주기적 추적 관찰을 권고함.` + tgText;
+    }
+    return `PREVENT 2023 기준 10-year ASCVD risk는 ${prevAscvd.toFixed(1)}% (${riskLabel})이나, 아래 위험도 분류 무관 스타틴 적응증에 해당하여 PREVENT 점수와 무관하게 치료를 권고함.\n적응증: ${indNames}.\n치료 전 LDL-C는 ${ldl} mg/dL이며, ${txState}LDL-C 목표는 <${dispLdlTgt} mg/dL.\n${strengthText} 스타틴 치료를 권고하며, ${addonText}.${ckdStNote}` + tgText;
+  }
+
+  if(carotidOverride){
+    return `PREVENT 2023 기준 10-year ASCVD risk는 ${prevAscvd.toFixed(1)}%로 ${riskLabel}에 해당.\n그러나 경동맥 초음파상 plaque ≥1.5 mm가 확인되어 무증상 죽상경화증의 객관적 증거로 판단됨.\nESC/EAS 2025 Class IIa 및 ACC/AHA 2026 권고에 따라 PREVENT 위험도와 무관하게 스타틴 치료를 고려함.\n치료 전 LDL-C는 ${ldl} mg/dL이며, ${txState}LDL-C 목표는 <${dispLdlTgt} mg/dL.\n중등강도 스타틴 치료를 고려하며, ${addonText}.${ckdStNote}` + tgText;
+  }
+
+  const statinText = statinSentence(acc);
+  return `PREVENT 2023 기준 10-year ASCVD risk는 ${prevAscvd.toFixed(1)}%로 ${riskLabel}에 해당.\n${enhText ? enhText.trimStart() + '\n' : ''}치료 전 LDL-C는 ${ldl} mg/dL이며, ${txState}현재 LDL-C 목표는 <${dispLdlTgt} mg/dL로 판단됨.\n이에 따라 ${statinText}하며, ${addonText}.${ckdStNote}` + tgText;
+}
+
+function getRadioValue(name){
+  const el=document.querySelector(`input[name="${name}"]:checked`);
+  return el?el.value:'';
+}
+function getCheckText(id){ return g(id)?.checked ? '예' : '아니오'; }
+function getInputValue(id, unit=''){
+  const el=g(id);
+  if(!el) return '';
+  const v=el.value;
+  if(v===null || v==='') return '';
+  return unit ? `${v} ${unit}` : v;
+}
+function getSelectedText(id){
+  const el=g(id);
+  if(!el) return '';
+  if(el.options && el.selectedIndex>=0) return el.options[el.selectedIndex].text;
+  return el.value||'';
+}
+function getCheckedLabels(selector){
+  return [...document.querySelectorAll(selector + ':checked')].map(el=>{
+    const label=el.closest('label');
+    return label ? label.textContent.trim().replace(/\s+/g,' ') : (el.value||'');
+  });
+}
+function txt(id){
+  const el=g(id);
+  return el ? el.textContent.trim().replace(/\s+/g,' ') : '';
+}
+function htmlEscape(s){
+  return String(s ?? '')
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+function rowsToHtml(rows){
+  return rows.map(r=>{
+    if(r.type==='section'){
+      return `<tr><th colspan="3" style="background:#e6f1fb;color:#185fa5;font-size:12pt;text-align:left">${htmlEscape(r.title)}</th></tr>`;
+    }
+    return `<tr><td>${htmlEscape(r[0])}</td><td>${htmlEscape(r[1])}</td><td>${htmlEscape(r[2]||'')}</td></tr>`;
+  }).join('\n');
+}
+function tableRowsFromDisplayedTable(tableId, sectionTitle){
+  const table=g(tableId);
+  const out=[{type:'section', title:sectionTitle}];
+  if(!table) return out;
+  const trs=[...table.querySelectorAll('tr')];
+  trs.forEach(tr=>{
+    const cells=[...tr.querySelectorAll('th,td')].map(td=>td.textContent.trim().replace(/\s+/g,' '));
+    if(cells.length){
+      out.push([cells[0]||'', cells.slice(1).join(' | '), '화면 표시값']);
+    }
+  });
+  return out;
+}
+function exportInputDataToExcel(){
+  upd();
+
+  const now=new Date();
+  const sexVal=getRadioValue('sex');
+  const sexLabel=sexVal==='M'?'남성':sexVal==='F'?'여성':sexVal;
+  const enhancers=getCheckedLabels('.enh');
+  const dmEnhancers=getCheckedLabels('.dmenh');
+
+  const rows=[
+    {type:'section', title:'기본 정보'},
+    ['생성일시', now.toLocaleString('ko-KR'), ''],
+    ['나이', getInputValue('age','세'), ''],
+    ['성별', sexLabel, ''],
+
+
+    ['ASCVD 기왕력', getCheckText('ascvdHx'), '2차 예방 여부'],
+    ['Very high-risk ASCVD', getCheckText('veryHigh'), ''],
+    ['현재 스타틴 복용 중', getCheckText('onStatin'), ''],
+
+    {type:'section', title:'치료 전 baseline 지질 검사'},
+    ['치료 전 TC', getInputValue('tc','mg/dL'), ''],
+    ['치료 전 HDL-C', getInputValue('hdl','mg/dL'), ''],
+    ['치료 전 LDL-C', getInputValue('ldl','mg/dL'), ''],
+    ['치료 전 TG', getInputValue('tg','mg/dL'), ''],
+
+    {type:'section', title:'치료 중/현재 지질 검사'},
+    ['치료 후 TC', getInputValue('postTc','mg/dL'), '스타틴 복용 중일 때 입력'],
+    ['치료 후 HDL-C', getInputValue('postHdl','mg/dL'), '스타틴 복용 중일 때 입력'],
+    ['치료 후 LDL-C', getInputValue('postLdl','mg/dL'), '스타틴 복용 중일 때 입력'],
+    ['치료 후 TG', getInputValue('postTg','mg/dL'), '스타틴 복용 중일 때 입력'],
+
+    {type:'section', title:'혈압 및 임상 인자'},
+    ['수축기 혈압', getInputValue('sbp','mmHg'), ''],
+    ['항고혈압제 복용', getCheckText('bpTx'), ''],
+    ['현재 흡연', getCheckText('smoker'), ''],
+    ['당뇨병', getCheckText('dm'), ''],
+    ['eGFR', getInputValue('egfr','mL/min/1.73m²'), ''],
+    ['UACR', getInputValue('uacr','mg/g'), ''],
+    ['HbA1c', getInputValue('hba1c','%'), ''],
+    ['신장', getInputValue('ht','cm'), ''],
+    ['체중', getInputValue('wt','kg'), ''],
+    ['BMI', getInputValue('bmi','kg/m²'), txt('bmiOut')],
+    ['hs-CRP', getInputValue('hscrp','mg/L'), ''],
+    ['ApoB (직접 측정값)', getInputValue('apob','mg/dL'), '미입력 시 추정값 사용'],
+    ['치료 후 ApoB', getInputValue('postApob','mg/dL'), '스타틴 복용 중일 때 입력'],
+
+    {type:'section', title:'Risk enhancers'},
+    ['선택된 risk enhancer 개수', txt('enhCount'), ''],
+    ['Risk enhancer 목록', enhancers.length ? enhancers.join('; ') : '없음', ''],
+    ['당뇨병 특이 risk enhancer 목록', dmEnhancers.length ? dmEnhancers.join('; ') : '없음', ''],
+
+    {type:'section', title:'위험도 계산 결과'},
+    ['PREVENT 2023 HF risk (10년)', txt('prevHfNum'), '치료 전 baseline'],
+    ['PREVENT 2023 ASCVD risk', txt('prevAscvdNum'), '치료 전 baseline'],
+    ['PREVENT 2023 Total CVD risk', txt('prevNum'), txt('prevSub')],
+    ['기저 위험군 판정', txt('riskBadge'), '치료 적응증/위험군 판정은 baseline 기준'],
+    ['상태 메모', txt('adjNote'), ''],
+    ['ACC/AHA PREVENT 위험분류', txt('preventOut'), ''],
+
+    {type:'section', title:'치료 권고 및 전자차트 요약'},
+    ['ACC/AHA PREVENT 치료 제안', txt('accRecOut'), ''],
+    ['전자차트 복사용 문장', g('emrSummary')?.value || '', '']
+  ];
+
+  rows.push(...tableRowsFromDisplayedTable('lipidTbl', '지질 파라미터 및 목표치'));
+  rows.push(...tableRowsFromDisplayedTable('preventRiskTbl', 'PREVENT 위험도 범주표'));
+
+  // SheetJS로 진짜 .xlsx 생성
+  const wsData=[['항목','값','비고']];
+  rows.forEach(r=>{
+    if(r && r.type==='section'){
+      wsData.push(['']);
+      wsData.push(['['+r.title+']','','']);
+    } else if(Array.isArray(r)){
+      wsData.push(r);
+    }
+  });
+  const dateStr=now.toISOString().slice(0,10).replace(/-/g,'');
+  const ws=XLSX.utils.aoa_to_sheet(wsData);
+  ws['!cols']=[{wch:30},{wch:44},{wch:32}];
+  const wb=XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb,ws,'CVD_PREVENT');
+  XLSX.writeFile(wb,'CVD_PREVENT_input_result_'+dateStr+'.xlsx');
+
+  const status=g('excelStatus'); const statusTop2=g('excelStatusTop');
+  if(status){ status.style.display='block'; status.className='nb suc'; status.textContent='Excel 파일(.xlsx)로 추출되었습니다.'; }
+  if(statusTop2){ statusTop2.style.display='block'; statusTop2.className='nb suc'; statusTop2.textContent='Excel 파일(.xlsx)로 추출되었습니다.'; }
+}
+
+
+function copyResultSummary(){
+  const area=g('emrSummary');
+  const status=g('copyStatus'); const statusTop=g('copyStatusTop');
+  if(!area || !area.value) upd();
+  const text=(area && area.value) ? area.value : '';
+
+  function showOk(){
+    if(status){ status.style.display='block'; status.className='nb suc'; status.textContent='결과요약이 클립보드에 복사되었습니다. 전자차트에 바로 붙여넣기 하시면 됩니다.'; }
+    if(statusTop){ statusTop.style.display='block'; statusTop.className='nb suc'; statusTop.textContent='결과요약이 클립보드에 복사되었습니다.'; }
+  }
+  function showFail(){
+    if(status){ status.style.display='block'; status.className='nb warn'; status.textContent='복사가 제한되었습니다. 아래 요약문을 직접 드래그하여 복사해 주세요.'; }
+    if(statusTop){ statusTop.style.display='block'; statusTop.className='nb warn'; statusTop.textContent='아래 요약문을 직접 복사해 주세요.'; }
+    if(area){ area.focus(); area.select(); }
+  }
+
+  // 1차: 최신 Clipboard API (HTTPS/localhost)
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(text).then(showOk).catch(()=>fallbackCopy());
+    return;
+  }
+  fallbackCopy();
+
+  function fallbackCopy(){
+    // 2차: textarea를 body에 직접 붙여 execCommand 실행 (file:// 환경 포함)
+    const tmp=document.createElement('textarea');
+    tmp.value=text;
+    tmp.style.cssText='position:fixed;top:0;left:0;opacity:0;pointer-events:none';
+    document.body.appendChild(tmp);
+    tmp.focus();
+    tmp.select();
+    try{
+      const ok=document.execCommand('copy');
+      ok ? showOk() : showFail();
+    }catch(e){
+      showFail();
+    }finally{
+      document.body.removeChild(tmp);
+    }
+  }
+}
+
+/* ── MAIN UPDATE ── */
+function clearResults(){
+  const blank='<div style="font-size:12px;color:#b4b2a9;padding:8px 0">입력값을 모두 입력하면 결과가 표시됩니다.</div>';
+  ['prevAscvdNum','prevHfNum','prevNum'].forEach(id=>{ if(g(id)) g(id).textContent='—'; });
+  ['prevAscvdBar','prevHfBar','prevBar'].forEach(id=>{ if(g(id)) g(id).style.width='0'; });
+  ['prevAscvd30Sub','prevHf30Sub','prevCvd30Sub'].forEach(id=>{ if(g(id)) g(id).textContent='30년: —'; });
+  if(g('riskBadge')){ g('riskBadge').textContent='—'; g('riskBadge').style.background='#f1efe8'; g('riskBadge').style.color='#888780'; }
+  if(g('adjNote')) g('adjNote').textContent='';
+  if(g('onTxRiskBox')) g('onTxRiskBox').innerHTML='';
+  if(g('ksolaOut')) g('ksolaOut').innerHTML=blank;
+  if(g('accRecOut')) g('accRecOut').innerHTML=blank;
+  if(g('swFlow')) g('swFlow').innerHTML='';
+  if(g('lipidTbl')) g('lipidTbl').innerHTML='';
+  if(g('absIndList')) g('absIndList').innerHTML='';
+}
+
+function upd(){
+  const ageRaw=g('age').value;
+  const sexVal=document.querySelector('input[name=sex]:checked')?.value;
+  const tcRaw=g('tc').value;
+  const hdlRaw=g('hdl').value;
+  const ldlRaw=g('ldl').value;
+  const tgRaw=g('tg').value;
+  const sbpRaw=g('sbp').value;
+
+  // 필수 입력값 미충족 시 결과 초기화 후 종료
+  // TG 자동 체크 — 다른 필수값 미입력 시에도 TG 단독 입력으로 즉시 반영
+  if(g('enhTg175')){
+    const _tg=parseFloat(tgRaw);
+    if(!isNaN(_tg) && _tg >= 175){
+      g('enhTg175').checked = true;
+      g('enhTg175').dataset.autoChecked = 'true';
+    } else if(g('enhTg175').dataset.autoChecked === 'true'){
+      g('enhTg175').checked = false;
+      g('enhTg175').dataset.autoChecked = 'false';
+    }
+  }
+
+  if(!ageRaw||!sexVal||!tcRaw||!hdlRaw||!ldlRaw||!tgRaw||!sbpRaw){
+    clearResults();
+    const _egfr=parseFloat(g('egfr').value)||90;
+    const _age=parseInt(ageRaw)||0;
+    const _ckdEnh=(_egfr>=15&&_egfr<60&&_age>0&&_age<40);
+    const nE=document.querySelectorAll('.enh:checked').length+(_ckdEnh?1:0);
+    if(g('enhCount')) g('enhCount').textContent=nE;
+    if(g('ckdEnhDisplay')) g('ckdEnhDisplay').style.display=_ckdEnh?'flex':'none';
+    return;
+  }
+
+  const age=parseInt(ageRaw);
+  const sex=sexVal;
+  const tc=parseFloat(tcRaw);
+  const hdl=parseFloat(hdlRaw);
+  const ldl=parseFloat(ldlRaw);
+  const tg=parseFloat(tgRaw);
+  const sbp=parseFloat(sbpRaw);
+  const bpTx=g('bpTx').checked;
+  const smoker=g('smoker').checked;
+  const dm=g('dm').checked;
+  const ascvd=g('ascvdHx').checked;
+  const vhr=g('veryHigh').checked;
+
+  // LDL 수치에 따른 자동 체크
+  // LDL 160–189 / non-HDL ≥190 / ApoB ≥120: 위험증강인자 자동 체크 (2026 ACC/AHA Table 13)
+  // LDL ≥190: 절대 적응증으로 분리 — enhancer 중복 제외
+  if(g('enhLdl160')){
+    const nonHdl = (tc && hdl) ? (tc - hdl) : null;
+    const apobMeasEarly = parseFloat(g('apob')?.value) || null;
+    const ldlTrigger  = ldl >= 160 && ldl < 190;
+    const nonHdlTrigger = nonHdl !== null && nonHdl >= 190 && ldl < 190;
+    const apobTrigger = apobMeasEarly !== null && apobMeasEarly >= 120 && ldl < 190;
+    const shouldAutoCheck = ldlTrigger || nonHdlTrigger || apobTrigger;
+
+    if(ldl >= 190){
+      if(g('enhLdl160').dataset.autoChecked === 'true') g('enhLdl160').checked = false;
+    } else if(shouldAutoCheck){
+      g('enhLdl160').checked = true;
+    } else {
+      if(g('enhLdl160').dataset.autoChecked === 'true') g('enhLdl160').checked = false;
+    }
+    g('enhLdl160').dataset.autoChecked = (ldl < 190 && shouldAutoCheck) ? 'true' : 'false';
+  }
+
+  // TG ≥ 175 (비공복 기준): 기본정보 TG 입력값에 따라 위험증강인자 자동 체크
+  if(g('enhTg175')){
+    if(tg >= 175){
+      g('enhTg175').checked = true;
+      g('enhTg175').dataset.autoChecked = 'true';
+    } else {
+      if(g('enhTg175').dataset.autoChecked === 'true') g('enhTg175').checked = false;
+      g('enhTg175').dataset.autoChecked = 'false';
+    }
+  }
+
+  // eGFR 조기 파싱 — CKD 분류는 체크박스 없이 eGFR 수치에서 직접 판정
+  const egfr=parseFloat(g('egfr').value)||90;
+  // CKD (eGFR 15–59) 분류:
+  //   나이 ≥40세 → 위험도 무관 스타틴 적응증 (ckdAbs, 아래 absInds에서 처리)
+  //   나이 <40세 → 위험증강인자로만 반영 (ckdEnh, nE에 자동 가산)
+  const ckdEnh=(egfr>=15&&egfr<60&&age<40);
+
+  const nE=document.querySelectorAll('.enh:checked').length+(ckdEnh?1:0);
+  g('enhCount').textContent=nE;
+  // CKD <40세 위험증강인자 자동 표시
+  if(g('ckdEnhDisplay')) g('ckdEnhDisplay').style.display=ckdEnh?'flex':'none';
+  const uacr=parseFloat(g('uacr').value)||0;
+  const hba1c=parseFloat(g('hba1c').value)||0;
+  const ht=parseFloat(g('ht').value)||0;
+  const wt=parseFloat(g('wt').value)||0;
+  let bmi=parseFloat(g('bmi').value)||0;
+  if(ht>0&&wt>0){
+    const cb=parseFloat((wt/((ht/100)*(ht/100))).toFixed(1));
+    bmi=cb;
+    if(!g('bmi').matches(':focus')) g('bmi').value=cb;
+    const bc=cb<18.5?'저체중':cb<23?'정상':cb<25?'과체중':cb<30?'비만1':'비만2';
+    g('bmiOut').textContent=cb.toFixed(1)+' ('+bc+')'; 
+  }else if(bmi>0){
+    g('bmiOut').textContent=bmi.toFixed(1);
+  }else{
+    g('bmiOut').textContent='';
+  }
+  const onStatin=g('onStatin').checked;
+  const hsCRP=parseFloat(g('hscrp').value)||0;
+  if(g('postLipidBox')) g('postLipidBox').style.display=onStatin?'block':'none';
+
+  const postTcRaw=g('postTc')?.value;
+  const postHdlRaw=g('postHdl')?.value;
+  const postLdlRaw=g('postLdl')?.value;
+  const postTgRaw=g('postTg')?.value;
+  const postTc=hasNum(postTcRaw)?parseFloat(postTcRaw):null;
+  const postHdl=hasNum(postHdlRaw)?parseFloat(postHdlRaw):null;
+  const postLdl=hasNum(postLdlRaw)?parseFloat(postLdlRaw):null;
+  const postTg=hasNum(postTgRaw)?parseFloat(postTgRaw):null;
+  const hasPostRisk=onStatin && postTc!==null && postHdl!==null;
+  const hasPostLdl=onStatin && postLdl!==null;
+  const hasPostTg=onStatin && postTg!==null;
+  const currentTc=hasPostRisk?postTc:tc;
+  const currentHdl=hasPostRisk?postHdl:hdl;
+  const currentLdl=hasPostLdl?postLdl:ldl;
+  const currentTg=hasPostTg?postTg:tg;
+
+  g('vhrRow').style.display=ascvd?'flex':'none';
+
+  // ── 연령 범위 외 안내 ──
+  const ageOutOfRange = age < 30 || age >= 80;
+  const ageCard = g('ageRangeCard');
+  const ageNote = g('ageOutOfRange');
+  if(ageOutOfRange){
+    let msg='', noteMsg='';
+    if(age < 30){
+      msg=`<div style="font-size:12px;font-weight:700;color:#854f0b;margin-bottom:5px">⚠ ${age}세 — PREVENT 검증 범위(30–79세) 미만</div>
+      <div style="font-size:11px;color:#1a1a18;line-height:1.7">
+        이 연령에서는 <b>10년 위험도 수치보다 원인 진단과 LDL 절대값</b>이 더 중요합니다.<br>
+        ▸ LDL ≥ 160 mg/dL → 가족성 고콜레스테롤혈증(FH) 감별 필요<br>
+        ▸ LDL ≥ 190 mg/dL → 위험도 무관 고강도 스타틴 시작 (2026 ACC/AHA)<br>
+        ▸ 2차성 원인 배제: 갑상선기능저하증 · 신증후군 · 당뇨병<br>
+        ▸ 아래 <b>위험도 무관 스타틴 적응증</b> 섹션을 우선 확인하세요.
+      </div>`;
+      noteMsg='30세 미만 — PREVENT 범위 외. FH 감별 및 LDL 절대값 기준 적용';
+    } else {
+      msg=`<div style="font-size:12px;font-weight:700;color:#854f0b;margin-bottom:5px">⚠ ${age}세 — PREVENT 검증 범위(30–79세) 초과</div>
+      <div style="font-size:11px;color:#1a1a18;line-height:1.7">
+        이 연령에서는 PREVENT 위험도 수치의 신뢰도가 낮습니다. 아래 항목을 우선 적용하세요.<br>
+        ▸ <b>ASCVD 기왕력(2차 예방)</b> → 연령 무관 고강도 스타틴 + LDL &lt;70 mg/dL 목표<br>
+        ▸ <b>당뇨병 · CKD · LDL ≥190</b> → 위험도 무관 적응증 섹션 활용<br>
+        ▸ 1차 예방 일반: Frailty · 기대여명 · 다약제복용 · 환자 선호도 기반 shared decision-making<br>
+        ▸ 아래 <b>위험도 무관 스타틴 적응증</b> 섹션을 우선 확인하세요.
+      </div>`;
+      noteMsg='80세 이상 — PREVENT 범위 외. 2차 예방·위험도 무관 적응증 섹션 활용';
+    }
+    ageCard.style.display='block';
+    ageCard.innerHTML=msg;
+    if(ageNote){ ageNote.style.display='block'; ageNote.style.background='#faeeda'; ageNote.style.color='#854f0b'; ageNote.textContent=noteMsg; }
+  } else {
+    ageCard.style.display='none';
+    if(ageNote) ageNote.style.display='none';
+  }
+
+  const nonHDL=tc-hdl;
+  const currentNonHDL=currentTc-currentHdl;
+  const apoB_est=Math.round(0.789*ldl+0.73); // Sathiyakumar et al., Circulation 2018
+  const currentApoB_est=Math.round(0.789*currentLdl+0.73);
+
+  // ApoB — measured value (2026 ACC/AHA: selective measurement recommended)
+  const apobRaw=g('apob')?.value;
+  const apob_meas=hasNum(apobRaw)?parseFloat(apobRaw):null;
+  const postApobRaw=g('postApob')?.value;
+  const postApob_meas=hasNum(postApobRaw)?parseFloat(postApobRaw):null;
+  const apoBDisplay=apob_meas!==null?apob_meas:apoB_est;
+  const apoBLabel=apob_meas!==null?'측정값':'추정';
+  const currentApoBDisplay=(onStatin&&postApob_meas!==null)?postApob_meas:(apob_meas!==null?apob_meas:currentApoB_est);
+  const currentApoBLabel=(onStatin&&postApob_meas!==null)?'측정값':(apob_meas!==null?'측정값':'추정');
+
+  // 2026 guideline ApoB measurement indication check
+  const apobIndications=[];
+  if(tg>=175) apobIndications.push('TG ≥ 175 mg/dL');
+  if(dm) apobIndications.push('당뇨병');
+  if(onStatin && currentLdl<70) apobIndications.push('달성 LDL-C < 70 mg/dL');
+  const apobIndBox=g('apobIndBox');
+  const apobIndText=g('apobIndText');
+  if(apobIndBox&&apobIndText){
+    if(apobIndications.length>0){
+      apobIndBox.style.display='block';
+      apobIndText.textContent='해당 조건: '+apobIndications.join(', ')+' — LDL-C·non-HDL-C 목표 달성 후 잔류위험 평가에 ApoB 직접 측정을 권고 (2026 ACC/AHA Class IIa)';
+    }else{
+      apobIndBox.style.display='none';
+    }
+  }
+
+
+
+  // PREVENT coefficient-based risk — baseline values, before statin
+  const preventBase=calcPREVENT_ALL(age,sex,nonHDL,hdl,sbp,bpTx,smoker,dm,egfr,uacr,hba1c,bmi,false);
+  const prev=clamp(preventBase.y10.total_cvd*100);
+  const prevAscvd=clamp(preventBase.y10.ascvd*100);
+  const prevHf=clamp(preventBase.y10.heart_failure*100);
+  const prev30=clamp(preventBase.y30.total_cvd*100);
+  const prev30Ascvd=clamp(preventBase.y30.ascvd*100);
+  const prev30Hf=clamp(preventBase.y30.heart_failure*100);
+
+  // PREVENT/PCE on-treatment risk — current treatment/lipid values, displayed only as treatment status
+  let preventTx=null, txPrev=null, txPrevAscvd=null, txPrevHf=null, txPrev30=null, txPrev30Ascvd=null, txPrev30Hf=null;
+
+  if(onStatin && hasPostRisk){
+    preventTx=calcPREVENT_ALL(age,sex,currentNonHDL,currentHdl,sbp,bpTx,smoker,dm,egfr,uacr,hba1c,bmi,true);
+    txPrev=clamp(preventTx.y10.total_cvd*100);
+    txPrevAscvd=clamp(preventTx.y10.ascvd*100);
+    txPrevHf=clamp(preventTx.y10.heart_failure*100);
+    txPrev30=clamp(preventTx.y30.total_cvd*100);
+    txPrev30Ascvd=clamp(preventTx.y30.ascvd*100);
+    txPrev30Hf=clamp(preventTx.y30.heart_failure*100);
+  }
+
+  // Use baseline PREVENT ASCVD as primary risk for ACC/AHA classification and treatment indication
+  const primRisk=prevAscvd;
+
+  // PREVENT risk display
+  const show30=(age>=30&&age<=59);
+  if(ageOutOfRange){
+    ['prevAscvdNum','prevHfNum','prevNum'].forEach(id=>{g(id).textContent='—';});
+    ['prevAscvdBar','prevHfBar','prevBar'].forEach(id=>{if(g(id)){g(id).style.width='0';g(id).style.background='#d0cec8';}});
+    ['prevAscvd30Sub','prevHf30Sub','prevCvd30Sub'].forEach(id=>{if(g(id))g(id).textContent='30년: 범위 외';});
+    g('riskBadge').textContent='PREVENT 범위 외 — 아래 섹션 참고';
+    g('riskBadge').style.background='#faeeda'; g('riskBadge').style.color='#854f0b';
+    g('adjNote').textContent='';
+  } else {
+    // ASCVD
+    g('prevAscvdNum').textContent=prevAscvd.toFixed(1)+'%';
+    g('prevAscvdBar').style.width=Math.min(100,prevAscvd*4.2)+'%';
+    colorBar(g('prevAscvdBar'),prevAscvd);
+    if(g('prevAscvd30Sub')) g('prevAscvd30Sub').textContent=show30?`30년: ${prev30Ascvd.toFixed(1)}%`:'30년: (30–59세만 표시)';
+
+    // Heart Failure
+    g('prevHfNum').textContent=prevHf.toFixed(1)+'%';
+    g('prevHfBar').style.width=Math.min(100,prevHf*4.2)+'%';
+    colorBar(g('prevHfBar'),prevHf);
+    if(g('prevHf30Sub')) g('prevHf30Sub').textContent=show30?`30년: ${prev30Hf.toFixed(1)}%`:'30년: (30–59세만 표시)';
+
+    // Total CVD
+    g('prevNum').textContent=prev.toFixed(1)+'%';
+    g('prevBar').style.width=Math.min(100,prev*4.2)+'%';
+    colorBar(g('prevBar'),prev);
+    if(g('prevCvd30Sub')) g('prevCvd30Sub').textContent=show30?`30년: ${prev30.toFixed(1)}%`:'30년: (30–59세만 표시)';
+  }
+
+  // ── 절대 적응증 플래그 (배지 표시 전에 계산) ──
+  const cacActive=g('cacCheck')&&g('cacCheck').checked;       // CAC 100–299 또는 ≥75 백분위
+  const cac1to99Active=g('cac1to99')&&g('cac1to99').checked;  // CAC 1–99 (위험증강인자만)
+  const cac300Active=g('cac300')&&g('cac300').checked;        // CAC 300–999
+  const cac1000Active=g('cac1000')&&g('cac1000').checked;     // CAC ≥1000
+  const anyCAC=cac1to99Active||cacActive||cac300Active||cac1000Active;
+  const ckdAbs=(egfr>=15&&egfr<60&&age>=40);
+  const dmAbs=dm&&age>=30&&age<=79;
+  const ldl190Abs=ldl>=190;
+
+  // 예외 병명+이유 목록 (ASCVD는 배지 자체가 2차 예방이므로 제외)
+  function absExceptionNotes(excludeAscvd=true){
+    const notes=[];
+    if(!excludeAscvd && ascvd) notes.push(vhr?'ASCVD 기왕력 (초고위험: LDL<55 목표)':'ASCVD 기왕력 (고강도 스타틴, LDL<70 목표)');
+    if(ldl190Abs) notes.push('LDL-C ≥190 mg/dL — FH 의심, 위험도 무관 고강도 스타틴');
+    if(cac1000Active&&!ascvd) notes.push('CAC ≥1000 — 초고위험 수준, LDL<55 목표');
+    if(cac300Active&&!ascvd) notes.push('CAC 300–999 — LDL<70 목표 (선택적 <55 강화 고려)');
+    if(cacActive&&!ascvd) notes.push('CAC 100–299 또는 ≥75 백분위 — 스타틴 충분조건, LDL<70 목표');
+    if(ckdAbs&&!ascvd) notes.push('CKD (eGFR 15–59) + 나이≥40세 — 위험도 무관 중등강도 스타틴');
+    if(dmAbs&&!ascvd) notes.push(`당뇨병 — 위험도 무관 ${primRisk>=10?'고강도':'중등강도'} 스타틴`);
+    return notes;
+  }
+
+  // Badge (based on baseline PREVENT ASCVD)
+  const badge=g('riskBadge');
+  const adjNote=g('adjNote');
+  if(!ageOutOfRange){
+    let bT,bC,bBg;
+    if(ascvd){bT='기저 판정: 2차 예방 (ASCVD 기왕력)';bC='#a32d2d';bBg='#fcebeb';}
+    else if(primRisk<3){bT='기저 판정: 저위험  < 3% (PREVENT-ASCVD)';bC='#3b6d11';bBg='#eaf3de';}
+    else if(primRisk<5){bT='기저 판정: 경계위험  3–5% (PREVENT-ASCVD)';bC='#3b6d11';bBg='#eaf3de';}
+    else if(primRisk<10){bT='기저 판정: 중간위험  5–10% (PREVENT-ASCVD)';bC='#854f0b';bBg='#faeeda';}
+    else{bT='기저 판정: 고위험  ≥ 10% (PREVENT-ASCVD)';bC='#a32d2d';bBg='#fcebeb';}
+    const badgeExc=absExceptionNotes();
+    badge.innerHTML=bT+(badgeExc.length?` <span style="font-weight:400;font-size:10px;color:${bC};opacity:0.85">(위험도 무관 적응증 해당: ${badgeExc.join('; ')})</span>`:'');
+    badge.style.color=bC;badge.style.background=bBg;
+    adjNote.textContent=treatmentStateNote(onStatin,hasPostRisk,hasPostLdl);
+  }
+
+  // On-treatment risk comparison box
+  if(g('onTxRiskBox')){
+    if(onStatin && hasPostRisk){
+      const baseCat=ascvd?'2차 예방':riskBandText(prevAscvd);
+      const txCat=ascvd?'2차 예방':riskBandText(txPrevAscvd);
+      const txColorAsc=riskColor(txPrevAscvd);
+      const txColorTotal=riskColor(txPrev);
+      g('onTxRiskBox').innerHTML=`
+        <div style="margin-top:10px;padding:10px 10px 8px;background:#fbfaf8;border:1px solid #e2e0db;border-radius:10px">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+            <div style="font-size:11px;font-weight:700;color:#1a1a18;text-transform:uppercase;letter-spacing:.05em">치료 중 on-treatment 위험도</div>
+            <span class="badge" style="background:${ascvd?'#fcebeb':'#f0efe9'};color:${ascvd?'#a32d2d':'#1a1a18'}">${ascvd?'2차 예방':'현재 범위: '+txCat}</span>
+          </div>
+          <div class="rcmp">
+            <div class="rcell hl">
+              <div class="rlabel">PREVENT 2023<br>ASCVD Risk</div>
+              <div class="rnum">${fmtRisk(txPrevAscvd)}</div>
+              <div class="bw"><div class="bar" style="width:${barWidthPct(txPrevAscvd)}%;background:${txColorAsc}"></div></div>
+              <div class="rsub">치료 중 · ${txCat}</div>
+            </div>
+            <div class="rcell hl">
+              <div class="rlabel">PREVENT 2023<br>Heart Failure Risk</div>
+              <div class="rnum">${fmtRisk(txPrevHf)}</div>
+              <div class="bw"><div class="bar" style="width:${barWidthPct(txPrevHf)}%;background:${riskColor(txPrevHf)}"></div></div>
+              <div class="rsub">치료 중 · 심부전 위험</div>
+            </div>
+            <div class="rcell">
+              <div class="rlabel">PREVENT 2023<br>Total CVD Risk</div>
+              <div class="rnum">${fmtRisk(txPrev)}</div>
+              <div class="bw"><div class="bar" style="width:${barWidthPct(txPrev)}%;background:${txColorTotal}"></div></div>
+              <div class="rsub">치료 중 · ASCVD + HF</div>
+            </div>
+          </div>
+          <table class="lt" style="margin-top:8px">
+            <thead><tr><th>비교</th><th>PREVENT ASCVD</th><th>PREVENT HF</th><th>PREVENT Total CVD</th><th>위험범위</th></tr></thead>
+            <tbody>
+              <tr><td>치료 전 baseline</td><td style="font-weight:700">${fmtRisk(prevAscvd)}</td><td style="font-weight:700">${fmtRisk(prevHf)}</td><td>${fmtRisk(prev)}</td><td>${baseCat}</td></tr>
+              <tr><td>치료 중 on-treatment</td><td style="font-weight:700">${fmtRisk(txPrevAscvd)}</td><td style="font-weight:700">${fmtRisk(txPrevHf)}</td><td>${fmtRisk(txPrev)}</td><td>${txCat}</td></tr>
+            </tbody>
+          </table>
+          <div class="nb warn" style="margin-top:6px">치료 중 위험도가 낮아져도 기저 위험군은 치료 전 baseline 판정을 유지합니다. 치료 중 값은 residual risk와 LDL 목표 달성 여부를 보는 보조 지표입니다.</div>
+        </div>`;
+    }else if(onStatin){
+      g('onTxRiskBox').innerHTML=`<div class="nb info">스타틴 사용 중입니다. 치료 후 TC와 HDL-C를 입력하면 on-treatment PREVENT 위험도 (ASCVD · HF · Total CVD)가 <b>별도 박스</b>로 표시됩니다. LDL-C만 입력해도 목표 달성 여부와 추가치료 판단은 표시됩니다.</div>`;
+    }else{
+      g('onTxRiskBox').innerHTML='';
+    }
+  }
+
+  // Update slider label
+
+  // ACC/AHA PREVENT classification — baseline
+  const preventCat=preventClass(primRisk,ldl,ascvd,dm,egfr,age,sex,sbp,bpTx,smoker,hdl,nE,tg,vhr);
+
+  // Highlight current PREVENT risk row
+  ['pr-low','pr-border','pr-inter','pr-high'].forEach(id=>{ if(g(id)) g(id).style.background=''; });
+  if(preventCat.row && g(preventCat.row)) g(preventCat.row).style.background='#faeeda';
+
+  // PREVENT category output
+  const ksolExc=absExceptionNotes();
+  g('ksolaOut').innerHTML=`
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:5px;flex-wrap:wrap">
+      <span class="kbadge" style="color:${preventCat.c};background:${preventCat.bg}">${preventCat.cat}</span>
+      <span style="font-size:12px;font-weight:600">기저 LDL-C 치료 기준/목표 &lt;${preventCat.l} mg/dL</span>
+    </div>
+    <div style="font-size:11px;color:#5f5e5a">근거: ${preventCat.basis}</div>
+    ${ksolExc.length?`<div style="font-size:12px;font-weight:700;color:#a32d2d;margin-top:6px;line-height:1.6">⚠ 위험도 분류 무관 적응증 해당 — ${ksolExc.map(n=>`(${n})`).join(' ')}</div>`:''}`;
+  g('preventDetail').innerHTML=
+    `치료 전 baseline: 10년 ASCVD ${prevAscvd.toFixed(1)}% · 10년 Total CVD ${prev.toFixed(1)}% · 10년 HF ${prevHf.toFixed(1)}%<br>`+
+    `치료 전 baseline: 30년 ASCVD ${prev30Ascvd.toFixed(1)}% · 30년 Total CVD ${prev30.toFixed(1)}% · 30년 HF ${prev30Hf.toFixed(1)}%`+
+    (onStatin&&hasPostRisk?`<br>치료 중: 10년 ASCVD ${txPrevAscvd.toFixed(1)}% · 10년 Total CVD ${txPrev.toFixed(1)}% · 10년 HF ${txPrevHf.toFixed(1)}%`:``);
+
+  // ACC/AHA rec — baseline indication; current values are used for control/add-on assessment
+  let acc=accRec(age,primRisk,ldl,dm,ascvd,vhr,nE,tg,smoker,bpTx);
+
+  // ── LDL≥190 정밀 맞춤: 기본정보 기준 <100이나 위험증강인자 명시적 체크 시 <70으로 강화 ──
+  // 기본정보로 이미 <70이면 불필요. <100인 경우에만 위험증강인자로 강화
+  if(ldl190Abs && !ascvd && acc.ldlTgt===100 && nE>=1){
+    acc={...acc,
+      ldlTgt:70, nhTgt:100,
+      n:'LDL ≥190 + 위험증강인자 확인: <70 mg/dL로 목표 강화. 최대내약 스타틴 후 미달성 시 Ezetimibe → PCSK9 억제제. FH 전문가 의뢰 고려.',
+      nt:'dng'
+    };
+  }
+
+  // ── accRec override: 위험도 무관 절대 적응증이 accRec에서 미반영된 경우 보정 ──
+  // (ASCVD·LDL≥190은 accRec에서 이미 처리됨; CKD·CAC는 미처리)
+  if(!ascvd && !ldl190Abs){
+    // CKD (eGFR 15–59 + 나이≥40): accRec가 저위험 생활습관 교정을 반환하는 경우
+    if(ckdAbs && (!acc.ldlTgt || acc.ldlTgt > 100)){
+      if(ldl<100){
+        acc={c:'no',l:'목표 LDL 달성 (투약 전)',ind:'CKD (eGFR 15–59) + 나이≥40세 — 치료 전 LDL 이미 목표 이하',
+             d:[],
+             n:'치료 전 LDL-C가 목표 &lt;100 mg/dL 이하입니다.<br>2026 ACC/AHA "regardless of LDL-C level" 원칙은 CKD에서 스타틴을 고려하라는 취지이나, 가이드라인은 <b>투약 전 이미 목표치를 충족한 경우</b>의 스타틴 투약을 명시적으로 요구하지 않습니다. 생활습관 교정 및 주기적 추적 관찰을 권고합니다.',
+             nt:'suc',ldlTgt:100,nhTgt:130};
+      } else {
+        acc={c:'mo',l:'중등강도',ind:'CKD (eGFR 15–59) + 나이≥40세 — 위험도 무관 스타틴',
+             d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],
+             n:'CKD (eGFR 15–59) + 나이≥40세: PREVENT 점수와 무관하게 중등강도 스타틴 권고. LDL 목표 &lt;100 mg/dL (투석 전 심혈관 보호).',
+             nt:'info',ldlTgt:100,nhTgt:130};
+      }
+    }
+    // CAC ≥1000: 초고위험 수준 — LDL <55, 최대강도 스타틴
+    if(cac1000Active){
+      acc={c:'hi',l:'고강도',ind:'CAC ≥1000 — 초고위험 수준 (LDL <55)',
+           d:['Rosuvastatin 20–40 mg','Atorvastatin 40–80 mg'],
+           n:'CAC ≥1000: 광범위 무증상 죽상경화. 2026 ACC/AHA — ASCVD 초고위험에 준하는 관리. LDL &lt;55 mg/dL 목표, 최대내약 스타틴 + Ezetimibe 추가 고려.',
+           nt:'dng',ldlTgt:55,nhTgt:85};
+    }
+    // CAC 300–999: 가이드라인 원문에 별도 목표 없음 — ≥100 AU 범주 적용, LDL <70
+    // 가이드라인 저자 JACC 에디토리얼: CAC ≥300에서 <55는 "optional goal"
+    else if(cac300Active && (!acc.ldlTgt || acc.ldlTgt > 70)){
+      acc={c:'hi',l:'고강도',ind:'CAC 300–999 — LDL <70 mg/dL 목표 (필요 시 <55 고려)',
+           d:['Rosuvastatin 20–40 mg','Atorvastatin 40–80 mg'],
+           n:'CAC 300–999: 광범위 무증상 죽상경화증. 2026 ACC/AHA — ≥100 AU 범주 적용, 고강도 스타틴 및 LDL &lt;70 mg/dL 목표. 가이드라인 저자 권고: CAC ≥300에서 <55 mg/dL은 임상적 판단에 따른 선택적 강화 목표.',
+           nt:'warn',ldlTgt:70,nhTgt:100};
+    }
+    // CAC 100–299 또는 ≥75 백분위: LDL <70, 스타틴 충분조건
+    else if(cacActive && (!acc.ldlTgt || acc.ldlTgt > 70)){
+      acc={c:'hi',l:'고강도 고려',ind:'CAC 100–299 또는 ≥75 백분위 — 스타틴 충분조건 (LDL <70)',
+           d:['Atorvastatin 40 mg','Rosuvastatin 20 mg'],
+           n:'CAC 100–299: 2026 ACC/AHA — PREVENT 위험도 무관 스타틴 충분조건. LDL &lt;70 mg/dL 목표.',
+           nt:'warn',ldlTgt:70,nhTgt:100};
+    }
+    // CAC 1–99: 위험증강인자로만 작용 — accRec의 nE 계산에 이미 반영됨. 별도 override 없음.
+
+    // 경동맥 plaque ≥1.5 mm: subclinical ASCVD 증거 — CAC 미시행 대안, LDL <100 스타틴 고려
+    // CAC override가 이미 적용된 경우(ldlTgt ≤100)에는 중복 적용 않음
+    const carotidActive = g('carotidPlaque')?.checked;
+    if(carotidActive && (!acc.ldlTgt || acc.ldlTgt > 100)){
+      acc={c:'mo',l:'중등강도 고려',ind:'경동맥 plaque ≥1.5 mm — 무증상 죽상경화증 증거 (ESC/EAS 2025 IIa)',
+           d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],
+           n:'경동맥 plaque ≥1.5 mm: 무증상 죽상경화증의 객관적 증거. ESC/EAS 2025 Class IIa — PREVENT 위험도 무관 스타틴 고려, LDL 목표 &lt;100 mg/dL. ACC/AHA 2026 — CAC 불가 시 subclinical ASCVD 대안 증거로 스타틴 시작 지지.',
+           nt:'warn',ldlTgt:100,nhTgt:130};
+    }
+  }
+
+  // ── 위험도 무관 스타틴 절대 적응증 판정 ──
+  const absInds=[
+    {
+      key:'ascvd',
+      active:ascvd,
+      label:'ASCVD 기왕력 (2차 예방)',
+      detail:ascvd?(vhr?'초고위험 — 고강도 스타틴, LDL 목표 &lt;55 mg/dL':'고강도 스타틴, LDL 목표 &lt;70 mg/dL'):'해당 없음',
+      strength:'고강도',
+      basis:'심근경색, 뇌졸중, TIA, ACS, 관상동맥 재개통술, 말초동맥질환 등'
+    },
+    {
+      key:'ldl190',
+      active:ldl>=190,
+      label:'LDL-C ≥ 190 mg/dL (중증 고콜레스테롤혈증 / FH 의심)',
+      detail:ldl>=190?(()=>{const fhHR=dm||primRisk>=10||tg>=175||smoker||bpTx;return`현재 LDL ${ldl} mg/dL — 고강도 스타틴, LDL 목표 &lt;${fhHR?70:100} mg/dL${fhHR?'':' · 위험증강인자(조기 가족력·Lp(a)≥50·ABI·CAC 등) 확인 시 &lt;70으로 강화'}`})():'해당 없음',
+      strength:'고강도',
+      basis:'누적 LDL 노출 과다, 가족성 고콜레스테롤혈증 감별 필요'
+    },
+    {
+      key:'cac',
+      active:(cacActive||cac300Active||cac1000Active)&&!ascvd,
+      label:cac1000Active
+        ?'CAC ≥1000 — 초고위험 수준, 스타틴 충분조건 (LDL 목표 <55 mg/dL, 최대강도)'
+        :cac300Active
+          ?'CAC 300–999 — 무증상 죽상경화 광범위, 스타틴 충분조건 (LDL 목표 <70 mg/dL, 필요 시 <55 선택적 고려)'
+          :'CAC 100–299 (또는 ≥75 백분위) — 스타틴 충분조건 (LDL 목표 <70 mg/dL)',
+      detail:(cacActive||cac300Active||cac1000Active)
+        ?(cac1000Active
+            ?'무증상 죽상경화 광범위(CAC ≥1000) — 고강도 스타틴, LDL 목표 &lt;55 mg/dL'
+            :cac300Active
+              ?'무증상 죽상경화 광범위(CAC 300–999) — 고강도 스타틴, LDL 목표 &lt;70 mg/dL. 가이드라인 저자: <55 mg/dL은 선택적 강화 고려'
+              :'무증상 죽상경화의 객관적 증거(CAC 100–299) — 고강도 스타틴, LDL 목표 &lt;70 mg/dL')
+        :'해당 없음',
+      strength:cac1000Active||cac300Active?'고강도':'고강도 고려',
+      basis:'2026 ACC/AHA: PREVENT 위험도 무관 스타틴 시작의 충분조건 — 세부 LDL 목표는 위험증가 인자 박스 CAC 등급 참조'
+    },
+    {
+      key:'ckd',
+      active:ckdAbs,
+      label:`CKD (eGFR 15–59) + 나이 ≥ 40세`,
+      detail:ckdAbs?`현재 eGFR ${egfr} mL/min, ${age}세 — 중등강도 스타틴 권고`:(egfr>=15&&egfr<60?`CKD 해당이나 나이 ${age}세 (40세 미만 — 위험증강인자로 자동 반영)`:'해당 없음'),
+      strength:'중등강도',
+      basis:'전통적 위험방정식이 CKD에서 위험을 과소평가; 투석 환자는 별도 판단'
+    },
+    {
+      key:'dm',
+      active:dmAbs,
+      label:`당뇨병 (30–79세)`,
+      detail:dmAbs?`${age}세 당뇨병 — ${primRisk>=10?'PREVENT ≥10%: 고강도':'PREVENT &lt;10%: 중등강도'} 스타틴 권고`:(dm?`당뇨병 있으나 나이 ${age}세 (적용 연령 30–79세 범위 외)`:'해당 없음'),
+      strength:dm&&primRisk>=10?'고강도':'중등강도',
+      basis:'당뇨 단독으로도 최소 중등강도 스타틴; PREVENT 점수에 관계없이 치료 시작'
+    }
+  ];
+  const anyAbs=absInds.some(i=>i.active);
+  let absHtml='';
+  if(anyAbs){
+    absHtml+=`<div style="margin-bottom:8px;padding:8px 11px;background:#fcebeb;border-radius:8px;border-left:3px solid #a32d2d">
+      <div style="font-size:11px;font-weight:700;color:#a32d2d">⚠ 위험도 분류 무관 스타틴 적응증 ${absInds.filter(i=>i.active).length}개 해당 — PREVENT 점수에 구속되지 않고 즉시 치료를 권고합니다.</div>
+    </div>`;
+  }
+  absInds.forEach(ind=>{
+    const c=ind.active?'#1a1a18':'#b4b2a9';
+    const bg=ind.active?'#f8f7f5':'#fafaf9';
+    const dot=ind.active?`<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#a32d2d;margin-right:6px;flex-shrink:0"></span>`:`<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#d0cec8;margin-right:6px;flex-shrink:0"></span>`;
+    absHtml+=`<div style="display:flex;align-items:flex-start;gap:0;padding:6px 9px;background:${bg};border-radius:7px;border:1px solid ${ind.active?'#e8b4b4':'#e2e0db'};margin-bottom:5px">
+      <div style="display:flex;align-items:center;margin-top:2px">${dot}</div>
+      <div style="flex:1">
+        <div style="font-size:12px;font-weight:${ind.active?'700':'400'};color:${c}">${ind.label}</div>
+        <div style="font-size:10px;color:${ind.active?'#a32d2d':'#b4b2a9'};margin-top:1px">${ind.detail}</div>
+        ${ind.active?`<div style="font-size:10px;color:#888780;margin-top:2px">${ind.basis}</div>`:''}
+      </div>
+      ${ind.active?`<div style="flex-shrink:0;padding:2px 7px;background:#fcebeb;border-radius:5px;font-size:10px;font-weight:700;color:#a32d2d;margin-left:6px;white-space:nowrap">${ind.strength}</div>`:''}
+    </div>`;
+  });
+  if(g('absIndList')) g('absIndList').innerHTML=absHtml;
+
+  // Lipid table — baseline vs current/on-treatment
+  const accLdlTgt=acc.ldlTgt;
+  const accNhTgt=acc.nhTgt;
+  let dispLdlTgt=accLdlTgt||preventCat.l;
+  let dispNhTgt=accNhTgt||preventCat.nh;
+
+  // ── 절대 적응증 목표치 보정 (accRec override 후 잔여 케이스 — 이중 안전망) ──
+  // acc override로 대부분 처리되나, preventCat.l fallback 경로를 위해 유지
+  if(ckdAbs && dispLdlTgt > 100){ dispLdlTgt=100; dispNhTgt=Math.min(dispNhTgt,130); }
+  if(!ascvd){
+    if(cac1000Active && dispLdlTgt > 55){ dispLdlTgt=55; dispNhTgt=Math.min(dispNhTgt,85); }
+    else if(cac300Active && dispLdlTgt > 70){ dispLdlTgt=70; dispNhTgt=Math.min(dispNhTgt,100); }
+    else if(cacActive && dispLdlTgt > 70){ dispLdlTgt=70; dispNhTgt=Math.min(dispNhTgt,100); }
+    else if(cac1to99Active && dispLdlTgt > 100){ dispLdlTgt=100; dispNhTgt=Math.min(dispNhTgt,130); }
+  }
+
+  // ApoB 목표치 — LDL 목표와 수치 일치 원칙 (2026 ACC/AHA: <55/<70/<90)
+  const dispAbTgt = dispLdlTgt<=55 ? 55 : dispLdlTgt<=70 ? 70 : 90;
+
+  const curLabel=onStatin?'치료 중':'현재/치료 전';
+  const showCur = onStatin; // 스타틴 미복용 시 치료 중/현재 컬럼 공란
+  const curLdlCell   = showCur ? `<td style="font-weight:600">${currentLdl} mg/dL <span style="font-size:10px;color:#888">(치료 중)</span></td>` : `<td style="color:#b4b2a9">—</td>`;
+  const curNhCell    = showCur ? `<td style="font-weight:600">${currentNonHDL} mg/dL</td>` : `<td style="color:#b4b2a9">—</td>`;
+  const curApoBCell  = showCur ? `<td style="font-weight:600">${currentApoBLabel==='측정값'?currentApoBDisplay:'~'+currentApoBDisplay} mg/dL</td>` : `<td style="color:#b4b2a9">—</td>`;
+  const curTgCell    = showCur ? `<td style="font-weight:600">${currentTg} mg/dL</td>` : `<td style="color:#b4b2a9">—</td>`;
+  const curHdlCell   = showCur ? `<td style="font-weight:600">${currentHdl} mg/dL</td>` : `<td style="color:#b4b2a9">—</td>`;
+  const statusLdl    = showCur ? statusCell(currentLdl,dispLdlTgt) : statusCell(ldl,dispLdlTgt);
+  const statusNh     = showCur ? statusCell(currentNonHDL,dispNhTgt) : statusCell(nonHDL,dispNhTgt);
+  const statusApoB   = showCur ? statusCell(currentApoBDisplay,dispAbTgt) : statusCell(apoBDisplay,dispAbTgt);
+  const statusTg     = showCur ? statusCell(currentTg,150) : statusCell(tg,150);
+  const statusHdl    = showCur ? statusHdlCell(currentHdl,sex) : statusHdlCell(hdl,sex);
+  g('lipidTbl').innerHTML=`
+    <tr><td>LDL-C</td><td style="font-weight:600">${ldl} mg/dL</td>${curLdlCell}<td>&lt;${dispLdlTgt} <span style="font-size:10px;color:#888">mg/dL</span></td><td>${statusLdl}</td></tr>
+    <tr><td>Non-HDL-C <span style="color:#888;font-size:10px">(TC−HDL)</span></td><td style="font-weight:600">${nonHDL} mg/dL</td>${curNhCell}<td>&lt;${dispNhTgt} <span style="font-size:10px;color:#888">mg/dL</span></td><td>${statusNh}</td></tr>
+    <tr><td>ApoB <span style="color:#888;font-size:10px">(${apoBLabel})</span></td><td style="font-weight:600">${apob_meas!==null?apoBDisplay:'~'+apoBDisplay} mg/dL</td>${curApoBCell}<td>&lt;${dispAbTgt} mg/dL</td><td>${statusApoB}</td></tr>
+    <tr><td>중성지방</td><td style="font-weight:600">${tg} mg/dL</td>${curTgCell}<td>&lt;150</td><td>${statusTg}</td></tr>
+    <tr><td>HDL-C</td><td style="font-weight:600">${hdl} mg/dL</td>${curHdlCell}<td>남 ≥40 / 여 ≥50</td><td>${statusHdl}</td></tr>
+  `;
+
+  // Base rec without risk enhancers (for impact comparison) — baseline
+  const accBase=accRec(age,primRisk,ldl,dm,ascvd,vhr,0,tg,smoker,bpTx);
+  const upgraded=!ascvd&&nE>0&&accBase.l!==acc.l;
+
+  g('accRecOut').innerHTML=recHTML(acc,'ACC/AHA · PREVENT 기반 — baseline 위험도 기준');
+  if(onStatin){
+    const ldlGap=Math.max(0,Math.round(currentLdl-dispLdlTgt));
+    const controlClass=currentLdl<=dispLdlTgt?'suc':'warn';
+    g('accRecOut').innerHTML+=`<div class="nb ${controlClass}">현재 스타틴 치료 중: 기저 위험군은 <b>${preventCat.cat}</b>으로 유지합니다. 현재 LDL-C ${currentLdl} mg/dL, 목표 &lt;${dispLdlTgt} mg/dL ${currentLdl<=dispLdlTgt?'달성':'미달성: 추가 감소 필요 '+ldlGap+' mg/dL'}.</div>`;
+  }
+  if(currentTg>=500) g('accRecOut').innerHTML+=`<div class="nb dng">⚠ 현재 TG ≥500 mg/dL: 급성 췌장염 예방 위해 2차 원인 평가 및 Fibrate/처방 omega-3 계열 치료를 고려하십시오.</div>`;
+  if(g('cacCheck')&&g('cacCheck').checked&&!ascvd){
+    g('accRecOut').innerHTML+=`<div style="margin-top:8px;padding:10px 12px;background:#fcebeb;border-radius:8px;border-left:4px solid #a32d2d">
+      <div style="font-size:11px;font-weight:700;color:#a32d2d;margin-bottom:4px">▲ CAC ≥100 확인 — 스타틴 치료의 충분조건</div>
+      <div style="font-size:12px;color:#1a1a18;line-height:1.6">CAC ≥100 또는 ≥75 백분위는 무증상 죽상경화반의 객관적 증거로, <b>2026 ACC/AHA 가이드라인은 이를 "compelling reason to initiate statin therapy"로 명시</b>합니다. PREVENT 위험도 계산 결과에 구속되지 않고 스타틴 시작을 적극 권고합니다.</div>
+      <div style="font-size:10px;color:#a32d2d;margin-top:5px;line-height:1.5">※ 다른 위험증가 인자와 달리 CAC ≥100은 단독으로 치료 결정의 근거가 됩니다.<br>※ CAC = 0이면 경계·중간위험에서 스타틴 10년 유예가 합리적 (반대 논리).</div>
+    </div>`;
+  }
+  if(g('carotidPlaque')&&g('carotidPlaque').checked&&!ascvd){
+    g('accRecOut').innerHTML+=`<div style="margin-top:8px;padding:10px 12px;background:#e6f1fb;border-radius:8px;border-left:4px solid #185fa5">
+      <div style="font-size:11px;font-weight:700;color:#185fa5;margin-bottom:4px">▲ 경동맥 초음파 plaque ≥1.5 mm 확인 — 무증상 죽상경화증의 객관적 증거</div>
+      <div style="font-size:12px;color:#1a1a18;line-height:1.6">경동맥 plaque는 <b>ESC/EAS 2025 Class IIa 위험수정인자</b>로, 저위험~중간위험 환자에서 위험도를 상향 재분류하는 근거가 됩니다. ACC/AHA 2026에서는 CAC 시행이 불가할 때 subclinical ASCVD의 대안적 증거로 스타틴 시작을 지지합니다.</div>
+      <div style="font-size:10px;color:#185fa5;margin-top:5px;line-height:1.5">※ 비폐쇄성 plaque (&lt;50% 협착): LDL-C 목표 &lt;100 mg/dL + 생활습관 교정<br>※ 취약하거나 50–69% 협착: LDL-C 목표 &lt;70 mg/dL + 항혈소판 치료 고려<br>※ CAC가 함께 확인된 경우 CAC 기준을 우선 적용합니다.</div>
+    </div>`;
+  }
+
+  // ── CKD 스타틴 선택 주의 (eGFR 15–59) ──
+  if((ckdAbs||ckdEnh) && acc.c!=='lo' && acc.c!=='no'){
+    const ckdEgrNote = Number(egfr)<30
+      ? `eGFR ${egfr} mL/min (<30): <b>Rosuvastatin 10 mg 이하로 용량 제한 필요.</b> Atorvastatin 우선 권고 (주로 간 대사, 신기능 영향 적음).`
+      : `eGFR ${egfr} mL/min (15–59): Rosuvastatin은 신배설 비율이 높아 용량 주의. <b>Atorvastatin 우선 고려</b> (간 대사 → 신기능 영향 적음). eGFR &lt;30 시 Rosuvastatin 10 mg 이하로 제한.`;
+    g('accRecOut').innerHTML+=`<div style="margin-top:8px;padding:10px 12px;background:#e8f0f7;border-radius:8px;border-left:4px solid #3a6fa3">
+      <div style="font-size:11px;font-weight:700;color:#3a6fa3;margin-bottom:4px">⚑ CKD 스타틴 선택 주의</div>
+      <div style="font-size:12px;color:#1a1a18;line-height:1.6">${ckdEgrNote}</div>
+      <div style="font-size:10px;color:#3a6fa3;margin-top:5px;line-height:1.5">※ Pravastatin·Fluvastatin도 신장 대사 부담 적은 대안. Simvastatin은 신기능 저하 시 근병증 위험 증가로 주의.</div>
+    </div>`;
+  }
+
+  // Risk enhancer impact visualization
+  if(nE>0&&!ascvd){
+    const isLowRisk = primRisk < 3;
+    const impHtml=upgraded
+      ?`<div style="margin-top:8px;padding:8px 11px;background:#faeeda;border-radius:8px;border-left:3px solid #ef9f27">
+          <div style="font-size:10px;font-weight:700;color:#854f0b;margin-bottom:3px">위험증가 인자 ${nE}개 → 처방 강도 상향</div>
+          <div style="font-size:12px;color:#1a1a18;display:flex;align-items:center;gap:6px">
+            <span style="color:#888780">${accBase.l}</span>
+            <span style="font-size:16px;color:#ef9f27">→</span>
+            <span style="font-weight:700;color:#a32d2d">${acc.l}</span>
+          </div>
+          <div style="font-size:10px;color:#854f0b;margin-top:3px">위험증가 인자가 없었다면 ${accBase.l} 권고 → 현재 ${nE}개로 인해 상향 적용됨</div>
+        </div>`
+      : isLowRisk
+        ?`<div style="margin-top:8px;padding:7px 11px;background:#f8f7f5;border-radius:8px;border-left:3px solid #b4b2a9">
+            <div style="font-size:10px;font-weight:700;color:#5f5e5a;margin-bottom:2px">위험증가 인자 ${nE}개 확인 — 저위험(<3%)에서는 적용 제외</div>
+            <div style="font-size:11px;color:#5f5e5a;line-height:1.6">위험증강 인자는 <b>경계위험(3–5%)</b>과 <b>중간위험(5–10%)</b> 환자에서 스타틴 시작 결정을 보조합니다. PREVENT ASCVD &lt;3% 저위험에서는 위험증강 인자 수에 관계없이 스타틴 일상적 권고 불필요입니다.<br>
+            <span style="color:#888780">※ 단, CAC ≥100 또는 LDL ≥190 등 위험도 무관 절대 적응증은 별도 판단합니다.</span></div>
+          </div>`
+        :`<div style="margin-top:8px;padding:7px 11px;background:#eaf3de;border-radius:8px;border-left:3px solid #639922">
+            <div style="font-size:10px;font-weight:700;color:#3b6d11;margin-bottom:2px">위험증가 인자 ${nE}개 확인됨</div>
+            <div style="font-size:11px;color:#3b6d11">현재 권고 강도(${acc.l})는 이미 위험증가 인자를 반영한 수준임</div>
+          </div>`;
+    g('accRecOut').innerHTML+=impHtml;
+  }
+
+  // Stepwise flow — current/on-treatment LDL if present, otherwise baseline LDL
+  // dispLdlTgt를 targetOverride로 전달: 지질표 목표치와 stepwise flow 목표치 일치 보장
+  g('swFlow').innerHTML=makeFlow(acc,preventCat,currentLdl,ascvd,vhr,onStatin,ldl,dispLdlTgt);
+
+  // EMR copy summary
+  if(g('emrSummary')){
+    const carotidOverride = g('carotidPlaque')?.checked && !ascvd && !anyAbs && primRisk < 5;
+    const activeEnhLabels = [...document.querySelectorAll('.enh:checked')].map(el=>{
+      const label = el.closest('label');
+      return label ? label.textContent.trim().replace(/\s+/g,' ') : '';
+    }).filter(Boolean);
+    if(ckdEnh) activeEnhLabels.push('CKD (eGFR 15–59, 40세 미만 — 위험증강인자)');
+    g('emrSummary').value=makeEmrSummary({prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt, acc, onStatin, currentTg, absInds, anyAbs, carotidOverride, activeEnhLabels, ckdActive:(ckdAbs||ckdEnh), egfr});
+  }
+  if(g('copyStatus')){
+    g('copyStatus').style.display='none'; if(g('copyStatusTop')) g('copyStatusTop').style.display='none';
+  }
+
+  // Print summary
+  g('psum').innerHTML=`
+    <div class="print-header">
+      <div style="font-size:16px;font-weight:700">CVD 위험도 & 스타틴 처방 결정 요약</div>
+      <div style="font-size:11px;color:#888;margin-top:2px">출력일: ${new Date().toLocaleDateString('ko-KR')} &nbsp;·&nbsp; ACC/AHA 2013 PCE 참고 · AHA PREVENT 2023 · ACC/AHA Dyslipidemia</div>
+    </div>
+    <table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:12px">
+      <tr style="background:#f5f5f4">
+        <th style="padding:6px 8px;border:1px solid #ccc;text-align:left">나이/성별</th>
+        <td style="padding:6px 8px;border:1px solid #ccc">${age}세 / ${sex==='F'?'여':'남'}</td>
+        <th style="padding:6px 8px;border:1px solid #ccc;text-align:left">PREVENT HF 10년 위험</th>
+        <td style="padding:6px 8px;border:1px solid #ccc">${prevHf.toFixed(1)}%</td>
+      </tr>
+      <tr>
+        <th style="padding:6px 8px;border:1px solid #ccc;text-align:left">치료 전 PREVENT 10년 위험</th>
+        <td style="padding:6px 8px;border:1px solid #ccc">${prev.toFixed(1)}% (Total CVD) &nbsp;/&nbsp; ${prevAscvd.toFixed(1)}% (ASCVD) &nbsp;/&nbsp; ${prevHf.toFixed(1)}% (HF)</td>
+        <th style="padding:6px 8px;border:1px solid #ccc;text-align:left">기저 ACC/AHA PREVENT 분류</th>
+        <td style="padding:6px 8px;border:1px solid #ccc;font-weight:600">${preventCat.cat}</td>
+      </tr>
+      ${onStatin&&hasPostRisk?`<tr style="background:#f5f5f4"><th style="padding:6px 8px;border:1px solid #ccc;text-align:left">치료 중 PREVENT 10년 위험</th><td colspan="3" style="padding:6px 8px;border:1px solid #ccc">${txPrev.toFixed(1)}% (Total CVD) / ${txPrevAscvd.toFixed(1)}% (ASCVD) / ${txPrevHf.toFixed(1)}% (HF) — 재분류가 아닌 현재 조절 상태</td></tr>`:''}
+      <tr style="background:#f5f5f4">
+        <th style="padding:6px 8px;border:1px solid #ccc;text-align:left">LDL-C 치료 전 / 현재 / 목표</th>
+        <td style="padding:6px 8px;border:1px solid #ccc">${ldl} / ${currentLdl} / &lt;${dispLdlTgt} mg/dL</td>
+        <th style="padding:6px 8px;border:1px solid #ccc;text-align:left">Non-HDL-C 치료 전 / 현재 / 목표</th>
+        <td style="padding:6px 8px;border:1px solid #ccc">${nonHDL} / ${currentNonHDL} / &lt;${dispNhTgt} mg/dL</td>
+      </tr>
+      <tr>
+        <th style="padding:6px 8px;border:1px solid #ccc;text-align:left">ApoB (${apoBLabel}) 치료 전 / 현재 / 목표</th>
+        <td style="padding:6px 8px;border:1px solid #ccc">${apob_meas!==null?apoBDisplay:'~'+apoBDisplay} / ${currentApoBLabel==='측정값'?currentApoBDisplay:'~'+currentApoBDisplay} / &lt;${dispAbTgt} mg/dL</td>
+        <th style="padding:6px 8px;border:1px solid #ccc;text-align:left">eGFR / 현재 TG</th>
+        <td style="padding:6px 8px;border:1px solid #ccc">${egfr} / ${currentTg} mg/dL</td>
+      </tr>
+      <tr style="background:#f5f5f4">
+        <th style="padding:6px 8px;border:1px solid #ccc;text-align:left">권고 강도 (ACC/AHA)</th>
+        <td colspan="3" style="padding:6px 8px;border:1px solid #ccc;font-weight:600">${acc.l} — ${acc.ind}</td>
+      </tr>
+      ${acc.d.length?`<tr style="background:#f5f5f4"><th style="padding:6px 8px;border:1px solid #ccc;text-align:left">권고 약물</th><td colspan="3" style="padding:6px 8px;border:1px solid #ccc">${acc.d.join(' / ')}</td></tr>`:''}
+    </table>
+    <div style="font-size:10px;color:#888;margin-top:8px">※ 치료 중 위험도는 기저 위험군을 낮춰 재분류하는 용도가 아니라 residual/on-treatment risk 확인용이다. 최종 처방 결정은 임상의 판단에 따른다.</div>
+  `;
+}
+
+document.querySelectorAll('input,select').forEach(el=>el.addEventListener('change',upd));
+['tc','hdl','ldl','tg','postTc','postHdl','postLdl','postTg','sbp','egfr','uacr','hba1c','bmi','ht','wt','hscrp','apob','postApob'].forEach(id=>{ if(g(id)) g(id).addEventListener('input',upd); });
+g('age').addEventListener('input',upd);
+// ascvdHx 체크 시 vhrRow 즉시 표시 (upd() 조기 return과 무관하게)
+g('ascvdHx').addEventListener('change',function(){
+  if(g('vhrRow')) g('vhrRow').style.display=this.checked?'flex':'none';
+  if(!this.checked && g('veryHigh')) g('veryHigh').checked=false;
+  if(!this.checked && g('vhrDesc')) g('vhrDesc').style.display='none';
+  if(g('ascvdHxNotice')) g('ascvdHxNotice').style.display=this.checked?'block':'none';
+});
+// veryHigh 체크 시 초고위험 설명 패널 즉시 표시
+g('veryHigh').addEventListener('change',function(){
+  if(g('vhrDesc')) g('vhrDesc').style.display=this.checked?'block':'none';
+});
+// 경동맥 초음파 체크 시 설명문 표시/숨김
+g('carotidPlaque').addEventListener('change',function(){
+  if(g('carotidDesc')) g('carotidDesc').style.display=this.checked?'block':'none';
+});
+// ABI 체크 시 설명문 표시/숨김
+g('abiCheck').addEventListener('change',function(){
+  if(g('abiDesc')) g('abiDesc').style.display=this.checked?'block':'none';
+});
+// PRS 체크 시 패널 표시 + 등급별 동작
+if(g('prsCheck')){
+  g('prsCheck').addEventListener('change', function(){
+    if(g('prsPanel')) g('prsPanel').style.display = this.checked ? 'block' : 'none';
+    if(!this.checked){
+      document.querySelectorAll('input[name=prsGrade]').forEach(r=>r.checked=false);
+      if(g('prsPercentile')) g('prsPercentile').value='';
+      if(g('prsNote')) g('prsNote').textContent='';
+    }
+    upd();
+  });
+  document.querySelectorAll('input[name=prsGrade]').forEach(r=>{
+    r.addEventListener('change', function(){
+      const notes={
+        high:'⚑ 고위험 CAD PRS 확인 — risk enhancer로 반영됩니다. 스타틴 치료 결정에 적극 활용.',
+        inter:'참고: 중간 위험 PRS — 단독으로 risk enhancer 기준 미충족. 다른 위험인자와 종합 판단.',
+        low:'참고: 저위험 PRS — risk enhancer 해당 없음. 체크 해제를 고려하십시오.'
+      };
+      const colors={high:'#a32d2d',inter:'#854f0b',low:'#3b6d11'};
+      if(g('prsNote')){
+        g('prsNote').textContent=notes[this.value]||'';
+        g('prsNote').style.color=colors[this.value]||'#5f5e5a';
+      }
+      // 고위험만 .enh 클래스 부여 → nE 카운트에 반영
+      if(g('prsCheck')) g('prsCheck').className=this.value==='high'?'enh':'';
+      upd();
+    });
+  });
+  if(g('prsPercentile')) g('prsPercentile').addEventListener('input', upd);
+}
+// onStatin 체크 시 postLipidBox 즉시 표시 + 필수값 미입력 시 힌트 표시
+function updateStatinHint(){
+  if(!g('postLipidBox') || !g('statinBaselineHint')) return;
+  const onStatin = g('onStatin').checked;
+  g('postLipidBox').style.display = onStatin ? 'block' : 'none';
+  if(onStatin){
+    const ageRaw = g('age').value;
+    const sexVal = document.querySelector('input[name=sex]:checked')?.value;
+    const tcRaw = g('tc').value;
+    const hdlRaw = g('hdl').value;
+    const ldlRaw = g('ldl').value;
+    const tgRaw = g('tg').value;
+    const sbpRaw = g('sbp').value;
+    const baselineComplete = ageRaw && sexVal && tcRaw && hdlRaw && ldlRaw && tgRaw && sbpRaw;
+    g('statinBaselineHint').style.display = baselineComplete ? 'none' : 'block';
+  } else {
+    g('statinBaselineHint').style.display = 'none';
+  }
+}
+g('onStatin').addEventListener('change', updateStatinHint);
+// 기본 정보 입력 시에도 힌트 자동 갱신
+['age','tc','hdl','ldl','tg','sbp'].forEach(id=>{
+  g(id)?.addEventListener('input', updateStatinHint);
+});
+document.querySelectorAll('input[name=sex]').forEach(el=>el.addEventListener('change', updateStatinHint));
+// CAC 메인 토글 — 패널 표시/숨김 및 선택 초기화
+g('cacMain').addEventListener('change', function(){
+  const panel = g('cacPanel');
+  panel.style.display = this.checked ? 'block' : 'none';
+  if(!this.checked){
+    ['cac1to99','cacCheck','cac300','cac1000'].forEach(id=>{
+      if(g(id)){ g(id).checked=false; }
+    });
+    document.querySelectorAll('.cac-opt').forEach(el=>{
+      el.style.background='#fff';
+      el.style.borderColor='#d0cec8';
+      el.querySelector('div').style.color='#1a1a18';
+    });
+    upd();
+  }
+});
+// CAC 버튼형 택1 선택
+document.querySelectorAll('.cac-opt').forEach(btn=>{
+  btn.addEventListener('click', function(){
+    const targetId = this.dataset.cac;
+    // 버튼 스타일 초기화
+    document.querySelectorAll('.cac-opt').forEach(el=>{
+      el.style.background='#fff';
+      el.style.borderColor='#d0cec8';
+      el.querySelectorAll('div').forEach(d=>{ d.style.color=''; });
+    });
+    // 현재 버튼 활성화
+    this.style.background='#1a1a18';
+    this.style.borderColor='#1a1a18';
+    this.querySelectorAll('div').forEach(d=>d.style.color='#fff');
+    // 숨김 체크박스 동기화 (택1)
+    ['cac1to99','cacCheck','cac300','cac1000'].forEach(id=>{
+      if(g(id)) g(id).checked = (id===targetId);
+    });
+    upd();
+  });
+});
+clearResults(); // 초기 로드: 빈 화면
+</script>
+</body>
+</html>
