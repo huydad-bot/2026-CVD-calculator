@@ -892,8 +892,22 @@ function accRec(age,risk,ldl,dm,ascvd,vhr,nE,tg,smoker,bpTx){
   if(age>79)return{c:'mo',l:'중등강도 (개별화)',ind:'79세 초과',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],n:'다제 복용·근병증·낙상 위험 고려. 기존 스타틴 유지 합리적. 개별 임상 판단.',nt:'info',ldlTgt:100,nhTgt:130};
   if(ldl<70)return{c:'no',l:'개별 판단',ind:'LDL < 70 mg/dL',d:[],n:'LDL 이미 낮음. 이차성 원인 및 기저 질환 확인.',nt:'info',ldlTgt:null,nhTgt:null};
   if(dm){
-    if(risk>=10)return{c:'hi',l:'고강도',ind:'당뇨 + PREVENT-ASCVD ≥10%',d:['Atorvastatin 40–80 mg','Rosuvastatin 20–40 mg'],n:'고강도 스타틴. LDL <70 mg/dL 목표.',nt:'warn',ldlTgt:70,nhTgt:100};
-    if(risk>=5)return{c:'mo',l:'중등강도',ind:'당뇨 + PREVENT-ASCVD 5–10%',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg','Pitavastatin 2–4 mg'],n:'중등강도 스타틴 권고. LDL <100 mg/dL 목표.',nt:'info',ldlTgt:100,nhTgt:130};
+    if(risk>=10){
+      if(ldl<70)return{c:'no',l:'목표 LDL 달성 (투약 전)',ind:'당뇨 + PREVENT-ASCVD ≥10% — 치료 전 LDL 이미 목표 이하',d:[],
+        n:'치료 전 LDL-C가 목표 &lt;70 mg/dL 이하입니다.<br>2026 ACC/AHA "regardless of LDL-C level" 원칙은 LDL 수치에 무관하게 스타틴을 고려하라는 취지이나, 가이드라인은 <b>투약 전 이미 목표치를 충족한 경우</b>의 스타틴 투약을 명시적으로 요구하지 않습니다. 생활습관 교정 및 주기적 추적 관찰을 권고합니다.',
+        nt:'suc',ldlTgt:70,nhTgt:100};
+      return{c:'hi',l:'고강도',ind:'당뇨 + PREVENT-ASCVD ≥10%',d:['Atorvastatin 40–80 mg','Rosuvastatin 20–40 mg'],n:'고강도 스타틴. LDL <70 mg/dL 목표.',nt:'warn',ldlTgt:70,nhTgt:100};
+    }
+    if(risk>=5){
+      if(ldl<100)return{c:'no',l:'목표 LDL 달성 (투약 전)',ind:'당뇨 + PREVENT-ASCVD 5–10% — 치료 전 LDL 이미 목표 이하',d:[],
+        n:'치료 전 LDL-C가 목표 &lt;100 mg/dL 이하입니다.<br>2026 ACC/AHA "regardless of LDL-C level" 원칙은 LDL 수치에 무관하게 스타틴을 고려하라는 취지이나, 가이드라인은 <b>투약 전 이미 목표치를 충족한 경우</b>의 스타틴 투약을 명시적으로 요구하지 않습니다. 생활습관 교정 및 주기적 추적 관찰을 권고합니다.',
+        nt:'suc',ldlTgt:100,nhTgt:130};
+      return{c:'mo',l:'중등강도',ind:'당뇨 + PREVENT-ASCVD 5–10%',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg','Pitavastatin 2–4 mg'],n:'중등강도 스타틴 권고. LDL <100 mg/dL 목표.',nt:'info',ldlTgt:100,nhTgt:130};
+    }
+    // risk < 5% — 저위험 당뇨 (사용자 질문 케이스)
+    if(ldl<100)return{c:'no',l:'목표 LDL 달성 (투약 전)',ind:'당뇨 (30–79세, PREVENT-ASCVD &lt;5%) — 치료 전 LDL 이미 목표 이하',d:[],
+      n:'치료 전 LDL-C가 목표 &lt;100 mg/dL 이하입니다.<br>2026 ACC/AHA "regardless of LDL-C level" 원칙은 LDL이 낮아도 당뇨에서 스타틴을 고려하라는 취지이나, 가이드라인은 <b>투약 전 이미 목표치를 충족한 경우</b>의 스타틴 투약을 명시적으로 요구하지 않습니다. 생활습관 교정 및 주기적 추적 관찰을 권고합니다.',
+      nt:'suc',ldlTgt:100,nhTgt:130};
     return{c:'mo',l:'중등강도',ind:'당뇨 (30–79세, PREVENT-ASCVD < 5%)',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],n:'당뇨 단독 저위험: 중등강도 권고. LDL <100 목표.',nt:'info',ldlTgt:100,nhTgt:130};
   }
   /* Primary prevention — PREVENT-ASCVD thresholds (2026) */
@@ -1207,6 +1221,11 @@ function makeEmrSummary({prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt, acc
     const indNames = activeInds.map(i=>i.label).join('; ');
     const needHigh = activeInds.some(i=>i.strength==='고강도' || i.strength==='중~고강도');
     const strengthText = needHigh ? '고강도' : '중등강도';
+    // DM/CKD 단독 적응증 + 투약 전 LDL 이미 목표 달성 → 스타틴 불필요 문구
+    const onlyDmCkdActive = activeInds.length > 0 && activeInds.every(i=>i.key==='dm'||i.key==='ckd');
+    if(onlyDmCkdActive && acc.c==='no' && ldl < (dispLdlTgt||100)){
+      return `PREVENT 2023 기준 10-year ASCVD risk는 ${prevAscvd.toFixed(1)}% (${riskLabel})이며, 위험도 무관 스타틴 적응증(${indNames})에 해당함.\n그러나 치료 전 LDL-C ${ldl} mg/dL이 이미 목표 <${dispLdlTgt} mg/dL 이하로 달성되어 있음.\n2026 ACC/AHA "regardless of LDL-C level" 원칙은 LDL 수치와 무관하게 스타틴을 고려하라는 취지이나, 가이드라인은 투약 전 이미 목표치를 충족한 경우의 스타틴 투약을 명시적으로 요구하지 않음.\n생활습관 교정 및 주기적 추적 관찰을 권고함.` + tgText;
+    }
     return `PREVENT 2023 기준 10-year ASCVD risk는 ${prevAscvd.toFixed(1)}% (${riskLabel})이나, 아래 위험도 분류 무관 스타틴 적응증에 해당하여 PREVENT 점수와 무관하게 치료를 권고함.\n적응증: ${indNames}.\n치료 전 LDL-C는 ${ldl} mg/dL이며, ${txState}LDL-C 목표는 <${dispLdlTgt} mg/dL.\n${strengthText} 스타틴 치료를 권고하며, ${addonText}.${ckdStNote}` + tgText;
   }
 
@@ -1801,10 +1820,17 @@ function upd(){
   if(!ascvd && !ldl190Abs){
     // CKD (eGFR 15–59 + 나이≥40): accRec가 저위험 생활습관 교정을 반환하는 경우
     if(ckdAbs && (!acc.ldlTgt || acc.ldlTgt > 100)){
-      acc={c:'mo',l:'중등강도',ind:'CKD (eGFR 15–59) + 나이≥40세 — 위험도 무관 스타틴',
-           d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],
-           n:'CKD (eGFR 15–59) + 나이≥40세: PREVENT 점수와 무관하게 중등강도 스타틴 권고. LDL 목표 &lt;100 mg/dL (투석 전 심혈관 보호).',
-           nt:'info',ldlTgt:100,nhTgt:130};
+      if(ldl<100){
+        acc={c:'no',l:'목표 LDL 달성 (투약 전)',ind:'CKD (eGFR 15–59) + 나이≥40세 — 치료 전 LDL 이미 목표 이하',
+             d:[],
+             n:'치료 전 LDL-C가 목표 &lt;100 mg/dL 이하입니다.<br>2026 ACC/AHA "regardless of LDL-C level" 원칙은 CKD에서 스타틴을 고려하라는 취지이나, 가이드라인은 <b>투약 전 이미 목표치를 충족한 경우</b>의 스타틴 투약을 명시적으로 요구하지 않습니다. 생활습관 교정 및 주기적 추적 관찰을 권고합니다.',
+             nt:'suc',ldlTgt:100,nhTgt:130};
+      } else {
+        acc={c:'mo',l:'중등강도',ind:'CKD (eGFR 15–59) + 나이≥40세 — 위험도 무관 스타틴',
+             d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],
+             n:'CKD (eGFR 15–59) + 나이≥40세: PREVENT 점수와 무관하게 중등강도 스타틴 권고. LDL 목표 &lt;100 mg/dL (투석 전 심혈관 보호).',
+             nt:'info',ldlTgt:100,nhTgt:130};
+      }
     }
     // CAC ≥1000: 초고위험 수준 — LDL <55, 최대강도 스타틴
     if(cac1000Active){
