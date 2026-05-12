@@ -607,7 +607,8 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
         <span style="font-weight:700;color:#5f5e5a">Total CVD</span><span style="color:#888780"> — ASCVD + HF 통합 위험도</span>
       </div>
     </div>
-    <div style="font-size:12px;color:#185fa5;font-weight:600;margin-top:5px">기본정보 입력란을 채우면 결과가 표시됩니다. <span style="font-size:11px;font-weight:400">· 30년 위험도는 30–59세에서만 표시됩니다 (PREVENT 2023 기준)</span></div>
+    <div id="noResultHint" style="font-size:12px;color:#185fa5;font-weight:600;margin-top:5px">기본정보 입력란을 채우면 결과가 표시됩니다.</div>
+    <div style="font-size:11px;color:#185fa5;margin-top:3px">30년 위험도는 30–59세에서만 표시됩니다 (PREVENT 2023 기준)</div>
     <div id="ascvdHxNotice" style="display:none;margin-top:8px;padding:8px 11px;background:#faeeda;border-radius:7px;border-left:3px solid #ef9f27">
       <span style="font-size:11px;color:#854f0b">⚠ <b>ASCVD 기왕력</b>은 위험도 계산이 아닌 <b>치료 결정 경로 전환</b>에 사용됩니다. PREVENT 점수는 1차 예방 도구로 이 환자에게 적용되지 않으며, 우측 <b>스타틴 처방 권고</b> 결과를 참고하십시오.</span>
     </div>
@@ -1486,9 +1487,11 @@ function clearResults(){
   if(g('swFlow')) g('swFlow').innerHTML='';
   if(g('lipidTbl')) g('lipidTbl').innerHTML='';
   if(g('absIndList')) renderAbsIndsDefault();
+  if(g('noResultHint')) g('noResultHint').style.display='block';
 }
 
 function upd(){
+  if(g('noResultHint')) g('noResultHint').style.display='none';
   const ageRaw=g('age').value;
   const sexVal=document.querySelector('input[name=sex]:checked')?.value;
   const tcRaw=g('tc').value;
