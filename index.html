@@ -871,6 +871,143 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
   </div>
   <!-- ══ /특수상황 ══ -->
 
+  <!-- ══ NNT 비교 ══ -->
+  <div class="card" style="border-top:3px solid #7b5ea7">
+    <div class="sec" onclick="toggleSection('nntBody','nntArrow')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;color:#7b5ea7">
+      <span style="display:flex;align-items:center;gap:7px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7b5ea7" stroke-width="2.5" style="flex-shrink:0"><path d="M3 18h18"/><path d="M3 12h12"/><path d="M3 6h6"/></svg>
+        스타틴 치료 효과 — NNT 비교
+        <span style="font-size:10px;font-weight:600;color:#7b5ea7;background:#f3eeff;border:1px solid #c9b4e8;border-radius:5px;padding:2px 7px;letter-spacing:0;text-transform:none">1차 · 2차 예방</span>
+      </span>
+      <span id="nntArrow" style="font-size:12px;color:#7b5ea7;transition:transform .2s;display:inline-block">▶</span>
+    </div>
+    <div style="margin-top:6px;padding:7px 11px;background:#f3eeff;border:1px solid #c9b4e8;border-radius:7px;font-size:11px;color:#5f5e5a;line-height:1.75">
+      <span style="font-weight:700;color:#7b5ea7">NNT (Number Needed to Treat)</span>란,
+      1명의 환자에서 사건을 예방하기 위해 치료가 필요한 환자 수입니다.
+      <span style="color:#7b5ea7;font-weight:600">NNT가 낮을수록</span> 치료 효과가 크며,
+      기저 위험도가 높을수록 NNT는 낮아집니다.
+      동일한 RRR(상대위험감소)이라도 <span style="color:#7b5ea7;font-weight:600">절대위험(ARR)이 클수록</span> 1차 예방 효과가 커집니다.
+    </div>
+    <div id="nntBody" style="display:none;margin-top:8px">
+    <!-- 탭 버튼 -->
+    <div style="display:flex;gap:5px;margin-bottom:10px;flex-wrap:wrap">
+      <button id="nntTabBtn0" onclick="switchNNTTab(0)" style="padding:5px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid #c9b4e8;background:#1a1a18;color:#fff;font-family:inherit">NNT 비교표</button>
+      <button id="nntTabBtn1" onclick="switchNNTTab(1)" style="padding:5px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid #c9b4e8;background:#f3eeff;color:#7b5ea7;font-family:inherit">시각화</button>
+      <button id="nntTabBtn2" onclick="switchNNTTab(2)" style="padding:5px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid #c9b4e8;background:#f3eeff;color:#7b5ea7;font-family:inherit">1차예방 분석</button>
+    </div>
+
+    <!-- Panel 0: NNT 비교표 -->
+    <div id="nntPanel0">
+      <div style="font-size:10px;color:#888780;margin-bottom:6px">bar 길이 = ARR(절대위험감소) 비례 — 길수록 치료 효과 큼. 절대적 예방율이 아님.</div>
+      <div style="overflow-x:auto">
+        <table class="lt" style="min-width:520px">
+          <thead><tr>
+            <th>위험군</th><th>기저위험</th><th>스타틴</th><th>RRR</th><th>ARR</th><th>NNT<sub>10yr</sub></th><th style="min-width:100px">ARR 비례 bar</th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td><span class="badge" style="background:#f1efe8;color:#444441">저위험</span></td>
+              <td style="color:#888780">&lt; 3%</td><td style="color:#888780">중등강도</td><td style="color:#888780">25%</td><td style="color:#888780">0.38%</td>
+              <td style="font-size:15px;font-weight:700">267</td>
+              <td><div style="background:#e2e0db;border-radius:3px;height:10px;overflow:hidden"><div style="width:3%;background:#b4b2a9;height:100%;border-radius:3px"></div></div></td>
+            </tr>
+            <tr>
+              <td><span class="badge" style="background:#faeeda;color:#633806">경계위험</span></td>
+              <td style="color:#888780">3–5%</td><td style="color:#888780">중등강도</td><td style="color:#888780">25%</td><td style="color:#888780">1.00%</td>
+              <td style="font-size:15px;font-weight:700">100</td>
+              <td><div style="background:#e2e0db;border-radius:3px;height:10px;overflow:hidden"><div style="width:7%;background:#fac775;height:100%;border-radius:3px"></div></div></td>
+            </tr>
+            <tr>
+              <td><span class="badge" style="background:#faeeda;color:#412402">중간위험</span></td>
+              <td style="color:#888780">5–10%</td><td style="color:#888780">중등강도</td><td style="color:#888780">25%</td><td style="color:#888780">1.88%</td>
+              <td style="font-size:15px;font-weight:700">53</td>
+              <td><div style="background:#e2e0db;border-radius:3px;height:10px;overflow:hidden"><div style="width:13%;background:#ef9f27;height:100%;border-radius:3px"></div></div></td>
+            </tr>
+            <tr>
+              <td><span class="badge" style="background:#eaf3de;color:#27500a">고위험 (1차)</span></td>
+              <td style="color:#888780">≥ 10%</td><td style="color:#888780">고강도</td><td style="color:#888780">35%</td><td style="color:#888780">4.20%</td>
+              <td style="font-size:15px;font-weight:700">24</td>
+              <td><div style="background:#e2e0db;border-radius:3px;height:10px;overflow:hidden"><div style="width:30%;background:#97c459;height:100%;border-radius:3px"></div></div></td>
+            </tr>
+            <tr>
+              <td><span class="badge" style="background:#e1f5ee;color:#085041">고위험 (2차)</span></td>
+              <td style="color:#888780">~25%</td><td style="color:#888780">고강도</td><td style="color:#888780">35%</td><td style="color:#888780">8.75%</td>
+              <td style="font-size:15px;font-weight:700">11</td>
+              <td><div style="background:#e2e0db;border-radius:3px;height:10px;overflow:hidden"><div style="width:63%;background:#5dcaa5;height:100%;border-radius:3px"></div></div></td>
+            </tr>
+            <tr>
+              <td><span class="badge" style="background:#eeedfe;color:#3c3489">초고위험 (2차)</span></td>
+              <td style="color:#888780">~40%</td><td style="color:#888780">고강도</td><td style="color:#888780">35%</td><td style="color:#888780">14.00%</td>
+              <td style="font-size:15px;font-weight:700">7</td>
+              <td><div style="background:#e2e0db;border-radius:3px;height:10px;overflow:hidden"><div style="width:100%;background:#7f77dd;height:100%;border-radius:3px"></div></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="margin-top:6px;font-size:10px;color:#888780;line-height:1.7">
+        RRR: CTT meta-analysis 기준. 중등강도 ~1.0 mmol/L LDL↓ → RRR 25%; 고강도 ~1.5 mmol/L → RRR 35%.<br>
+        2차 예방 기저위험: PROVE-IT, TNT, LIPID 등 RCT 실제 사건율 기반 추정값.
+      </div>
+    </div>
+
+    <!-- Panel 1: 시각화 -->
+    <div id="nntPanel1" style="display:none">
+      <div style="position:relative;width:100%;height:260px">
+        <canvas id="nntBarChart" role="img" aria-label="위험군별 NNT 막대그래프. 저위험 267, 경계 100, 중간위험 53, 고위험1차 24, 고위험2차 11, 초고위험2차 7">NNT: 저위험 267, 경계 100, 중간위험 53, 고위험1차 24, 고위험2차 11, 초고위험2차 7.</canvas>
+      </div>
+      <div style="margin-top:5px;font-size:10px;color:#888780">점선(NNT=50): 이 아래에서 1차 예방 스타틴 치료 효과가 임상적으로 명확함.</div>
+    </div>
+
+    <!-- Panel 2: 1차예방 분석 -->
+    <div id="nntPanel2" style="display:none">
+      <div style="border-left:3px solid #e24b4a;border-radius:0 7px 7px 0;background:#fcebeb;padding:8px 11px;margin-bottom:6px">
+        <div style="display:flex;align-items:center;gap:7px;margin-bottom:3px;flex-wrap:wrap">
+          <span style="font-size:10px;font-weight:700;background:#e24b4a;color:#fff;border-radius:50%;width:16px;height:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">✗</span>
+          <span style="font-weight:700;font-size:13px">저위험 (&lt;3%)</span>
+          <span class="badge" style="background:#fcebeb;color:#791f1f;border:1px solid #f09595">비효과적</span>
+          <span style="margin-left:auto;font-size:12px;color:#888780">NNT ≈ 267</span>
+        </div>
+        <div style="font-size:11px;color:#5f5e5a;padding-left:23px">절대 이익이 너무 작음. 생활습관 교정 중심. 스타틴 미권고.</div>
+      </div>
+      <div style="border-left:3px solid #e24b4a;border-radius:0 7px 7px 0;background:#fcebeb;padding:8px 11px;margin-bottom:6px">
+        <div style="display:flex;align-items:center;gap:7px;margin-bottom:3px;flex-wrap:wrap">
+          <span style="font-size:10px;font-weight:700;background:#e24b4a;color:#fff;border-radius:50%;width:16px;height:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">✗</span>
+          <span style="font-weight:700;font-size:13px">경계위험 (3–5%)</span>
+          <span class="badge" style="background:#fcebeb;color:#791f1f;border:1px solid #f09595">조건부 고려</span>
+          <span style="margin-left:auto;font-size:12px;color:#888780">NNT ≈ 100</span>
+        </div>
+        <div style="font-size:11px;color:#5f5e5a;padding-left:23px">위험증강인자(RE) 없으면 비권고. RE 복수 동반 시에만 개별화 논의.</div>
+      </div>
+      <div style="border-left:3px solid #ef9f27;border-radius:0 7px 7px 0;background:#fffbf2;padding:8px 11px;margin-bottom:6px">
+        <div style="display:flex;align-items:center;gap:7px;margin-bottom:3px;flex-wrap:wrap">
+          <span style="font-size:10px;font-weight:700;background:#ef9f27;color:#fff;border-radius:50%;width:16px;height:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">△</span>
+          <span style="font-weight:700;font-size:13px">중간위험 (5–10%)</span>
+          <span class="badge" style="background:#faeeda;color:#412402;border:1px solid #fac775">RE 동반 시 효과적</span>
+          <span style="margin-left:auto;font-size:12px;color:#888780">NNT ≈ 53</span>
+        </div>
+        <div style="font-size:11px;color:#5f5e5a;padding-left:23px">RE ≥2개 또는 CAC ≥100 동반 시 유효 NNT ~35–40 → NNT &lt;50 진입. Class IIa.<br>Lp(a)≥50, CAC 100–299, hs-CRP≥2, 조기 가족력 복수 동반 시 재평가.</div>
+      </div>
+      <div style="border-left:3px solid #639922;border-radius:0 7px 7px 0;background:#eaf3de;padding:8px 11px;margin-bottom:6px">
+        <div style="display:flex;align-items:center;gap:7px;margin-bottom:3px;flex-wrap:wrap">
+          <span style="font-size:10px;font-weight:700;background:#639922;color:#fff;border-radius:50%;width:16px;height:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0">✓</span>
+          <span style="font-weight:700;font-size:13px">고위험 1차예방 (≥10%)</span>
+          <span class="badge" style="background:#eaf3de;color:#27500a;border:1px solid #97c459">명확히 효과적</span>
+          <span style="margin-left:auto;font-size:12px;color:#888780">NNT ≈ 24</span>
+        </div>
+        <div style="font-size:11px;color:#5f5e5a;padding-left:23px">고강도 스타틴 Class I 권고. LDL-C 목표 &lt;70 mg/dL. 비용효과성 우수.</div>
+      </div>
+      <div class="nb info" style="margin-top:4px">
+        <b>근거 RCT:</b> WOSCOPS (NNT<sub>5yr</sub>≈42) · AFCAPS/TexCAPS (NNT<sub>5yr</sub>≈50) · JUPITER (NNT<sub>5yr</sub>≈25–30, hs-CRP≥2 선별) · 4S/LIPID/HPS 2차예방 (NNT<sub>5yr</sub>≈12–19)
+      </div>
+      <div style="margin-top:6px;font-size:10px;color:#888780;line-height:1.7">
+        ▸ 1차 예방에서 NNT &lt; 50 기준을 충족하려면 10년 위험 ≥ 7–8% 또는 중간위험 + RE ≥2개 필요.<br>
+        ▸ NNT는 집단 통계이며 기대여명·다약제 부담·환자 선호도를 함께 고려해야 함.
+      </div>
+    </div>
+    </div><!-- /nntBody -->
+  </div>
+  <!-- ══ /NNT 비교 ══ -->
+
 </div>
 
 <!-- ══════ RIGHT: RESULTS PANEL ══════ -->
@@ -2687,6 +2824,77 @@ document.querySelectorAll('.cac-opt').forEach(btn=>{
   });
 });
 clearResults(); // 초기 로드: 빈 화면
+
+// ── NNT 탭 전환 ──
+function switchNNTTab(idx){
+  [0,1,2].forEach(function(i){
+    var p = document.getElementById('nntPanel'+i);
+    var b = document.getElementById('nntTabBtn'+i);
+    if(p) p.style.display = (i===idx) ? 'block' : 'none';
+    if(b){
+      b.style.background = (i===idx) ? '#1a1a18' : '#f3eeff';
+      b.style.color = (i===idx) ? '#fff' : '#7b5ea7';
+    }
+  });
+  if(idx===1) initNNTChart();
+}
+var nntChartInst = null;
+function initNNTChart(){
+  if(nntChartInst) return;
+  var el = document.getElementById('nntBarChart');
+  if(!el) return;
+  if(typeof Chart === 'undefined'){
+    var s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js';
+    s.onload = function(){ buildNNTChart(el); };
+    document.head.appendChild(s);
+  } else {
+    buildNNTChart(el);
+  }
+}
+function buildNNTChart(el){
+  var labels = [['저위험','<3%'],['경계위험','3–5%'],['중간위험','5–10%'],['고위험','(1차 ≥10%)'],['고위험','(2차 ~25%)'],['초고위험','(2차 ~40%)']];
+  var nntVals = [267,100,53,24,11,7];
+  var colors = ['#b4b2a9','#fac775','#ef9f27','#97c459','#5dcaa5','#7f77dd'];
+  nntChartInst = new Chart(el, {
+    type: 'bar',
+    data:{
+      labels: labels,
+      datasets:[{label:'NNT (10년)',data:nntVals,backgroundColor:colors,borderWidth:0,borderRadius:4}]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{
+        legend:{display:false},
+        tooltip:{callbacks:{label:function(ctx){return 'NNT: '+ctx.raw+'명 — '+ctx.raw+'명 치료 시 1명 사건 예방';}}}
+      },
+      scales:{
+        y:{beginAtZero:true,max:290,
+          title:{display:true,text:'NNT (10년)',font:{size:11},color:'#888780'},
+          ticks:{font:{size:11},color:'#888780'},
+          grid:{color:'rgba(0,0,0,0.06)'}
+        },
+        x:{ticks:{font:{size:10},color:'#888780'},grid:{display:false}}
+      }
+    },
+    plugins:[{
+      afterDraw: function(chart){
+        var ctx=chart.ctx, ca=chart.chartArea, y=chart.scales.y;
+        var y50=y.getPixelForValue(50);
+        ctx.save();
+        ctx.setLineDash([6,4]);
+        ctx.strokeStyle='#e24b4a';
+        ctx.lineWidth=1.5;
+        ctx.beginPath(); ctx.moveTo(ca.left,y50); ctx.lineTo(ca.right,y50); ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle='#e24b4a';
+        ctx.font='600 10px sans-serif';
+        ctx.fillText('NNT = 50 임계선', ca.right-88, y50-4);
+        ctx.restore();
+      }
+    }]
+  });
+}
 </script>
 </body>
 </html>
