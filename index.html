@@ -214,26 +214,10 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
       <div class="field"><span class="fl"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 중성지방 (TG)</span><input type="number" autocomplete="off" id="tg" min="0" max="2000" placeholder="mg/dL"></div>
     </div>
     <div class="nb info" style="margin-bottom:6px">※ 치료 전 값은 baseline risk category와 치료 적응증 판단에 사용합니다.</div>
-    <label class="ck" style="margin-bottom:6px;padding:5px 9px;background:#f0efe9;border:1px solid #d0cec8;border-radius:7px;display:inline-flex"><input type="checkbox" id="onStatin"> <b>현재 스타틴 복용 중</b></label>
-    <div id="postLipidBox" style="display:none;margin-bottom:6px;padding:9px 11px;background:#f8f7f5;border:1px solid #e2e0db;border-radius:8px">
-      <div style="font-size:10px;font-weight:700;color:#888780;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px">스타틴 치료 후 / 현재 지질 검사</div>
-      <div id="statinBaselineHint" class="nb info" style="display:none;margin-bottom:7px">
-        ℹ 투약후 검사 결과를 입력하면 <b>on-treatment 위험도</b>가 우측 결과 패널에 계산됩니다.
-      </div>
-      <div class="row2">
-        <div class="field"><span class="fl">치료 후 TC</span><input type="number" autocomplete="off" id="postTc" min="60" max="450" placeholder="선택"></div>
-        <div class="field"><span class="fl">치료 후 HDL-C</span><input type="number" autocomplete="off" id="postHdl" min="15" max="120" placeholder="선택"></div>
-        <div class="field"><span class="fl">치료 후 LDL-C</span><input type="number" autocomplete="off" id="postLdl" min="0" max="400" placeholder="현재 LDL"></div>
-        <div class="field"><span class="fl">치료 후 TG</span><input type="number" autocomplete="off" id="postTg" min="0" max="2000" placeholder="현재 TG"></div>
-        <div class="field"><span class="fl">치료 후 ApoB (mg/dL)</span><input type="number" autocomplete="off" id="postApob" min="20" max="300" placeholder="미입력 시 추정값 사용"></div>
-      </div>
-      <div class="nb warn" style="margin-top:5px">치료 후 값은 현재 조절 상태와 on-treatment risk 표시용입니다. 치료 적응증/기저 위험군은 치료 전 baseline 값으로 유지됩니다.</div>
-    </div>
 
     <div class="divider"></div>
 
     <!-- 혈압 및 임상 인자 -->
-    <div style="font-size:10px;font-weight:700;color:#5f5e5a;letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px">혈압 및 신장, 당뇨병, ASCVD 기왕력</div>
     <div style="display:flex;align-items:center;gap:14px;margin-bottom:6px;flex-wrap:wrap">
       <div style="display:flex;align-items:center;gap:5px">
         <span style="font-size:11px;color:#5f5e5a;white-space:nowrap"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 수축기 혈압</span>
@@ -280,6 +264,56 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
           ※ 2차 예방에서 LDL &lt;55 달성 시 추가 사건 위험 ~20% 추가 감소 (CTT meta-analysis)
         </div>
       </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- 스타틴 복용 중 -->
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px">
+      <label class="ck" style="padding:5px 9px;background:#f0efe9;border:1px solid #d0cec8;border-radius:7px;display:inline-flex;margin-bottom:0"><input type="checkbox" id="onStatin"> <b>현재 스타틴 복용 중</b></label>
+      <span style="font-size:10px;color:#185fa5;font-weight:600;line-height:1.5">치료 전 수치를 모르는 경우, 복용 중인 스타틴 강도를 선택하면 치료 전 지질수치를 추정하여 자동 입력합니다.</span>
+    </div>
+    <div id="postLipidBox" style="display:none;margin-bottom:6px;padding:9px 11px;background:#f8f7f5;border:1px solid #e2e0db;border-radius:8px">
+      <div style="font-size:10px;font-weight:700;color:#888780;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px">스타틴 치료 후 / 현재 지질 검사</div>
+      <div id="statinBaselineHint" class="nb info" style="display:none;margin-bottom:7px">
+        ℹ 투약후 검사 결과를 입력하면 <b>on-treatment 위험도</b>가 우측 결과 패널에 계산됩니다.
+      </div>
+      <div class="row2">
+        <div class="field"><span class="fl">치료 후 TC</span><input type="number" autocomplete="off" id="postTc" min="60" max="450" placeholder="선택"></div>
+        <div class="field"><span class="fl">치료 후 HDL-C</span><input type="number" autocomplete="off" id="postHdl" min="15" max="120" placeholder="선택"></div>
+        <div class="field"><span class="fl">치료 후 LDL-C</span><input type="number" autocomplete="off" id="postLdl" min="0" max="400" placeholder="현재 LDL"></div>
+        <div class="field"><span class="fl">치료 후 TG</span><input type="number" autocomplete="off" id="postTg" min="0" max="2000" placeholder="현재 TG"></div>
+        <div class="field"><span class="fl">치료 후 ApoB (mg/dL)</span><input type="number" autocomplete="off" id="postApob" min="20" max="300" placeholder="미입력 시 추정값 사용"></div>
+      </div>
+
+      <!-- ── 역산출 섹션 ── -->
+      <div style="margin-top:9px;padding:9px 11px;background:#eef4fb;border:1px solid #b8d4ee;border-radius:8px">
+        <div style="display:flex;align-items:center;gap:7px;margin-bottom:7px;flex-wrap:wrap">
+          <span style="font-size:11px;font-weight:700;color:#185fa5;white-space:nowrap">🔄 치료 전 수치 역산출</span>
+          <span style="font-size:10px;color:#5f5e5a">치료 전 수치를 모르는 경우, 복용 중인 스타틴 강도를 선택하면 치료 전 지질수치를 추정하여 자동 입력합니다.</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          <div style="display:flex;align-items:center;gap:5px">
+            <span style="font-size:11px;color:#1a1a18;font-weight:600;white-space:nowrap">복용 스타틴 강도:</span>
+            <select id="backCalcIntensity" style="width:auto;padding:4px 8px;font-size:12px;border:1px solid #b8d4ee;border-radius:6px;background:#fff;color:#1a1a18">
+              <option value="">— 선택 —</option>
+              <option value="high">고강도 (Rosuva 20–40 / Atorva 40–80 mg) · LDL ↓약 50%</option>
+              <option value="mod">중등강도 (Rosuva 5–10 / Atorva 10–20 mg) · LDL ↓약 30–35%</option>
+              <option value="low">저강도 (Prava 10–20 / Simva 10 mg) · LDL ↓약 20%</option>
+            </select>
+          </div>
+          <button type="button" id="backCalcBtn" onclick="runBackCalc()"
+            style="padding:5px 13px;background:#185fa5;color:#fff;border:none;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:inherit">
+            역산출 → 자동 입력
+          </button>
+        </div>
+        <div id="backCalcResult" style="display:none;margin-top:7px;font-size:11px;color:#185fa5;line-height:1.7;padding:6px 9px;background:#ddeefa;border-radius:6px"></div>
+        <div id="backCalcWarn" style="display:none;margin-top:5px" class="nb warn">
+          ⚠ 위 수치는 스타틴 강도별 <b>평균 반응률</b>로 역산출한 <b>추정값</b>입니다. 개인차가 있으므로 실제 치료 전 검사값이 확인되면 반드시 교체하십시오.
+        </div>
+      </div>
+
+      <div class="nb warn" style="margin-top:5px">치료 후 값은 현재 조절 상태와 on-treatment risk 표시용입니다. 치료 적응증/기저 위험군은 치료 전 baseline 값으로 유지됩니다.</div>
     </div>
   </div>
 
@@ -2146,6 +2180,57 @@ function renderAbsIndsDefault(){
   });
   if(g('absIndList')) g('absIndList').innerHTML=html;
 }
+// ── 치료 전 지질수치 역산출 ──────────────────────────
+function runBackCalc(){
+  const intensity = g('backCalcIntensity')?.value;
+  if(!intensity){
+    alert('스타틴 강도를 먼저 선택해 주세요.');
+    return;
+  }
+  const postLdl = parseFloat(g('postLdl')?.value);
+  const postTc  = parseFloat(g('postTc')?.value);
+  const postHdl = parseFloat(g('postHdl')?.value);
+  const postTg  = parseFloat(g('postTg')?.value);
+
+  if(isNaN(postLdl) && isNaN(postTc)){
+    alert('치료 후 LDL-C 또는 TC 값을 먼저 입력해 주세요.');
+    return;
+  }
+
+  // 스타틴 강도별 평균 감소율 (반응률 기반)
+  // 출처: ACC/AHA 2013 Statin Intensity Table, meta-analysis 평균값
+  const rates = {
+    high: { ldl: 0.50, tc: 0.37, hdl: 0.05, tg: 0.10 }, // LDL -50%, TC -37%, HDL +5%, TG -10%
+    mod:  { ldl: 0.32, tc: 0.22, hdl: 0.05, tg: 0.07 }, // LDL -32%, TC -22%, HDL +5%, TG -7%
+    low:  { ldl: 0.20, tc: 0.13, hdl: 0.03, tg: 0.04 }, // LDL -20%, TC -13%, HDL +3%, TG -4%
+  };
+  const r = rates[intensity];
+
+  // 역산출: 치료전 = 치료후 / (1 - 감소율)
+  const preLdl = !isNaN(postLdl) ? Math.round(postLdl / (1 - r.ldl)) : null;
+  const preTc  = !isNaN(postTc)  ? Math.round(postTc  / (1 - r.tc))  : null;
+  const preHdl = !isNaN(postHdl) ? Math.round(postHdl / (1 + r.hdl)) : null; // HDL은 상승이므로 나눔
+  const preTg  = !isNaN(postTg)  ? Math.round(postTg  / (1 - r.tg))  : null;
+
+  // 기본 지질 입력 필드에 자동 입력
+  let filled = [];
+  if(preLdl !== null){ g('ldl').value = preLdl; filled.push(`LDL-C: ${postLdl} → <b>${preLdl} mg/dL</b>`); }
+  if(preTc  !== null){ g('tc').value  = preTc;  filled.push(`TC: ${postTc} → <b>${preTc} mg/dL</b>`); }
+  if(preHdl !== null){ g('hdl').value = preHdl; filled.push(`HDL-C: ${postHdl} → <b>${preHdl} mg/dL</b>`); }
+  if(preTg  !== null){ g('tg').value  = preTg;  filled.push(`TG: ${postTg} → <b>${preTg} mg/dL</b>`); }
+
+  // 결과 표시
+  const intensityLabel = {high:'고강도 (LDL ↓50%)', mod:'중등강도 (LDL ↓32%)', low:'저강도 (LDL ↓20%)'}[intensity];
+  const resultBox = g('backCalcResult');
+  resultBox.style.display = 'block';
+  resultBox.innerHTML = `<b>[ ${intensityLabel} 기준 역산출 결과 ]</b><br>` + filled.join(' &nbsp;·&nbsp; ');
+
+  g('backCalcWarn').style.display = 'block';
+
+  // 계산 트리거
+  upd();
+}
+
 function toggleSection(bodyId, arrowId){
   const body = g(bodyId);
   const arrow = g(arrowId);
