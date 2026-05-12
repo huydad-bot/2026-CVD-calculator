@@ -1103,7 +1103,27 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
     </div>
   </div>
 
-  <!-- 5. EMR Copy Summary -->
+  <!-- 5. 개인화 NNT -->
+  <div class="card" style="border-top:3px solid #7b5ea7">
+    <div class="sec" style="display:flex;align-items:center;justify-content:space-between;color:#7b5ea7">
+      <span style="display:flex;align-items:center;gap:6px">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7b5ea7" stroke-width="2.5"><path d="M3 18h18"/><path d="M3 12h12"/><path d="M3 6h6"/></svg>
+        이 환자의 스타틴 치료 NNT
+      </span>
+      <span id="nntBadge" style="font-size:12px;font-weight:700;color:#fff;background:#c9b4e8;border-radius:5px;padding:2px 10px">—</span>
+    </div>
+    <div id="nntSummary" style="font-size:11px;color:#888780;margin-top:4px">기본정보 입력 시 이 환자의 개인화 NNT가 계산됩니다.</div>
+    <div id="nntBtnWrap" style="display:none;margin-top:8px">
+      <button onclick="toggleSection('nntDetail','nntArrow')" style="display:flex;align-items:center;gap:5px;padding:5px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid #c9b4e8;background:#f3eeff;color:#7b5ea7;font-family:inherit">
+        자세히 보기 <span id="nntArrow" style="font-size:10px">▶</span>
+      </button>
+    </div>
+    <div id="nntDetail" style="display:none;margin-top:10px">
+      <div id="nntDetailBody"></div>
+    </div>
+  </div>
+
+  <!-- 6. EMR Copy Summary -->
   <div class="card no-print">
     <div class="sec">전자차트 복사용 결과요약</div>
     <div style="font-size:11px;color:#5f5e5a;line-height:1.6;margin-bottom:7px">
@@ -1124,22 +1144,7 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
     <div id="swFlow"></div>
   </div>
 
-  <!-- 7. 개인화 NNT -->
-  <div id="nntPersonalCard" class="card" style="border-top:3px solid #7b5ea7;display:none">
-    <div class="sec" onclick="toggleSection('nntPBody','nntPArrow')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;color:#7b5ea7">
-      <span style="display:flex;align-items:center;gap:6px">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7b5ea7" stroke-width="2.5" style="flex-shrink:0"><path d="M3 18h18"/><path d="M3 12h12"/><path d="M3 6h6"/></svg>
-        이 환자의 스타틴 치료 NNT
-        <span id="nntPersonalBadge" style="font-size:11px;font-weight:700;color:#fff;background:#7b5ea7;border-radius:5px;padding:2px 8px;letter-spacing:0;text-transform:none">—</span>
-      </span>
-      <span id="nntPArrow" style="font-size:12px;color:#7b5ea7;transition:transform .2s">▶</span>
-    </div>
-    <div id="nntPBody" style="display:none;margin-top:8px">
-      <div id="nntPersonalBody"></div>
-    </div>
-  </div>
-
-  <!-- 8. 참고 문헌 및 주의사항 -->
+  <!-- 7. 참고 문헌 및 주의사항 -->
   <div class="card">
     <div class="sec" id="refToggle"
       style="display:flex;align-items:center;justify-content:space-between">
@@ -1955,8 +1960,10 @@ function clearResults(){
   if(g('ksolaOut')) g('ksolaOut').innerHTML=blank;
   if(g('accRecOut')) g('accRecOut').innerHTML=blank;
   if(g('swFlow')) g('swFlow').innerHTML='';
-  if(g('nntPersonalCard')) g('nntPersonalCard').style.display='none';
-  if(g('nntPersonalBadge')) g('nntPersonalBadge').textContent='—';
+  if(g('nntSummary')) g('nntSummary').innerHTML='<span style="font-size:11px;color:#888780">기본정보 입력 시 이 환자의 개인화 NNT가 계산됩니다.</span>';
+  if(g('nntBadge')){ g('nntBadge').textContent='—'; g('nntBadge').style.background='#c9b4e8'; }
+  if(g('nntBtnWrap')) g('nntBtnWrap').style.display='none';
+  if(g('nntDetail')) g('nntDetail').style.display='none';
   if(g('lipidTbl')) g('lipidTbl').innerHTML='';
   if(g('absIndList')) renderAbsIndsDefault();
   if(g('noResultHint')) g('noResultHint').style.display='block';
@@ -2574,7 +2581,7 @@ function upd(){
   // Stepwise flow — current/on-treatment LDL if present, otherwise baseline LDL
   // dispLdlTgt를 targetOverride로 전달: 지질표 목표치와 stepwise flow 목표치 일치 보장
   g('swFlow').innerHTML=makeFlow(acc,preventCat,currentLdl,ascvd,vhr,onStatin,ldl,dispLdlTgt);
-  updatePersonalNNT(prevAscvd,ascvd,vhr,acc);
+  try{ updateNNT(prevAscvd,ascvd,vhr,acc); }catch(e){ console.warn('NNT error:',e); }
 
   // EMR copy summary
   if(g('emrSummary')){
@@ -2847,95 +2854,92 @@ document.querySelectorAll('.cac-opt').forEach(btn=>{
 });
 clearResults(); // 초기 로드: 빈 화면
 
-// ── 개인화 NNT ──────────────────────────────────────────
-function updatePersonalNNT(prevAscvd, ascvd, vhr, acc){
-  var card=g('nntPersonalCard'), body=g('nntPersonalBody'), badge=g('nntPersonalBadge');
-  if(!card||!body) return;
+// ── 개인화 NNT ──
+function updateNNT(prevAscvd, ascvd, vhr, acc){
+  var badge=g('nntBadge'), summary=g('nntSummary'), btnWrap=g('nntBtnWrap'), detailBody=g('nntDetailBody');
+  if(!badge||!summary) return;
 
-  /* 기저위험 · 스타틴 강도 결정 */
   var riskPct, rrrPct, riskLabel, statinLabel, isSecondary=false;
   if(ascvd){
     isSecondary=true;
-    if(vhr){ riskPct=40; riskLabel='초고위험 2차 예방 (추정 ~40%)'; }
-    else   { riskPct=25; riskLabel='고위험 2차 예방 (추정 ~25%)'; }
+    if(vhr){ riskPct=40; riskLabel='초고위험 2차 예방 (~40%)'; }
+    else   { riskPct=25; riskLabel='고위험 2차 예방 (~25%)'; }
     rrrPct=35; statinLabel='고강도 스타틴';
   } else {
-    riskPct=prevAscvd;
-    riskLabel=prevAscvd.toFixed(1)+'% (PREVENT 2023)';
-    if(acc.c==='hi'){ rrrPct=35; statinLabel='고강도 스타틴'; }
-    else            { rrrPct=25; statinLabel='중등강도 스타틴'; }
+    riskPct=prevAscvd||0;
+    riskLabel=riskPct.toFixed(1)+'% (PREVENT 2023)';
+    if(acc&&acc.c==='hi'){ rrrPct=35; statinLabel='고강도 스타틴'; }
+    else                  { rrrPct=25; statinLabel='중등강도 스타틴'; }
   }
+
+  if(!riskPct){ return; }
 
   var arr=riskPct/100*rrrPct/100;
   var nnt=Math.round(1/arr);
   var arrPct=(arr*100).toFixed(2);
 
-  /* 해석 색상·문구 */
   var col,interp,interpBg;
   if(nnt<=12)      {col='#534ab7';interpBg='#eeedfe';interp='매우 효과적 — 강력 권고';}
   else if(nnt<=25) {col='#0f6e56';interpBg='#e1f5ee';interp='명확히 효과적 — Class I';}
   else if(nnt<=50) {col='#3b6d11';interpBg='#eaf3de';interp='효과적 — Class IIa 범위';}
-  else if(nnt<=100){col='#854f0b';interpBg='#faeeda';interp='조건부 고려 — 위험증강인자 동반 시 권고';}
+  else if(nnt<=100){col='#854f0b';interpBg='#faeeda';interp='조건부 고려 — 위험증강인자 동반 시';}
   else             {col='#888780';interpBg='#f1efe8';interp='치료 효과 낮음 — 생활습관 교정 우선';}
 
-  if(badge){ badge.textContent='NNT '+nnt; badge.style.background=col; }
+  badge.textContent='NNT '+nnt;
+  badge.style.background=col;
 
-  /* 참고 위험군 마커 바 */
-  var refs=[
-    {label:'저위험',       nnt:267,c:'#b4b2a9'},
-    {label:'경계위험',     nnt:100,c:'#fac775'},
-    {label:'중간위험',     nnt:53, c:'#ef9f27'},
-    {label:'고위험(1차)',  nnt:24, c:'#97c459'},
-    {label:'고위험(2차)',  nnt:11, c:'#5dcaa5'},
-    {label:'초고위험(2차)',nnt:7,  c:'#7f77dd'},
-  ];
-  var scaleMax=290;
-  var myPct=Math.min(96,Math.max(2,Math.round(nnt/scaleMax*100)));
-
-  var dots=refs.map(function(r){
-    var p=Math.min(96,Math.max(2,Math.round(r.nnt/scaleMax*100)));
-    return '<div title="'+r.label+' NNT='+r.nnt+'" style="position:absolute;left:'+p+'%;top:0;width:10px;height:14px;background:'+r.c+';border-radius:2px;transform:translateX(-50%)"></div>';
-  }).join('');
-
-  var pills=refs.map(function(r){
-    var near=(nnt>=Math.round(r.nnt*0.7)&&nnt<=Math.round(r.nnt*1.4));
-    return '<span style="font-size:10px;padding:2px 7px;border-radius:4px;background:'+r.c+(near?'':'22')+';border:1.5px solid '+(near?r.c:'transparent')+';color:'+(near?'#1a1a18':'#5f5e5a')+';font-weight:'+(near?'700':'400')+'">'+r.label+' '+r.nnt+'</span>';
-  }).join('');
-
-  var noteText=isSecondary
-    ?'2차 예방 기저위험은 PROVE-IT·TNT·LIPID 등 RCT 평균 사건율 기반 추정값입니다.'
-    :'PREVENT 2023 개인 10년 위험도에 CTT meta-analysis RRR을 적용하였습니다. 실제 효과는 LDL 반응도·복약순응도에 따라 달라집니다.';
-
-  body.innerHTML=
-    /* 수치 블록 */
-    '<div style="display:flex;align-items:stretch;gap:10px;flex-wrap:wrap;margin-bottom:12px">'
-    +'<div style="flex:0 0 auto;min-width:92px;background:#f3eeff;border:1px solid #c9b4e8;border-radius:9px;padding:12px 14px;text-align:center">'
-    +'<div style="font-size:10px;color:#7b5ea7;font-weight:600;margin-bottom:4px">개인화 NNT</div>'
-    +'<div style="font-size:40px;font-weight:800;color:'+col+';line-height:1;letter-spacing:-1px">'+nnt+'</div>'
-    +'<div style="font-size:10px;color:#888780;margin-top:4px">명 치료 시 1명 예방</div>'
+  // ── 요약 (항상 표시) ──
+  summary.innerHTML=
+    '<div style="display:flex;align-items:stretch;gap:10px;flex-wrap:wrap;margin-top:6px">'
+    +'<div style="flex:0 0 auto;min-width:86px;background:#f3eeff;border:1px solid #c9b4e8;border-radius:9px;padding:10px 12px;text-align:center">'
+    +'<div style="font-size:10px;color:#7b5ea7;font-weight:600;margin-bottom:2px">개인화 NNT</div>'
+    +'<div style="font-size:36px;font-weight:800;color:'+col+';line-height:1;letter-spacing:-1px">'+nnt+'</div>'
+    +'<div style="font-size:10px;color:#888780;margin-top:3px">명 치료 → 1명 예방</div>'
     +'</div>'
-    +'<div style="flex:1;min-width:160px;display:flex;flex-direction:column;gap:6px;justify-content:center">'
-    +'<div style="font-size:12px;color:#5f5e5a"><b style="color:#7b5ea7">기저위험</b>&nbsp; '+riskLabel+'</div>'
-    +'<div style="font-size:12px;color:#5f5e5a"><b style="color:#7b5ea7">스타틴</b>&nbsp; '+statinLabel+' <span style="color:#888780">(RRR '+rrrPct+'%)</span></div>'
-    +'<div style="font-size:12px;color:#5f5e5a"><b style="color:#7b5ea7">ARR</b>&nbsp; '+arrPct+'% <span style="color:#888780;font-size:10px">— 10년간 절대위험 감소</span></div>'
-    +'<div style="padding:5px 10px;background:'+interpBg+';border-left:3px solid '+col+';border-radius:0 6px 6px 0;font-size:11px;font-weight:700;color:'+col+'">'+interp+'</div>'
-    +'</div></div>'
-    /* 비교 바 */
-    +'<div style="margin-bottom:4px;font-size:10px;font-weight:600;color:#5f5e5a">위험군별 참고 NNT와 비교</div>'
-    +'<div style="position:relative;height:14px;background:#e2e0db;border-radius:4px;margin-bottom:22px">'
-    +dots
-    +'<div style="position:absolute;left:'+myPct+'%;top:-5px;width:3px;height:24px;background:#1a1a18;border-radius:2px;transform:translateX(-50%);z-index:3"></div>'
-    +'<div style="position:absolute;left:'+myPct+'%;top:17px;font-size:11px;font-weight:700;color:'+col+';white-space:nowrap;transform:translateX(-50%)">▲ NNT&nbsp;'+nnt+'</div>'
-    +'</div>'
-    +'<div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px">'+pills+'</div>'
-    /* 안내 */
-    +'<div style="margin-top:2px;padding:6px 10px;background:#f8f7f5;border-radius:6px;font-size:10px;color:#888780;line-height:1.65">'
-    +'<b style="color:#5f5e5a">계산 근거</b> · '+noteText
-    +'</div>';
+    +'<div style="flex:1;min-width:140px;display:flex;flex-direction:column;gap:5px;justify-content:center">'
+    +'<div style="font-size:11px;color:#5f5e5a"><b style="color:#7b5ea7">기저위험</b> '+riskLabel+'</div>'
+    +'<div style="font-size:11px;color:#5f5e5a"><b style="color:#7b5ea7">스타틴</b> '+statinLabel+' <span style="color:#888780">(RRR '+rrrPct+'%)</span></div>'
+    +'<div style="font-size:11px;color:#5f5e5a"><b style="color:#7b5ea7">ARR</b> '+arrPct+'% <span style="color:#888780;font-size:10px">10년간 절대위험 감소</span></div>'
+    +'<div style="padding:4px 9px;background:'+interpBg+';border-left:3px solid '+col+';border-radius:0 5px 5px 0;font-size:11px;font-weight:700;color:'+col+'">'+interp+'</div>'
+    +'</div></div>';
 
-  card.style.display='block';
+  if(btnWrap) btnWrap.style.display='block';
+
+  // ── 상세 (버튼 클릭 시 표시) ──
+  if(detailBody){
+    var refs=[
+      {label:'저위험',       nnt:267, c:'#b4b2a9'},
+      {label:'경계위험',     nnt:100, c:'#fac775'},
+      {label:'중간위험',     nnt:53,  c:'#ef9f27'},
+      {label:'고위험(1차)',  nnt:24,  c:'#97c459'},
+      {label:'고위험(2차)',  nnt:11,  c:'#5dcaa5'},
+      {label:'초고위험(2차)',nnt:7,   c:'#7f77dd'},
+    ];
+    var MAX=290;
+    var myP=Math.min(95,Math.max(3,Math.round(nnt/MAX*100)));
+    var dots=refs.map(function(r){
+      var p=Math.min(95,Math.max(3,Math.round(r.nnt/MAX*100)));
+      return '<div title="'+r.label+' NNT='+r.nnt+'" style="position:absolute;left:'+p+'%;top:0;width:10px;height:14px;background:'+r.c+';border-radius:2px;transform:translateX(-50%)"></div>';
+    }).join('');
+    var pills=refs.map(function(r){
+      var near=(nnt>=Math.round(r.nnt*0.7)&&nnt<=Math.round(r.nnt*1.4));
+      return '<span style="font-size:10px;padding:2px 6px;border-radius:4px;background:'+r.c+(near?'':'22')+';border:1.5px solid '+(near?r.c:'transparent')+';font-weight:'+(near?700:400)+';color:#1a1a18">'+r.label+' '+r.nnt+'</span>';
+    }).join('');
+    var note=isSecondary
+      ?'2차 예방 기저위험: PROVE-IT·TNT·LIPID RCT 사건율 기반 추정값.'
+      :'PREVENT 2023 개인 10년 위험도 × CTT meta-analysis RRR 적용값.';
+    detailBody.innerHTML=
+      '<div style="height:1px;background:#e2e0db;margin:0 0 10px"></div>'
+      +'<div style="font-size:10px;font-weight:600;color:#5f5e5a;margin-bottom:6px">위험군별 참고 NNT와 비교</div>'
+      +'<div style="position:relative;height:14px;background:#e2e0db;border-radius:4px;margin-bottom:22px">'
+      +dots
+      +'<div style="position:absolute;left:'+myP+'%;top:-5px;width:3px;height:24px;background:#1a1a18;border-radius:2px;transform:translateX(-50%);z-index:3"></div>'
+      +'<div style="position:absolute;left:'+myP+'%;top:17px;font-size:11px;font-weight:700;color:'+col+';white-space:nowrap;transform:translateX(-50%)">▲ NNT '+nnt+'</div>'
+      +'</div>'
+      +'<div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px">'+pills+'</div>'
+      +'<div style="padding:5px 9px;background:#f8f7f5;border-radius:6px;font-size:10px;color:#888780">'+note+'</div>';
+  }
 }
-
 
 // ── NNT 탭 전환 ──
 function switchNNTTab(idx){
