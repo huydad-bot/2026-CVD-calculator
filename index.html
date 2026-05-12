@@ -188,16 +188,16 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
     <!-- 나이·성별·병력 -->
     <div style="display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;margin-bottom:6px">
       <div class="field" style="flex:0 0 auto;min-width:140px">
-        <span class="fl"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 나이 (세)</span>
+        <span class="fl"><span style="font-size:12px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 나이 (세)</span>
         <div style="display:flex;align-items:center;gap:6px">
           <input type="number" id="age" min="20" max="90" value="" autocomplete="off"
             style="width:68px;padding:5px 8px;border:1px solid #d0cec8;border-radius:7px;font-size:16px;font-weight:700;color:#1a1a18;text-align:center">
-          <span style="font-size:10px;color:#185fa5;font-weight:600">30–79세: PREVENT 검증 범위</span>
+          <span style="font-size:11px;color:#185fa5;font-weight:600">30–79세: PREVENT 검증 범위</span>
         </div>
         <div id="ageOutOfRange" style="display:none;margin-top:4px;padding:5px 9px;border-radius:6px;font-size:11px;line-height:1.55"></div>
       </div>
       <div class="field" style="flex:0 0 auto">
-        <span class="fl"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 성별</span>
+        <span class="fl"><span style="font-size:12px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 성별</span>
         <div class="rg"><label><input type="radio" name="sex" value="F"><span>여성</span></label><label><input type="radio" name="sex" value="M"><span>남성</span></label></div>
       </div>
       
@@ -206,38 +206,37 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
     <div class="divider"></div>
 
     <!-- 치료 전 지질 -->
-    <div style="font-size:10px;font-weight:700;color:#5f5e5a;letter-spacing:.04em;text-transform:uppercase;margin-bottom:4px">치료 전 지질 검사 — baseline (mg/dL)</div>
     <div class="row2" style="margin-bottom:4px">
-      <div class="field"><span class="fl"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 총 콜레스테롤 (TC)</span><input type="number" autocomplete="off" id="tc" min="100" max="450" placeholder="mg/dL"></div>
-      <div class="field"><span class="fl"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> HDL-C</span><input type="number" autocomplete="off" id="hdl" min="15" max="120" placeholder="mg/dL"></div>
-      <div class="field"><span class="fl"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> LDL-C</span><input type="number" autocomplete="off" id="ldl" min="30" max="400" placeholder="mg/dL"></div>
-      <div class="field"><span class="fl"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 중성지방 (TG)</span><input type="number" autocomplete="off" id="tg" min="0" max="2000" placeholder="mg/dL"></div>
+      <div class="field"><span class="fl"><span style="font-size:12px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 총 콜레스테롤 (TC)</span><input type="number" autocomplete="off" id="tc" min="100" max="450" placeholder="mg/dL"></div>
+      <div class="field"><span class="fl"><span style="font-size:12px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> HDL-C</span><input type="number" autocomplete="off" id="hdl" min="15" max="120" placeholder="mg/dL"></div>
+      <div class="field"><span class="fl"><span style="font-size:12px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> LDL-C</span><input type="number" autocomplete="off" id="ldl" min="30" max="400" placeholder="mg/dL"></div>
+      <div class="field"><span class="fl"><span style="font-size:12px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 중성지방 (TG)</span><input type="number" autocomplete="off" id="tg" min="0" max="2000" placeholder="mg/dL"></div>
     </div>
-    <div class="nb info" style="margin-bottom:6px">※ 치료 전 값은 baseline risk category와 치료 적응증 판단에 사용합니다.</div>
 
     <div class="divider"></div>
 
     <!-- 혈압 및 임상 인자 -->
     <div style="display:flex;align-items:center;gap:14px;margin-bottom:6px;flex-wrap:wrap">
       <div style="display:flex;align-items:center;gap:5px">
-        <span style="font-size:11px;color:#5f5e5a;white-space:nowrap"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 수축기 혈압</span>
+        <span style="font-size:11px;color:#5f5e5a;white-space:nowrap"><span style="font-size:12px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 수축기 혈압</span>
         <input type="number" autocomplete="off" id="sbp" min="80" max="220" placeholder="mmHg" style="width:68px;padding:4px 6px;border:1px solid #d0cec8;border-radius:6px;font-size:12px">
         <span style="font-size:11px;color:#888780">mmHg</span>
       </div>
       <div style="display:flex;align-items:center;gap:5px">
-        <span style="font-size:11px;color:#5f5e5a;white-space:nowrap"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> eGFR</span>
+        <span style="font-size:11px;color:#5f5e5a;white-space:nowrap"><span style="font-size:12px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> eGFR</span>
         <input type="number" autocomplete="off" id="egfr" min="5" max="130" placeholder="수치" style="width:62px;padding:4px 6px;border:1px solid #d0cec8;border-radius:6px;font-size:12px">
         <span style="font-size:11px;color:#888780">mL/min/1.73m²</span>
         <span style="font-size:10px;color:#b4b2a9;white-space:nowrap">※ 미입력 시 90으로 자동계산</span>
       </div>
     </div>
+    <div style="font-size:11px;color:#185fa5;font-weight:600;margin-bottom:4px">해당사항이 있는 경우 체크하세요</div>
     <div style="display:flex;gap:14px;flex-wrap:wrap">
-      <label class="ck"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 항고혈압제 <input type="checkbox" id="bpTx"></label>
-      <label class="ck"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 흡연 <input type="checkbox" id="smoker"></label>
-      <label class="ck"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 당뇨병 <input type="checkbox" id="dm"></label>
+      <label class="ck"><span style="font-size:12px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 항고혈압제 <input type="checkbox" id="bpTx"></label>
+      <label class="ck"><span style="font-size:12px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 흡연 <input type="checkbox" id="smoker"></label>
+      <label class="ck"><span style="font-size:12px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 당뇨병 <input type="checkbox" id="dm"></label>
     </div>
     <div style="margin-top:6px">
-      <label class="ck"><span style="font-size:15px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> ASCVD 기왕력 (2차 예방) <input type="checkbox" id="ascvdHx"></label>
+      <label class="ck"><span style="font-size:12px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> ASCVD 기왕력 (2차 예방) <input type="checkbox" id="ascvdHx"></label>
       <label class="ck" id="vhrRow" style="display:none;padding-left:14px"><input type="checkbox" id="veryHigh"><span style="font-size:11px">초고위험: 복수 주요 사건 또는 1사건+다수 고위험 조건</span></label>
       <div id="vhrDesc" style="display:none;margin-top:6px;margin-left:6px;padding:10px 12px;background:#fcebeb;border-radius:8px;border-left:3px solid #a32d2d">
         <div style="font-size:11px;font-weight:700;color:#a32d2d;margin-bottom:6px">▲ 초고위험 ASCVD (Very High Risk) — LDL-C 목표 &lt;55 mg/dL</div>
@@ -271,7 +270,7 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
     <!-- 스타틴 복용 중 -->
     <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px">
       <label class="ck" style="padding:5px 9px;background:#f0efe9;border:1px solid #d0cec8;border-radius:7px;display:inline-flex;margin-bottom:0"><input type="checkbox" id="onStatin"> <b>현재 스타틴 복용 중</b></label>
-      <span style="font-size:10px;color:#185fa5;font-weight:600;line-height:1.5">치료 전 수치를 모르는 경우, 복용 중인 스타틴 강도를 선택하면 치료 전 지질수치를 추정하여 자동 입력합니다.</span>
+      <span style="font-size:11px;color:#185fa5;font-weight:600;line-height:1.5">치료 전 수치를 모르는 경우, 복용 중인 스타틴 강도를 선택하면 치료 전 지질수치를 추정하여 자동 입력합니다.</span>
     </div>
     <div id="postLipidBox" style="display:none;margin-bottom:6px;padding:9px 11px;background:#f8f7f5;border:1px solid #e2e0db;border-radius:8px">
       <div style="font-size:10px;font-weight:700;color:#888780;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px">스타틴 치료 후 / 현재 지질 검사</div>
@@ -290,7 +289,7 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
       <div style="margin-top:9px;padding:9px 11px;background:#eef4fb;border:1px solid #b8d4ee;border-radius:8px">
         <div style="display:flex;align-items:center;gap:7px;margin-bottom:7px;flex-wrap:wrap">
           <span style="font-size:11px;font-weight:700;color:#185fa5;white-space:nowrap">🔄 치료 전 수치 역산출</span>
-          <span style="font-size:10px;color:#5f5e5a">치료 전 수치를 모르는 경우, 복용 중인 스타틴 강도를 선택하면 치료 전 지질수치를 추정하여 자동 입력합니다.</span>
+          <span style="font-size:11px;color:#185fa5;font-weight:600;line-height:1.5">치료 전 수치를 모르는 경우, 복용 중인 스타틴 강도를 선택하면 치료 전 지질수치를 추정하여 자동 입력합니다.</span>
         </div>
         <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
           <div style="display:flex;align-items:center;gap:5px">
@@ -608,7 +607,7 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
         <span style="font-weight:700;color:#5f5e5a">Total CVD</span><span style="color:#888780"> — ASCVD + HF 통합 위험도</span>
       </div>
     </div>
-    <div style="font-size:10px;color:#888780;margin-top:5px">30년 위험도는 30–59세에서만 표시됩니다 (PREVENT 2023 기준)</div>
+    <div style="font-size:12px;color:#185fa5;font-weight:600;margin-top:5px">기본정보 입력란을 채우면 결과가 표시됩니다. <span style="font-size:11px;font-weight:400">· 30년 위험도는 30–59세에서만 표시됩니다 (PREVENT 2023 기준)</span></div>
     <div id="ascvdHxNotice" style="display:none;margin-top:8px;padding:8px 11px;background:#faeeda;border-radius:7px;border-left:3px solid #ef9f27">
       <span style="font-size:11px;color:#854f0b">⚠ <b>ASCVD 기왕력</b>은 위험도 계산이 아닌 <b>치료 결정 경로 전환</b>에 사용됩니다. PREVENT 점수는 1차 예방 도구로 이 환자에게 적용되지 않으며, 우측 <b>스타틴 처방 권고</b> 결과를 참고하십시오.</span>
     </div>
@@ -627,7 +626,7 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
   <!-- 3. ACC/AHA PREVENT Risk Category -->
   <div class="card">
     <div class="sec">ACC/AHA PREVENT 위험도 분류</div>
-    <div id="ksolaOut"><div style="font-size:12px;color:#888780">입력값을 확인하면 표시됩니다.</div></div>
+    <div id="ksolaOut"><div style="font-size:12px;color:#185fa5;font-weight:600">입력값을 확인하면 표시됩니다.</div></div>
     <div style="margin-top:7px">
       <table class="lt">
         <thead><tr><th>PREVENT-ASCVD 10년 위험</th><th>분류</th><th>일반적 치료기준</th></tr></thead>
@@ -1475,7 +1474,7 @@ function copyResultSummary(){
 
 /* ── MAIN UPDATE ── */
 function clearResults(){
-  const blank='<div style="font-size:12px;color:#b4b2a9;padding:8px 0">입력값을 모두 입력하면 결과가 표시됩니다.</div>';
+  const blank='<div style="font-size:12px;color:#185fa5;font-weight:600;padding:8px 0">기본정보 입력란을 채우면 결과가 표시됩니다.</div>';
   ['prevAscvdNum','prevHfNum','prevNum'].forEach(id=>{ if(g(id)) g(id).textContent='—'; });
   ['prevAscvdBar','prevHfBar','prevBar'].forEach(id=>{ if(g(id)) g(id).style.width='0'; });
   ['prevAscvd30Sub','prevHf30Sub','prevCvd30Sub'].forEach(id=>{ if(g(id)) g(id).textContent='30년: —'; });
