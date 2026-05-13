@@ -1143,7 +1143,7 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
       <div id="nntDetailBody"></div>
     </div>
     <!-- 처방 권고와의 차이 안내 -->
-    <div style="margin-top:10px;padding:7px 11px;background:#f8f7f5;border:1px solid #e2e0db;border-radius:7px;font-size:10px;color:#5f5e5a;line-height:1.75">
+    <div id="nntNote" style="display:none;margin-top:10px;padding:7px 11px;background:#f8f7f5;border:1px solid #e2e0db;border-radius:7px;font-size:10px;color:#5f5e5a;line-height:1.75">
       <span style="font-weight:700;color:#7b5ea7">⚠ 처방 권고와 NNT 수치가 다를 수 있습니다</span><br>
       이 NNT는 <b>PREVENT 2023 10년 위험도 × CTT RRR</b>만으로 산출되며, 상단 처방 권고와 차이가 생기는 경우가 있습니다.<br>
       · <b>위험도 분류 무관 스타틴 적응증</b>(LDL-C ≥190, 당뇨병, CKD 등)에서는 NNT는 높게 산출됨<br>
@@ -1155,12 +1155,12 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
 
   <!-- 7. 참고 문헌 및 주의사항 -->
   <div class="card">
-    <div class="sec" id="refToggle"
-      style="display:flex;align-items:center;justify-content:space-between">
+    <div class="sec" id="refToggle" onclick="toggleSection('refBody','refArrowSpan')"
+      style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none">
       <span>참고 문헌 및 주의사항</span>
-      <span class="refArrow" style="font-size:10px;color:#888780;margin-left:8px">▼</span>
+      <span id="refArrowSpan" style="font-size:10px;color:#888780;margin-left:8px">▶</span>
     </div>
-    <div id="refBody" style="display:block;font-size:10px;color:#888780;line-height:1.75;margin-top:8px">
+    <div id="refBody" style="display:none;font-size:10px;color:#888780;line-height:1.75;margin-top:8px">
       · Goff DC Jr et al. 2013 ACC/AHA Cardiovascular Risk Guideline. <i>JACC</i> 2014;63:2935–59<br>
       · Khan SS et al. Novel Prediction Equations for Absolute Risk Assessment of Total CVD in the US. <i>Circulation</i> 2023;148:1860–72 (PREVENT)<br>
       · Grundy SM et al. 2018 AHA/ACC Cholesterol Clinical Practice Guideline. <i>JACC</i> 2019;73:e285–350<br>
@@ -1972,6 +1972,7 @@ function clearResults(){
   if(g('nntSummary')) g('nntSummary').innerHTML='<span style="font-size:11px;color:#888780">기본정보 입력 시 이 환자의 개인화 NNT가 계산됩니다.</span>';
   if(g('nntBadge')){ g('nntBadge').textContent='—'; g('nntBadge').style.background='#c9b4e8'; }
   if(g('nntBtnWrap')) g('nntBtnWrap').style.display='none';
+  if(g('nntNote')) g('nntNote').style.display='none';
   if(g('nntDetail')) g('nntDetail').style.display='none';
   if(g('lipidTbl')) g('lipidTbl').innerHTML='';
   if(g('absIndList')) renderAbsIndsDefault();
@@ -2948,6 +2949,7 @@ function updateNNT(prevAscvd, ascvd, vhr, acc){
       +'<div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px">'+pills+'</div>'
       +'<div style="padding:5px 9px;background:#f8f7f5;border-radius:6px;font-size:10px;color:#888780">'+note+'</div>';
   }
+  if(g('nntNote')) g('nntNote').style.display='block';
 }
 
 // ── NNT 탭 전환 ──
