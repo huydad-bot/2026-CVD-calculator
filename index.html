@@ -11,7 +11,7 @@
   gtag('js', new Date());
   gtag('config', 'G-8RM1HWKB9B');
 </script>
-<title>ACC/AHA PREVENT CVD 위험도 & 지질치료 결정 도구 v4</title>
+<title>ACC/AHA PREVENT ASCVD 위험도 & 지질치료 결정 도구 v4</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif;font-size:13px;background:#f4f3f0;color:#1a1a18;line-height:1.5;-webkit-text-size-adjust:100%;text-size-adjust:100%}
@@ -46,7 +46,7 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
 .rcell.dim{padding:9px 6px;background:#fbfaf8;border-radius:8px;border:1px solid #ece9e3;text-align:center}
 .rlabel{font-size:9px;font-weight:700;color:#888780;margin-bottom:2px;line-height:1.3}
 .rnum{font-size:26px;font-weight:700;line-height:1}
-.rsub{font-size:9px;color:#888780;margin-top:3px;line-height:1.4}
+.rsub{font-size:12px;color:#888780;margin-top:3px;line-height:1.4}
 .bw{height:5px;background:#e2e0db;border-radius:3px;overflow:hidden;margin:5px 0}
 .bar{height:100%;border-radius:3px;transition:width .4s,background .4s;width:0}
 .badge{display:inline-block;padding:2px 9px;border-radius:6px;font-size:11px;font-weight:600}
@@ -122,7 +122,7 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
 <!-- HEADER -->
 <div class="ph" style="align-items:flex-start">
   <div>
-    <div class="pt">ACC/AHA PREVENT CVD 위험도 &amp; 지질치료 결정 도구 <span style="font-size:12px;font-weight:400;color:#888780">v8.0</span></div>
+    <div class="pt">ACC/AHA PREVENT ASCVD 위험도 &amp; 지질치료 결정 도구 <span style="font-size:12px;font-weight:400;color:#888780">v8.0</span></div>
     <div class="ps">
       AHA PREVENT 2023 — 10년/30년 Total CVD · ASCVD · Heart Failure risk<br>
       2026 ACC/AHA/Multisociety Dyslipidemia Guideline · 2022 ACC Expert Consensus Pathway<br>
@@ -1026,21 +1026,21 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
         <div class="rnum" id="prevAscvdNum">—</div>
         <div class="bw"><div class="bar" id="prevAscvdBar"></div></div>
         <div class="rsub">10년 · MI + CHD death + Stroke</div>
-        <div id="prevAscvd30Sub" style="font-size:13px;font-weight:700;color:#5f5e5a;margin-top:4px;letter-spacing:-0.2px">30년: —</div>
+        <div id="prevAscvd30Sub" style="font-size:10px;font-weight:500;color:#aaa9a3;margin-top:3px;letter-spacing:0">30년: —</div>
       </div>
       <div class="rcell dim">
         <div class="rlabel">PREVENT 2023<br>Heart Failure Risk</div>
         <div class="rnum" id="prevHfNum">—</div>
         <div class="bw"><div class="bar" id="prevHfBar"></div></div>
         <div class="rsub">10년 · 심부전 발생 위험</div>
-        <div id="prevHf30Sub" style="font-size:13px;font-weight:700;color:#b4b2a9;margin-top:4px;letter-spacing:-0.2px">30년: —</div>
+        <div id="prevHf30Sub" style="font-size:10px;font-weight:500;color:#aaa9a3;margin-top:3px;letter-spacing:0">30년: —</div>
       </div>
       <div class="rcell dim">
         <div class="rlabel">PREVENT 2023<br>Total CVD Risk</div>
         <div class="rnum" id="prevNum">—</div>
         <div class="bw"><div class="bar" id="prevBar"></div></div>
         <div class="rsub">10년 · ASCVD + HF</div>
-        <div id="prevCvd30Sub" style="font-size:13px;font-weight:700;color:#b4b2a9;margin-top:4px;letter-spacing:-0.2px">30년: —</div>
+        <div id="prevCvd30Sub" style="font-size:10px;font-weight:500;color:#aaa9a3;margin-top:3px;letter-spacing:0">30년: —</div>
       </div>
     </div>
     <div style="margin-top:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
@@ -1142,9 +1142,8 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
     </div>
     <div id="nntDetail" style="display:none;margin-top:10px">
       <div id="nntDetailBody"></div>
-    </div>
-    <!-- 처방 권고와의 차이 안내 -->
-    <div id="nntNote" style="display:none;margin-top:10px;padding:7px 11px;background:#f8f7f5;border:1px solid #e2e0db;border-radius:7px;font-size:10px;color:#5f5e5a;line-height:1.75">
+      <!-- 처방 권고와의 차이 안내 -->
+      <div id="nntNote" style="display:none;margin-top:10px;padding:7px 11px;background:#f8f7f5;border:1px solid #e2e0db;border-radius:7px;font-size:10px;color:#5f5e5a;line-height:1.75">
       <span style="font-weight:700;color:#7b5ea7">⚠ 처방 권고와 NNT 수치가 다를 수 있습니다</span><br>
       이 NNT는 <b>PREVENT 2023 10년 위험도 × CTT RRR</b>만으로 산출되며, 상단 처방 권고와 차이가 생기는 경우가 있습니다.<br>
       · <b>LDL-C ≥190 mg/dL</b> — PREVENT 적용 범위(LDL 70–189) 외 절대 적응증으로, PREVENT 위험이 낮아도 고강도 스타틴이 권고되어 NNT가 높게 산출될 수 있음<br>
@@ -1156,25 +1155,27 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
     </div>
   </div>
 
-  <!-- 7. 참고 문헌 및 주의사항 -->
-  <div class="card">
-    <div class="sec" id="refToggle" onclick="toggleSection('refBody','refArrowSpan')"
-      style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none">
-      <span>참고 문헌 및 주의사항</span>
-      <span id="refArrowSpan" style="font-size:10px;color:#888780;margin-left:8px">▶</span>
-    </div>
-    <div id="refBody" style="display:none;font-size:10px;color:#888780;line-height:1.75;margin-top:8px">
-      · Goff DC Jr et al. 2013 ACC/AHA Cardiovascular Risk Guideline. <i>JACC</i> 2014;63:2935–59<br>
-      · Khan SS et al. Novel Prediction Equations for Absolute Risk Assessment of Total CVD in the US. <i>Circulation</i> 2023;148:1860–72 (PREVENT)<br>
-      · Grundy SM et al. 2018 AHA/ACC Cholesterol Clinical Practice Guideline. <i>JACC</i> 2019;73:e285–350<br>
-      · Lloyd-Jones DM et al. 2022 ACC Expert Consensus Decision Pathway on Nonstatin Therapies. <i>JACC</i> 2022;80:1366–1418<br>
-      · Blumenthal RS et al. 2026 ACC/AHA/Multisociety Guideline on the Management of Dyslipidemia. <i>JACC/Circulation</i> 2026<br>
-      <span style="display:block;margin-top:6px;color:#5f5e5a">※ 본 도구는 임상 의사결정 보조 목적이며, 최종 처방 결정은 개별 환자 상황을 고려한 임상의 판단에 따릅니다.</span>
-    </div>
-  </div>
 
 </div>
 </div>
+
+<!-- 참고 문헌 및 주의사항 (mgrid 밖) -->
+<div class="card" style="margin-top:11px">
+  <div class="sec" id="refToggle" onclick="toggleSection('refBody','refArrowSpan')"
+    style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none">
+    <span>참고 문헌 및 주의사항</span>
+    <span id="refArrowSpan" style="font-size:10px;color:#888780;margin-left:8px">▶</span>
+  </div>
+  <div id="refBody" style="display:none;font-size:10px;color:#888780;line-height:1.75;margin-top:8px">
+    · Goff DC Jr et al. 2013 ACC/AHA Cardiovascular Risk Guideline. <i>JACC</i> 2014;63:2935–59<br>
+    · Khan SS et al. Novel Prediction Equations for Absolute Risk Assessment of Total CVD in the US. <i>Circulation</i> 2023;148:1860–72 (PREVENT)<br>
+    · Grundy SM et al. 2018 AHA/ACC Cholesterol Clinical Practice Guideline. <i>JACC</i> 2019;73:e285–350<br>
+    · Lloyd-Jones DM et al. 2022 ACC Expert Consensus Decision Pathway on Nonstatin Therapies. <i>JACC</i> 2022;80:1366–1418<br>
+    · Blumenthal RS et al. 2026 ACC/AHA/Multisociety Guideline on the Management of Dyslipidemia. <i>JACC/Circulation</i> 2026<br>
+    <span style="display:block;margin-top:6px;color:#5f5e5a">※ 본 도구는 임상 의사결정 보조 목적이며, 최종 처방 결정은 개별 환자 상황을 고려한 임상의 판단에 따릅니다.</span>
+  </div>
+</div>
+
 </div>
 
 <script>
