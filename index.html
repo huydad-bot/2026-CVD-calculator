@@ -404,12 +404,100 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
       </div>
     </div>
 
-    <!-- ── Table 13 #4 + #8 ── -->
-    <label class="ck">
-      <input type="checkbox" class="enh">
-      <div><div style="font-weight:600;color:#1a1a18">심혈관-신장-대사 (CKM) 증후군 / 만성 염증성 질환</div>
-      <div style="font-size:10px;color:#888780;margin-top:1px">RA · 루푸스 · 건선 · HIV · 만성 간염 등</div></div>
+    <!-- ── CKM 증후군 ── -->
+    <label class="ck" style="margin-bottom:2px">
+      <input type="checkbox" class="enh" id="enhCkm">
+      <div>
+        <div style="font-weight:600;color:#1a1a18">심혈관-신장-대사 (CKM) 증후군
+          <span onclick="event.preventDefault();event.stopPropagation();toggleSection('ckmPanel','ckmPanelArrow')"
+            style="font-size:10px;color:#185fa5;cursor:pointer;margin-left:6px;font-weight:400">
+            상세 ▾<span id="ckmPanelArrow" style="display:none"></span>
+          </span>
+        </div>
+        <div style="font-size:10px;color:#888780;margin-top:1px">대사증후군 · 전당뇨 · 고도비만 · MASLD · 수면무호흡 · 고요산혈증</div>
+      </div>
     </label>
+    <div id="ckmPanel" style="display:none;margin:2px 0 8px 19px;padding:10px 12px;background:#eaf2fb;border-radius:7px;border-left:3px solid #185fa5;font-size:11px;line-height:1.75">
+      <div style="font-weight:700;color:#185fa5;margin-bottom:6px">🫀 CKM 증후군이란?</div>
+      <div style="color:#1a1a18;margin-bottom:6px">
+        심혈관질환·신장질환·대사질환이 공통 병태생리(비만·인슐린저항성·만성염증)로 연결된 통합 증후군.<br>
+        2023 AHA Presidential Advisory (Ndumele CE et al.)에서 병기 0–4로 공식 정의.
+      </div>
+      <div style="font-weight:600;color:#1a1a18;margin-bottom:4px">병기 요약</div>
+      <div style="display:grid;grid-template-columns:auto 1fr;gap:2px 10px;margin-bottom:8px">
+        <span style="color:#3b6d11;font-weight:700">Stage 0</span><span style="color:#5f5e5a">위험인자 없음 — 건강 유지</span>
+        <span style="color:#854f0b;font-weight:700">Stage 1</span><span style="color:#5f5e5a">복부비만 / 전당뇨 / 경도 CKD (eGFR ≥60 + 미세알부민뇨)</span>
+        <span style="color:#854f0b;font-weight:700">Stage 2</span><span style="color:#5f5e5a">제2형 당뇨 · 고혈압 · 중등도 CKD (eGFR 45–59) · 대사증후군</span>
+        <span style="color:#a32d2d;font-weight:700">Stage 3</span><span style="color:#5f5e5a">고위험 CKD (eGFR 15–44) · PREVENT 고위험 · 무증상 죽상경화증</span>
+        <span style="color:#a32d2d;font-weight:700">Stage 4</span><span style="color:#5f5e5a">임상적 CVD 확인 (ASCVD · 심부전)</span>
+      </div>
+      <div style="font-weight:600;color:#1a1a18;margin-bottom:3px">위험증강인자로 체크하는 조건</div>
+      <div style="color:#5f5e5a;margin-bottom:4px">
+        아래 항목 중 해당 시 체크 — 단, <b>당뇨·eGFR·혈압약은 기본 입력에 이미 반영</b>되므로 중복 체크 불필요.
+      </div>
+      <div style="background:#fff;border-radius:5px;padding:6px 8px;font-size:10px;line-height:1.8">
+        ✔ 대사증후군 (복부비만 + TG↑ + HDL↓ + 혈압↑ + 공복혈당↑ — 3개 이상)<br>
+        ✔ 전당뇨 (공복혈당 100–125 mg/dL 또는 HbA1c 5.7–6.4%)<br>
+        ✔ 고도비만 (BMI ≥35 kg/m²) — 특히 복부비만 우세형<br>
+        ✔ MASLD / NAFLD (대사이상 관련 지방간질환 — 초음파 또는 FIB-4 확인)<br>
+        ✔ 폐쇄성 수면무호흡증 (OSA, AHI ≥15 이상 중등도 이상)<br>
+        ✔ 고요산혈증 (통풍 병력 포함)
+      </div>
+      <div style="font-size:10px;color:#888780;margin-top:6px">
+        ※ 2023 AHA: PREVENT는 CKM 성분(eGFR·UACR·HbA1c·BMI) 포함 — PREVENT 점수가 이미 부분 반영.<br>
+        ※ 위 항목은 PREVENT에 미포함된 잔여 CKM 위험을 추가 반영하는 목적.
+      </div>
+    </div>
+
+    <!-- ── 만성 염증성 질환 ── -->
+    <label class="ck" style="margin-bottom:2px">
+      <input type="checkbox" class="enh" id="enhInflam">
+      <div>
+        <div style="font-weight:600;color:#1a1a18">만성 염증성 질환
+          <span onclick="event.preventDefault();event.stopPropagation();toggleSection('inflamPanel','inflamPanelArrow')"
+            style="font-size:10px;color:#185fa5;cursor:pointer;margin-left:6px;font-weight:400">
+            상세 ▾<span id="inflamPanelArrow" style="display:none"></span>
+          </span>
+          <span style="font-size:10px;color:#a32d2d;font-weight:400;margin-left:4px">※ HIV 해당 시 상세 클릭 후 하단 박스 체크 요함</span>
+        </div>
+        <div style="font-size:10px;color:#888780;margin-top:1px">RA · 루푸스 · 건선 · HIV · 염증성 장질환 · 강직성 척추염 · 만성 간염</div>
+      </div>
+    </label>
+    <div id="inflamPanel" style="display:none;margin:2px 0 8px 19px;padding:10px 12px;background:#faeeda;border-radius:7px;border-left:3px solid #c9a02a;font-size:11px;line-height:1.75">
+      <div style="font-weight:700;color:#854f0b;margin-bottom:6px">🔥 만성 염증과 ASCVD</div>
+      <div style="color:#5f5e5a;margin-bottom:7px">
+        지속적 전신 염증은 죽상경화 촉진·플라크 불안정화를 통해 ASCVD 위험을 독립적으로 증가시킨다.<br>
+        PREVENT 공식에 포함되지 않으므로 별도 위험증강인자로 반영.
+      </div>
+      <div style="background:#fff;border-radius:5px;padding:6px 8px;font-size:10px;line-height:1.9">
+        <div style="display:grid;grid-template-columns:1fr auto;gap:1px 12px">
+          <span style="font-weight:600">류마티스 관절염 (RA)</span><span style="color:#a32d2d;font-weight:700">RR ~1.5×</span>
+          <span style="font-weight:600">전신홍반루푸스 (SLE)</span><span style="color:#a32d2d;font-weight:700">RR ~2–3×</span>
+          <span style="font-weight:600">건선 (중등도–중증)</span><span style="color:#a32d2d;font-weight:700">RR ~1.3–1.5×</span>
+          <span style="font-weight:600">HIV (안정 ART 중)</span><span style="color:#a32d2d;font-weight:700">RR ~1.5–2×</span>
+          <span style="font-weight:600">염증성 장질환 (IBD)</span><span style="color:#854f0b;font-weight:700">RR ~1.2–1.4×</span>
+          <span style="font-weight:600">강직성 척추염 (AS)</span><span style="color:#854f0b;font-weight:700">RR ~1.3–1.5×</span>
+          <span style="font-weight:600">만성 간염 B/C</span><span style="color:#854f0b;font-weight:700">RR ~1.2–1.3×</span>
+        </div>
+      </div>
+      <div style="font-size:10px;color:#888780;margin-top:6px">
+        ※ REPRIEVE trial: Pitavastatin 4 mg (40–75세, 안정 ART 중) → MACE 35% 감소 (2026 ACC/AHA Class I)
+      </div>
+      <!-- HIV 절대 적응증 체크박스 -->
+      <div style="margin-top:8px;padding:8px 10px;background:#fcebeb;border-radius:6px;border-left:3px solid #a32d2d">
+        <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;user-select:none">
+          <input type="checkbox" class="enh" id="enhHiv" style="margin-top:2px;flex-shrink:0">
+          <div>
+            <div style="font-weight:700;color:#a32d2d;font-size:11px">HIV (안정 cART 중) 해당 시 체크</div>
+            <div style="font-size:10px;color:#5f5e5a;margin-top:2px;line-height:1.65">
+              · <b>40–75세</b>: 위험도 무관 <b>절대 적응증</b> (Class I) — 아래 절대 적응증 섹션 자동 반영<br>
+              · <b>40세 미만 · 75세 초과</b>: 위험증강인자(RE)로만 반영<br>
+              · 선호 약제: <b>Pitavastatin 4 mg</b> (CYP3A4 비의존 → PI 상호작용 최소)
+            </div>
+          </div>
+        </label>
+      </div>
+    </div>
 
     <!-- ── Table 13 #5 ── -->
     <label class="ck">
@@ -1027,21 +1115,21 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
         <div class="rnum" id="prevAscvdNum">—</div>
         <div class="bw"><div class="bar" id="prevAscvdBar"></div></div>
         <div class="rsub">10년 · MI + CHD death + Stroke</div>
-        <div id="prevAscvd30Sub" style="font-size:10px;font-weight:500;color:#aaa9a3;margin-top:3px;letter-spacing:0">30년: —</div>
+        <div id="prevAscvd30Sub" style="font-size:11px;font-weight:600;color:#888780;margin-top:3px;letter-spacing:0">30년: —</div>
       </div>
       <div class="rcell dim">
         <div class="rlabel">PREVENT 2023<br>Heart Failure Risk</div>
         <div class="rnum" id="prevHfNum">—</div>
         <div class="bw"><div class="bar" id="prevHfBar"></div></div>
         <div class="rsub">10년 · 심부전 발생 위험</div>
-        <div id="prevHf30Sub" style="font-size:10px;font-weight:500;color:#aaa9a3;margin-top:3px;letter-spacing:0">30년: —</div>
+        <div id="prevHf30Sub" style="font-size:11px;font-weight:600;color:#888780;margin-top:3px;letter-spacing:0">30년: —</div>
       </div>
       <div class="rcell dim">
         <div class="rlabel">PREVENT 2023<br>Total CVD Risk</div>
         <div class="rnum" id="prevNum">—</div>
         <div class="bw"><div class="bar" id="prevBar"></div></div>
         <div class="rsub">10년 · ASCVD + HF</div>
-        <div id="prevCvd30Sub" style="font-size:10px;font-weight:500;color:#aaa9a3;margin-top:3px;letter-spacing:0">30년: —</div>
+        <div id="prevCvd30Sub" style="font-size:11px;font-weight:600;color:#888780;margin-top:3px;letter-spacing:0">30년: —</div>
       </div>
     </div>
     <div style="margin-top:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
@@ -1768,10 +1856,14 @@ function makeEmrSummary({prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt, acc
     const indNames = activeInds.map(i=>i.label).join('; ');
     const needHigh = activeInds.some(i=>i.strength==='고강도' || i.strength==='중~고강도');
     const strengthText = needHigh ? '고강도' : '중등강도';
-    // DM/CKD 단독 적응증 + 투약 전 LDL 이미 목표 달성 → 스타틴 불필요 문구
-    const onlyDmCkdActive = activeInds.length > 0 && activeInds.every(i=>i.key==='dm'||i.key==='ckd');
+    // DM/CKD/HIV 단독 적응증 + 투약 전 LDL 이미 목표 달성 → 스타틴 권고이나 목표 달성 안내
+    const onlyDmCkdActive = activeInds.length > 0 && activeInds.every(i=>i.key==='dm'||i.key==='ckd'||i.key==='hiv');
     if(onlyDmCkdActive && acc.c==='no' && ldl < (dispLdlTgt||100)){
-      return `PREVENT 2023 기준 10-year ASCVD risk는 ${prevAscvd.toFixed(1)}% (${riskLabel})이며, 위험도 무관 스타틴 적응증(${indNames})에 해당함.\n그러나 치료 전 LDL-C ${ldl} mg/dL이 이미 목표 <${dispLdlTgt} mg/dL 이하로 달성되어 있음.\n2026 ACC/AHA "regardless of LDL-C level" 원칙은 LDL 수치와 무관하게 스타틴을 고려하라는 취지이나, 가이드라인은 투약 전 이미 목표치를 충족한 경우의 스타틴 투약을 명시적으로 요구하지 않음.\n생활습관 교정 및 주기적 추적 관찰을 권고함.` + tgText;
+      const isHivOnly = activeInds.every(i=>i.key==='hiv');
+      const principleNote = isHivOnly
+        ? '2026 ACC/AHA Class I 원칙은 HIV 40–75세에서 LDL 수치와 무관하게 스타틴을 고려하라는 취지이나, 가이드라인은 투약 전 이미 목표치를 충족한 경우의 스타틴 투약을 명시적으로 요구하지 않음.'
+        : '2026 ACC/AHA "regardless of LDL-C level" 원칙은 LDL 수치와 무관하게 스타틴을 고려하라는 취지이나, 가이드라인은 투약 전 이미 목표치를 충족한 경우의 스타틴 투약을 명시적으로 요구하지 않음.';
+      return `PREVENT 2023 기준 10-year ASCVD risk는 ${prevAscvd.toFixed(1)}% (${riskLabel})이며, 위험도 무관 스타틴 적응증(${indNames})에 해당함.\n그러나 치료 전 LDL-C ${ldl} mg/dL이 이미 목표 <${dispLdlTgt} mg/dL 이하로 달성되어 있음.\n${principleNote}\n스타틴 치료가 권고되는 적응증이나, 투약 전 LDL-C가 이미 목표 범위 내에 있으므로 생활습관 교정을 유지하고 주기적 추적 관찰을 권고함.` + tgText;
     }
     return `PREVENT 2023 기준 10-year ASCVD risk는 ${prevAscvd.toFixed(1)}% (${riskLabel})이나, 아래 위험도 분류 무관 스타틴 적응증에 해당하여 PREVENT 점수와 무관하게 치료를 권고함.\n적응증: ${indNames}.\n치료 전 LDL-C는 ${ldl} mg/dL이며, ${txState}LDL-C 목표는 <${dispLdlTgt} mg/dL.\n${strengthText} 스타틴 치료를 권고하며, ${addonText}.${ckdStNote}` + tgText;
   }
@@ -2261,6 +2353,8 @@ function upd(){
   const anyCAC=cac1to99Active||cacActive||cac300Active||cac1000Active;
   const ckdAbs=(egfr>=15&&egfr<60&&age>=40);
   const dmAbs=dm&&age>=30&&age<=79;
+  const hivChecked=g('enhHiv')?.checked??false;
+  const hivAbs=hivChecked&&age>=40&&age<=75;
   const ldl190Abs=ldl>=190;
 
   // 예외 병명+이유 목록 (ASCVD는 배지 자체가 2차 예방이므로 제외)
@@ -2273,6 +2367,7 @@ function upd(){
     if(cacActive&&!ascvd) notes.push('CAC 100–299 또는 ≥75 백분위 — 스타틴 충분조건, LDL<70 목표');
     if(ckdAbs&&!ascvd) notes.push('CKD (eGFR 15–59) + 나이≥40세 — 위험도 무관 중등강도 스타틴');
     if(dmAbs&&!ascvd) notes.push(`당뇨병 — 위험도 무관 ${primRisk>=10?'고강도':'중등강도'} 스타틴`);
+    if(hivAbs&&!ascvd) notes.push('HIV (안정 cART, 40–75세) — 위험도 무관 중등강도 스타틴 (Class I)');
     return notes;
   }
 
@@ -2427,6 +2522,30 @@ function upd(){
            n:'경동맥 plaque ≥1.5 mm: 무증상 죽상경화증의 객관적 증거. ESC/EAS 2025 Class IIa — PREVENT 위험도 무관 스타틴 고려, LDL 목표 &lt;100 mg/dL. ACC/AHA 2026 — CAC 불가 시 subclinical ASCVD 대안 증거로 스타틴 시작 지지.',
            nt:'warn',ldlTgt:100,nhTgt:130};
     }
+
+    // HIV (안정 cART, 40–75세): 위험도 무관 중등강도 스타틴 (2026 Class I)
+    if(hivAbs){
+      if(!acc.ldlTgt || acc.ldlTgt > 100){
+        // HIV가 단독으로 처방을 결정하는 경우
+        if(ldl<100){
+          acc={c:'no',l:'목표 LDL 달성 (투약 전)',ind:'HIV (안정 cART, 40–75세) — 치료 전 LDL 이미 목표 이하',
+               d:[],
+               n:'치료 전 LDL-C가 목표 &lt;100 mg/dL 이하입니다.<br>2026 ACC/AHA Class I 원칙은 HIV 40–75세에서 LDL 수치와 무관하게 스타틴을 고려하라는 취지이나, 가이드라인은 <b>투약 전 이미 목표치를 충족한 경우</b>의 스타틴 투약을 명시적으로 요구하지 않습니다. 생활습관 교정 및 주기적 추적 관찰을 권고합니다.',
+               nt:'suc',ldlTgt:100,nhTgt:130};
+        } else {
+          acc={c:'mo',l:'중등강도',ind:'HIV (안정 cART, 40–75세) — 위험도 무관 스타틴 (Class I)',
+               d:['Pitavastatin 4 mg','Atorvastatin 10–20 mg','Pravastatin 40 mg'],
+               n:'HIV (안정 cART) 40–75세: PREVENT 점수와 무관하게 중등강도 스타틴 권고 (2026 ACC/AHA Class I, REPRIEVE trial).<br>선호 약제: <b>Pitavastatin 4 mg</b> — CYP3A4 비의존, Protease inhibitor 상호작용 최소. LDL 목표 &lt;100 mg/dL.',
+               nt:'info',ldlTgt:100,nhTgt:130};
+        }
+      } else {
+        // 당뇨·CKD 등 다른 절대 적응증이 이미 처방을 결정한 경우 — HIV 추가 명시
+        acc={...acc,
+          ind: acc.ind + ' · HIV (안정 cART, 40–75세)',
+          n: (acc.n||'') + '<br><span style="color:#a32d2d;font-weight:700">▸ 추가 적응증 — HIV (안정 cART) 40–75세</span>: 2026 ACC/AHA Class I (REPRIEVE trial). 현재 처방 강도(중등강도)로 LDL 목표 &lt;100 mg/dL 충족. 선호 약제: <b>Pitavastatin 4 mg</b> — CYP3A4 비의존, Protease inhibitor 상호작용 최소.'
+        };
+      }
+    }
   }
 
   // ── 위험도 무관 스타틴 절대 적응증 판정 ──
@@ -2480,6 +2599,16 @@ function upd(){
       detail:dmAbs?`${age}세 당뇨병 — ${primRisk>=10?'PREVENT ≥10%: 고강도':'PREVENT &lt;10%: 중등강도'} 스타틴 권고`:(dm?`당뇨병 있으나 나이 ${age}세 (적용 연령 30–79세 범위 외)`:'해당 없음'),
       strength:dm&&primRisk>=10?'고강도':'중등강도',
       basis:'당뇨 단독으로도 최소 중등강도 스타틴; PREVENT 점수에 관계없이 치료 시작'
+    },
+    {
+      key:'hiv',
+      active:hivAbs,
+      label:`HIV (안정 cART, 40–75세)`,
+      detail:hivAbs
+        ?`${age}세 HIV + 안정 cART — 중등강도 스타틴 권고. 선호: Pitavastatin 4 mg (CYP3A4 비의존, PI 상호작용 최소)`
+        :(hivChecked?`HIV 체크됨 — 나이 ${age}세 (40–75세 범위 외: 위험증강인자로만 반영)`:'해당 없음'),
+      strength:'중등강도',
+      basis:'REPRIEVE trial: Pitavastatin 4 mg → MACE 35% 감소 (2026 ACC/AHA Class I, NEJM 2023)'
     }
   ];
   const anyAbs=absInds.some(i=>i.active);
@@ -2683,6 +2812,7 @@ function renderAbsIndsDefault(){
     {label:'CAC 100–299 / 300–999 / ≥1000 — 스타틴 충분조건', sub:'2026 ACC/AHA: PREVENT 위험도 무관 스타틴 시작의 충분조건'},
     {label:'CKD (eGFR 15–59) + 나이 ≥ 40세', sub:'전통적 위험방정식이 CKD에서 위험을 과소평가; 투석 환자는 별도 판단'},
     {label:'당뇨병 (30–79세)',                 sub:'당뇨 단독으로도 최소 중등강도 스타틴; PREVENT 점수에 관계없이 치료 시작'},
+    {label:'HIV (안정 cART, 40–75세)',         sub:'REPRIEVE trial: Pitavastatin 4 mg → MACE 35% 감소 — 만성 염증성 질환 패널에서 체크'},
   ];
   let html='';
   items.forEach(item=>{
