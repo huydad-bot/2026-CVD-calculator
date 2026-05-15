@@ -340,7 +340,25 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
     <div class="field" style="margin-top:7px;margin-bottom:0">
       <span class="fl">ApoB — 직접 측정값 (mg/dL)</span>
       <input type="number" autocomplete="off" id="apob" step="1" min="20" max="300" placeholder="미입력 시 LDL-C 기반 추정값 자동 사용">
-      <div style="font-size:10px;color:#888780;margin-top:3px;line-height:1.5">※ TG ≥175 · 당뇨 · 치료 중 LDL &lt;70 · LDL·non-HDL 불일치 해당 시 직접 측정 권장 (2026 ACC/AHA Class IIa)</div>
+      <div style="font-size:10px;color:#888780;margin-top:3px;line-height:1.5">※ TG ≥175 · 당뇨 · 치료 중 LDL &lt;70 · <span id="ldlNonhdlTerm" onclick="toggleLdlNonhdlBox()" style="color:#c07a00;font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px" title="클릭하여 설명 보기">LDL·non-HDL 불일치</span> 해당 시 직접 측정 권장 (2026 ACC/AHA Class IIa)</div>
+      <div id="ldlNonhdlBox" style="display:none;margin-top:5px;padding:9px 11px;background:#fffbee;border-radius:8px;border-left:3px solid #c07a00;line-height:1.7">
+        <div style="font-size:10px;font-weight:700;color:#c07a00;margin-bottom:4px">▸ LDL·non-HDL 불일치(Discordance)란?</div>
+        <div style="font-size:10px;color:#5a4a00">
+          <b>정의:</b> LDL-C와 non-HDL-C가 위험도 분류상 서로 다른 카테고리에 속하는 경우.<br>
+          즉, 한 지표는 목표치 이내인데 다른 지표는 목표치를 초과하는 상황이다.<br><br>
+          <b>발생 원인:</b> Non-HDL-C = LDL-C + VLDL-C + IDL-C + Lp(a)이므로,<br>
+          TG↑ · 당뇨 · 인슐린저항성 · 대사증후군 · 만성신질환에서 VLDL remnant가 증가하면<br>
+          LDL-C는 정상이어도 non-HDL-C가 목표치를 초과하게 된다.<br><br>
+          <b>목표치 기준 (비교):</b><br>
+          &nbsp;· 초고위험군: LDL &lt;55 mg/dL / non-HDL &lt;85 mg/dL<br>
+          &nbsp;· 고위험군: LDL &lt;70 mg/dL / non-HDL &lt;100 mg/dL<br>
+          &nbsp;· 중등도: LDL &lt;100 mg/dL / non-HDL &lt;130 mg/dL<br><br>
+          <b>임상 의의:</b> LDL-C 목표 달성에도 non-HDL-C가 초과하면 VLDL remnant 등<br>
+          잔여 콜레스테롤(Remnant-C)에 의한 <b>잔류 심혈관위험(Residual Risk)</b>이 존재함을 의미한다.<br>
+          이 경우 ApoB 직접 측정으로 실제 죽상경화성 입자 부담을 추가 확인한다.
+        </div>
+        <div style="text-align:right;margin-top:5px"><span onclick="toggleLdlNonhdlBox()" style="font-size:10px;color:#c07a00;cursor:pointer;font-weight:600">닫기 ✕</span></div>
+      </div>
     </div>
     <div id="apobIndBox" style="display:none;margin-top:5px;padding:7px 10px;background:#e6f1fb;border-radius:7px;border-left:3px solid #185fa5">
       <div style="font-size:10px;font-weight:700;color:#185fa5;margin-bottom:2px">▸ 2026 ACC/AHA — 현재 입력값 기준 ApoB 직접 측정 권장 조건 해당</div>
@@ -1244,9 +1262,11 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
     </div>
   </div>
 
+
+</div>
 </div>
 
-<!-- 참고 문헌 및 주의사항 — mgrid 밖 단독 카드 -->
+<!-- 참고 문헌 및 주의사항 (mgrid 밖) -->
 <div class="card" style="margin-top:11px">
   <div class="sec" id="refToggle" onclick="toggleSection('refBody','refArrowSpan')"
     style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none">
@@ -2904,6 +2924,12 @@ function runBackCalc(){
   upd();
 }
 
+function toggleLdlNonhdlBox(){
+  const box = document.getElementById('ldlNonhdlBox');
+  if(!box) return;
+  const open = box.style.display !== 'none';
+  box.style.display = open ? 'none' : 'block';
+}
 function toggleSection(bodyId, arrowId){
   const body = g(bodyId);
   const arrow = g(arrowId);
