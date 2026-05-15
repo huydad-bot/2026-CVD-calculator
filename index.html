@@ -216,22 +216,21 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
     <div class="divider"></div>
 
     <!-- 혈압 및 임상 인자 -->
-    <div style="display:flex;align-items:center;gap:14px;margin-bottom:6px;flex-wrap:wrap">
-      <div style="display:flex;align-items:center;gap:5px">
-        <span style="font-size:11px;color:#5f5e5a;white-space:nowrap"><span style="font-size:12px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 수축기 혈압</span>
-        <input type="number" autocomplete="off" id="sbp" min="80" max="220" placeholder="mmHg" style="width:68px;padding:4px 6px;border:1px solid #d0cec8;border-radius:6px;font-size:12px">
-        <span style="font-size:11px;color:#888780">mmHg</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:5px">
-        <span style="font-size:11px;color:#5f5e5a;white-space:nowrap"><span style="font-size:12px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> eGFR</span>
-        <input type="number" autocomplete="off" id="egfr" min="5" max="130" placeholder="수치" style="width:62px;padding:4px 6px;border:1px solid #d0cec8;border-radius:6px;font-size:12px">
-        <span style="font-size:11px;color:#888780">mL/min/1.73m²</span>
-        <span style="font-size:10px;color:#b4b2a9;white-space:nowrap">※ 미입력 시 90으로 자동계산</span>
-      </div>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;flex-wrap:wrap">
+      <span style="font-size:11px;color:#5f5e5a;white-space:nowrap"><span style="font-size:12px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 수축기 혈압</span>
+      <input type="number" autocomplete="off" id="sbp" min="80" max="220" placeholder="mmHg" style="width:68px;padding:4px 6px;border:1px solid #d0cec8;border-radius:6px;font-size:12px">
+      <span style="font-size:11px;color:#888780">mmHg</span>
+      <span style="font-size:10px;color:#888780;white-space:nowrap">※ 혈압강하제 투약 중이면 복약 후 측정값 입력</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
+      <span style="font-size:11px;color:#5f5e5a;white-space:nowrap"><span style="font-size:12px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> eGFR</span>
+      <input type="number" autocomplete="off" id="egfr" min="5" max="130" placeholder="수치" style="width:62px;padding:4px 6px;border:1px solid #d0cec8;border-radius:6px;font-size:12px">
+      <span style="font-size:11px;color:#888780">mL/min/1.73m²</span>
+      <span style="font-size:10px;color:#b4b2a9;white-space:nowrap">※ 미입력 시 90으로 자동계산</span>
     </div>
     <div style="font-size:11px;color:#185fa5;font-weight:600;margin-bottom:4px">해당사항이 있는 경우 체크하세요</div>
     <div style="display:flex;gap:14px;flex-wrap:wrap">
-      <label class="ck"><span style="font-size:12px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 항고혈압제 <input type="checkbox" id="bpTx"></label>
+      <label class="ck"><span style="font-size:12px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 항고혈압제 복용 중 <input type="checkbox" id="bpTx"></label>
       <label class="ck"><span style="font-size:12px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 흡연 <input type="checkbox" id="smoker"></label>
       <label class="ck"><span style="font-size:12px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 당뇨병 <input type="checkbox" id="dm"></label>
     </div>
@@ -528,14 +527,6 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
       <div><div style="font-weight:600;color:#1a1a18">hs-CRP ≥ 2.0 mg/L</div>
       <div style="font-size:10px;color:#888780;margin-top:1px">2회 이상 측정에서 확인 시</div></div>
     </label>
-    <div style="display:flex;align-items:center;gap:6px;margin:2px 0 6px 19px">
-      <span style="font-size:10px;color:#5f5e5a;white-space:nowrap">수치 직접 입력:</span>
-      <input type="number" autocomplete="off" id="hscrp" step="0.1" min="0" max="100" placeholder="mg/L"
-        style="width:80px;padding:3px 7px;border:1px solid #d0cec8;border-radius:6px;font-size:12px">
-      <span id="hscrpAutoNote" style="font-size:10px;color:#639922;display:none">→ ≥2.0 자동 체크됨</span>
-      <span style="font-size:10px;color:#888780">mg/L — 입력 시 ≥2.0이면 자동 체크</span>
-    </div>
-
     <!-- ── Table 13 #7 ── -->
     <label class="ck">
       <input type="checkbox" class="enh" id="enhTg175">
@@ -1465,14 +1456,6 @@ function calcPREVENT_ALL(age,sex,nonHDL,hdl,sbp,bpTx,smoker,dm,egfr,uacr,hba1c,b
   };
   return calculatePreventCoefficients(v);
 }
-function calcPREVENT(age,sex,nonHDL,hdl,sbp,bpTx,smoker,dm,egfr,uacr,hba1c,bmi,onStatin,hsCRP){
-  const r = calcPREVENT_ALL(age,sex,nonHDL,hdl,sbp,bpTx,smoker,dm,egfr,uacr,hba1c,bmi,onStatin);
-  return clamp(r.y10.total_cvd * 100);
-}
-function calcPREVENT_ASCVD(age,sex,nonHDL,hdl,sbp,bpTx,smoker,dm,egfr,uacr,hba1c,onStatin,hsCRP,bmi){
-  const r = calcPREVENT_ALL(age,sex,nonHDL,hdl,sbp,bpTx,smoker,dm,egfr,uacr,hba1c,bmi||25,onStatin);
-  return clamp(r.y10.ascvd * 100);
-}
 function calcPREVENT_HF(age,sex,nonHDL,hdl,sbp,bpTx,smoker,dm,egfr,uacr,hba1c,bmi,onStatin){
   const r = calcPREVENT_ALL(age,sex,nonHDL,hdl,sbp,bpTx,smoker,dm,egfr,uacr,hba1c,bmi,onStatin);
   return clamp(r.y10.heart_failure * 100);
@@ -1983,7 +1966,7 @@ function exportInputDataToExcel(){
     ['신장', getInputValue('ht','cm'), ''],
     ['체중', getInputValue('wt','kg'), ''],
     ['BMI', getInputValue('bmi','kg/m²'), txt('bmiOut')],
-    ['hs-CRP', getInputValue('hscrp','mg/L'), ''],
+    ['hs-CRP', g('enhHsCRP')?.checked ? '≥ 2.0 mg/L (체크됨)' : '미해당', ''],
     ['ApoB (직접 측정값)', getInputValue('apob','mg/dL'), '미입력 시 추정값 사용'],
     ['치료 후 ApoB', getInputValue('postApob','mg/dL'), '스타틴 복용 중일 때 입력'],
 
@@ -2118,6 +2101,22 @@ function upd(){
     }
   }
 
+  // LDL 자동 체크 — 다른 필수값 미입력 시에도 LDL 단독 입력으로 즉시 반영
+  if(g('enhLdl160')){
+    const _ldl=parseFloat(ldlRaw);
+    if(!isNaN(_ldl)){
+      if(_ldl >= 160 && _ldl < 190){
+        g('enhLdl160').checked = true;
+        g('enhLdl160').dataset.autoChecked = 'true';
+      } else {
+        if(g('enhLdl160').dataset.autoChecked === 'true'){
+          g('enhLdl160').checked = false;
+          g('enhLdl160').dataset.autoChecked = 'false';
+        }
+      }
+    }
+  }
+
   if(!ageRaw||!sexVal||!tcRaw||!hdlRaw||!ldlRaw||!tgRaw||!sbpRaw){
     clearResults();
     const _egfr=parseFloat(g('egfr').value)||90;
@@ -2202,7 +2201,6 @@ function upd(){
     g('bmiOut').textContent='';
   }
   const onStatin=g('onStatin').checked;
-  const hsCRP=parseFloat(g('hscrp').value)||0;
   if(g('postLipidBox')) g('postLipidBox').style.display=onStatin?'block':'none';
 
   const postTcRaw=g('postTc')?.value;
@@ -2919,26 +2917,6 @@ function toggleSection(bodyId, arrowId){
   const open = body.style.display !== 'none';
   body.style.display = open ? 'none' : 'block';
   if(arrow) arrow.textContent = open ? '▶' : '▼';
-}
-// hs-CRP 수치 입력 시 자동 체크
-if(g('hscrp')){
-  g('hscrp').addEventListener('input', function(){
-    const val = parseFloat(this.value);
-    const cb = g('enhHsCRP');
-    const note = g('hscrpAutoNote');
-    if(!isNaN(val)){
-      if(val >= 2.0){
-        if(cb) cb.checked = true;
-        if(note) note.style.display = 'inline';
-      } else {
-        if(cb) cb.checked = false;
-        if(note) note.style.display = 'none';
-      }
-    } else {
-      if(note) note.style.display = 'none';
-    }
-    upd();
-  });
 }
 // ascvdHx 체크 시 vhrRow 즉시 표시 (upd() 조기 return과 무관하게)
 g('ascvdHx').addEventListener('change',function(){
