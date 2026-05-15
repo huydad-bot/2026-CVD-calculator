@@ -1057,7 +1057,7 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
           <span style="margin-left:auto;font-size:12px;color:#888780">NNT ≈ 267</span>
         </div>
         <div style="font-size:11px;color:#5f5e5a;padding-left:23px">절대 이익이 너무 작음. 생활습관 교정 중심. 스타틴 미권고.<br>
-          <span style="color:#854f0b">※ 예외: 30–59세 + 30년 ASCVD ≥10%이면 2026 ACC/AHA Class IIb — 중등강도 스타틴 고려 가능 (공동 의사결정 필수)</span></div>
+          <span style="color:#185fa5">※ 30–59세 + 30년 ASCVD ≥10%이면 장기 누적 위험 참고 — NNT 고려 시 처방 기준은 10년 위험도 유지, 생활습관 교정 적극 강화 권고</span></div>
       </div>
       <div style="border-left:3px solid #e24b4a;border-radius:0 7px 7px 0;background:#fcebeb;padding:8px 11px;margin-bottom:6px">
         <div style="display:flex;align-items:center;gap:7px;margin-bottom:3px;flex-wrap:wrap">
@@ -1173,7 +1173,7 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
       <table class="lt">
         <thead><tr><th>PREVENT-ASCVD 10년 위험</th><th>분류</th><th>일반적 치료기준</th></tr></thead>
         <tbody>
-          <tr id="pr-low"><td>&lt;3%</td><td>저위험</td><td>생활습관 교정 중심 · 30–59세 + 30년 ASCVD ≥10%이면 중등강도 스타틴 고려 (Class IIb)</td></tr>
+          <tr id="pr-low"><td>&lt;3%</td><td>저위험</td><td>생활습관 교정 중심 · 30–59세 + 30년 ASCVD ≥10%이면 참고 정보 제공 (처방 기준은 10년 위험도)</td></tr>
           <tr id="pr-border"><td>3–&lt;5%</td><td>경계위험</td><td>Risk enhancer 있으면 중등강도 statin 고려</td></tr>
           <tr id="pr-inter"><td>5–&lt;10%</td><td>중간위험</td><td>중등강도 statin 권고, risk enhancer 다수면 강화</td></tr>
           <tr id="pr-high"><td>≥10%</td><td>고위험</td><td>고강도 statin, LDL-C &lt;70 mg/dL 지향</td></tr>
@@ -1536,12 +1536,13 @@ function accRec(age,risk,ldl,dm,ascvd,vhr,nE,tg,smoker,bpTx,r30){
   }
   /* Primary prevention — PREVENT-ASCVD thresholds (2026) */
   if(risk<3){
-    // 2026 ACC/AHA Class IIb: 저위험이라도 30년 ASCVD ≥10%이면 중등강도 스타틴 고려 가능
-    if(r30>=10&&age>=30&&age<=59)return{c:'mo',l:'중등강도 고려 (30년 위험 기반)',ind:'저위험 (<3%) + 30년 ASCVD ≥10%',
-      d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],
-      n:'2026 ACC/AHA (Class IIb): 10년 위험이 낮더라도 30년 ASCVD ≥10%이면 중등강도 스타틴을 고려할 수 있습니다. 누적 LDL 노출 감소(Cumulative LDL Burden)가 목적이며, 환자와의 공동 의사결정(shared decision-making)이 필수입니다. LDL 목표 &lt;130 mg/dL.',
-      nt:'info',ldlTgt:130,nhTgt:160};
-    return{c:'lo',l:'생활습관 교정',ind:'저위험 < 3% (PREVENT-ASCVD)',d:[],n:'스타틴 일상적 권고 불필요. 식이·운동·금연. LDL 목표 &lt;130 mg/dL.',nt:'info',ldlTgt:130,nhTgt:160};
+    // 30년 ASCVD ≥10%: 처방 변경 아님 — 참고 정보로만 표시 (note30yr 플래그)
+    // 근거: NNT 300+으로 임상 의미 제한적. 2026 Class IIb = "고려 가능" 수준.
+    // 10년 위험도 기반 처방 유지, 생활습관 교정 강화 + 공동 의사결정 참고 제공.
+    const has30note = r30>=10&&age>=30&&age<=59;
+    return{c:'lo',l:'생활습관 교정',ind:'저위험 < 3% (PREVENT-ASCVD)',d:[],
+      n:'스타틴 일상적 권고 불필요. 식이·운동·금연. LDL 목표 &lt;130 mg/dL.',
+      nt:'info',ldlTgt:130,nhTgt:160,note30yr:has30note,r30val:r30};
   }
   if(risk<5){
     if(nE>=1||ldl>=160)return{c:'mo',l:'중등강도 고려',ind:'경계위험 (3–5%) + 위험증가 인자',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],n:'스타틴-환자 공동 결정. LDL <100 mg/dL 목표. CAC=0이면 10년 유예 합리적.',nt:'info',ldlTgt:100,nhTgt:130};
@@ -1575,8 +1576,8 @@ function preventClass(primRisk,ldl,ascvd,dm,egfr,age,sex,sbp,bpTx,smoker,hdl,nE,
     return{cat:'당뇨병',l:100,nh:130,ab:90,c:'#854f0b',bg:'#faeeda',basis:`당뇨병: 최소 중등강도 statin, PREVENT-ASCVD ${primRisk.toFixed(1)}%`,row:primRisk>=5?'pr-inter':primRisk>=3?'pr-border':'pr-low'};
   }
   if(primRisk<3){
-    if(r30>=10&&age>=30&&age<=59) return{cat:'저위험 + 30년 ASCVD ≥10%',l:130,nh:160,ab:90,c:'#854f0b',bg:'#faeeda',
-      basis:`PREVENT-ASCVD 10년 ${primRisk.toFixed(1)}% (<3%), 30년 ${r30!=null?r30.toFixed(1):'—'}% ≥10% — 2026 ACC/AHA Class IIb: 중등강도 스타틴 고려 가능`,row:'pr-low'};
+    if(r30>=10&&age>=30&&age<=59) return{cat:'저위험',l:130,nh:160,ab:90,c:'#185fa5',bg:'#eaf2fb',
+      basis:`PREVENT-ASCVD 10년 ${primRisk.toFixed(1)}% (<3%) · (참고) 30년 ${r30!=null?r30.toFixed(1):'—'}% — 생활습관 교정 우선, 30년 위험 참고`,row:'pr-low'};
     return{cat:'저위험',l:130,nh:160,ab:90,c:'#3b6d11',bg:'#eaf3de',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% <3%`,row:'pr-low'};
   }
   if(primRisk<5) return{cat:'경계위험',l:100,nh:130,ab:90,c:'#3b6d11',bg:'#eaf3de',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% 3–<5%. Risk enhancer가 있으면 statin 고려`,row:'pr-border'};
@@ -1872,12 +1873,13 @@ function makeEmrSummary({prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt, acc
     return `PREVENT 2023 기준 10-year ASCVD risk는 ${prevAscvd.toFixed(1)}%로 ${riskLabel}에 해당.\n그러나 경동맥 초음파상 plaque ≥1.5 mm가 확인되어 무증상 죽상경화증의 객관적 증거로 판단됨.\nESC/EAS 2025 Class IIa 및 ACC/AHA 2026 권고에 따라 PREVENT 위험도와 무관하게 스타틴 치료를 고려함.\n치료 전 LDL-C는 ${ldl} mg/dL이며, ${txState}LDL-C 목표는 <${dispLdlTgt} mg/dL.\n중등강도 스타틴 치료를 고려하며, ${addonText}.${ckdStNote}` + tgText;
   }
 
-  // ── [특수3] 저위험(<3%) + 30년 ASCVD ≥10% — 2026 Class IIb 예외 ──
-  if(acc.c==='mo' && acc.ind && acc.ind.includes('30년 ASCVD')){
+  // ── [특수3] 저위험(<3%) + 30년 ASCVD ≥10% — 10년 기반 처방 유지, 30년은 참고 병기 ──
+  if(acc.note30yr && !anyAbs){
     const basis30 = preventCat && preventCat.basis ? preventCat.basis : '';
     const r30str = basis30.match(/30년\s*([\d.]+)%/);
-    const r30disp = r30str ? r30str[1]+'%' : '≥10%';
-    return `PREVENT 2023 기준 10-year ASCVD risk는 ${prevAscvd.toFixed(1)}%로 저위험(<3%)에 해당함.\n그러나 30년 ASCVD 위험은 ${r30disp}로 확인되어 장기 누적 위험이 높음.\n2026 ACC/AHA 가이드라인 (Class IIb): 10년 저위험이더라도 30년 ASCVD ≥10%인 경우 중등강도 스타틴 치료를 고려할 수 있음 (누적 LDL 노출 감소 목적).\n환자와의 공동 의사결정(shared decision-making) 후 치료 여부 결정 권고.\n치료 전 LDL-C는 ${ldl} mg/dL이며, LDL-C 목표는 <${dispLdlTgt||130} mg/dL.\n중등강도 스타틴 치료를 고려하며, ${addonText}.${ckdStNote}` + tgText;
+    const r30disp = r30str ? r30str[1]+'%' : acc.r30val ? parseFloat(acc.r30val).toFixed(1)+'%' : '≥10%';
+    const nnt10 = Math.round(1/(prevAscvd/100*0.25));
+    return `PREVENT 2023 기준 10년 ASCVD risk는 ${prevAscvd.toFixed(1)}%로 저위험(<3%)에 해당함. 스타틴 일상적 권고 대상 아님.\n치료 전 LDL-C ${ldl} mg/dL, 목표 <${dispLdlTgt||130} mg/dL. 생활습관 교정(식이·운동·금연)을 우선 권고함.\n(참고) 30년 ASCVD 위험 ${r30disp}로 장기 누적 위험 ≥10% 확인됨. NNT 약 ${nnt10}명으로 10년 기준 스타틴 임상적 의미는 제한적이나, 생활습관 교정을 적극 강화하고 장기 위험도를 환자와 공유하는 공동 의사결정을 권고함.\n※ 2026 ACC/AHA Class IIb: 30년≥10% 시 중등강도 스타틴 고려 '가능' — NNT 및 환자 선호도 논의 후 결정.` + tgText;
   }
 
   const statinText = statinSentence(acc);
@@ -2682,6 +2684,23 @@ function upd(){
   const upgraded=!ascvd&&nE>0&&accBase.l!==acc.l;
 
   g('accRecOut').innerHTML=recHTML(acc,'ACC/AHA · PREVENT 기반 — baseline 위험도 기준');
+
+  // 30년 위험도 참고 박스 — 처방 변경 없이 정보 제공
+  if(acc.note30yr && !anyAbs && !ascvd){
+    g('accRecOut').innerHTML+=`
+      <div style="margin-top:8px;padding:10px 12px;background:#eaf2fb;border-radius:8px;border-left:4px solid #185fa5">
+        <div style="font-size:11px;font-weight:700;color:#185fa5;margin-bottom:4px">📋 30년 위험도 참고 (2026 ACC/AHA Class IIb)</div>
+        <div style="font-size:11px;color:#1a1a18;line-height:1.65">
+          10년 ASCVD ${primRisk.toFixed(1)}%로 <b>저위험</b>이나, 30년 ASCVD <b>${prev30Ascvd.toFixed(1)}%</b> — 장기 누적 위험이 확인됩니다.<br>
+          <b>처방 기준은 10년 위험도</b>로 유지하며, NNT(약 ${Math.round(1/(primRisk/100*0.25))}명)를 고려할 때 스타틴 일상 처방의 근거는 부족합니다.<br>
+          다만 <b>생활습관 교정을 적극 강화</b>하고, 환자와 장기 위험도를 공유하는 공동 의사결정을 권고합니다.
+        </div>
+        <div style="font-size:10px;color:#888780;margin-top:5px;line-height:1.5">
+          ※ 중등강도 스타틴 '고려 가능' (Class IIb) — NNT·환자 선호·부작용을 함께 논의 후 결정<br>
+          ※ 30년 위험도가 높은 이유: 현재 저위험이어도 향후 30년간 노화에 따른 위험 누적 반영
+        </div>
+      </div>`;
+  }
   if(onStatin){
     const ldlGap=Math.max(0,Math.round(currentLdl-dispLdlTgt));
     const controlClass=currentLdl<=dispLdlTgt?'suc':'warn';
