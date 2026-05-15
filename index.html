@@ -968,7 +968,8 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
           <span class="badge" style="background:#fcebeb;color:#791f1f;border:1px solid #f09595">비효과적</span>
           <span style="margin-left:auto;font-size:12px;color:#888780">NNT ≈ 267</span>
         </div>
-        <div style="font-size:11px;color:#5f5e5a;padding-left:23px">절대 이익이 너무 작음. 생활습관 교정 중심. 스타틴 미권고.</div>
+        <div style="font-size:11px;color:#5f5e5a;padding-left:23px">절대 이익이 너무 작음. 생활습관 교정 중심. 스타틴 미권고.<br>
+          <span style="color:#854f0b">※ 예외: 30–59세 + 30년 ASCVD ≥10%이면 2026 ACC/AHA Class IIb — 중등강도 스타틴 고려 가능 (공동 의사결정 필수)</span></div>
       </div>
       <div style="border-left:3px solid #e24b4a;border-radius:0 7px 7px 0;background:#fcebeb;padding:8px 11px;margin-bottom:6px">
         <div style="display:flex;align-items:center;gap:7px;margin-bottom:3px;flex-wrap:wrap">
@@ -1084,7 +1085,7 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
       <table class="lt">
         <thead><tr><th>PREVENT-ASCVD 10년 위험</th><th>분류</th><th>일반적 치료기준</th></tr></thead>
         <tbody>
-          <tr id="pr-low"><td>&lt;3%</td><td>저위험</td><td>생활습관 교정 중심</td></tr>
+          <tr id="pr-low"><td>&lt;3%</td><td>저위험</td><td>생활습관 교정 중심 · 30–59세 + 30년 ASCVD ≥10%이면 중등강도 스타틴 고려 (Class IIb)</td></tr>
           <tr id="pr-border"><td>3–&lt;5%</td><td>경계위험</td><td>Risk enhancer 있으면 중등강도 statin 고려</td></tr>
           <tr id="pr-inter"><td>5–&lt;10%</td><td>중간위험</td><td>중등강도 statin 권고, risk enhancer 다수면 강화</td></tr>
           <tr id="pr-high"><td>≥10%</td><td>고위험</td><td>고강도 statin, LDL-C &lt;70 mg/dL 지향</td></tr>
@@ -1400,7 +1401,7 @@ function clamp(v){return Math.min(100,Math.max(0,v));}
 /* ── ACC/AHA 2026 Statin Recommendation ── */
 /* 2026 ACC/AHA/Multisociety Dyslipidemia Guideline (Blumenthal RS et al, JACC/Circulation 2026) */
 /* Risk thresholds based on PREVENT-ASCVD: Low <3%, Borderline 3-5%, Intermediate 5-10%, High ≥10% */
-function accRec(age,risk,ldl,dm,ascvd,vhr,nE,tg,smoker,bpTx){
+function accRec(age,risk,ldl,dm,ascvd,vhr,nE,tg,smoker,bpTx,r30){
   if(ascvd){
     if(vhr)return{c:'hi',l:'고강도',ind:'2차 예방 — 초고위험',d:['Rosuvastatin 20–40 mg','Atorvastatin 40–80 mg'],n:'LDL <55 미달성 → Ezetimibe 추가 → PCSK9 억제제 또는 Inclisiran (2a)',nt:'dng',ldlTgt:55,nhTgt:85};
     return{c:'hi',l:'고강도',ind:'2차 예방 (ASCVD 기왕력, 비초고위험)',d:['Rosuvastatin 20–40 mg','Atorvastatin 40–80 mg'],n:'LDL <70 미달성 → Ezetimibe 추가 고려',nt:'info',ldlTgt:70,nhTgt:100};
@@ -1446,7 +1447,14 @@ function accRec(age,risk,ldl,dm,ascvd,vhr,nE,tg,smoker,bpTx){
     return{c:'mo',l:'중등강도',ind:'당뇨 (30–79세, PREVENT-ASCVD < 5%)',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],n:'당뇨 단독 저위험: 중등강도 권고. LDL <100 목표.',nt:'info',ldlTgt:100,nhTgt:130};
   }
   /* Primary prevention — PREVENT-ASCVD thresholds (2026) */
-  if(risk<3)return{c:'lo',l:'생활습관 교정',ind:'저위험 < 3% (PREVENT-ASCVD)',d:[],n:'스타틴 일상적 권고 불필요. 식이·운동·금연. LDL 목표 < 130 mg/dL.',nt:'info',ldlTgt:130,nhTgt:160};
+  if(risk<3){
+    // 2026 ACC/AHA Class IIb: 저위험이라도 30년 ASCVD ≥10%이면 중등강도 스타틴 고려 가능
+    if(r30>=10&&age>=30&&age<=59)return{c:'mo',l:'중등강도 고려 (30년 위험 기반)',ind:'저위험 (<3%) + 30년 ASCVD ≥10%',
+      d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],
+      n:'2026 ACC/AHA (Class IIb): 10년 위험이 낮더라도 30년 ASCVD ≥10%이면 중등강도 스타틴을 고려할 수 있습니다. 누적 LDL 노출 감소(Cumulative LDL Burden)가 목적이며, 환자와의 공동 의사결정(shared decision-making)이 필수입니다. LDL 목표 &lt;130 mg/dL.',
+      nt:'info',ldlTgt:130,nhTgt:160};
+    return{c:'lo',l:'생활습관 교정',ind:'저위험 < 3% (PREVENT-ASCVD)',d:[],n:'스타틴 일상적 권고 불필요. 식이·운동·금연. LDL 목표 &lt;130 mg/dL.',nt:'info',ldlTgt:130,nhTgt:160};
+  }
   if(risk<5){
     if(nE>=1||ldl>=160)return{c:'mo',l:'중등강도 고려',ind:'경계위험 (3–5%) + 위험증가 인자',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],n:'스타틴-환자 공동 결정. LDL <100 mg/dL 목표. CAC=0이면 10년 유예 합리적.',nt:'info',ldlTgt:100,nhTgt:130};
     return{c:'no',l:'생활습관 교정',ind:'경계위험 (3–5%)',d:[],n:'스타틴 선호도 낮음. 위험증강인자 재확인 후에도 없을 경우, CAC 점수 측정으로 결정 보조. LDL <100 목표.',nt:'info',ldlTgt:100,nhTgt:130};
@@ -1460,7 +1468,7 @@ function accRec(age,risk,ldl,dm,ascvd,vhr,nE,tg,smoker,bpTx){
 }
 
 /* ── ACC/AHA PREVENT Risk Classification ── */
-function preventClass(primRisk,ldl,ascvd,dm,egfr,age,sex,sbp,bpTx,smoker,hdl,nE,tg,vhr){
+function preventClass(primRisk,ldl,ascvd,dm,egfr,age,sex,sbp,bpTx,smoker,hdl,nE,tg,vhr,r30){
   if(ascvd){
     if(vhr) return{cat:'2차 예방 — 초고위험 ASCVD',l:55,nh:85,ab:55,c:'#a32d2d',bg:'#fcebeb',basis:'Clinical ASCVD + very high-risk: LDL-C threshold <55 mg/dL 지향',row:null};
     return{cat:'2차 예방 — ASCVD',l:70,nh:100,ab:70,c:'#a32d2d',bg:'#fcebeb',basis:'Clinical ASCVD: high-intensity/max tolerated statin 및 LDL-C <70 mg/dL threshold',row:null};
@@ -1478,7 +1486,11 @@ function preventClass(primRisk,ldl,ascvd,dm,egfr,age,sex,sbp,bpTx,smoker,hdl,nE,
     if(primRisk>=10) return{cat:'당뇨병 + PREVENT 고위험',l:70,nh:100,ab:70,c:'#a32d2d',bg:'#fcebeb',basis:`당뇨병 + PREVENT-ASCVD ${primRisk.toFixed(1)}% ≥10%`,row:'pr-high'};
     return{cat:'당뇨병',l:100,nh:130,ab:90,c:'#854f0b',bg:'#faeeda',basis:`당뇨병: 최소 중등강도 statin, PREVENT-ASCVD ${primRisk.toFixed(1)}%`,row:primRisk>=5?'pr-inter':primRisk>=3?'pr-border':'pr-low'};
   }
-  if(primRisk<3) return{cat:'저위험',l:130,nh:160,ab:90,c:'#3b6d11',bg:'#eaf3de',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% <3%`,row:'pr-low'};
+  if(primRisk<3){
+    if(r30>=10&&age>=30&&age<=59) return{cat:'저위험 + 30년 ASCVD ≥10%',l:130,nh:160,ab:90,c:'#854f0b',bg:'#faeeda',
+      basis:`PREVENT-ASCVD 10년 ${primRisk.toFixed(1)}% (<3%), 30년 ${r30!=null?r30.toFixed(1):'—'}% ≥10% — 2026 ACC/AHA Class IIb: 중등강도 스타틴 고려 가능`,row:'pr-low'};
+    return{cat:'저위험',l:130,nh:160,ab:90,c:'#3b6d11',bg:'#eaf3de',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% <3%`,row:'pr-low'};
+  }
   if(primRisk<5) return{cat:'경계위험',l:100,nh:130,ab:90,c:'#3b6d11',bg:'#eaf3de',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% 3–<5%. Risk enhancer가 있으면 statin 고려`,row:'pr-border'};
   if(primRisk<10){
     // 2026 ACC/AHA: 중간위험+enhancer 기본 목표 <100, CAC 재분류 후 <70
@@ -1766,6 +1778,14 @@ function makeEmrSummary({prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt, acc
 
   if(carotidOverride){
     return `PREVENT 2023 기준 10-year ASCVD risk는 ${prevAscvd.toFixed(1)}%로 ${riskLabel}에 해당.\n그러나 경동맥 초음파상 plaque ≥1.5 mm가 확인되어 무증상 죽상경화증의 객관적 증거로 판단됨.\nESC/EAS 2025 Class IIa 및 ACC/AHA 2026 권고에 따라 PREVENT 위험도와 무관하게 스타틴 치료를 고려함.\n치료 전 LDL-C는 ${ldl} mg/dL이며, ${txState}LDL-C 목표는 <${dispLdlTgt} mg/dL.\n중등강도 스타틴 치료를 고려하며, ${addonText}.${ckdStNote}` + tgText;
+  }
+
+  // ── [특수3] 저위험(<3%) + 30년 ASCVD ≥10% — 2026 Class IIb 예외 ──
+  if(acc.c==='mo' && acc.ind && acc.ind.includes('30년 ASCVD')){
+    const basis30 = preventCat && preventCat.basis ? preventCat.basis : '';
+    const r30str = basis30.match(/30년\s*([\d.]+)%/);
+    const r30disp = r30str ? r30str[1]+'%' : '≥10%';
+    return `PREVENT 2023 기준 10-year ASCVD risk는 ${prevAscvd.toFixed(1)}%로 저위험(<3%)에 해당함.\n그러나 30년 ASCVD 위험은 ${r30disp}로 확인되어 장기 누적 위험이 높음.\n2026 ACC/AHA 가이드라인 (Class IIb): 10년 저위험이더라도 30년 ASCVD ≥10%인 경우 중등강도 스타틴 치료를 고려할 수 있음 (누적 LDL 노출 감소 목적).\n환자와의 공동 의사결정(shared decision-making) 후 치료 여부 결정 권고.\n치료 전 LDL-C는 ${ldl} mg/dL이며, LDL-C 목표는 <${dispLdlTgt||130} mg/dL.\n중등강도 스타틴 치료를 고려하며, ${addonText}.${ckdStNote}` + tgText;
   }
 
   const statinText = statinSentence(acc);
@@ -2324,7 +2344,7 @@ function upd(){
   // Update slider label
 
   // ACC/AHA PREVENT classification — baseline
-  const preventCat=preventClass(primRisk,ldl,ascvd,dm,egfr,age,sex,sbp,bpTx,smoker,hdl,nE,tg,vhr);
+  const preventCat=preventClass(primRisk,ldl,ascvd,dm,egfr,age,sex,sbp,bpTx,smoker,hdl,nE,tg,vhr,prev30Ascvd);
 
   // Highlight current PREVENT risk row
   ['pr-low','pr-border','pr-inter','pr-high'].forEach(id=>{ if(g(id)) g(id).style.background=''; });
@@ -2345,7 +2365,7 @@ function upd(){
     (onStatin&&hasPostRisk?`<br>치료 중: 10년 ASCVD ${txPrevAscvd.toFixed(1)}% · 10년 Total CVD ${txPrev.toFixed(1)}% · 10년 HF ${txPrevHf.toFixed(1)}%`:``);
 
   // ACC/AHA rec — baseline indication; current values are used for control/add-on assessment
-  let acc=accRec(age,primRisk,ldl,dm,ascvd,vhr,nE,tg,smoker,bpTx);
+  let acc=accRec(age,primRisk,ldl,dm,ascvd,vhr,nE,tg,smoker,bpTx,prev30Ascvd);
 
   // ── LDL≥190 정밀 맞춤: 기본정보 기준 <100이나 위험증강인자 명시적 체크 시 <70으로 강화 ──
   // 기본정보로 이미 <70이면 불필요. <100인 경우에만 위험증강인자로 강화
@@ -2529,7 +2549,7 @@ function upd(){
   `;
 
   // Base rec without risk enhancers (for impact comparison) — baseline
-  const accBase=accRec(age,primRisk,ldl,dm,ascvd,vhr,0,tg,smoker,bpTx);
+  const accBase=accRec(age,primRisk,ldl,dm,ascvd,vhr,0,tg,smoker,bpTx,prev30Ascvd);
   const upgraded=!ascvd&&nE>0&&accBase.l!==acc.l;
 
   g('accRecOut').innerHTML=recHTML(acc,'ACC/AHA · PREVENT 기반 — baseline 위험도 기준');
