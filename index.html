@@ -90,7 +90,6 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
 .sw-name{font-size:13px;font-weight:700;color:#1a1a18}
 .sw-drugs{font-size:11px;color:#5f5e5a;margin-top:3px;line-height:1.6}
 .sw-result{font-size:11px;font-weight:600;margin-top:5px}
-.sw-miss{font-size:10px;color:#888780;margin:2px 0 4px 0;padding-left:3px}
 
 /* Risk category badge */
 .kbadge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:700}
@@ -110,7 +109,7 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
   .card{break-inside:avoid;border:1px solid #ccc!important}
   .rcmp{grid-template-columns:1fr 1fr 1fr}
   #refBody{display:block!important}
-  #refToggle .refArrow{display:none!important}
+  #refArrowSpan{display:none!important}
   @page{margin:1.5cm}
 }
 </style>
@@ -1243,8 +1242,8 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
     </div>
     <div id="nntSummary" style="font-size:11px;color:#888780;margin-top:4px">기본정보 입력 시 이 환자의 개인화 NNT가 계산됩니다.</div>
     <div id="nntBtnWrap" style="display:none;margin-top:8px">
-      <button onclick="toggleSection('nntDetail','nntArrow')" style="display:flex;align-items:center;gap:5px;padding:5px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid #c9b4e8;background:#f3eeff;color:#7b5ea7;font-family:inherit">
-        자세히 보기 <span id="nntArrow" style="font-size:10px">▶</span>
+      <button onclick="toggleSection('nntDetail','nntDetailArrow')" style="display:flex;align-items:center;gap:5px;padding:5px 12px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid #c9b4e8;background:#f3eeff;color:#7b5ea7;font-family:inherit">
+        자세히 보기 <span id="nntDetailArrow" style="font-size:10px">▶</span>
       </button>
     </div>
     <div id="nntDetail" style="display:none;margin-top:10px">
@@ -1289,25 +1288,6 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
 const g=id=>document.getElementById(id);
 
 /* ── PCE 2013 ── */
-function calcPCE(age,sex,race,tc,hdl,sbp,bpTx,smoker,dm){
-  const lA=Math.log(age),lT=Math.log(tc),lH=Math.log(hdl),lS=Math.log(sbp);
-  let s,mu,s0;
-  if(sex==='F'&&race==='white'){
-    s=-29.799*lA+4.884*lA*lA+13.540*lT-3.114*lA*lT-13.578*lH+3.149*lA*lH+(bpTx?2.019:1.957)*lS+(smoker?7.574-1.665*lA:0)+(dm?0.661:0);
-    mu=-29.799;s0=0.9665;
-  }else if(sex==='M'&&race==='white'){
-    s=12.344*lA+11.853*lT-2.664*lA*lT-7.990*lH+1.769*lA*lH+(bpTx?1.797:1.764)*lS+(smoker?7.837-1.795*lA:0)+(dm?0.658:0);
-    mu=61.1816;s0=0.9144;
-  }else if(sex==='F'&&race==='aa'){
-    s=17.1141*lA+0.9396*lT-18.9196*lH+4.4748*lA*lH+(bpTx?29.2907*lS-6.4321*lA*lS:27.8197*lS-6.0873*lA*lS)+(smoker?0.8738:0)+(dm?0.8738:0);
-    mu=86.6081;s0=0.9533;
-  }else{
-    s=2.469*lA+0.302*lT-0.307*lH+(bpTx?1.916:1.809)*lS+(smoker?0.549:0)+(dm?0.645:0);
-    mu=19.5425;s0=0.8954;
-  }
-  return clamp((1-Math.pow(s0,Math.exp(s-mu)))*100);
-}
-
 /* ── PREVENT 2023 AHA coefficient-based equations ── */
 /* 10년/30년 total CVD, ASCVD, heart failure. 기존 CVD가 없는 30–79세 1차예방용. */
 const PREVENT_OUTCOMES = ["total_cvd", "ascvd", "heart_failure"];
@@ -1618,7 +1598,7 @@ function makeFlow(acc,preventCat,ldl,ascvd,vhr,onStatin=false,baselineLdl=null,t
   }
 
   // targetOverride: dispLdlTgt 전달 시 지질표와 stepwise flow의 목표값 일치 보장
-  const tgt = targetOverride ?? (vhr?55:ascvd?(vhr?55:70):(acc.ldlTgt||preventCat.l));
+  const tgt = targetOverride ?? (vhr?55 : ascvd?70 : (acc.ldlTgt||preventCat.l));
   // Predicted LDL reductions
   const afterHi=Math.round(ldl*0.50);   // 고강도 스타틴 ~50% 감소
   const afterMo=Math.round(ldl*0.65);   // 중등강도 스타틴 ~35% 감소
@@ -2298,6 +2278,8 @@ function upd(){
   if(tg>=175) apobIndications.push('TG ≥ 175 mg/dL');
   if(dm) apobIndications.push('당뇨병');
   if(onStatin && currentLdl<70) apobIndications.push('달성 LDL-C < 70 mg/dL');
+  // LDL·non-HDL 불일치: non-HDL - LDL > 30 mg/dL (VLDL-C 과잉 → remnant 증가)
+  if(nonHDL - ldl > 30) apobIndications.push('LDL·non-HDL 불일치 (non-HDL − LDL > 30 mg/dL)');
   const apobIndBox=g('apobIndBox');
   const apobIndText=g('apobIndText');
   if(apobIndBox&&apobIndText){
