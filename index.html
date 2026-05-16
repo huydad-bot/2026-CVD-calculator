@@ -2722,7 +2722,7 @@ function upd(){
       ?`<span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#a32d2d;margin-right:7px;flex-shrink:0;margin-top:2px;box-shadow:0 0 0 3px #fcebeb"></span>`
       :`<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#d0cec8;margin-right:7px;flex-shrink:0;margin-top:3px"></span>`;
     const opacity=ind.active?'1':'0.6';
-    absHtml+=`<div style="display:flex;align-items:flex-start;padding:${ind.active?'9px 11px':'7px 10px'};background:${bg};border-radius:7px;border:${ind.active?'2px solid #e8b4b4':'1px solid #e2e0db'};margin-bottom:5px;opacity:${opacity}${ind.active?';box-shadow:0 1px 6px rgba(163,45,45,0.08)':''}">
+    absHtml+=`<div style="display:flex;align-items:flex-start;padding:${ind.active?'9px 11px':'7px 10px'};background:${bg};border-radius:7px;border:${ind.active?'2px solid #e8b4b4':'1px solid #e2e0db'};margin-bottom:${ind.key==='ldl190'&&ind.active?'0':'5'}px;opacity:${opacity}${ind.active?';box-shadow:0 1px 6px rgba(163,45,45,0.08)':''}">
       <div style="display:flex;align-items:flex-start;margin-top:1px">${dot}</div>
       <div style="flex:1">
         <div style="font-size:12px;font-weight:${ind.active?'700':'400'};color:${c}">${ind.label}</div>
@@ -2734,35 +2734,36 @@ function upd(){
             <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#7b5ea7" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
             FH 진단기준 (DLCN 점수) <span id="dlcnArrow" style="font-size:9px">▶</span>
           </button>
-          <div id="dlcnPanel" style="display:none;margin-top:6px;padding:9px 11px;background:#f8f4ff;border-radius:8px;border-left:3px solid #7b5ea7;font-size:10px;color:#1a1a18;line-height:1.8">
-            <div style="font-weight:700;color:#7b5ea7;margin-bottom:5px">DLCN 점수 (Dutch Lipid Clinic Network) — HeFH 진단</div>
-            <table style="width:100%;border-collapse:collapse;font-size:10px">
-              <tr style="background:#ede8f8"><td style="padding:2px 6px;font-weight:700;color:#555">영역</td><td style="padding:2px 6px;font-weight:700;color:#555">항목</td><td style="padding:2px 6px;font-weight:700;color:#555;text-align:center">점수</td></tr>
-              <tr><td rowspan="2" style="padding:2px 6px;color:#7b5ea7;font-weight:700;vertical-align:top">신체소견</td><td style="padding:2px 6px">건판종 (Tendon xanthoma)</td><td style="padding:2px 6px;text-align:center;font-weight:700">6</td></tr>
-              <tr><td style="padding:2px 6px">각막환 (Arcus cornealis) &lt; 45세</td><td style="padding:2px 6px;text-align:center;font-weight:700">4</td></tr>
-              <tr style="background:#faf8ff"><td rowspan="4" style="padding:2px 6px;color:#7b5ea7;font-weight:700;vertical-align:top">LDL-C<br>(미치료)</td><td style="padding:2px 6px">≥ 330 mg/dL</td><td style="padding:2px 6px;text-align:center;font-weight:700">8</td></tr>
-              <tr style="background:#faf8ff"><td style="padding:2px 6px">250–329 mg/dL</td><td style="padding:2px 6px;text-align:center;font-weight:700">5</td></tr>
-              <tr style="background:#faf8ff"><td style="padding:2px 6px">190–249 mg/dL</td><td style="padding:2px 6px;text-align:center;font-weight:700">3</td></tr>
-              <tr style="background:#faf8ff"><td style="padding:2px 6px">155–189 mg/dL</td><td style="padding:2px 6px;text-align:center;font-weight:700">1</td></tr>
-              <tr><td style="padding:2px 6px;color:#7b5ea7;font-weight:700">유전자</td><td style="padding:2px 6px">LDLR · APOB · PCSK9 인과성 변이</td><td style="padding:2px 6px;text-align:center;font-weight:700">8</td></tr>
-              <tr style="background:#faf8ff"><td rowspan="2" style="padding:2px 6px;color:#7b5ea7;font-weight:700;vertical-align:top">가족력</td><td style="padding:2px 6px">1촌에서 건판종/각막환, 또는 소아(&lt;18세) LDL &gt; 95th %ile</td><td style="padding:2px 6px;text-align:center;font-weight:700">2</td></tr>
-              <tr style="background:#faf8ff"><td style="padding:2px 6px">1촌에서 조기 CVD* 또는 LDL &gt; 95th %ile</td><td style="padding:2px 6px;text-align:center;font-weight:700">1</td></tr>
-              <tr><td rowspan="2" style="padding:2px 6px;color:#7b5ea7;font-weight:700;vertical-align:top">개인력</td><td style="padding:2px 6px">본인 조기 관상동맥질환*</td><td style="padding:2px 6px;text-align:center;font-weight:700">2</td></tr>
-              <tr><td style="padding:2px 6px">본인 조기 뇌혈관·말초혈관질환*</td><td style="padding:2px 6px;text-align:center;font-weight:700">1</td></tr>
-            </table>
-            <div style="margin-top:5px;font-size:10px;color:#888780">* 조기: 남성 &lt; 55세, 여성 &lt; 60세</div>
-            <div style="margin-top:5px;padding:4px 8px;background:#ede8f8;border-radius:5px;font-weight:700;color:#7b5ea7">
-              판정: &gt;8 = Definite · 6–8 = Probable · 3–5 = Possible · &lt;3 = Unlikely FH
-            </div>
-            <div style="margin-top:5px;font-size:10px;color:#5f5e5a;line-height:1.7">
-              <b>HoFH 임상진단 (DLCN 비적용):</b> LDL &gt; 400 mg/dL + 소아기 건판종 또는 양 부모 HeFH 수준 LDL<br>
-              <b>LDL 목표:</b> HeFH &lt;70 · HeFH+ASCVD &lt;55 · LDL≥190(비FH) &lt;100 mg/dL
-            </div>
-          </div>
         </div>`:''}
       </div>
       ${ind.active?`<div style="flex-shrink:0;padding:3px 9px;background:#fcebeb;border-radius:5px;font-size:10px;font-weight:700;color:#a32d2d;margin-left:8px;white-space:nowrap;border:1px solid #e8b4b4">${ind.strength}</div>`:''}
-    </div>`;
+    </div>
+    ${ind.key==='ldl190'&&ind.active?`
+    <div id="dlcnPanel" style="display:none;margin-bottom:5px;padding:11px 14px;background:#f8f4ff;border-radius:0 0 8px 8px;border:2px solid #e8b4b4;border-top:none;font-size:10px;color:#1a1a18;line-height:1.8">
+      <div style="font-weight:700;color:#7b5ea7;margin-bottom:6px">DLCN 점수 (Dutch Lipid Clinic Network) — HeFH 진단</div>
+      <table style="width:100%;border-collapse:collapse;font-size:10px">
+        <tr style="background:#ede8f8"><td style="padding:3px 8px;font-weight:700;color:#555">영역</td><td style="padding:3px 8px;font-weight:700;color:#555">항목</td><td style="padding:3px 8px;font-weight:700;color:#555;text-align:center">점수</td></tr>
+        <tr><td rowspan="2" style="padding:3px 8px;color:#7b5ea7;font-weight:700;vertical-align:top">신체소견</td><td style="padding:3px 8px">건판종 (Tendon xanthoma)</td><td style="padding:3px 8px;text-align:center;font-weight:700">6</td></tr>
+        <tr><td style="padding:3px 8px">각막환 (Arcus cornealis) &lt; 45세</td><td style="padding:3px 8px;text-align:center;font-weight:700">4</td></tr>
+        <tr style="background:#faf8ff"><td rowspan="4" style="padding:3px 8px;color:#7b5ea7;font-weight:700;vertical-align:top">LDL-C<br>(미치료)</td><td style="padding:3px 8px">≥ 330 mg/dL</td><td style="padding:3px 8px;text-align:center;font-weight:700">8</td></tr>
+        <tr style="background:#faf8ff"><td style="padding:3px 8px">250–329 mg/dL</td><td style="padding:3px 8px;text-align:center;font-weight:700">5</td></tr>
+        <tr style="background:#faf8ff"><td style="padding:3px 8px">190–249 mg/dL</td><td style="padding:3px 8px;text-align:center;font-weight:700">3</td></tr>
+        <tr style="background:#faf8ff"><td style="padding:3px 8px">155–189 mg/dL</td><td style="padding:3px 8px;text-align:center;font-weight:700">1</td></tr>
+        <tr><td style="padding:3px 8px;color:#7b5ea7;font-weight:700">유전자</td><td style="padding:3px 8px">LDLR · APOB · PCSK9 인과성 변이</td><td style="padding:3px 8px;text-align:center;font-weight:700">8</td></tr>
+        <tr style="background:#faf8ff"><td rowspan="2" style="padding:3px 8px;color:#7b5ea7;font-weight:700;vertical-align:top">가족력</td><td style="padding:3px 8px">1촌에서 건판종/각막환, 또는 소아(&lt;18세) LDL &gt; 95th %ile</td><td style="padding:3px 8px;text-align:center;font-weight:700">2</td></tr>
+        <tr style="background:#faf8ff"><td style="padding:3px 8px">1촌에서 조기 CVD* 또는 LDL &gt; 95th %ile</td><td style="padding:3px 8px;text-align:center;font-weight:700">1</td></tr>
+        <tr><td rowspan="2" style="padding:3px 8px;color:#7b5ea7;font-weight:700;vertical-align:top">개인력</td><td style="padding:3px 8px">본인 조기 관상동맥질환*</td><td style="padding:3px 8px;text-align:center;font-weight:700">2</td></tr>
+        <tr><td style="padding:3px 8px">본인 조기 뇌혈관·말초혈관질환*</td><td style="padding:3px 8px;text-align:center;font-weight:700">1</td></tr>
+      </table>
+      <div style="margin-top:5px;font-size:10px;color:#888780">* 조기: 남성 &lt; 55세, 여성 &lt; 60세</div>
+      <div style="margin-top:6px;padding:5px 10px;background:#ede8f8;border-radius:5px;font-weight:700;color:#7b5ea7">
+        판정: &gt;8 = Definite · 6–8 = Probable · 3–5 = Possible · &lt;3 = Unlikely FH
+      </div>
+      <div style="margin-top:6px;font-size:10px;color:#5f5e5a;line-height:1.7">
+        <b>HoFH 임상진단 (DLCN 비적용):</b> LDL &gt; 400 mg/dL + 소아기 건판종 또는 양 부모 HeFH 수준 LDL<br>
+        <b>LDL 목표:</b> HeFH &lt;70 · HeFH+ASCVD &lt;55 · LDL≥190(비FH) &lt;100 mg/dL
+      </div>
+    </div>`:''}`;
   });
   if(g('absIndList')) g('absIndList').innerHTML=absHtml;
 
