@@ -607,6 +607,7 @@ document.getElementById('helpModal').addEventListener('click',function(e){
         ※ 2023 AHA: PREVENT는 CKM 성분(eGFR·UACR·HbA1c·BMI) 포함 — PREVENT 점수가 이미 부분 반영.<br>
         ※ 위 항목은 PREVENT에 미포함된 잔여 CKM 위험을 추가 반영하는 목적.
       </div>
+      <div style="text-align:right;margin-top:6px"><span onclick="event.preventDefault();event.stopPropagation();toggleSection('ckmPanel','ckmPanelArrow')" style="font-size:10px;color:#185fa5;cursor:pointer;font-weight:600">닫기 ✕</span></div>
     </div>
 
     <!-- ── 만성 염증성 질환 ── -->
@@ -657,6 +658,7 @@ document.getElementById('helpModal').addEventListener('click',function(e){
           </div>
         </label>
       </div>
+      <div style="text-align:right;margin-top:6px"><span onclick="event.preventDefault();event.stopPropagation();toggleSection('inflamPanel','inflamPanelArrow')" style="font-size:10px;color:#c9a02a;cursor:pointer;font-weight:600">닫기 ✕</span></div>
     </div>
 
     <!-- ── Table 13 #5 ── -->
@@ -2890,6 +2892,7 @@ function upd(){
         <b>HoFH 임상진단 (DLCN 비적용):</b> LDL &gt; 400 mg/dL + 소아기 건판종 또는 양 부모 HeFH 수준 LDL<br>
         <b>LDL 목표:</b> HeFH &lt;70 · HeFH+ASCVD &lt;55 · LDL≥190(비FH) &lt;100 mg/dL
       </div>
+      <div style="text-align:right;margin-top:6px"><span onclick="toggleDLCN()" style="font-size:10px;color:#7b5ea7;cursor:pointer;font-weight:600">닫기 ✕</span></div>
     </div>`:''}`;
   });
   if(g('absIndList')) g('absIndList').innerHTML=absHtml;
