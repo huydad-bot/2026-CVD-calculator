@@ -127,6 +127,17 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
       2026 ACC/AHA/Multisociety Dyslipidemia Guideline · 2022 ACC Expert Consensus Pathway<br>
       <span style="color:#a07a2a;font-style:italic">This tool is not officially endorsed by ACC/AHA</span>
     </div>
+    <!-- 간단/상세 모드 라디오 -->
+    <div style="display:flex;gap:0;margin-top:8px;border:1px solid #d0cec8;border-radius:7px;overflow:hidden;width:fit-content;font-size:12px;font-weight:600" class="no-print">
+      <label style="display:flex;align-items:center;gap:5px;padding:5px 14px;cursor:pointer;background:#185fa5;color:#fff;transition:background .15s;user-select:none" id="modeSimpleLabel">
+        <input type="radio" name="viewMode" value="simple" onchange="setViewMode('simple')" checked style="accent-color:#fff;width:13px;height:13px">
+        <span>간단 사용</span>
+      </label>
+      <label style="display:flex;align-items:center;gap:5px;padding:5px 14px;cursor:pointer;background:#fff;color:#1a1a18;border-left:1px solid #d0cec8;transition:background .15s;user-select:none" id="modeDetailLabel">
+        <input type="radio" name="viewMode" value="detail" onchange="setViewMode('detail')" style="accent-color:#185fa5;width:13px;height:13px">
+        <span>상세 사용</span>
+      </label>
+    </div>
   </div>
   <div style="display:flex;flex-direction:column;gap:5px;align-items:flex-end;flex-shrink:0" class="no-print">
     <button class="pbtn" type="button" onclick="openHelpModal()" style="background:#1a8ab4;font-size:11px;padding:5px 11px;width:100%">
@@ -275,7 +286,7 @@ document.getElementById('helpModal').addEventListener('click',function(e){
 <div class="print-only" id="psum"></div>
 
 <!-- CPR BANNER -->
-<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px">
+<div id="cardCprBanner" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px">
   <div style="background:#fff;border:1px solid #e2e0db;border-top:3px solid #185fa5;border-radius:8px;padding:10px 13px">
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
       <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#185fa5;color:#fff;font-size:15px;font-weight:800;flex-shrink:0">C</span>
@@ -298,7 +309,7 @@ document.getElementById('helpModal').addEventListener('click',function(e){
     <div style="font-size:10px;color:#5f5e5a;line-height:1.6">스타틴으로 LDL 조절 후에도 ApoB · Lp(a) · non-HDL · TG로 <b style="color:#1a1a18">잔여 위험을 포착하고 추가 치료.</b></div>
   </div>
 </div>
-<div style="font-size:9px;color:#b4b2a9;margin-top:-10px;margin-bottom:12px;text-align:right">2026 ACC/AHA Dyslipidemia Guideline 핵심 철학 — CPR Framework</div>
+<div id="cardCprSubtitle" style="font-size:9px;color:#b4b2a9;margin-top:-10px;margin-bottom:12px;text-align:left">2026 ACC/AHA Dyslipidemia Guideline 핵심 철학 — CPR Framework</div>
 
 <div class="mgrid">
 
@@ -460,7 +471,7 @@ document.getElementById('helpModal').addEventListener('click',function(e){
     </div>
   </div>
 
-  <div class="card" style="border-top:3px solid #185fa5">
+  <div class="card" id="cardPreventExtra" style="border-top:3px solid #185fa5">
     <div class="sec">PREVENT 2023 추가 입력 (선택)</div>
     <div class="row2">
       <div class="field"><span class="fl">UACR (mg/g) — 선택</span><input type="number" id="uacr" value="" min="0" max="15000" placeholder="미입력 시 제외"></div>
@@ -510,7 +521,7 @@ document.getElementById('helpModal').addEventListener('click',function(e){
     </div>
   </div>
 
-  <div class="card" style="border-top:3px solid #639922">
+  <div class="card" id="cardRiskEnhancer" style="border-top:3px solid #639922">
     <div class="sec" onclick="toggleSection('riskEnhancerBody','riskEnhancerArrow')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none">
       <span>위험 증가 인자 (Risk Enhancers) <span style="font-size:11px;font-weight:600;color:#185fa5;letter-spacing:0;text-transform:none;margin-left:4px">정밀 맞춤 예방 목적이며, 클릭 시 자세한 내용을 확인할 수 있습니다.</span></span>
       <span id="riskEnhancerArrow" style="font-size:12px;color:#888780;transition:transform .2s;display:inline-block">▶</span>
@@ -788,7 +799,7 @@ document.getElementById('helpModal').addEventListener('click',function(e){
   </div>
 
   <!-- ══ 위험도 무관 스타틴 절대 적응증 ══ -->
-  <div class="card" style="border-top:3px solid #7b5ea7">
+  <div class="card" id="cardAbsInd" style="border-top:3px solid #7b5ea7">
     <div class="sec" onclick="toggleSection('absIndBody','absIndArrow')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none">
       <span>위험도 분류 무관 스타틴 적응증 <span style="font-size:11px;font-weight:600;color:#185fa5;letter-spacing:0;text-transform:none;margin-left:4px">기본정보 입력 또는 CAC 점수 입력시 해당 항목이 활성화 됩니다</span><span style="font-size:9px;font-weight:400;color:#888780;letter-spacing:0;text-transform:none"> (PREVENT 점수에 구속되지 않음)</span></span>
       <span id="absIndArrow" style="font-size:12px;color:#888780;transition:transform .2s;display:inline-block">▶</span>
@@ -802,7 +813,7 @@ document.getElementById('helpModal').addEventListener('click',function(e){
   </div>
 
   <!-- ══ 특수상황에서 스타틴 치료 여부 확인 ══ -->
-  <div class="card" style="border-top:3px solid #7b5ea7">
+  <div class="card" id="cardSpecialStatin" style="border-top:3px solid #7b5ea7">
     <div class="sec" onclick="toggleSection('specialStatinBody','specialStatinArrow')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;color:#7b5ea7">
       <span style="display:flex;align-items:center;gap:7px">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7b5ea7" stroke-width="2.5" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
@@ -1117,7 +1128,7 @@ document.getElementById('helpModal').addEventListener('click',function(e){
   <!-- ══ /특수상황 ══ -->
 
   <!-- ══ NNT 비교 ══ -->
-  <div class="card" style="border-top:3px solid #7b5ea7">
+  <div class="card" id="cardNntLeft" style="border-top:3px solid #7b5ea7">
     <div class="sec" onclick="toggleSection('nntBody','nntArrow')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;color:#7b5ea7">
       <span style="display:flex;align-items:center;gap:7px">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7b5ea7" stroke-width="2.5" style="flex-shrink:0"><path d="M3 18h18"/><path d="M3 12h12"/><path d="M3 6h6"/></svg>
@@ -1312,7 +1323,7 @@ document.getElementById('helpModal').addEventListener('click',function(e){
   </div>
 
   <!-- 2. Lipid Parameters -->
-  <div class="card">
+  <div class="card" id="cardLipidParam">
     <div class="sec">지질 파라미터 & 목표치</div>
     <table class="lt">
       <thead><tr><th>항목</th><th>치료 전</th><th>치료 중/현재</th><th>목표</th><th>상태</th></tr></thead>
@@ -1371,7 +1382,7 @@ document.getElementById('helpModal').addEventListener('click',function(e){
   </div>
 
   <!-- 8. 개인화 NNT -->
-  <div class="card" style="border-top:3px solid #7b5ea7">
+  <div class="card" id="cardNntRight" style="border-top:3px solid #7b5ea7">
     <div class="sec" style="display:flex;align-items:center;justify-content:space-between;color:#7b5ea7">
       <span style="display:flex;align-items:center;gap:6px">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7b5ea7" stroke-width="2.5"><path d="M3 18h18"/><path d="M3 12h12"/><path d="M3 6h6"/></svg>
@@ -1404,7 +1415,7 @@ document.getElementById('helpModal').addEventListener('click',function(e){
 </div>
 
   <!-- 참고 문헌 및 주의사항 (NNT 카드 바로 아래, 오른쪽 컬럼 단독 카드) -->
-  <div class="card" style="margin-top:0">
+  <div class="card" id="cardReference" style="margin-top:0">
     <div class="sec" id="refToggle" onclick="toggleSection('refBody','refArrowSpan')"
       style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none">
       <span>참고 문헌 및 주의사항, 피드백</span>
@@ -1428,6 +1439,47 @@ document.getElementById('helpModal').addEventListener('click',function(e){
 
 <script>
 const g=id=>document.getElementById(id);
+
+// ── 간단/상세 보기 모드 토글 ──────────────────────────────────
+const SIMPLE_HIDDEN = [
+  'cardCprBanner','cardCprSubtitle',
+  'cardPreventExtra','cardRiskEnhancer','cardAbsInd',
+  'cardSpecialStatin','cardNntLeft',
+  'cardLipidParam','cardNntRight','cardReference'
+];
+function setViewMode(mode){
+  const simple = mode === 'simple';
+  SIMPLE_HIDDEN.forEach(id=>{
+    const el = document.getElementById(id);
+    if(!el) return;
+    if(simple){
+      el.style.display = 'none';
+    } else {
+      // CPR 배너는 grid로 복원
+      el.style.display = (id === 'cardCprBanner') ? 'grid' : '';
+    }
+  });
+  // 라디오 버튼 배경색 토글
+  const sl = document.getElementById('modeSimpleLabel');
+  const dl = document.getElementById('modeDetailLabel');
+  if(sl && dl){
+    if(simple){
+      sl.style.background='#185fa5'; sl.style.color='#fff';
+      dl.style.background='#fff';   dl.style.color='#1a1a18';
+    } else {
+      dl.style.background='#185fa5'; dl.style.color='#fff';
+      sl.style.background='#fff';   sl.style.color='#1a1a18';
+    }
+  }
+}
+// 페이지 로드 시 간단사용으로 시작
+document.addEventListener('DOMContentLoaded', function(){
+  const simpleRadio = document.querySelector('input[name="viewMode"][value="simple"]');
+  if(simpleRadio){ simpleRadio.checked = true; }
+  setViewMode('simple');
+});
+// ──────────────────────────────────────────────────────────────
+
 
 /* ── PCE 2013 ── */
 /* ── PREVENT 2023 AHA coefficient-based equations ── */
