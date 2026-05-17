@@ -113,6 +113,25 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
   @page{margin:1.5cm}
 }
 body.mode-simple #cprIIbBox { display: none !important; }
+
+/* ── Glossary Search ── */
+#glossarySearchWrap{display:inline-flex;align-items:center}
+#glossaryInputWrap{display:flex;align-items:center;gap:5px;padding:5px 10px;border:1.5px solid #d0cec8;border-radius:7px;background:#fff;transition:border-color .15s;width:220px}
+#glossaryInputWrap:focus-within{border-color:#185fa5;box-shadow:0 0 0 2px rgba(24,95,165,.08)}
+#glossaryInput{border:none;outline:none;background:transparent;font-size:12px;color:#1a1a18;width:100%;font-family:inherit}
+#glossaryInput::placeholder{color:#b4b2a9}
+#glossaryDropdown{display:none;position:absolute;top:calc(100% + 5px);left:0;min-width:320px;background:#fff;border:1px solid #d0cec8;border-radius:10px;box-shadow:0 6px 24px rgba(0,0,0,.14);z-index:9000;max-height:340px;overflow-y:auto}
+.gl-item{padding:9px 13px;cursor:pointer;border-bottom:1px solid #f1efe8;transition:background .1s}
+.gl-item:last-child{border-bottom:none}
+.gl-item:hover,.gl-item.gl-active{background:#f0f6fc}
+.gl-abbr{font-size:13px;font-weight:800;color:#185fa5;letter-spacing:.02em}
+.gl-full{font-size:10px;color:#888780;margin-top:1px;font-style:italic}
+.gl-ko{font-size:12px;color:#1a1a18;margin-top:2px;font-weight:600}
+.gl-desc{font-size:11px;color:#5f5e5a;margin-top:4px;line-height:1.6;padding:5px 8px;background:#f8f7f5;border-radius:5px;border-left:2px solid #185fa5}
+.gl-detail{display:none;padding:2px 0 4px}
+.gl-empty{padding:14px 13px;color:#888780;font-size:12px;text-align:center}
+@media(max-width:760px){#glossaryInputWrap{width:150px}}
+@media print{#glossarySearchWrap{display:none!important}}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
@@ -128,18 +147,33 @@ body.mode-simple #cprIIbBox { display: none !important; }
       2026 ACC/AHA/Multisociety Dyslipidemia Guideline · 2022 ACC Expert Consensus Pathway<br>
       <span style="color:#a07a2a;font-style:italic">This tool is not officially endorsed by ACC/AHA</span>
     </div>
-    <!-- 간단/상세 모드 라디오 -->
-    <div style="display:flex;gap:0;margin-top:8px;border:1px solid #d0cec8;border-radius:7px;overflow:hidden;width:fit-content;font-size:12px;font-weight:600" class="no-print">
-      <label style="display:flex;align-items:center;gap:5px;padding:5px 14px;cursor:pointer;background:#185fa5;color:#fff;transition:background .15s;user-select:none" id="modeSimpleLabel">
-        <input type="radio" name="viewMode" value="simple" onchange="setViewMode('simple')" checked style="accent-color:#fff;width:13px;height:13px">
-        <span>간단 사용</span>
-      </label>
-      <label style="display:flex;align-items:center;gap:5px;padding:5px 14px;cursor:pointer;background:#fff;color:#1a1a18;border-left:1px solid #d0cec8;transition:background .15s;user-select:none" id="modeDetailLabel">
-        <input type="radio" name="viewMode" value="detail" onchange="setViewMode('detail')" style="accent-color:#185fa5;width:13px;height:13px">
-        <span>상세 사용</span>
-      </label>
+    <!-- 간단/상세 모드 라디오 + 약어 검색창 -->
+    <div style="display:flex;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap" class="no-print">
+      <div style="display:flex;gap:0;border:1px solid #d0cec8;border-radius:7px;overflow:hidden;font-size:12px;font-weight:600;flex-shrink:0">
+        <label style="display:flex;align-items:center;gap:5px;padding:5px 14px;cursor:pointer;background:#185fa5;color:#fff;transition:background .15s;user-select:none" id="modeSimpleLabel">
+          <input type="radio" name="viewMode" value="simple" onchange="setViewMode('simple')" checked style="accent-color:#fff;width:13px;height:13px">
+          <span>간단 사용</span>
+        </label>
+        <label style="display:flex;align-items:center;gap:5px;padding:5px 14px;cursor:pointer;background:#fff;color:#1a1a18;border-left:1px solid #d0cec8;transition:background .15s;user-select:none" id="modeDetailLabel">
+          <input type="radio" name="viewMode" value="detail" onchange="setViewMode('detail')" style="accent-color:#185fa5;width:13px;height:13px">
+          <span>상세 사용</span>
+        </label>
+      </div>
+      <!-- ── 약어/용어 검색창 ── -->
+      <div id="glossarySearchWrap" style="position:relative">
+        <div id="glossaryInputWrap">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#888780" stroke-width="2.5" style="flex-shrink:0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="glossaryInput" placeholder="약어 검색 (LDL, CAC, NNT…)" autocomplete="off"
+            oninput="glossarySearch(this.value)"
+            onfocus="glossarySearch(this.value)"
+            onkeydown="glossaryKeyNav(event)">
+          <span id="glossaryClear" style="display:none;cursor:pointer;color:#b4b2a9;font-size:16px;line-height:1;flex-shrink:0" onclick="clearGlossary()">×</span>
+        </div>
+        <div id="glossaryDropdown"></div>
+      </div>
     </div>
   </div>
+
   <div style="display:flex;flex-direction:column;gap:5px;align-items:flex-end;flex-shrink:0" class="no-print">
     <button class="pbtn" type="button" onclick="openHelpModal()" style="background:#1a8ab4;font-size:11px;padding:5px 11px;width:100%">
       <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
@@ -281,6 +315,155 @@ document.addEventListener('keydown',function(e){
 document.getElementById('helpModal').addEventListener('click',function(e){
   if(e.target===this) closeHelpModal();
 });
+</script>
+
+<!-- ══════ 약어/용어 검색 ══════ -->
+<script>
+var GLOSSARY=[
+  {abbr:'ACC',full:'American College of Cardiology',ko:'미국심장학회',desc:'2026 ACC/AHA Dyslipidemia Guideline 등 주요 심혈관 가이드라인 발행 학회'},
+  {abbr:'AHA',full:'American Heart Association',ko:'미국심장협회',desc:'ACC와 공동으로 심혈관 가이드라인 발행. AHA PREVENT 2023 모델 발표'},
+  {abbr:'ASCVD',full:'Atherosclerotic Cardiovascular Disease',ko:'죽상경화성 심혈관질환',desc:'관상동맥질환(MI·불안정협심증), 허혈성 뇌졸중/TIA, 말초동맥질환(PAD)을 포함하는 죽상경화 기반 심혈관질환 전반. 2차 예방 대상의 핵심 개념'},
+  {abbr:'PREVENT',full:'Predicting Risk of cardiovascular disease EVENTs',ko:'심혈관질환 위험도 예측 모델',desc:'2023 AHA 발표. 10년/30년 Total CVD·ASCVD·심부전 위험을 eGFR·UACR·HbA1c·BMI 포함하여 예측. PCE보다 전반적 위험 정확도 향상'},
+  {abbr:'CVD',full:'Cardiovascular Disease',ko:'심혈관질환',desc:'Total CVD = ASCVD + 심부전 포함. PREVENT 모델은 Total CVD와 ASCVD를 구분하여 제공'},
+  {abbr:'LDL',full:'Low-Density Lipoprotein',ko:'저밀도지단백'},
+  {abbr:'LDL-C',full:'LDL Cholesterol',ko:'저밀도지단백 콜레스테롤',desc:'주요 죽상경화 촉진 지질 지표. 스타틴 치료 목표의 핵심. 초고위험 <55, 고위험 <70, 중등위험 <100 mg/dL'},
+  {abbr:'HDL',full:'High-Density Lipoprotein',ko:'고밀도지단백'},
+  {abbr:'HDL-C',full:'HDL Cholesterol',ko:'고밀도지단백 콜레스테롤',desc:'역콜레스테롤 수송 담당. 낮을수록(남 <40, 여 <50 mg/dL) ASCVD 위험 증가. PREVENT 모델 포함 변수'},
+  {abbr:'TC',full:'Total Cholesterol',ko:'총 콜레스테롤',desc:'TC = LDL-C + HDL-C + VLDL-C. Friedewald 식으로 LDL-C 계산 시 사용'},
+  {abbr:'TG',full:'Triglycerides',ko:'중성지방',desc:'비공복 ≥175 mg/dL 또는 공복 ≥150 mg/dL 시 위험증강인자. TG ≥500 시 급성 췌장염 위험. Icosapent ethyl 적응증'},
+  {abbr:'ApoB',full:'Apolipoprotein B',ko:'아포지단백 B',desc:'LDL·VLDL·IDL·Lp(a) 등 모든 죽상경화성 지단백의 구조단백질. 입자 수를 직접 반영. 목표: 초고위험 <55 mg/dL, 고위험 <70 mg/dL. LDL·non-HDL 불일치 시 직접 측정 권장 (2026 ACC/AHA Class IIa)'},
+  {abbr:'Lp(a)',full:'Lipoprotein (a)',ko:'지단백(a)',desc:'유전적으로 결정되는 독립적 ASCVD 위험인자. ≥50 mg/dL(≥125 nmol/L) 시 위험증강인자. PCSK9 억제제로 15–30% 감소. 새로운 표적치료제(muvalaplin 등) 임상 중'},
+  {abbr:'non-HDL',full:'non-HDL Cholesterol',ko:'비HDL 콜레스테롤',desc:'= TC − HDL-C. VLDL·IDL·Lp(a) 포함. ApoB 불가 시 차선 지표. 목표: 초고위험 <85, 고위험 <100, 중등 <130 mg/dL'},
+  {abbr:'hs-CRP',full:'high-sensitivity C-Reactive Protein',ko:'고감도 C반응단백',desc:'전신 염증 지표. 2회 이상 측정 ≥2.0 mg/L 시 위험증강인자. JUPITER trial에서 스타틴으로 hs-CRP 감소 시 ASCVD 사건 감소 확인. Rosuvastatin 특히 효과적'},
+  {abbr:'CRP',full:'C-Reactive Protein',ko:'C반응단백',desc:'hs-CRP 항목 참조. 심혈관 위험 평가에는 고감도(hs-CRP) 측정 사용'},
+  {abbr:'CKD',full:'Chronic Kidney Disease',ko:'만성신장질환',desc:'eGFR 15–59 mL/min/1.73m² 시 ASCVD 위험증강인자. 40세 미만에서는 자동 반영. eGFR <30 시 스타틴 용량 조절 필요'},
+  {abbr:'eGFR',full:'estimated Glomerular Filtration Rate',ko:'추정 사구체여과율',desc:'CKD-EPI 2021 공식 적용. PREVENT 위험 모델 포함 변수(mg/dL). <60 시 CKD, <15 시 말기신부전'},
+  {abbr:'UACR',full:'Urine Albumin-to-Creatinine Ratio',ko:'소변 알부민-크레아티닌 비',desc:'신장 손상 지표(mg/g). 30 이상: 미세알부민뇨. 300 이상: 대량알부민뇨. PREVENT 2023 포함 변수'},
+  {abbr:'HbA1c',full:'Hemoglobin A1c (Glycated Hemoglobin)',ko:'당화혈색소',desc:'3개월 혈당 조절 지표(%). 5.7–6.4%: 전당뇨. ≥6.5%: 당뇨 진단. PREVENT 포함 변수'},
+  {abbr:'BMI',full:'Body Mass Index',ko:'체질량지수',desc:'체중(kg) / 신장(m²). ≥25: 과체중, ≥30: 비만, ≥35: 고도비만(CKM 위험증강인자). PREVENT 모델 포함 변수'},
+  {abbr:'CAC',full:'Coronary Artery Calcification (Score)',ko:'관상동맥 석회화 점수',desc:'CT로 측정하는 무증상 죽상경화 정량 지표. CAC=0: 10년 스타틴 유예 합리적. 1–99: 위험증강인자. 100–299 또는 ≥75백분위: 스타틴 충분조건(LDL<70). 300–999: 고강도 스타틴. ≥1000: 초고위험 수준(LDL<55)'},
+  {abbr:'ABI',full:'Ankle-Brachial Index',ko:'발목-상완 지수',desc:'<0.9: 말초동맥질환(PAD). 무증상이면 위험증강인자(LDL<100). 파행·재개통술·궤양 있으면 ASCVD 2차 예방으로 전환. >1.40: 혈관 석회화로 비압박성 — toe-brachial index 시행 권장'},
+  {abbr:'PRS',full:'Polygenic Risk Score',ko:'다유전자 위험 점수',desc:'수십만 개 SNP 조합으로 산출한 유전 위험도. CAD PRS 상위 10% 이내 또는 상대위험도 ≥2배 시 위험증강인자 (2026 ACC/AHA Class 2a)'},
+  {abbr:'CAD',full:'Coronary Artery Disease',ko:'관상동맥질환',desc:'ASCVD의 주요 임상 표현형. 안정협심증·불안정협심증·MI 포함'},
+  {abbr:'CKM',full:'Cardiovascular-Kidney-Metabolic Syndrome',ko:'심혈관-신장-대사 증후군',desc:'2023 AHA Presidential Advisory (Ndumele CE et al.). 비만·인슐린저항성·만성염증이 공통 병태생리. Stage 0(정상) → Stage 4(임상적 CVD)'},
+  {abbr:'MASLD',full:'Metabolic dysfunction-Associated Steatotic Liver Disease',ko:'대사이상 관련 지방간질환',desc:'구 NAFLD. 대사위험인자 동반 지방간. CKM 위험증강인자. FIB-4로 섬유화 스크리닝'},
+  {abbr:'NAFLD',full:'Non-Alcoholic Fatty Liver Disease',ko:'비알코올성 지방간질환',desc:'현재는 MASLD로 명칭 변경(2023)'},
+  {abbr:'OSA',full:'Obstructive Sleep Apnea',ko:'폐쇄성 수면무호흡증',desc:'AHI ≥15(중등도 이상) 시 CKM 위험증강인자. 교감신경 항진·염증·산화스트레스로 심혈관 위험 증가'},
+  {abbr:'AHI',full:'Apnea-Hypopnea Index',ko:'무호흡-저호흡 지수',desc:'수면 시간당 무호흡+저호흡 횟수. 5–14: 경도, 15–29: 중등도, ≥30: 중증 OSA'},
+  {abbr:'PAD',full:'Peripheral Artery Disease',ko:'말초동맥질환',desc:'ABI <0.9, 파행, 하지 재개통술력 포함. ASCVD의 주요 임상 표현형. 2차 예방 대상'},
+  {abbr:'MI',full:'Myocardial Infarction',ko:'심근경색증',desc:'ASCVD 기왕력의 주요 유형. STEMI/NSTEMI 포함. 2차 예방 대상 — LDL 목표 <70 (일반), <55 (초고위험)'},
+  {abbr:'PCSK9',full:'Proprotein Convertase Subtilisin/Kexin type 9',ko:'PCSK9 (지단백 수용체 조절 효소)',desc:'LDL 수용체를 분해하여 LDL-C 상승 유발. 억제제(evolocumab·alirocumab): LDL 추가 50–60% 감소. 초고위험 스타틴+에제티미브 미달성 시 3단계 추가 치료'},
+  {abbr:'NNT',full:'Number Needed to Treat',ko:'치료 필요 수',desc:'1명의 사건을 예방하기 위해 치료해야 하는 환자 수. 낮을수록 치료 효율 높음. 위험군별: 저위험 ~267, 경계 ~100, 중간 ~53, 고위험 1차 ~24, 고위험 2차 ~11, 초고위험 2차 ~7'},
+  {abbr:'NNH',full:'Number Needed to Harm',ko:'위해 필요 수',desc:'치료로 인해 1명에게 부작용이 발생하는 데 필요한 치료 환자 수. NNT vs NNH 비교로 치료 이익/위해 판단'},
+  {abbr:'RRR',full:'Relative Risk Reduction',ko:'상대위험 감소율',desc:'스타틴: LDL 38.7 mg/dL(1 mmol/L) 감소 시 ASCVD 사건 약 22% 상대적 감소 (CTT meta-analysis). 기저위험에 무관하게 일정'},
+  {abbr:'ARR',full:'Absolute Risk Reduction',ko:'절대위험 감소율',desc:'10년간 절대적 사건 예방 비율 = 기저위험 × RRR. 기저위험이 높을수록 ARR 증가 → NNT 감소'},
+  {abbr:'CTT',full:'Cholesterol Treatment Trialists Collaboration',ko:'콜레스테롤 치료 임상시험 협력단',desc:'스타틴 RCT 대규모 메타분석. LDL 1 mmol/L 감소 시 ASCVD 사건 약 22% RRR의 핵심 근거 제공'},
+  {abbr:'FH',full:'Familial Hypercholesterolemia',ko:'가족성 고콜레스테롤혈증',desc:'LDL 수용체·ApoB·PCSK9 유전자 변이로 LDL-C 극도 상승. DLCN/Simon Broome 기준으로 진단. 조기 ASCVD 위험. 고강도 스타틴+에제티미브±PCSK9i 요구'},
+  {abbr:'LOE',full:'Level of Evidence',ko:'근거 수준',desc:'A: 다중 RCT/메타분석. B-R: 무작위 단일. B-NR: 비무작위 연구. C-LD: 제한된 데이터. C-EO: 전문가 의견'},
+  {abbr:'RCT',full:'Randomized Controlled Trial',ko:'무작위 대조 임상시험',desc:'임상 근거의 최고 수준. LOE A = 복수의 RCT 또는 메타분석 기반'},
+  {abbr:'EPA',full:'Eicosapentaenoic Acid',ko:'에이코사펜타엔산(오메가-3)',desc:'고순도 EPA = Icosapent ethyl(Vascepa). TG ≥175 mg/dL + 스타틴 복용 중 ASCVD 고위험군에서 사건 25% 감소 (REDUCE-IT trial). 어유(fish oil) 혼합 제제와 효과 차이 있음'},
+  {abbr:'VLDL',full:'Very Low-Density Lipoprotein',ko:'초저밀도지단백',desc:'TG가 풍부한 지단백. TG↑ 시 증가. Non-HDL 및 remnant cholesterol에 포함'},
+  {abbr:'IDL',full:'Intermediate-Density Lipoprotein',ko:'중간밀도지단백',desc:'VLDL → LDL 대사 중간체. 죽상경화 유발. Non-HDL에 포함'},
+  {abbr:'PTA',full:'Percutaneous Transluminal Angioplasty',ko:'경피적 혈관성형술',desc:'말초동맥 재개통술. 시행력 있으면 PAD = ASCVD 기왕력(2차 예방)으로 분류'},
+  {abbr:'SNP',full:'Single Nucleotide Polymorphism',ko:'단일 염기 다형성',desc:'PRS 계산의 기본 단위. 수십만~수백만 개 SNP 위험 대립유전자 합산으로 CAD 유전 위험도 산출'},
+  {abbr:'FIB-4',full:'Fibrosis-4 Index',ko:'섬유화-4 지수',desc:'(나이 × AST) / (혈소판 × √ALT). MASLD 간섬유화 비침습적 스크리닝 지표. <1.3: 저위험, >2.67: 고위험(조직검사 고려)'},
+  {abbr:'SBP',full:'Systolic Blood Pressure',ko:'수축기 혈압',desc:'PREVENT 위험 모델 포함 변수. 혈압약 복용 여부와 함께 입력. 고혈압(≥130/80 mmHg)은 ASCVD 주요 위험인자'},
+  {abbr:'TIA',full:'Transient Ischemic Attack',ko:'일과성 허혈발작',desc:'뇌졸중 증상이 24시간 내 소실되는 일시적 뇌허혈. 허혈성 뇌졸중과 동등하게 ASCVD 2차 예방 대상'},
+  {abbr:'PCE',full:'Pooled Cohort Equations',ko:'통합 코호트 방정식',desc:'이전 ACC/AHA 10년 ASCVD 위험 계산식. 2023년 PREVENT 모델로 대체됨'},
+  {abbr:'DLCN',full:'Dutch Lipid Clinic Network (Score)',ko:'네덜란드 지질클리닉 기준',desc:'FH 진단 기준점수. 혈중 LDL-C 수치, 가족력, 신체 소견(황색종 등), 유전자 검사를 포함. ≥8점: 확진, 6–7: 가능성 높음, 3–5: 가능성 있음'},
+  {abbr:'MASLD',full:'Metabolic-Associated Steatotic Liver Disease',ko:'대사이상 관련 지방간질환',desc:'구 NAFLD(2023 명칭 변경). MASLD의 중증 형태 = MASH(구 NASH)'},
+  {abbr:'CAD PRS',full:'Coronary Artery Disease Polygenic Risk Score',ko:'관상동맥질환 다유전자 위험 점수',desc:'수십만 SNP 기반 CAD 유전 위험 종합 점수. 상위 10% 이내 또는 상대위험도 ≥2배 시 위험증강인자 (2026 ACC/AHA Class IIa)'},
+  {abbr:'MASH',full:'Metabolic dysfunction-Associated Steatohepatitis',ko:'대사이상 관련 지방간염',desc:'구 NASH. MASLD 중 간염 동반 중증 형태. 간경화·간암 진행 위험'},
+  {abbr:'HF',full:'Heart Failure',ko:'심부전',desc:'PREVENT 모델에서 ASCVD와 별도로 30년 위험도 제공. CKM Stage 4에 포함'},
+  {abbr:'ESC',full:'European Society of Cardiology',ko:'유럽심장학회',desc:'2025 ESC/EAS 가이드라인 — 경동맥 plaque ≥1.5mm를 Class IIa 위험수정인자로 권고'},
+  {abbr:'EAS',full:'European Atherosclerosis Society',ko:'유럽죽상경화학회',desc:'ESC와 공동으로 유럽 지질 가이드라인 발행'},
+  {abbr:'STEMI',full:'ST-Elevation Myocardial Infarction',ko:'ST분절상승 심근경색',desc:'관상동맥 완전 폐색으로 ST분절 상승 동반 심근경색. 응급 재관류 치료 필요. 2차 예방 고위험군'},
+  {abbr:'NSTEMI',full:'Non-ST-Elevation Myocardial Infarction',ko:'비ST분절상승 심근경색',desc:'관상동맥 부분 폐색. 심근 손상 동반. ACS의 일부. 2차 예방 대상'},
+  {abbr:'ACS',full:'Acute Coronary Syndrome',ko:'급성관상동맥증후군',desc:'불안정협심증·NSTEMI·STEMI 포함. 2차 예방 — LDL 목표 <70 mg/dL (초고위험 <55 mg/dL)'},
+  {abbr:'BMI',full:'Body Mass Index',ko:'체질량지수',desc:'체중(kg) / 신장²(m). ≥25 과체중, ≥30 비만, ≥35 고도비만(CKM 위험증강인자)'}
+];
+
+var _glIdx=-1, _glFiltered=[];
+
+function glossarySearch(val){
+  var q=(val||'').trim().toUpperCase();
+  var drop=document.getElementById('glossaryDropdown');
+  var clr=document.getElementById('glossaryClear');
+  if(clr) clr.style.display=q?'block':'none';
+  if(!q){drop.style.display='none';_glFiltered=[];_glIdx=-1;return;}
+  _glFiltered=GLOSSARY.filter(function(d){
+    return d.abbr.toUpperCase().indexOf(q)===0||
+           d.abbr.toUpperCase().replace(/[^A-Z0-9]/g,'').indexOf(q)===0||
+           d.ko.replace(/ /g,'').indexOf(val)>=0;
+  });
+  // 정확 매치 먼저
+  _glFiltered.sort(function(a,b){
+    var ea=a.abbr.toUpperCase()===q?-1:0;
+    var eb=b.abbr.toUpperCase()===q?-1:0;
+    return ea-eb;
+  });
+  // 중복 제거
+  var seen={};
+  _glFiltered=_glFiltered.filter(function(d){if(seen[d.abbr])return false;seen[d.abbr]=1;return true;});
+  _glIdx=-1;
+  renderGlossary();
+}
+
+function renderGlossary(){
+  var drop=document.getElementById('glossaryDropdown');
+  if(!_glFiltered.length){
+    drop.innerHTML='<div class="gl-empty">검색 결과 없음</div>';
+    drop.style.display='block';return;
+  }
+  var html=_glFiltered.map(function(d,i){
+    var desc=d.desc?'<div class="gl-detail"><div class="gl-desc">'+d.desc+'</div></div>':'';
+    return '<div class="gl-item" data-idx="'+i+'" onmousedown="event.preventDefault()" onclick="expandGlItem('+i+',this)">'
+      +'<div class="gl-abbr">'+d.abbr+'</div>'
+      +'<div class="gl-ko">'+d.ko+'</div>'
+      +'<div class="gl-full">'+d.full+'</div>'
+      +desc
+      +'</div>';
+  }).join('');
+  drop.innerHTML=html;
+  drop.style.display='block';
+}
+
+function expandGlItem(idx,el){
+  var det=el.querySelector('.gl-detail');
+  if(det){det.style.display=det.style.display==='block'?'none':'block';}
+}
+
+function glossaryKeyNav(e){
+  var drop=document.getElementById('glossaryDropdown');
+  var items=drop.querySelectorAll('.gl-item');
+  if(!items.length)return;
+  if(e.key==='ArrowDown'){e.preventDefault();_glIdx=Math.min(_glIdx+1,items.length-1);}
+  else if(e.key==='ArrowUp'){e.preventDefault();_glIdx=Math.max(_glIdx-1,0);}
+  else if(e.key==='Enter'&&_glIdx>=0){items[_glIdx].click();return;}
+  else if(e.key==='Escape'){closeGlossary();return;}
+  items.forEach(function(el,i){el.classList.toggle('gl-active',i===_glIdx);});
+  if(_glIdx>=0)items[_glIdx].scrollIntoView({block:'nearest'});
+}
+
+function closeGlossary(){
+  var drop=document.getElementById('glossaryDropdown');
+  if(drop)drop.style.display='none';
+}
+
+function clearGlossary(){
+  var inp=document.getElementById('glossaryInput');
+  if(inp)inp.value='';
+  document.getElementById('glossaryClear').style.display='none';
+  closeGlossary();
+  _glFiltered=[];_glIdx=-1;
+  if(inp)inp.focus();
+}
+
+// 검색창 외부 클릭 시 닫기
+document.addEventListener('click',function(e){
+  if(!document.getElementById('glossarySearchWrap').contains(e.target))closeGlossary();
+});
+</script>
 </script>
 
 <!-- PRINT SUMMARY (shows only when printing) -->
