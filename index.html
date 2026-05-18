@@ -339,7 +339,7 @@ var GLOSSARY=[
   {abbr:'CKD',full:'Chronic Kidney Disease',ko:'만성신장질환',desc:'eGFR 15–59 mL/min/1.73m² 시 ASCVD 위험증강인자. 40세 미만에서는 자동 반영. eGFR <30 시 스타틴 용량 조절 필요'},
   {abbr:'eGFR',full:'estimated Glomerular Filtration Rate',ko:'추정 사구체여과율',desc:'CKD-EPI 2021 공식 적용. PREVENT 위험 모델 포함 변수(mg/dL). <60 시 CKD, <15 시 말기신부전'},
   {abbr:'UACR',full:'Urine Albumin-to-Creatinine Ratio',ko:'소변 알부민-크레아티닌 비',desc:'신장 손상 지표(mg/g). 30 이상: 미세알부민뇨. 300 이상: 대량알부민뇨. PREVENT 2023 포함 변수'},
-  {abbr:'HbA1c',full:'Hemoglobin A1c (Glycated Hemoglobin)',ko:'당화혈색소',desc:'3개월 혈당 조절 지표(%). 5.7–6.4%: 전당뇨. ≥6.5%: 당뇨 진단. PREVENT 포함 변수'},
+  {abbr:'HbA1c',full:'Hemoglobin A1c (Glycated Hemoglobin)',ko:'당화혈색소',desc:'3개월 혈당 조절 지표(%). 5.7–6.4%: 전당뇨. ≥6.5%: 당뇨 진단. PREVENT 2023 포함 변수. 당뇨(dm=1) 시 hba1cDm 계수, 비당뇨(dm=0) 시 hba1cNoDm 계수로 각각 별도 반영. 단, UACR을 함께 입력해야 full model이 적용되어 위험도 계산에 영향을 미침. UACR 없이 HbA1c만 입력하면 base model 사용 → 계수 0 → 위험도에 영향 없음'},
   {abbr:'BMI',full:'Body Mass Index',ko:'체질량지수',desc:'체중(kg) / 신장(m²). ≥25: 과체중, ≥30: 비만, ≥35: 고도비만(CKM 위험증강인자). PREVENT 모델 포함 변수'},
   {abbr:'CAC',full:'Coronary Artery Calcification (Score)',ko:'관상동맥 석회화 점수',desc:'CT로 측정하는 무증상 죽상경화 정량 지표. CAC=0: 10년 스타틴 유예 합리적. 1–99: 위험증강인자. 100–299 또는 ≥75백분위: 스타틴 충분조건(LDL<70). 300–999: 고강도 스타틴. ≥1000: 초고위험 수준(LDL<55)'},
   {abbr:'ABI',full:'Ankle-Brachial Index',ko:'발목-상완 지수',desc:'<0.9: 말초동맥질환(PAD). 무증상이면 위험증강인자(LDL<100). 파행·재개통술·궤양 있으면 ASCVD 2차 예방으로 전환. >1.40: 혈관 석회화로 비압박성 — toe-brachial index 시행 권장'},
@@ -658,22 +658,27 @@ document.addEventListener('click',function(e){
   <div class="card" id="cardPreventExtra" style="border-top:3px solid #185fa5">
     <div class="sec">PREVENT 2023 추가 입력 (선택)</div>
     <div class="row2">
-      <div class="field"><span class="fl">UACR (mg/g) — 선택</span><input type="number" id="uacr" value="" min="0" max="15000" placeholder="미입력 시 제외"></div>
-    </div>
-    <div class="row2">
-      <div class="field"><span class="fl">HbA1c (%) — 당뇨 시</span><input type="number" autocomplete="off" id="hba1c" step="0.1" min="5" max="16" placeholder="선택"></div>
       <div class="field">
-        <span class="fl">신장 / 체중 → BMI 자동 계산</span>
-        <div style="display:flex;align-items:center;gap:5px">
-          <input type="number" autocomplete="off" id="ht" step="1" min="100" max="220" placeholder="신장 cm" style="width:50%">
-          <input type="number" autocomplete="off" id="wt" step="0.1" min="20" max="200" placeholder="체중 kg" style="width:50%">
-        </div>
-        <div style="display:flex;align-items:center;gap:7px;margin-top:5px">
-          <span class="fl" style="margin-bottom:0;white-space:nowrap">BMI (kg/m²)</span>
-          <input type="number" autocomplete="off" id="bmi" step="0.1" min="14" max="65" placeholder="직접 입력 가능" style="flex:1">
-          <span id="bmiOut" style="font-size:12px;font-weight:700;color:#1a1a18;min-width:52px;text-align:right"></span>
-        </div>
+        <span class="fl">UACR (mg/g)</span>
+        <input type="number" id="uacr" value="" min="0" max="15000" placeholder="미입력 시 제외" style="width:100px">
       </div>
+      <div class="field">
+        <span class="fl">HbA1c (%) <span style="font-size:10px;color:#888780;font-weight:400">— UACR 입력 시 반영</span></span>
+        <input type="number" autocomplete="off" id="hba1c" step="0.1" min="5" max="16" placeholder="선택" style="width:68px">
+      </div>
+    </div>
+    <div class="field">
+      <span class="fl">신장 / 체중 → BMI 자동 계산</span>
+      <div style="display:flex;align-items:center;gap:5px">
+        <input type="number" autocomplete="off" id="ht" step="1" min="100" max="220" placeholder="cm" style="width:58px">
+        <input type="number" autocomplete="off" id="wt" step="0.1" min="20" max="200" placeholder="kg" style="width:58px">
+        <span style="font-size:12px;white-space:nowrap;color:#5f5e5a">BMI</span>
+        <input type="number" autocomplete="off" id="bmi" step="0.1" min="14" max="65" placeholder="직접입력" style="width:88px">
+        <span id="bmiOut" style="font-size:12px;font-weight:700;color:#1a1a18;min-width:48px;text-align:right"></span>
+      </div>
+    </div>
+    <div style="margin-top:2px;margin-bottom:2px;padding:4px 9px;background:#f1efe8;border-radius:6px;font-size:10px;color:#5f5e5a">
+      ※ HbA1c는 UACR과 함께 입력해야 full model 적용. 당뇨 여부 무관, 전당뇨(예: 6.2%)도 위험도에 반영됨.
     </div>
     <div class="divider" style="margin-top:8px"></div>
     <div class="field" style="margin-top:7px;margin-bottom:0">
