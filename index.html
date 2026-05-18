@@ -627,23 +627,21 @@ document.addEventListener('click',function(e){
 
       <!-- ── 역산출 섹션 ── -->
       <div style="margin-top:9px;padding:9px 11px;background:#eef4fb;border:1px solid #b8d4ee;border-radius:8px">
-        <div style="display:flex;align-items:center;gap:7px;margin-bottom:7px;flex-wrap:wrap">
-          <span style="font-size:11px;font-weight:700;color:#185fa5;white-space:nowrap">🔄 치료 전 수치 역산출</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-          <div style="display:flex;align-items:center;gap:5px">
-            <span style="font-size:11px;color:#1a1a18;font-weight:600;white-space:nowrap">복용 스타틴 강도:</span>
-            <select id="backCalcIntensity" style="width:auto;padding:4px 8px;font-size:12px;border:1px solid #b8d4ee;border-radius:6px;background:#fff;color:#1a1a18">
-              <option value="">— 선택 —</option>
-              <option value="high">고강도 (Rosuva 20–40 / Atorva 40–80 mg) · LDL ↓약 50%</option>
-              <option value="mod">중등강도 (Rosuva 5–10 / Atorva 10–20 mg) · LDL ↓약 30–35%</option>
-              <option value="low">저강도 (Prava 10–20 / Simva 10 mg) · LDL ↓약 20%</option>
-            </select>
+        <div style="margin-bottom:7px">
+          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:5px">
+            <span style="font-size:11px;font-weight:700;color:#185fa5;white-space:nowrap">🔄 치료 전 수치 역산출</span>
+            <span style="font-size:11px;color:#5f5e5a;white-space:nowrap">(복용 스타틴 강도)</span>
+            <button type="button" id="backCalcBtn" onclick="runBackCalc()"
+              style="padding:5px 12px;background:#185fa5;color:#fff;border:none;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:inherit">
+              역산출 → 자동 입력
+            </button>
           </div>
-          <button type="button" id="backCalcBtn" onclick="runBackCalc()"
-            style="padding:5px 13px;background:#185fa5;color:#fff;border:none;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:inherit">
-            역산출 → 자동 입력
-          </button>
+          <select id="backCalcIntensity" style="width:100%;padding:4px 6px;font-size:11px;border:1px solid #b8d4ee;border-radius:6px;background:#fff;color:#1a1a18">
+            <option value="">— 선택 —</option>
+            <option value="high">고강도 (Rosuva 20–40 / Atorva 40–80 mg) · LDL ↓약 50%</option>
+            <option value="mod">중등강도 (Rosuva 5–10 / Atorva 10–20 mg) · LDL ↓약 30–35%</option>
+            <option value="low">저강도 (Prava 10–20 / Simva 10 mg) · LDL ↓약 20%</option>
+          </select>
         </div>
         <div id="backCalcResult" style="display:none;margin-top:7px;font-size:11px;color:#185fa5;line-height:1.7;padding:6px 9px;background:#ddeefa;border-radius:6px"></div>
         <div id="backCalcWarn" style="display:none;margin-top:5px" class="nb warn">
