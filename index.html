@@ -354,7 +354,7 @@ var GLOSSARY=[
   {abbr:'MI',full:'Myocardial Infarction',ko:'심근경색증',desc:'ASCVD 기왕력의 주요 유형. STEMI/NSTEMI 포함. 2차 예방 대상 — LDL 목표 <70 (일반), <55 (초고위험)'},
   {abbr:'PCSK9',full:'Proprotein Convertase Subtilisin/Kexin type 9',ko:'PCSK9 (지단백 수용체 조절 효소)',desc:'LDL 수용체를 분해하여 LDL-C 상승 유발. 억제제(evolocumab·alirocumab): LDL 추가 50–60% 감소. 초고위험 스타틴+에제티미브 미달성 시 3단계 추가 치료'},
   {abbr:'NNT',full:'Number Needed to Treat',ko:'치료 필요 수',desc:'1명의 사건을 예방하기 위해 치료해야 하는 환자 수. 낮을수록 치료 효율 높음. 위험군별: 저위험 ~267, 경계 ~100, 중간 ~53, 고위험 1차 ~24, 고위험 2차 ~11, 초고위험 2차 ~7'},
-  {abbr:'NNH',full:'Number Needed to Harm',ko:'위해 필요 수',desc:'치료로 인해 1명에게 부작용이 발생하는 데 필요한 치료 환자 수. NNT vs NNH 비교로 치료 이익/위해 판단'},
+  {abbr:'NNH',full:'Number Needed to Harm',ko:'위해 필요 수',desc:'치료로 인해 1명에게 부작용이 발생하는 데 필요한 치료 환자 수. NNT vs NNH 비교로 치료 이익/위해 균형 판단. 스타틴 NNH(4년 기준): 신규당뇨(NODM) — 중등강도 ~208, 고강도 ~58 / 간효소 상승(>3×ULN) ~313 / 약리적 SAMS(진성) ~13–50 / 진성 근병증 ~2,500 / 횡문근융해증 ~8,000–12,500. 통합 NNH(RCT 기반 약리적 부작용 합산, 중등강도) ≈ 21 (CTT · Lancet 2026)'},
   {abbr:'RRR',full:'Relative Risk Reduction',ko:'상대위험 감소율',desc:'스타틴: LDL 38.7 mg/dL(1 mmol/L) 감소 시 ASCVD 사건 약 22% 상대적 감소 (CTT meta-analysis). 기저위험에 무관하게 일정'},
   {abbr:'ARR',full:'Absolute Risk Reduction',ko:'절대위험 감소율',desc:'10년간 절대적 사건 예방 비율 = 기저위험 × RRR. 기저위험이 높을수록 ARR 증가 → NNT 감소'},
   {abbr:'CTT',full:'Cholesterol Treatment Trialists Collaboration',ko:'콜레스테롤 치료 임상시험 협력단',desc:'스타틴 RCT 대규모 메타분석. LDL 1 mmol/L 감소 시 ASCVD 사건 약 22% RRR의 핵심 근거 제공'},
@@ -395,7 +395,16 @@ var GLOSSARY=[
   {abbr:'STEMI',full:'ST-Elevation Myocardial Infarction',ko:'ST분절상승 심근경색',desc:'관상동맥 완전 폐색으로 ST분절 상승 동반 심근경색. 응급 재관류 치료 필요. 2차 예방 고위험군'},
   {abbr:'NSTEMI',full:'Non-ST-Elevation Myocardial Infarction',ko:'비ST분절상승 심근경색',desc:'관상동맥 부분 폐색. 심근 손상 동반. ACS의 일부. 2차 예방 대상'},
   {abbr:'ACS',full:'Acute Coronary Syndrome',ko:'급성관상동맥증후군',desc:'불안정협심증·NSTEMI·STEMI 포함. 2차 예방 — LDL 목표 <70 mg/dL (초고위험 <55 mg/dL)'},
-  {abbr:'BMI',full:'Body Mass Index',ko:'체질량지수',desc:'체중(kg) / 신장²(m). ≥25 과체중, ≥30 비만, ≥35 고도비만(CKM 위험증강인자)'}
+  {abbr:'BMI',full:'Body Mass Index',ko:'체질량지수',desc:'체중(kg) / 신장²(m). ≥25 과체중, ≥30 비만, ≥35 고도비만(CKM 위험증강인자)'},
+  {abbr:'SAMS',full:'Statin-Associated Muscle Symptoms',ko:'스타틴 관련 근육 증상',desc:'스타틴 복용 중 발생하는 근육 관련 증상의 총칭. 근육통(myalgia)·근무력증·근병증(myopathy, CK>10×ULN)·횡문근융해증까지 스펙트럼. RCT에서 약리적 SAMS는 0.5–2%이나, 임상 현장에서 10–20% 호소 — 차이의 80–90%는 노세보(nocebo) 효과. SAMSON n-of-1 trial: 이전 SAMS 환자의 위약 기간과 스타틴 기간 근육 증상 차이 없음 확인'},
+  {abbr:'NODM',full:'New-Onset Diabetes Mellitus',ko:'신규 당뇨병 발생 (스타틴 유발)',desc:'스타틴 복용 후 발생하는 당뇨병. 계열 전체 효과(class effect)이나 강도 비례. CTT 2024(Lancet Diabetes Endocrinol): 중등강도 RR 1.10, 고강도 RR 1.36. NNH(4년): 중등강도 ~208, 고강도 ~58. 단, 스타틴 유발 NODM은 기존 T2DM보다 대혈관 합병증 위험 낮음 — 잠재적 DM의 조기 현성화로 해석. Pitavastatin·Pravastatin이 상대적으로 낮은 위험'},
+  {abbr:'Nocebo',full:'Nocebo Effect',ko:'노세보 효과',desc:'위약을 복용해도 약물 부작용을 예상하여 증상이 발생하는 현상. 플라세보의 반대 개념. 스타틴 SAMS의 80–90%를 설명: SAMSON trial(N=200 n-of-1 crossover)에서 atorvastatin과 위약의 근육 증상 점수 차이 없음. 임상적으로 SAMS 호소 시 dechallenge/rechallenge 또는 약물 전환을 먼저 시도'},
+  {abbr:'Rhabdo',full:'Rhabdomyolysis',ko:'횡문근융해증',desc:'골격근 대량 파괴로 미오글로빈이 혈중 유출되는 중증 근독성. CK >10×ULN + 미오글로빈뇨 ± 급성신부전. 스타틴 발생률: 2–3/100,000 person-yr(NNH ~8,000–12,500/4년). 집중요법에서 4/10,000(vs 표준 1/10,000). Simvastatin 80mg 금지 후 발생률 감소. 위험인자: CYP3A4 약물 상호작용(특히 simvastatin/lovastatin), 고령, CKD, 갑상선기능저하증, gemfibrozil 병용'},
+  {abbr:'IMNM',full:'Immune-Mediated Necrotizing Myopathy',ko:'면역매개 괴사근병증',desc:'스타틴 중단 후에도 지속·악화되는 자가면역 근병증. Anti-HMGCR 항체(스타틴 노출 후 자가면역 유발) 양성. 발생률 ~1–2/100,000 — 극희귀. 면역억제 치료 필요(스테로이드, IVIG, Rituximab). 고강도 장기 스타틴 사용자에서 주의'},
+  {abbr:'LFT',full:'Liver Function Tests',ko:'간기능 검사',desc:'AST, ALT, ALP, GGT, bilirubin, PT 포함. 스타틴 임상시험에서 AST/ALT >3×ULN 발생: 스타틴군 0.30%/yr vs 위약 0.22%/yr, RR 1.41(CTT Lancet 2026). NNH ~313/4년. 단, 임상적 간부전·담즙정체·간염 등 심각한 간독성은 FDR 유의 신호 없음 — 생화학적 이상이 임상 간질환으로 진행하지 않음이 확인됨'},
+  {abbr:'ALP',full:'Alkaline Phosphatase',ko:'알칼리인산분해효소',desc:'담도계·골격계·간 손상의 지표. 정상 범위 40–130 IU/L(기관별 상이). 스타틴의 \"기타 LFT 이상\"에 포함되는 항목 중 하나. 담도 폐쇄·간침윤성 질환·골전이 시 상승. 스타틴 투여 시 경미한 ALP 상승이 보고되나 임상적 담즙정체 신호는 CTT 2026 대규모 RCT에서 FDR 유의하지 않음'},
+  {abbr:'GGT',full:'Gamma-Glutamyl Transferase',ko:'감마글루타밀전이효소',desc:'간·담도·췌장 질환 및 알코올 섭취의 민감한 지표. 정상 범위 남 10–71 IU/L, 여 6–42 IU/L(기관별 상이). 스타틴의 \"기타 LFT 이상\"에 포함. 알코올·약물·지방간에서도 상승하여 특이도 낮음. 스타틴 투여 시 경미한 GGT 상승 가능하나 임상적 의의는 제한적 — ALP와 함께 담도 기원 여부 감별에 활용'},
+  {abbr:'ARD',full:'Absolute Risk Difference',ko:'절대위험 차이',desc:'치료군과 대조군(위약군) 간 사건 발생률의 절대적 차이. 이익 맥락에서는 ARR(Absolute Risk Reduction)과 동의어로 쓰임. 부작용(NNH) 맥락에서는 스타틴군 부작용 발생률 − 위약군 발생률 = 초과 발생률. NNH = 1 ÷ ARD. 예) 스타틴 중등강도 4년간 NODM ARD ≈ 0.48% → NNH ≈ 208. ARD는 기저 발생률에 비례하므로 동일 RR이라도 고위험 집단에서 ARD가 커져 NNH는 낮아짐'}
 ];
 
 var _glIdx=-1, _glFiltered=[];
@@ -1467,6 +1476,367 @@ document.addEventListener('click',function(e){
   </div>
   <!-- ══ /NNT 비교 ══ -->
 
+  <!-- ══ NNH 독립 카드 ══ -->
+  <div class="card" id="cardNnhLeft" style="border-top:3px solid #e24b4a">
+    <div class="sec" onclick="toggleNNHBox()" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;color:#a32d2d">
+      <span style="display:flex;align-items:center;gap:7px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a32d2d" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        스타틴 부작용 — NNH 비교
+        <span style="font-size:10px;font-weight:600;color:#a32d2d;background:#fcebeb;border:1px solid #f09595;border-radius:5px;padding:2px 7px;letter-spacing:0;text-transform:none">CTT</span>
+      </span>
+      <span id="nnhArrow" style="font-size:12px;color:#a32d2d;transition:transform .2s;display:inline-block">▶</span>
+    </div>
+    <div id="nnhBody" style="display:none;margin-top:4px">
+
+        <!-- 근거 출처 -->
+        <div style="padding:6px 10px;background:#f8f7f5;border-left:3px solid #888780;border-radius:0 6px 6px 0;font-size:10px;color:#5f5e5a;margin-bottom:10px;line-height:1.7">
+          <b>근거:</b> CTT Collaboration, <i>Lancet</i> 2026 Feb 5;407:689–703 (19 이중맹검 RCT, 123,940명, 중앙값 4.5년) &amp; CTT, <i>Lancet Diabetes Endocrinol</i> 2024;12:306–319 (NODM 세부 분석).
+          66개 표시 부작용 중 <b>인과성이 RCT 수준에서 확인된 것은 6종</b>뿐. 인지장애·우울·발기부전·수면장애·체중증가 등은 위약 대비 유의한 초과 없음.
+        </div>
+
+        <!-- NNH 테이블 -->
+        <div style="font-size:10px;font-weight:700;color:#888780;text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px">부작용별 NNH (4년 기준, 중등도 강도 기준)</div>
+        <div style="overflow-x:auto">
+          <!-- ★ 테이블 1: NODM -->
+          <table class="lt" style="min-width:500px">
+            <colgroup>
+              <col style="width:22%">
+              <col style="width:16%">
+              <col style="width:13%">
+              <col style="width:14%">
+              <col style="width:11%">
+              <col>
+            </colgroup>
+            <thead>
+            <thead>
+              <tr>
+                <th style="width:22%">부작용</th>
+                <th style="width:16%">연간 초과 발생률</th>
+                <th style="width:13%">RR (95% CI)</th>
+                <th style="width:14%">NNH (4년)</th>
+                <th style="width:11%">심각도</th>
+                <th>비고</th>
+              </tr>
+            </thead>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <b style="cursor:pointer;color:#185fa5;text-decoration:underline dotted;text-underline-offset:2px"
+                     onclick="toggleNodmDetail()" title="클릭하여 상세 설명 보기">신규 당뇨 (NODM)</b>
+                  <br><span style="font-size:9px;color:#185fa5;cursor:pointer" onclick="toggleNodmDetail()">&#9658; 상세 보기</span>
+                </td>
+                <td style="color:#854f0b">+0.10–0.43%/yr</td>
+                <td>1.10–1.36</td>
+                <td><b style="color:#a32d2d">58–208</b></td>
+                <td><span class="badge" style="background:#faeeda;color:#633806;font-size:10px">중등</span></td>
+                <td style="font-size:10px;color:#5f5e5a">중등강도 ~208, 고강도 ~58. 강도 비례 (CTT 2024)</td>
+              </tr>
+            </tbody>
+          </table>
+
+        <!-- ══ NODM 상세 패널 ══ -->
+        <!-- ══ NODM 상세 패널 (테이블 외부) ══ -->
+        <div id="nodmDetailPanel" style="display:none;margin:6px 0 10px;border:1.5px solid #f5d88a;border-radius:10px;font-size:11px;color:#1a1a18;overflow:hidden">
+          <!-- 고정 헤더 -->
+          <div style="padding:10px 16px 9px;background:#faeeda;border-bottom:1px solid #f5d88a;border-radius:10px 10px 0 0;display:flex;align-items:center;justify-content:space-between">
+            <span style="font-size:12px;font-weight:700;color:#854f0b">신규 당뇨 (NODM) &#8212; 기전 및 임상 적용</span>
+            <button onclick="toggleNodmDetail()" style="padding:3px 13px;background:#854f0b;color:#fff;border:none;border-radius:5px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit">닫기 &#10005;</button>
+          </div>
+          <!-- 스크롤 본문 -->
+          <div style="max-height:420px;overflow-y:auto;overflow-x:hidden;padding:14px 16px 12px;background:#fffbf0;line-height:1.75">
+
+          <!-- 강도별 위험 -->
+          <div style="font-weight:700;color:#854f0b;margin-bottom:5px;font-size:11px">&#9658; 강도별 위험 (CTT 2024, 4년 기준)</div>
+          <table style="width:100%;font-size:10px;border-collapse:collapse;margin-bottom:10px">
+            <thead><tr style="background:#faeeda">
+              <th style="padding:4px 7px;text-align:left;color:#854f0b;font-weight:700;border-bottom:1px solid #f5d88a">강도</th>
+              <th style="padding:4px 7px;text-align:center;color:#854f0b;font-weight:700;border-bottom:1px solid #f5d88a">RR</th>
+              <th style="padding:4px 7px;text-align:center;color:#854f0b;font-weight:700;border-bottom:1px solid #f5d88a">NNH (4년)</th>
+              <th style="padding:4px 7px;text-align:left;color:#854f0b;font-weight:700;border-bottom:1px solid #f5d88a">절대 초과 발생률</th>
+            </tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid #faeeda">
+                <td style="padding:4px 7px;font-weight:700">중등강도</td>
+                <td style="padding:4px 7px;text-align:center">1.10</td>
+                <td style="padding:4px 7px;text-align:center;font-weight:700;color:#854f0b">~208</td>
+                <td style="padding:4px 7px">+0.48% / 4년</td>
+              </tr>
+              <tr>
+                <td style="padding:4px 7px;font-weight:700">고강도</td>
+                <td style="padding:4px 7px;text-align:center">1.36</td>
+                <td style="padding:4px 7px;text-align:center;font-weight:700;color:#a32d2d">~58</td>
+                <td style="padding:4px 7px">+1.72% / 4년</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- 기전 -->
+          <div style="font-weight:700;color:#854f0b;margin-bottom:5px;font-size:11px">&#9658; 발생 기전</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px">
+            <div style="padding:7px 9px;background:#fff;border-radius:7px;border-left:3px solid #ef9f27">
+              <div style="font-weight:700;color:#1a1a18;margin-bottom:2px">&#9312; &beta;세포 직접 억제</div>
+              <div style="font-size:10px;color:#5f5e5a">Isoprenoid 중간물질&darr; &rarr; 소도세포 Ca²⁺ 신호 이상 &rarr; 인슐린 분비&darr;</div>
+            </div>
+            <div style="padding:7px 9px;background:#fff;border-radius:7px;border-left:3px solid #ef9f27">
+              <div style="font-weight:700;color:#1a1a18;margin-bottom:2px">&#9313; 골격근 GLUT4 감소</div>
+              <div style="font-size:10px;color:#5f5e5a">GLUT4 translocation 억제 &rarr; 말초 인슐린 감수성&darr; &rarr; 혈당&uarr;</div>
+            </div>
+            <div style="padding:7px 9px;background:#fff;border-radius:7px;border-left:3px solid #ef9f27">
+              <div style="font-weight:700;color:#1a1a18;margin-bottom:2px">&#9314; 간 당신생 증가</div>
+              <div style="font-size:10px;color:#5f5e5a">간세포 isoprenoid 변화 &rarr; gluconeogenesis 촉진</div>
+            </div>
+            <div style="padding:7px 9px;background:#fff;border-radius:7px;border-left:3px solid #ef9f27">
+              <div style="font-weight:700;color:#1a1a18;margin-bottom:2px">&#9315; 지방세포 분화 억제</div>
+              <div style="font-size:10px;color:#5f5e5a">이소성 지방 축적 &rarr; 인슐린 저항성&uarr;</div>
+            </div>
+          </div>
+
+          <!-- 약제별 -->
+          <div style="font-weight:700;color:#854f0b;margin-bottom:5px;font-size:11px">&#9658; 약제별 위험도</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;font-size:10px">
+            <span style="padding:3px 9px;background:#fcebeb;border-radius:5px;color:#a32d2d;font-weight:700">높음: Rosuvastatin &middot; Atorvastatin</span>
+            <span style="padding:3px 9px;background:#faeeda;border-radius:5px;color:#854f0b;font-weight:700">중등: Simvastatin</span>
+            <span style="padding:3px 9px;background:#eaf3de;border-radius:5px;color:#3b6d11;font-weight:700">낮음: Pravastatin</span>
+            <span style="padding:3px 9px;background:#eaf3de;border-radius:5px;color:#3b6d11;font-weight:700">가장 낮음: Pitavastatin &#9733;</span>
+          </div>
+
+          <!-- 핵심 -->
+          <div style="padding:9px 12px;background:#faeeda;border-radius:7px;border-left:3px solid #ef9f27;margin-bottom:8px">
+            <div style="font-weight:700;color:#854f0b;margin-bottom:3px">&#9888; 핵심: 잠재적 당뇨의 조기 현성화</div>
+            <div style="font-size:10px;color:#5f5e5a;line-height:1.65">
+              완전히 새로운 당뇨가 아니라 <b>이미 진행 중이던 고위험군에서 발현을 앞당기는 것.</b><br>
+              스타틴 유발 NODM은 기존 T2DM보다 <b>대혈관 합병증 위험이 낮음.</b><br>
+              중간위험·중등강도 4년: NNT(MACE 예방) &asymp; 53 vs NNH(NODM) &asymp; 208 &rarr; <b>심혈관 이익이 약 4배 큼.</b>
+            </div>
+          </div>
+
+          <!-- 실용 접근 -->
+          <div style="font-weight:700;color:#854f0b;margin-bottom:5px;font-size:11px">&#9658; 실용적 대처</div>
+          <div style="display:flex;flex-direction:column;gap:4px;font-size:10px;color:#1a1a18;margin-bottom:8px">
+            <div>&#9312; 시작 전: 공복혈당·HbA1c 측정, 전당뇨 여부 확인</div>
+            <div>&#9313; 혈당 상승 시: <b>스타틴 중단 금지</b> (2026 ACC/AHA Class I) &mdash; 혈당 모니터링 강화 + 생활습관 교정</div>
+            <div>&#9314; 당뇨 진단 기준 충족 시: 메트포르민 등 혈당 강하 치료 병행</div>
+            <div>&#9315; 당뇨 고위험군(전당뇨·비만·대사증후군)에서 선택 가능하다면 &rarr; <b>Pitavastatin 또는 Pravastatin 우선</b></div>
+          </div>
+
+          </div><!-- /nodm scroll body -->
+        </div>
+        <!-- ══ /NODM 상세 패널 ══ -->
+
+          <!-- ★ 테이블 2: 간효소·LFT·SAMS -->
+          <table class="lt" style="min-width:500px;border-top:none">
+            <colgroup>
+              <col style="width:22%">
+              <col style="width:16%">
+              <col style="width:13%">
+              <col style="width:14%">
+              <col style="width:11%">
+              <col>
+            </colgroup>
+            <tbody>
+                            <tr>
+                <td><b>간효소 상승</b><br><span style="font-size:10px;color:#888780">AST/ALT &gt;3×ULN</span></td>
+                <td style="color:#854f0b">+0.08%/yr<br><span style="font-size:10px">(0.30 vs 0.22%)</span></td>
+                <td>1.41 (1.26–1.57)</td>
+                <td><b>~313</b></td>
+                <td><span class="badge" style="background:#eaf3de;color:#27500a;font-size:10px">경미</span></td>
+                <td style="font-size:10px;color:#5f5e5a">무증상 생화학적 변화. 임상 간부전 신호 없음</td>
+              </tr>
+              <tr>
+                <td><b>기타 LFT 이상</b><br><span style="font-size:10px;color:#888780">ALP, GGT, bilirubin 상승</span></td>
+                <td style="color:#888780">+0.05%/yr<br><span style="font-size:10px">(0.25 vs 0.20%)</span></td>
+                <td>1.26 (1.12–1.41)</td>
+                <td><b>~400</b></td>
+                <td><span class="badge" style="background:#eaf3de;color:#27500a;font-size:10px">경미</span></td>
+                <td style="font-size:10px;color:#5f5e5a">두 간지표 합산 초과 ~0.13%/yr → NNH ~192</td>
+              </tr>
+              <tr>
+                <td>
+                  <b style="cursor:pointer;color:#185fa5;text-decoration:underline dotted;text-underline-offset:2px"
+                     onclick="toggleSamsDetail()" title="클릭하여 상세 설명 보기">약리적 SAMS</b>
+                  <br><span style="font-size:10px;color:#888780">(진성, 근육통 등)</span>
+                  <br><span style="font-size:9px;color:#185fa5;cursor:pointer" onclick="toggleSamsDetail()">▶ 상세 보기</span>
+                </td>
+                <td style="color:#854f0b">+0.5–2%/yr<br><span style="font-size:10px">(NLA 2022 추정)</span></td>
+                <td>RCT ~1.07<br><span style="font-size:10px">관찰 1.5–3×</span></td>
+                <td><b style="color:#854f0b">~13–50</b></td>
+                <td><span class="badge" style="background:#faeeda;color:#633806;font-size:10px">중등</span></td>
+                <td style="font-size:10px;color:#5f5e5a">대부분 tolerable; 전환 가능. <span style="color:#a32d2d">보고율 10–20%의 80–90%는 노세보</span></td>
+              </tr>
+            </tbody>
+          </table>
+
+        <!-- ══ SAMS 상세 패널 ══ -->
+        <!-- ══ SAMS 상세 패널 (테이블 외부) ══ -->
+        <div id="samsDetailPanel" style="display:none;margin:6px 0 10px;border:1.5px solid #b8d4ee;border-radius:10px;font-size:11px;color:#1a1a18">
+
+          <!-- ── 고정 헤더 ── -->
+          <div style="padding:10px 16px 9px;background:#ddeefa;border-bottom:1px solid #b8d4ee;border-radius:10px 10px 0 0;display:flex;align-items:center;justify-content:space-between">
+            <span style="font-size:12px;font-weight:700;color:#185fa5">약리적 SAMS &#8212; 기전 및 임상 적용</span>
+            <button onclick="toggleSamsDetail()" style="padding:3px 13px;background:#185fa5;color:#fff;border:none;border-radius:5px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit">닫기 &#10005;</button>
+          </div>
+
+          <!-- ── 스크롤 본문 (height 고정 → 반드시 scrollbar 생성) ── -->
+          <div id="samsScrollBody" style="max-height:420px;overflow-y:auto;overflow-x:hidden;padding:14px 16px 12px;background:#f0f6fc;border-radius:0 0 10px 10px">
+
+            <!-- 발생 기전 -->
+            <div style="font-weight:700;color:#185fa5;margin-bottom:6px;font-size:11px">&#9658; 발생 기전</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px">
+              <div style="padding:7px 9px;background:#fff;border-radius:7px;border-left:3px solid #185fa5">
+                <div style="font-weight:700;color:#1a1a18;margin-bottom:2px">&#9312; CoQ10 고갈</div>
+                <div style="font-size:10px;color:#5f5e5a;line-height:1.6">Mevalonate 경로 차단 &#8594; ubiquinone 합성&#8595; &#8594; 미토콘드리아 ATP 생산&#8595;, 산화 스트레스&#8593;</div>
+              </div>
+              <div style="padding:7px 9px;background:#fff;border-radius:7px;border-left:3px solid #185fa5">
+                <div style="font-weight:700;color:#1a1a18;margin-bottom:2px">&#9313; 근세포 직접 독성</div>
+                <div style="font-size:10px;color:#5f5e5a;line-height:1.6">지용성 스타틴(simvastatin·lovastatin) 근육 침투&#8593; &#8594; 근세포 막 불안정화, apoptosis 유도</div>
+              </div>
+              <div style="padding:7px 9px;background:#fff;border-radius:7px;border-left:3px solid #185fa5">
+                <div style="font-weight:700;color:#1a1a18;margin-bottom:2px">&#9314; 셀레노단백질 합성&#8595;</div>
+                <div style="font-size:10px;color:#5f5e5a;line-height:1.6">Isopentenyl-PP 감소 &#8594; GPx 등 항산화 셀레노단백질 결핍 &#8594; 근육 산화 손상</div>
+              </div>
+              <div style="padding:7px 9px;background:#fff;border-radius:7px;border-left:3px solid #185fa5">
+                <div style="font-weight:700;color:#1a1a18;margin-bottom:2px">&#9315; Chloride channel 이상</div>
+                <div style="font-size:10px;color:#5f5e5a;line-height:1.6">근막 흥분성 증가 &#8594; 근육 경직·경련 유발</div>
+              </div>
+            </div>
+
+            <!-- 임상 스펙트럼 -->
+            <div style="font-weight:700;color:#185fa5;margin-bottom:6px;font-size:11px">&#9658; 임상 스펙트럼</div>
+            <table style="width:100%;font-size:10px;border-collapse:collapse;margin-bottom:12px">
+              <thead><tr style="background:#ddeefa">
+                <th style="padding:5px 7px;text-align:left;color:#185fa5;font-weight:700;border-bottom:1px solid #b8d4ee">단계</th>
+                <th style="padding:5px 7px;text-align:left;color:#185fa5;font-weight:700;border-bottom:1px solid #b8d4ee">정의</th>
+                <th style="padding:5px 7px;text-align:center;color:#185fa5;font-weight:700;border-bottom:1px solid #b8d4ee">CK</th>
+                <th style="padding:5px 7px;text-align:left;color:#185fa5;font-weight:700;border-bottom:1px solid #b8d4ee">처치</th>
+              </tr></thead>
+              <tbody>
+                <tr style="border-bottom:1px solid #e6f1fb">
+                  <td style="padding:5px 7px;font-weight:700;color:#3b6d11">Myalgia</td>
+                  <td style="padding:5px 7px">근육통·근무력, CK 정상</td>
+                  <td style="padding:5px 7px;text-align:center;color:#888780">정상</td>
+                  <td style="padding:5px 7px">용량 감량 / 약제 전환</td>
+                </tr>
+                <tr style="border-bottom:1px solid #e6f1fb">
+                  <td style="padding:5px 7px;font-weight:700;color:#854f0b">Myopathy</td>
+                  <td style="padding:5px 7px">근육통 + CK &gt;10&#215;ULN</td>
+                  <td style="padding:5px 7px;text-align:center;color:#854f0b">&gt;10&#215;ULN</td>
+                  <td style="padding:5px 7px;font-weight:600">즉시 중단</td>
+                </tr>
+                <tr style="border-bottom:1px solid #e6f1fb">
+                  <td style="padding:5px 7px;font-weight:700;color:#a32d2d">Rhabdomyolysis</td>
+                  <td style="padding:5px 7px">근육 괴사 + 미오글로빈뇨 &#177; AKI</td>
+                  <td style="padding:5px 7px;text-align:center;color:#a32d2d">&gt;40&#215;ULN</td>
+                  <td style="padding:5px 7px;font-weight:600">중단 + 입원 수액</td>
+                </tr>
+                <tr style="background:#faf8ff">
+                  <td style="padding:5px 7px;font-weight:700;color:#7b5ea7">IMNM<br><span style="font-size:9px;font-weight:400">&#10033; 기전 상이</span></td>
+                  <td style="padding:5px 7px">중단 후에도 지속·악화<br><span style="font-size:9px;color:#7b5ea7">약리적 세포독성 아님 &#8212; 스타틴이 방아쇠를 당긴 자가면역. anti-HMGCR 항체 양성.</span></td>
+                  <td style="padding:5px 7px;text-align:center;color:#7b5ea7">지속 상승</td>
+                  <td style="padding:5px 7px;font-weight:600;color:#7b5ea7">면역억제 치료<br><span style="font-size:9px;font-weight:400;color:#5f5e5a">스테로이드·IVIG·Rituximab</span></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- 노세보 -->
+            <div style="padding:9px 12px;background:#faeeda;border-radius:7px;border-left:3px solid #ef9f27;margin-bottom:12px">
+              <div style="font-weight:700;color:#854f0b;margin-bottom:3px">&#9888; 핵심: 임상 호소율 10&#8211;20% vs 약리적 진성 기여 ~1&#8211;2%</div>
+              <div style="font-size:10px;color:#5f5e5a;line-height:1.65">
+                나머지 80&#8211;90%는 <b>노세보(nocebo) 효과.</b><br>
+                SAMSON trial (BMJ 2020, n=200 n-of-1 crossover): statin 기간 근육 증상 점수 = 위약 기간과 유의한 차이 없음. 스타틴 귀속 비율 평균 <b>9%.</b>
+              </div>
+            </div>
+
+            <!-- 실용 접근 -->
+            <div style="font-weight:700;color:#185fa5;margin-bottom:6px;font-size:11px">&#9658; SAMS 호소 시 실용적 접근</div>
+            <div style="display:flex;flex-direction:column;gap:5px;font-size:10px;color:#1a1a18;line-height:1.6;margin-bottom:10px">
+              <div>&#9312; CK 측정 &#8212; <b>&gt;10&#215;ULN이면 즉시 중단</b></div>
+              <div>&#9313; Dechallenge (중단 후 소실 확인) &#8594; Rechallenge (재투여 후 재현 여부)</div>
+              <div>&#9314; 재현 시 &#8594; <b>Pitavastatin·Pravastatin으로 전환</b> 또는 격일 투여</div>
+              <div>&#9315; 약리적 SAMS 확정 시 &#8594; <b>Ezetimibe 단독</b> 또는 <b>Bempedoic acid</b> 대안 고려</div>
+            </div>
+
+            <div style="font-size:10px;color:#a32d2d;padding:6px 10px;background:#fff0f0;border-radius:6px;border-left:2px solid #e24b4a">
+              &#10033; CoQ10 보충 &#8212; 2026 ACC/AHA <b>Class III (No Benefit)</b>: RCT 메타분석에서 증상 개선 미입증
+            </div>
+
+          </div><!-- /samsScrollBody -->
+        </div>
+        <!-- ══ /SAMS 상세 패널 ══ -->
+
+          <!-- ★ 테이블 3: 근병증·횡문근·요성분 -->
+          <table class="lt" style="min-width:500px;border-top:none">
+            <colgroup>
+              <col style="width:22%">
+              <col style="width:16%">
+              <col style="width:13%">
+              <col style="width:14%">
+              <col style="width:11%">
+              <col>
+            </colgroup>
+            <tbody>
+                            <tr>
+                <td><b>진성 근병증</b><br><span style="font-size:10px;color:#888780">CK &gt;10×ULN + 증상</span></td>
+                <td style="color:#888780">~0.01%/yr<br><span style="font-size:10px">(1/10,000)</span></td>
+                <td>—</td>
+                <td><b>~2,500</b></td>
+                <td><span class="badge" style="background:#fcebeb;color:#791f1f;font-size:10px">중증</span></td>
+                <td style="font-size:10px;color:#5f5e5a">약물 중단 필요. CYP3A4 상호작용 시 ↑</td>
+              </tr>
+              <tr>
+                <td><b>횡문근융해증</b></td>
+                <td style="color:#888780">~0.002–0.003%/yr<br><span style="font-size:10px">(2–3/100,000)</span></td>
+                <td>—</td>
+                <td><b>~8,000–12,500</b></td>
+                <td><span class="badge" style="background:#fcebeb;color:#791f1f;font-size:10px">최중증</span></td>
+                <td style="font-size:10px;color:#5f5e5a">고강도 집중요법: 4/10,000. AKI, 사망 가능</td>
+              </tr>
+              <tr>
+                <td><b>요 성분 이상</b><br><span style="font-size:10px;color:#888780">(주로 단백뇨)</span></td>
+                <td style="color:#888780">+0.03%/yr<br><span style="font-size:10px">(0.21 vs 0.18%)</span></td>
+                <td>1.18 (1.04–1.33)</td>
+                <td><b>~833</b></td>
+                <td><span class="badge" style="background:#f1efe8;color:#444441;font-size:10px">불확실</span></td>
+                <td style="font-size:10px;color:#5f5e5a">임상 신부전 증가 없음. 생화학적 변화</td>
+              </tr>
+            </tbody>
+            </tbody>
+          </table>
+        </div>
+
+
+        <!-- 통합 NNH -->
+        <div style="margin-top:11px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div style="padding:9px 11px;background:#faeeda;border-radius:8px;border:1px solid #fac775">
+            <div style="font-size:10px;font-weight:700;color:#854f0b;margin-bottom:3px">통합 NNH — 중등강도 (4년, RCT 기반)</div>
+            <div style="font-size:22px;font-weight:800;color:#854f0b;line-height:1">≈ 21</div>
+            <div style="font-size:10px;color:#854f0b;margin-top:2px">합산 ARD ~4.9% (SAMS 지배)</div>
+          </div>
+          <div style="padding:9px 11px;background:#fcebeb;border-radius:8px;border:1px solid #f09595">
+            <div style="font-size:10px;font-weight:700;color:#a32d2d;margin-bottom:3px">통합 NNH — 고강도 (4년, RCT 기반)</div>
+            <div style="font-size:22px;font-weight:800;color:#a32d2d;line-height:1">≈ 12</div>
+            <div style="font-size:10px;color:#a32d2d;margin-top:2px">합산 ARD ~8.3% (SAMS+NODM 지배)</div>
+          </div>
+        </div>
+
+        <!-- NNH vs NNT -->
+        <div style="margin-top:10px;padding:8px 11px;background:#e1f5ee;border-radius:8px;border:1px solid #9fe1cb;font-size:11px;color:#085041;line-height:1.75">
+          <b>NNH vs NNT 임상 균형 (중등강도, 중간위험 4년 기준)</b><br>
+          NNT(MACE 예방) ≈ 53 &nbsp;|&nbsp; NNH(통합) ≈ 21 → <b style="color:#a32d2d">NNH &lt; NNT</b> — 수치상 부작용이 더 흔함.<br>
+          <span style="color:#0f6e56">단, NNH의 대부분은 <b>경도~중등 SAMS(tolerable)</b>이며, NODM은 기존 T2DM보다 합병증 위험 낮음. 예방된 MACE는 사망·뇌졸중·심근경색 등 중증 사건.</span><br>
+          <b>2차 예방(NNT ~11)에서는 NNT ≪ NNH — 심혈관 이익이 부작용 위험을 명확히 압도.</b>
+        </div>
+
+        <div style="margin-top:8px;font-size:10px;color:#888780;line-height:1.7">
+          ※ 통합 NNH는 각 부작용 ARD 합산의 역수. 부작용 독립 발생 가정.<br>
+          ※ 임상 현장 SAMS 10–20% 중 진성 약리적 기여는 ~1–2% (나머지 노세보). 관찰 데이터 적용 시 통합 NNH ~2–3으로 과소 추정됨.<br>
+          ※ Pitavastatin·Pravastatin: NODM 위험 유의하지 않거나 낮음 (RR 0.77–0.86 vs rosuvastatin/atorvastatin, Singh 2024).
+        </div>
+    </div><!-- /nnhBody -->
+  </div>
+  <!-- ══ /NNH 독립 카드 ══ -->
+
+
 </div>
 
 <!-- ══════ RIGHT: RESULTS PANEL ══════ -->
@@ -1646,7 +2016,7 @@ const g=id=>document.getElementById(id);
 const SIMPLE_HIDDEN = [
   'cardCprBanner','cardCprSubtitle',
   'cardPreventExtra','cardRiskEnhancer','cardAbsInd',
-  'cardSpecialStatin','cardNntLeft',
+  'cardSpecialStatin','cardNntLeft','cardNnhLeft',
   'cardLipidParam','cardNntRight','cardReference',
   'cardPreventCategory'
 ];
@@ -3574,6 +3944,49 @@ document.querySelectorAll('.cac-opt').forEach(btn=>{
     upd();
   });
 });
+
+// ── NODM 상세 패널 토글 ──
+function toggleNodmDetail(){
+  var panel = document.getElementById('nodmDetailPanel');
+  if(!panel) return;
+  var open = panel.style.display !== 'none';
+  panel.style.display = open ? 'none' : 'block';
+  document.querySelectorAll('[onclick="toggleNodmDetail()"]').forEach(function(el){
+    if(el.tagName === 'SPAN'){
+      var t = el.textContent;
+      if(t.indexOf('▶') === 0 || t.indexOf('►') === 0){
+        el.textContent = open ? '▶ 상세 보기' : '▼ 접기';
+      }
+    }
+  });
+}
+
+// ── SAMS 상세 패널 토글 ──
+function toggleSamsDetail(){
+  var panel = document.getElementById('samsDetailPanel');
+  if(!panel) return;
+  var open = panel.style.display !== 'none';
+  panel.style.display = open ? 'none' : 'block';
+  document.querySelectorAll('[onclick="toggleSamsDetail()"]').forEach(function(el){
+    if(el.tagName === 'SPAN' && (el.textContent.indexOf('▶') === 0 || el.textContent.charCodeAt(0) === 9658)){
+      el.textContent = open ? '▶ 상세 보기' : '▼ 접기';
+    }
+  });
+}
+
+// ── NNH 아코디언 토글 ──
+function toggleNNHBox(){
+  var body = document.getElementById('nnhBody');
+  var arrow = document.getElementById('nnhArrow');
+  var btn = document.getElementById('nnhToggleBtn');
+  var tag = btn ? btn.querySelector('span[style*="클릭"]') : null;
+  if(!body) return;
+  var open = body.style.display === 'block';
+  body.style.display = open ? 'none' : 'block';
+  if(arrow) arrow.style.transform = open ? '' : 'rotate(90deg)';
+  if(tag) tag.textContent = open ? '클릭하여 펼치기' : '클릭하여 접기';
+}
+
 clearResults(); // 초기 로드: 빈 화면
 
 // ── 개인화 NNT ──
@@ -3785,3 +4198,5 @@ function buildNNTChart(el){
 </script>
 </body>
 </html>
+        </div>
+
