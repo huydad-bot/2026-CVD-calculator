@@ -961,9 +961,9 @@ document.addEventListener('click',function(e){
     <label class="ck">
       <input type="checkbox" class="enh" id="carotidPlaque">
       <div><div style="font-weight:600;color:#1a1a18">경동맥 초음파 plaque ≥ 1.5 mm</div>
-      <div style="font-size:10px;color:#888780;margin-top:1px">ESC/EAS 2025 Class IIa · CAC 불가 시 subclinical ASCVD 대안 증거</div></div>
+      <div style="font-size:10px;color:#888780;margin-top:1px">ESC/EAS 2025 Class IIa 위험수정인자 — 위험도 상향 재분류 근거 (자동 처방 적응증 아님)</div></div>
     </label>
-    <div id="carotidDesc" style="display:none;font-size:10px;color:#888780;padding:1px 0 4px 19px;line-height:1.5">ESC/EAS 2025 Class IIa 위험수정인자 · ACC/AHA: CAC 불가 시 subclinical ASCVD 대안 증거 — LDL 목표 &lt;100 mg/dL</div>
+    <div id="carotidDesc" style="display:none;font-size:10px;color:#888780;padding:1px 0 4px 19px;line-height:1.5">ESC/EAS 2025 Class IIa 위험수정인자 · 저~중간위험에서 위험도 상향 재분류 근거 — 위험도 무관 자동 처방 적응증이 아님. LDL 목표 &lt;100 mg/dL (재분류 후 기준 충족 시)</div>
 
     <!-- CAC -->
     <label class="ck" style="margin-top:3px">
@@ -2652,7 +2652,7 @@ function makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt
     const riskPrefix = ageOutOfRange
       ? ageRangeNote
       : `PREVENT 2023 기준 10-year ASCVD risk는 ${prevAscvd.toFixed(1)}%로 ${riskLabel}에 해당`;
-    return `${riskPrefix}.\n그러나 경동맥 초음파상 plaque ≥1.5 mm가 확인되어 무증상 죽상경화증의 객관적 증거로 판단됨.\nESC/EAS 2025 Class IIa 및 ACC/AHA 2026 권고에 따라 PREVENT 위험도와 무관하게 스타틴 치료를 고려함.\n치료 전 LDL-C는 ${ldl} mg/dL이며, ${txState}LDL-C 목표는 <${dispLdlTgt} mg/dL.\n중등강도 스타틴 치료를 고려하며, ${addonText}.${ckdStNote}` + tgText;
+    return `${riskPrefix}.\n경동맥 초음파상 plaque ≥1.5 mm가 확인됨.\nESC/EAS 2025 Class IIa 위험수정인자로서, 위험도를 경계~중간위험으로 상향 재분류하여 스타틴 치료를 고려함 (위험도와 무관한 자동 적응증이 아님).\n치료 전 LDL-C는 ${ldl} mg/dL이며, ${txState}LDL-C 목표는 <${dispLdlTgt} mg/dL.\n중등강도 스타틴 치료를 고려하며, ${addonText}.${ckdStNote}` + tgText;
   }
 
   // ── [특수3] 저위험(<3%) + 30년 ASCVD ≥10% ──
@@ -3366,13 +3366,14 @@ function upd(){
     }
     // CAC 1–99: 위험증강인자로만 작용 — accRec의 nE 계산에 이미 반영됨. 별도 override 없음.
 
-    // 경동맥 plaque ≥1.5 mm: subclinical ASCVD 증거 — CAC 미시행 대안, LDL <100 스타틴 고려
+    // 경동맥 plaque ≥1.5 mm: ESC/EAS 2025 Class IIa 위험수정인자 — 위험도 상향 재분류 근거
+    // 저위험(<3%)에서는 스타틴 override 없음; 경계위험(3–5%) 이상에서만 스타틴 고려 강화
     // CAC override가 이미 적용된 경우(ldlTgt ≤100)에는 중복 적용 않음
     const carotidActive = g('carotidPlaque')?.checked;
-    if(carotidActive && (!acc.ldlTgt || acc.ldlTgt > 100)){
-      acc={c:'mo',l:'중등강도 고려',ind:'경동맥 plaque ≥1.5 mm — 무증상 죽상경화증 증거 (ESC/EAS 2025 IIa)',
+    if(carotidActive && (!acc.ldlTgt || acc.ldlTgt > 100) && primRisk >= 3){
+      acc={c:'mo',l:'중등강도 고려',ind:'경동맥 plaque ≥1.5 mm — 위험수정인자로 위험도 상향 재분류 (ESC/EAS 2025 IIa)',
            d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],
-           n:'경동맥 plaque ≥1.5 mm: 무증상 죽상경화증의 객관적 증거. ESC/EAS 2025 Class IIa — PREVENT 위험도 무관 스타틴 고려, LDL 목표 &lt;100 mg/dL. ACC/AHA 2026 — CAC 불가 시 subclinical ASCVD 대안 증거로 스타틴 시작 지지.',
+           n:'경동맥 plaque ≥1.5 mm: <b>ESC/EAS 2025 Class IIa 위험수정인자</b>. 위험도와 무관하게 스타틴을 자동 적용하는 것이 아니라, 저~중간위험 환자에서 위험도를 상향 재분류하는 근거로 활용됩니다. 재분류된 위험도와 LDL-C 수준에 따라 중등강도 스타틴 치료를 고려하며, LDL 목표 &lt;100 mg/dL.',
            nt:'warn',ldlTgt:100,nhTgt:130};
     }
 
@@ -3622,10 +3623,10 @@ function upd(){
       <div style="font-size:10px;color:#a32d2d;margin-top:5px;line-height:1.5">※ 다른 위험증가 인자와 달리 CAC ≥100은 단독으로 치료 결정의 근거가 됩니다.<br>※ CAC = 0이면 경계·중간위험에서 스타틴 10년 유예가 합리적 (반대 논리).</div>
     </div>`;
   }
-  if(g('carotidPlaque')&&g('carotidPlaque').checked&&!ascvd){
+  if(g('carotidPlaque')&&g('carotidPlaque').checked&&!ascvd&&primRisk>=3){
     g('accRecOut').innerHTML+=`<div style="margin-top:8px;padding:10px 12px;background:#e6f1fb;border-radius:8px;border-left:4px solid #185fa5">
-      <div style="font-size:11px;font-weight:700;color:#185fa5;margin-bottom:4px">▲ 경동맥 초음파 plaque ≥1.5 mm 확인 — 무증상 죽상경화증의 객관적 증거</div>
-      <div style="font-size:12px;color:#1a1a18;line-height:1.6">경동맥 plaque는 <b>ESC/EAS 2025 Class IIa 위험수정인자</b>로, 저위험~중간위험 환자에서 위험도를 상향 재분류하는 근거가 됩니다. ACC/AHA 2026에서는 CAC 시행이 불가할 때 subclinical ASCVD의 대안적 증거로 스타틴 시작을 지지합니다.</div>
+      <div style="font-size:11px;font-weight:700;color:#185fa5;margin-bottom:4px">▲ 경동맥 초음파 plaque ≥1.5 mm 확인 — ESC/EAS 2025 Class IIa 위험수정인자</div>
+      <div style="font-size:12px;color:#1a1a18;line-height:1.6">경동맥 plaque는 <b>위험도와 무관하게 스타틴을 자동 처방하는 적응증이 아닙니다.</b> ESC/EAS 2025 및 ACC/AHA 2026에 따르면, 이는 저~중간위험 환자에서 <b>위험도를 상향 재분류</b>하는 근거(위험수정인자)로 활용됩니다. 재분류된 위험도와 LDL-C 목표 기준을 충족할 때 스타틴을 고려합니다.</div>
       <div style="font-size:10px;color:#185fa5;margin-top:5px;line-height:1.5">※ 비폐쇄성 plaque (&lt;50% 협착): LDL-C 목표 &lt;100 mg/dL + 생활습관 교정<br>※ 취약하거나 50–69% 협착: LDL-C 목표 &lt;70 mg/dL + 항혈소판 치료 고려<br>※ CAC가 함께 확인된 경우 CAC 기준을 우선 적용합니다.</div>
     </div>`;
   }
@@ -3675,7 +3676,7 @@ function upd(){
 
   // EMR copy summary
   if(g('emrSummary')){
-    const carotidOverride = g('carotidPlaque')?.checked && !ascvd && !anyAbs && primRisk < 5;
+    const carotidOverride = g('carotidPlaque')?.checked && !ascvd && !anyAbs && primRisk >= 3 && primRisk < 5;
     const activeEnhLabels = [...document.querySelectorAll('.enh:checked')].map(el=>{
       const label = el.closest('label');
       return label ? label.textContent.trim().replace(/\s+/g,' ') : '';
