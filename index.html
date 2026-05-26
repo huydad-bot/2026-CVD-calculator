@@ -115,8 +115,8 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
 body.mode-simple #cprIIbBox { display: none !important; }
 
 /* ── Glossary Search ── */
-#glossarySearchWrap{display:inline-flex;align-items:center}
-#glossaryInputWrap{display:flex;align-items:center;gap:5px;padding:5px 10px;border:1.5px solid #d0cec8;border-radius:7px;background:#fff;transition:border-color .15s;width:220px}
+#glossarySearchWrap{display:inline-flex;align-items:stretch;align-self:stretch;}
+#glossaryInputWrap{display:flex;align-items:center;gap:5px;padding:0 10px;border:1.5px solid #d0cec8;border-radius:7px;background:#fff;transition:border-color .15s;width:220px;box-sizing:border-box;}
 #glossaryInputWrap:focus-within{border-color:#185fa5;box-shadow:0 0 0 2px rgba(24,95,165,.08)}
 #glossaryInput{border:none;outline:none;background:transparent;font-size:12px;color:#1a1a18;width:100%;font-family:inherit}
 #glossaryInput::placeholder{color:#b4b2a9}
@@ -159,8 +159,15 @@ body.mode-simple #cprIIbBox { display: none !important; }
           <span>상세 사용</span>
         </label>
       </div>
+      <!-- ── 초기화 버튼 ── -->
+      <button type="button" onclick="clearAllInputs()"
+        style="display:inline-flex;align-items:center;gap:5px;padding:0 13px;border:1px solid #d0cec8;border-radius:7px;background:#fff;color:#5f5e5a;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;flex-shrink:0;transition:background .12s;align-self:stretch;"
+        onmouseover="this.style.background='#f4f3f0'" onmouseout="this.style.background='#fff'">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+        초기화 / 새 환자
+      </button>
       <!-- ── 약어/용어 검색창 ── -->
-      <div style="display:inline-flex;align-items:center;gap:6px">
+      <div style="display:inline-flex;align-items:stretch;align-self:stretch;gap:6px">
         <div id="glossarySearchWrap" style="position:relative">
           <div id="glossaryInputWrap">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#888780" stroke-width="2.5" style="flex-shrink:0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -4141,6 +4148,107 @@ function updateNNT(prevAscvd, ascvd, vhr, acc){
       +'<div style="padding:5px 9px;background:#f8f7f5;border-radius:6px;font-size:10px;color:#888780">'+note+'</div>';
   }
   if(g('nntNote')) g('nntNote').style.display='block';
+}
+
+
+// ── 전체 초기화 (새 환자) ──
+function clearAllInputs(){
+  if(!confirm('모든 입력값을 초기화하고 새 환자를 입력하시겠습니까?')) return;
+
+  // 1. 숫자/텍스트 입력 초기화
+  ['age','tc','hdl','ldl','tg','sbp','egfr',
+   'uacr','hba1c','ht','wt','bmi','apob','prsPercentile',
+   'postTc','postHdl','postLdl','postTg','postApob'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el){ el.value=''; el.dispatchEvent(new Event('input')); }
+  });
+
+  // 2. 체크박스 초기화
+  ['bpTx','smoker','dm','ascvdHx','veryHigh','onStatin',
+   'prsCheck','enhCkm','enhInflam','enhHiv','enhLpa','enhHsCRP',
+   'enhTg175','enhLdl160','abiCheck','carotidPlaque','cacMain',
+   'cac1to99','cacCheck','cac300','cac1000'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el && el.checked){ el.checked=false; el.dispatchEvent(new Event('change')); }
+  });
+  document.querySelectorAll('input.enh[type=checkbox]').forEach(function(el){
+    if(el.checked){ el.checked=false; el.dispatchEvent(new Event('change')); }
+  });
+
+  // 3. 라디오 버튼 초기화
+  document.querySelectorAll('input[name=sex]').forEach(function(el){ el.checked=false; });
+  document.querySelectorAll('input[name=prsGrade]').forEach(function(el){ el.checked=false; });
+
+  // 4. Select 초기화
+  var bci=document.getElementById('backCalcIntensity');
+  if(bci) bci.selectedIndex=0;
+
+  // 5. 조건부 패널 숨김
+  ['postLipidBox','vhrRow','vhrCriteria','vhrDesc','prsPanel',
+   'backCalcResult','backCalcWarn','cacPanel','abiDesc','carotidDesc',
+   'nodmDetailPanel','ldlNonhdlBox','apobIndBox',
+   'ageRangeInfo','ageOutOfRange','ageRangeCard',
+   'ascvdHxNotice'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el) el.style.display='none';
+  });
+
+  // 6. CAC 버튼 스타일 초기화
+  document.querySelectorAll('.cac-opt').forEach(function(el){
+    el.style.background='#fff';
+    el.style.border='1px solid #d0cec8';
+    el.querySelector('div').style.color='#1a1a18';
+  });
+
+  // 7. 표시 값 초기화
+  var bmiOut=document.getElementById('bmiOut');
+  if(bmiOut) bmiOut.textContent='';
+
+  // 8. 결과 영역 초기화
+  ['prevAscvdNum','prevHfNum','prevTotalNum'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el) el.textContent='—';
+  });
+  ['prevAscvdBar','prevHfBar','prevTotalBar'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el){ el.style.width='0'; el.style.background=''; }
+  });
+  var sub30=document.getElementById('prevAscvd30Sub');
+  if(sub30) sub30.textContent='30년: —';
+  var rb=document.getElementById('riskBadge');
+  if(rb){ rb.textContent='—'; rb.style.background='#f1efe8'; rb.style.color='#888780'; }
+  var an=document.getElementById('adjNote');
+  if(an) an.textContent='';
+  var otb=document.getElementById('onTxRiskBox');
+  if(otb) otb.innerHTML='';
+  var lt=document.getElementById('lipidTbl');
+  if(lt) lt.innerHTML='';
+  var ko=document.getElementById('ksolaOut');
+  if(ko) ko.innerHTML='<div style="font-size:12px;color:#185fa5;font-weight:600">입력값을 확인하면 표시됩니다.</div>';
+  var ar=document.getElementById('accRecOut');
+  if(ar) ar.innerHTML='';
+  var es=document.getElementById('emrSummary');
+  if(es) es.value='';
+  var sf=document.getElementById('swFlow');
+  if(sf) sf.innerHTML='';
+  var nb=document.getElementById('nntBadge');
+  if(nb){ nb.textContent='—'; nb.style.background='#c9b4e8'; }
+  var nrh=document.getElementById('noResultHint');
+  if(nrh) nrh.style.display='';
+  var ail=document.getElementById('absIndList');
+  if(ail) ail.innerHTML='';
+  var ec=document.getElementById('enhCount');
+  if(ec) ec.textContent='0';
+  var nn=document.getElementById('nntNote');
+  if(nn) nn.style.display='none';
+  // NNT 개인화 패널
+  ['nntSummaryBox','nntDetailBody','nntBtnWrap'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el) el.innerHTML='';
+  });
+
+  // 9. 스크롤 상단 이동
+  window.scrollTo({top:0, behavior:'smooth'});
 }
 
 // ── NNT 탭 전환 ──
