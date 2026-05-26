@@ -115,7 +115,7 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
 body.mode-simple #cprIIbBox { display: none !important; }
 
 /* ── Glossary Search ── */
-#glossarySearchWrap{display:inline-flex;align-items:stretch;align-self:stretch;height:100%;}
+#glossarySearchWrap{display:flex;align-items:stretch;height:100%;}
 #glossaryInputWrap{display:flex;align-items:center;gap:5px;padding:0 10px;border:1.5px solid #d0cec8;border-radius:7px;background:#fff;transition:border-color .15s;width:220px;box-sizing:border-box;height:100%;}
 #glossaryInputWrap:focus-within{border-color:#185fa5;box-shadow:0 0 0 2px rgba(24,95,165,.08)}
 #glossaryInput{border:none;outline:none;background:transparent;font-size:12px;color:#1a1a18;width:100%;font-family:inherit}
@@ -148,7 +148,7 @@ body.mode-simple #cprIIbBox { display: none !important; }
       <span style="color:#a07a2a;font-style:italic">This tool is not officially endorsed by ACC/AHA</span>
     </div>
     <!-- 간단/상세 모드 라디오 + 약어 검색창 -->
-    <div style="display:flex;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap" class="no-print">
+    <div style="display:flex;align-items:stretch;gap:8px;margin-top:8px;flex-wrap:wrap" class="no-print">
       <div style="display:flex;gap:0;border:1px solid #d0cec8;border-radius:7px;overflow:hidden;font-size:12px;font-weight:600;flex-shrink:0">
         <label style="display:flex;align-items:center;gap:5px;padding:5px 14px;cursor:pointer;background:#185fa5;color:#fff;transition:background .15s;user-select:none" id="modeSimpleLabel">
           <input type="radio" name="viewMode" value="simple" onchange="setViewMode('simple')" checked style="accent-color:#fff;width:13px;height:13px">
@@ -160,7 +160,7 @@ body.mode-simple #cprIIbBox { display: none !important; }
         </label>
       </div>
       <!-- ── 초기화 버튼 ── -->
-      <div style="display:flex;align-self:stretch;flex-shrink:0;">
+      <div style="display:flex;flex-shrink:0;">
         <button type="button" onclick="clearAllInputs()"
           style="display:inline-flex;align-items:center;gap:5px;padding:0 13px;border:1px solid #d0cec8;border-radius:7px;background:#fff;color:#5f5e5a;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;width:100%;height:100%;box-sizing:border-box;transition:background .12s;-webkit-appearance:none;"
           onmouseover="this.style.background='#f4f3f0'" onmouseout="this.style.background='#fff'">
@@ -169,7 +169,7 @@ body.mode-simple #cprIIbBox { display: none !important; }
         </button>
       </div>
       <!-- ── 약어/용어 검색창 ── -->
-      <div style="display:inline-flex;align-items:stretch;align-self:stretch;gap:6px;height:100%;">
+      <div style="display:flex;align-items:stretch;gap:6px;">
         <div id="glossarySearchWrap" style="position:relative">
           <div id="glossaryInputWrap">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#888780" stroke-width="2.5" style="flex-shrink:0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
