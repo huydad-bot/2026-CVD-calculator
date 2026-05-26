@@ -118,7 +118,7 @@ body.mode-simple #cprIIbBox { display: none !important; }
 #glossarySearchWrap{display:flex;align-items:stretch;height:100%;}
 #glossaryInputWrap{display:flex;align-items:center;gap:5px;padding:0 10px;border:1.5px solid #d0cec8;border-radius:7px;background:#fff;transition:border-color .15s;width:220px;box-sizing:border-box;height:100%;}
 #glossaryInputWrap:focus-within{border-color:#185fa5;box-shadow:0 0 0 2px rgba(24,95,165,.08)}
-#glossaryInput{border:none;outline:none;background:transparent;font-size:12px;color:#1a1a18;width:100%;font-family:inherit}
+#glossaryInput{border:none;outline:none;background:transparent;font-size:12px;color:#1a1a18;width:100%;font-family:inherit;-webkit-text-size-adjust:100%;}
 #glossaryInput::placeholder{color:#b4b2a9}
 #glossaryDropdown{display:none;position:absolute;top:calc(100% + 5px);left:0;min-width:320px;background:#fff;border:1px solid #d0cec8;border-radius:10px;box-shadow:0 6px 24px rgba(0,0,0,.14);z-index:9000;max-height:340px;overflow-y:auto}
 .gl-item{padding:9px 13px;cursor:pointer;border-bottom:1px solid #f1efe8;transition:background .1s}
@@ -130,7 +130,7 @@ body.mode-simple #cprIIbBox { display: none !important; }
 .gl-desc{font-size:11px;color:#5f5e5a;margin-top:4px;line-height:1.6;padding:5px 8px;background:#f8f7f5;border-radius:5px;border-left:2px solid #185fa5}
 .gl-detail{display:none;padding:2px 0 4px}
 .gl-empty{padding:14px 13px;color:#888780;font-size:12px;text-align:center}
-@media(max-width:760px){#glossaryInputWrap{width:150px}#glossaryInput{font-size:16px;}}
+@media(max-width:760px){#glossaryInputWrap{width:150px}}
 @media print{#glossarySearchWrap{display:none!important}}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -148,7 +148,7 @@ body.mode-simple #cprIIbBox { display: none !important; }
       <span style="color:#a07a2a;font-style:italic">This tool is not officially endorsed by ACC/AHA</span>
     </div>
     <!-- 간단/상세 모드 라디오 + 약어 검색창 -->
-    <div style="display:flex;align-items:stretch;gap:8px;margin-top:8px;flex-wrap:wrap;background:#eaf2fb;border-radius:10px;padding:6px 10px" class="no-print">
+    <div style="display:flex;align-items:stretch;gap:8px;margin-top:8px;flex-wrap:wrap" class="no-print">
       <div style="display:flex;gap:0;border:1px solid #d0cec8;border-radius:7px;overflow:hidden;font-size:12px;font-weight:600;flex-shrink:0;height:32px">
         <label style="display:flex;align-items:center;gap:5px;padding:5px 14px;cursor:pointer;background:#185fa5;color:#fff;transition:background .15s;user-select:none" id="modeSimpleLabel">
           <input type="radio" name="viewMode" value="simple" onchange="setViewMode('simple')" checked style="accent-color:#fff;width:13px;height:13px">
