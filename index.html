@@ -115,8 +115,8 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
 body.mode-simple #cprIIbBox { display: none !important; }
 
 /* ── Glossary Search ── */
-#glossarySearchWrap{display:inline-flex;align-items:stretch;align-self:stretch;}
-#glossaryInputWrap{display:flex;align-items:center;gap:5px;padding:0 10px;border:1.5px solid #d0cec8;border-radius:7px;background:#fff;transition:border-color .15s;width:220px;box-sizing:border-box;}
+#glossarySearchWrap{display:inline-flex;align-items:stretch;align-self:stretch;height:100%;}
+#glossaryInputWrap{display:flex;align-items:center;gap:5px;padding:0 10px;border:1.5px solid #d0cec8;border-radius:7px;background:#fff;transition:border-color .15s;width:220px;box-sizing:border-box;height:100%;}
 #glossaryInputWrap:focus-within{border-color:#185fa5;box-shadow:0 0 0 2px rgba(24,95,165,.08)}
 #glossaryInput{border:none;outline:none;background:transparent;font-size:12px;color:#1a1a18;width:100%;font-family:inherit}
 #glossaryInput::placeholder{color:#b4b2a9}
@@ -160,14 +160,16 @@ body.mode-simple #cprIIbBox { display: none !important; }
         </label>
       </div>
       <!-- ── 초기화 버튼 ── -->
-      <button type="button" onclick="clearAllInputs()"
-        style="display:inline-flex;align-items:center;gap:5px;padding:0 13px;border:1px solid #d0cec8;border-radius:7px;background:#fff;color:#5f5e5a;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;flex-shrink:0;transition:background .12s;align-self:stretch;"
-        onmouseover="this.style.background='#f4f3f0'" onmouseout="this.style.background='#fff'">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
-        초기화 / 새 환자
-      </button>
+      <div style="display:flex;align-self:stretch;flex-shrink:0;">
+        <button type="button" onclick="clearAllInputs()"
+          style="display:inline-flex;align-items:center;gap:5px;padding:0 13px;border:1px solid #d0cec8;border-radius:7px;background:#fff;color:#5f5e5a;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;width:100%;height:100%;box-sizing:border-box;transition:background .12s;-webkit-appearance:none;"
+          onmouseover="this.style.background='#f4f3f0'" onmouseout="this.style.background='#fff'">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+          초기화 / 새 환자
+        </button>
+      </div>
       <!-- ── 약어/용어 검색창 ── -->
-      <div style="display:inline-flex;align-items:stretch;align-self:stretch;gap:6px">
+      <div style="display:inline-flex;align-items:stretch;align-self:stretch;gap:6px;height:100%;">
         <div id="glossarySearchWrap" style="position:relative">
           <div id="glossaryInputWrap">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#888780" stroke-width="2.5" style="flex-shrink:0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
