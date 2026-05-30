@@ -217,10 +217,55 @@ body.mode-simple #cprIIbBox { display: none !important; }
     <!-- 모달 본문 -->
     <div style="padding:20px 22px 24px">
 
-      <!-- 빈 슬롯: 앞으로 내용 추가 예정 -->
+      <!-- 2018 → 2026 핵심 변경사항 섹션 -->
       <div id="helpSections">
-        <!-- 추가 사용법 섹션이 여기 들어갑니다 -->
+        <div style="margin-bottom:16px">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <span style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;background:#b45a1a;color:#fff;font-size:12px;font-weight:800;flex-shrink:0">★</span>
+            <span style="font-size:13px;font-weight:700;color:#1a1a18">2018 → 2026 가이드라인 핵심 변경사항</span>
+          </div>
+          <div style="border:1px solid #e0d8cc;border-radius:10px;overflow:hidden;font-size:11.5px">
+            <!-- 헤더 -->
+            <div style="display:grid;grid-template-columns:1fr 1.1fr 1.4fr 60px;background:#1a3a52;color:#fff;font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase">
+              <div style="padding:7px 10px">항목</div>
+              <div style="padding:7px 10px">2018 가이드라인</div>
+              <div style="padding:7px 10px">2026 가이드라인</div>
+              <div style="padding:7px 10px;text-align:center">변경</div>
+            </div>
+            <!-- 행 데이터 -->
+            <div id="changeRows"></div>
+          </div>
+          <div style="margin-top:6px;font-size:10.5px;color:#888780;line-height:1.6">
+            ※ 이 프로그램은 <strong>2026 ACC/AHA Dyslipidemia Guideline</strong> 및 <strong>PREVENT 2023 equations</strong>를 기반으로 제작되었습니다.
+          </div>
+        </div>
       </div>
+
+      <script>
+      (function(){
+        var rows=[
+          {item:'위험도 계산',old:'Pooled Cohort Equations (PCE)',new_:'PREVENT™ Equations (10년·30년)',tag:'대체',tc:'#c0392b'},
+          {item:'LDL-C 목표치',old:'퍼센트 감소만 (절대치 없음)',new_:'절대치 + 퍼센트 이중 기준 복원',tag:'복원',tc:'#c0392b'},
+          {item:'ApoB',old:'언급 없음',new_:'COR 2a — TG↑, DM, 低LDL 시 권고',tag:'신규',tc:'#1a6b3a'},
+          {item:'Lp(a)',old:'언급 없음',new_:'COR I — 전원 1회 측정',tag:'신규',tc:'#1a6b3a'},
+          {item:'CAC 권고등급',old:'COR IIa (중등도 위험군)',new_:'COR I (중등도 위험군)',tag:'강화',tc:'#b45a1a'},
+          {item:'CAC ≥1000 목표치',old:'별도 규정 없음',new_:'LDL &lt;55, non-HDL &lt;85 mg/dL',tag:'신규',tc:'#1a6b3a'},
+          {item:'신규 약제',old:'PCSK9i 일부',new_:'Bempedoic acid, Inclisiran, Olezarsen',tag:'추가',tc:'#1a6b3a'},
+          {item:'식이 보충제',old:'언급 없음',new_:'COR III — 권고하지 않음 명시',tag:'신규',tc:'#1a6b3a'}
+        ];
+        var html='';
+        rows.forEach(function(r,i){
+          var bg=i%2===0?'#fff':'#fafaf8';
+          html+='<div style="display:grid;grid-template-columns:1fr 1.1fr 1.4fr 60px;background:'+bg+';border-top:1px solid #ece9e3">'
+            +'<div style="padding:7px 10px;font-weight:600;color:#1a1a18">'+r.item+'</div>'
+            +'<div style="padding:7px 10px;color:#6b6b68">'+r.old+'</div>'
+            +'<div style="padding:7px 10px;font-weight:600;color:'+r.tc+'">'+r.new_+'</div>'
+            +'<div style="padding:7px 10px;text-align:center"><span style="display:inline-block;padding:2px 7px;border-radius:5px;font-size:10px;font-weight:700;background:'+r.tc+'22;color:'+r.tc+'">'+r.tag+'</span></div>'
+            +'</div>';
+        });
+        document.getElementById('changeRows').innerHTML=html;
+      })();
+      </script>
 
       <!-- 간단 사용법 -->
       <div style="margin-bottom:12px">
