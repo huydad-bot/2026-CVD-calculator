@@ -181,6 +181,7 @@ body.mode-simple #cprIIbBox { display: none !important; }
           </div>
           <div id="glossaryDropdown"></div>
         </div>
+        <span id="glossaryCountBadge" style="display:inline-flex;align-items:center;height:100%;font-size:11px;color:#888780;flex-shrink:0"></span>
       </div>
     </div>
   </div>
@@ -475,10 +476,27 @@ var GLOSSARY=[
   {abbr:'RR',full:'Relative Risk',ko:'상대위험도',desc:'코호트 연구 또는 RCT에서 치료군 사건 발생률 ÷ 대조군 사건 발생률. RR=1: 차이 없음, RR<1: 치료군 위험 감소, RR>1: 위험 증가. HR과 달리 고정 추적 기간에 적용. 예) WOSCOPS 서브분석: 스타틴군 신규 당뇨 RR 0.70(30% 감소). NODM 분석: 중등강도 스타틴 RR 1.10, 고강도 RR 1.36. RRR = 1 − RR'},
   {abbr:'STRENGTH',full:'Statin Residual Risk Reduction with EpaNova in High CV Risk PatienTs with Hypertriglyceridemia',ko:'스트렝스 시험',desc:'2020년 JAMA. 스타틴 복용 중 TG 180–499 mg/dL 고위험군에서 EPA+DHA 혼합 카르복실산(Epanova) 4g/day vs 옥수수유 위약. 추적 중앙값 3.5년. MACE 유의한 감소 없음(HR 0.99, p=0.90) — 조기 종료. REDUCE-IT(순수 EPA)와 달리 음성 결과. EPA+DHA 혼합 어유 대비 고순도 EPA 단독 제제의 우월성 근거로 해석. 위약으로 사용한 옥수수유의 LDL-C 상승이 교란요인 가능성 논란'},
   {abbr:'TIMI',full:'Thrombolysis In Myocardial Infarction',ko:'TIMI 연구 그룹',desc:'미국 브리검여성병원 중심의 심혈관 임상연구 컨소시엄. ACS·항혈전 치료 분야의 대규모 RCT 주도. PROVE-IT TIMI 22(집중 vs 표준 지질강하), TIMI 프레임수(관상동맥 혈류 등급) 등 다수의 landmark 연구 수행. 시험명에 TIMI가 포함된 경우 동 그룹 주관 또는 공동 주관 연구'},
-  {abbr:'DHA',full:'Docosahexaenoic Acid',ko:'도코사헥사엔산(오메가-3)',desc:'EPA와 함께 오메가-3 지방산의 주요 구성 성분. TG 강하 효과는 EPA와 유사하나, 심혈관 사건 감소 근거는 EPA 단독 제제(Icosapent ethyl)에만 확립됨. EPA+DHA 혼합 어유는 STRENGTH trial에서 MACE 감소 실패(HR 0.99). DHA가 LDL-C를 경미하게 상승시켜 순이익을 상쇄할 가능성이 논의됨. 따라서 심혈관 사건 예방 목적으로는 고순도 EPA 단독 제제(REDUCE-IT 근거)를 사용하며, EPA+DHA 혼합 일반 어유 보충제는 권고하지 않음'}
+  {abbr:'DHA',full:'Docosahexaenoic Acid',ko:'도코사헥사엔산(오메가-3)',desc:'EPA와 함께 오메가-3 지방산의 주요 구성 성분. TG 강하 효과는 EPA와 유사하나, 심혈관 사건 감소 근거는 EPA 단독 제제(Icosapent ethyl)에만 확립됨. EPA+DHA 혼합 어유는 STRENGTH trial에서 MACE 감소 실패(HR 0.99). DHA가 LDL-C를 경미하게 상승시켜 순이익을 상쇄할 가능성이 논의됨. 따라서 심혈관 사건 예방 목적으로는 고순도 EPA 단독 제제(REDUCE-IT 근거)를 사용하며, EPA+DHA 혼합 일반 어유 보충제는 권고하지 않음'},
+  {abbr:'COR',full:'Class of Recommendation',ko:'권고 등급',desc:'ACC/AHA 가이드라인 권고 등급 체계. Class I: 이익 >> 위험, 시행 권고(COR I). Class IIa: 이익 > 위험, 시행 합리적(COR 2a). Class IIb: 이익 ≥ 위험, 고려 가능. Class III: 이익 없음(No Benefit) 또는 위험(Harm). LOE(근거 수준, A/B-R/B-NR/C-LD/C-EO)와 쌍으로 표기. 예) COR I LOE A = 최고 수준 근거에 기반한 강력 권고'},
+  {abbr:'DM',full:'Diabetes Mellitus',ko:'당뇨병',desc:'인슐린 분비 부족 또는 작용 결함으로 인한 만성 고혈당 질환. 제1형(T1DM, 자가면역)·제2형(T2DM, 인슐린저항성)으로 대분류. ASCVD 주요 위험인자이자 위험증강인자. PREVENT 모델에서 HbA1c가 위험 예측 변수로 포함됨. 스타틴의 NODM 유발 위험은 당뇨 전단계 또는 잠재적 DM에서 더 높으며, 발현을 촉진하는 것으로 해석'},
+  {abbr:'HIV',full:'Human Immunodeficiency Virus',ko:'인체면역결핍바이러스',desc:'후천성면역결핍증(AIDS)의 원인 바이러스. 안정적 ART(항레트로바이러스 치료) 중인 HIV 감염 환자에서 ASCVD 위험이 높음 — HIV 특이적 만성 염증·면역활성화에 의한 잔류 위험 기전. REPRIEVE trial(2023, NEJM): Pitavastatin 4mg → MACE 35% 감소. 2026 ACC/AHA 가이드라인 Class I 권고(40–75세 HIV 환자, ART 중)'},
+  {abbr:'DDI',full:'Drug-Drug Interaction',ko:'약물-약물 상호작용',desc:'두 약물이 동시 투여될 때 상호 간 약동학(흡수·분포·대사·배설) 또는 약역학적 작용에 영향을 미치는 현상. 지질치료에서 특히 중요한 DDI: CYP3A4 억제제(아졸계 항진균제·칼슘채널차단제·Amiodarone)와 Simvastatin/Lovastatin 병용 → 혈중 스타틴 농도 급증 → 근독성·횡문근융해증 위험 증가. 신이식 후 면역억제제(Cyclosporine, Tacrolimus)와 스타틴 DDI도 임상적으로 중요'},
+  {abbr:'LLT',full:'Lipid-Lowering Therapy',ko:'지질강하치료',desc:'LDL-C 감소를 목표로 하는 치료의 통칭. 생활습관 교정(식이·운동)과 약물 치료(스타틴·에제티미브·PCSK9i·Bempedoic acid·Inclisiran 등)를 포함. 1차·2차 예방에서 위험도에 따른 시작 기준과 목표치가 다름. 고령·기대여명 감소 시 LLT 중단을 고려하는 기준이 2026 ACC/AHA 가이드라인에 명시됨'},
+  {abbr:'NEJM',full:'New England Journal of Medicine',ko:'뉴잉글랜드 의학저널',desc:'세계 최고 권위의 의학 학술지(Impact Factor 1위권). 심혈관 landmark 임상시험 다수 발표: SAMSON(2020), REPRIEVE(2023), CLEAR Outcomes(2023), 4S, WOSCOPS, JUPITER 등. 약어 NEJM은 문헌 인용 시 표준 약칭으로 사용'},
+  {abbr:'JACC',full:'Journal of the American College of Cardiology',ko:'미국심장학회 학술지',desc:'ACC 공식 학술지. 심혈관 가이드라인·임상 연구의 주요 발표 채널. 2013 PCE 위험 계산식 원저(JACC 2014;63:2935), 2018 ACC/AHA 콜레스테롤 가이드라인(JACC 2019;73:e285) 게재. Circulation, JAMA Cardiology와 함께 심장학 3대 저널'},
+  {abbr:'VLDL-C',full:'VLDL Cholesterol',ko:'초저밀도지단백 콜레스테롤',desc:'VLDL 입자 내 콜레스테롤 성분. 혈청 TG가 정상일 때 VLDL-C ≈ TG/5(mg/dL)로 추산(Friedewald 근사). TC = LDL-C + HDL-C + VLDL-C. Non-HDL-C = LDL-C + VLDL-C + IDL-C + Lp(a). TG ≥400 mg/dL 시 Friedewald 공식 LDL-C 계산 불가 — Martin-Hopkins 또는 직접측정법(direct LDL) 사용'},
+  {abbr:'CYP450',full:'Cytochrome P450 Enzyme System',ko:'사이토크롬 P450 효소계',desc:'간 및 소장의 주요 약물 대사 효소군. 스타틴 대사에서 핵심: Simvastatin·Lovastatin·Atorvastatin은 CYP3A4 의존 대사. Rosuvastatin·Fluvastatin은 CYP2C9 의존. Pravastatin·Pitavastatin은 CYP450 비의존(비교적 DDI 적음). CYP3A4 억제제(아졸계 항진균제, 칼슘채널차단제, 자몽주스 등) 병용 시 CYP3A4 의존 스타틴 혈중 농도 급증 → 근독성 위험'},
+  {abbr:'ART',full:'Antiretroviral Therapy',ko:'항레트로바이러스 치료',desc:'HIV 감염 치료를 위해 여러 항레트로바이러스 약물을 병합 투여하는 요법(cART, HAART로도 불림). 안정적 ART 중인 HIV 환자에서 면역기능은 회복되나 만성 염증·혈관 노화가 지속 — 잔류 ASCVD 위험의 원인. REPRIEVE trial은 안정적 ART 중인 40–75세 HIV 환자 대상 Pitavastatin 효과 입증. 일부 프로테아제 억제제(PI 계열 ART)는 CYP3A4 억제로 스타틴 DDI 주의'},
+  {abbr:'CPR',full:'Clinician-Patient Risk Discussion (Cardiovascular Preventive Risk Framework)',ko:'심혈관 예방위험 프레임워크 / 임상가-환자 위험 논의',desc:'2026 ACC/AHA Dyslipidemia Guideline의 핵심 의사결정 철학. 위험도 계산(PREVENT), 위험증강인자, CAC 점수, 환자 선호도·기저질환·예상 이익(NNT)·예상 위해(NNH)를 통합하여 개별 환자에게 최적화된 의사결정을 내리는 접근. 특히 중등도 위험군(10년 ASCVD 7.5–20%)에서 치료 시작/강도 결정에 CPR 과정을 권고. 환자 가치관·삶의 질·치료 선호를 반영하는 공유 의사결정(Shared Decision Making)의 구체적 구현'}
 ];
 
 var _glIdx=-1, _glFiltered=[];
+
+// 약어 총 개수 뱃지 초기화
+(function(){
+  var badge=document.getElementById('glossaryCountBadge');
+  if(badge) badge.textContent='('+GLOSSARY.length+')';
+})();
 
 function glossarySearch(val){
   var q=(val||'').trim().toUpperCase();
