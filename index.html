@@ -249,7 +249,7 @@ body.mode-simple #cprIIbBox { display: none !important; }
           {item:'LDL-C 목표치',old:'퍼센트 감소만 (절대치 없음)',new_:'절대치 + 퍼센트 이중 기준 복원',tag:'복원',tc:'#c0392b'},
           {item:'ApoB',old:'언급 없음',new_:'COR 2a — TG↑, DM, 低LDL 시 권고',tag:'신규',tc:'#1a6b3a'},
           {item:'Lp(a)',old:'언급 없음',new_:'COR I — 전원 1회 측정',tag:'신규',tc:'#1a6b3a'},
-          {item:'CAC 권고등급',old:'COR IIa (중등도 위험군)',new_:'COR I (중등도 위험군)',tag:'강화',tc:'#b45a1a'},
+          {item:'CAC 권고등급',old:'COR IIa (중간위험군)',new_:'COR I (중간위험군)',tag:'강화',tc:'#b45a1a'},
           {item:'CAC ≥1000 목표치',old:'별도 규정 없음',new_:'LDL &lt;55, non-HDL &lt;85 mg/dL',tag:'신규',tc:'#1a6b3a'},
           {item:'신규 약제',old:'PCSK9i 일부',new_:'Bempedoic acid, Inclisiran, Olezarsen',tag:'추가',tc:'#1a6b3a'},
           {item:'식이 보충제',old:'언급 없음',new_:'COR III — 권고하지 않음 명시',tag:'신규',tc:'#1a6b3a'}
@@ -487,7 +487,7 @@ var GLOSSARY=[
   {abbr:'VLDL-C',full:'VLDL Cholesterol',ko:'초저밀도지단백 콜레스테롤',desc:'VLDL 입자 내 콜레스테롤 성분. 혈청 TG가 정상일 때 VLDL-C ≈ TG/5(mg/dL)로 추산(Friedewald 근사). TC = LDL-C + HDL-C + VLDL-C. Non-HDL-C = LDL-C + VLDL-C + IDL-C + Lp(a). TG ≥400 mg/dL 시 Friedewald 공식 LDL-C 계산 불가 — Martin-Hopkins 또는 직접측정법(direct LDL) 사용'},
   {abbr:'CYP450',full:'Cytochrome P450 Enzyme System',ko:'사이토크롬 P450 효소계',desc:'간 및 소장의 주요 약물 대사 효소군. 스타틴 대사에서 핵심: Simvastatin·Lovastatin·Atorvastatin은 CYP3A4 의존 대사. Rosuvastatin·Fluvastatin은 CYP2C9 의존. Pravastatin·Pitavastatin은 CYP450 비의존(비교적 DDI 적음). CYP3A4 억제제(아졸계 항진균제, 칼슘채널차단제, 자몽주스 등) 병용 시 CYP3A4 의존 스타틴 혈중 농도 급증 → 근독성 위험'},
   {abbr:'ART',full:'Antiretroviral Therapy',ko:'항레트로바이러스 치료',desc:'HIV 감염 치료를 위해 여러 항레트로바이러스 약물을 병합 투여하는 요법(cART, HAART로도 불림). 안정적 ART 중인 HIV 환자에서 면역기능은 회복되나 만성 염증·혈관 노화가 지속 — 잔류 ASCVD 위험의 원인. REPRIEVE trial은 안정적 ART 중인 40–75세 HIV 환자 대상 Pitavastatin 효과 입증. 일부 프로테아제 억제제(PI 계열 ART)는 CYP3A4 억제로 스타틴 DDI 주의'},
-  {abbr:'CPR',full:'Clinician-Patient Risk Discussion (Cardiovascular Preventive Risk Framework)',ko:'심혈관 예방위험 프레임워크 / 임상가-환자 위험 논의',desc:'2026 ACC/AHA Dyslipidemia Guideline의 핵심 의사결정 철학. 위험도 계산(PREVENT), 위험증강인자, CAC 점수, 환자 선호도·기저질환·예상 이익(NNT)·예상 위해(NNH)를 통합하여 개별 환자에게 최적화된 의사결정을 내리는 접근. 특히 중등도 위험군(10년 ASCVD 7.5–20%)에서 치료 시작/강도 결정에 CPR 과정을 권고. 환자 가치관·삶의 질·치료 선호를 반영하는 공유 의사결정(Shared Decision Making)의 구체적 구현'}
+  {abbr:'CPR',full:'Clinician-Patient Risk Discussion (Cardiovascular Preventive Risk Framework)',ko:'심혈관 예방위험 프레임워크 / 임상가-환자 위험 논의',desc:'2026 ACC/AHA Dyslipidemia Guideline의 핵심 의사결정 철학. 위험도 계산(PREVENT), 위험증강인자, CAC 점수, 환자 선호도·기저질환·예상 이익(NNT)·예상 위해(NNH)를 통합하여 개별 환자에게 최적화된 의사결정을 내리는 접근. 특히 중간위험군(10년 ASCVD 7.5–20%)에서 치료 시작/강도 결정에 CPR 과정을 권고. 환자 가치관·삶의 질·치료 선호를 반영하는 공유 의사결정(Shared Decision Making)의 구체적 구현'}
 ];
 
 var _glIdx=-1, _glFiltered=[];
