@@ -585,20 +585,443 @@ document.addEventListener('click',function(e){
 
 <!-- CPR BANNER -->
 <div id="cardCprBanner" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px">
-  <div style="background:#fff;border:1px solid #e2e0db;border-top:3px solid #185fa5;border-radius:8px;padding:10px 13px">
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
-      <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#185fa5;color:#fff;font-size:15px;font-weight:800;flex-shrink:0">C</span>
-      <span style="font-size:11px;font-weight:700;color:#185fa5;line-height:1.3">Cumulative LDL Burden<br><span style="color:#5f5e5a;font-weight:400">누적 LDL 부담</span></span>
+  <div style="background:#fff;border:1px solid #e2e0db;border-top:3px solid #185fa5;border-radius:8px;overflow:hidden">
+    <!-- 헤더: 클릭 시 펼침 -->
+    <div id="cumulativeLDLHeader" onclick="toggleCumulativeLDL()" style="padding:10px 13px;cursor:pointer;user-select:none;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;transition:background .15s" onmouseover="this.style.background='#f0f6fc'" onmouseout="this.style.background='#fff'">
+      <div style="display:flex;align-items:center;gap:8px;flex:1">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#185fa5;color:#fff;font-size:15px;font-weight:800;flex-shrink:0">C</span>
+        <div>
+          <span style="font-size:11px;font-weight:700;color:#185fa5;line-height:1.3">Cumulative LDL Burden<br><span style="color:#5f5e5a;font-weight:400">누적 LDL 부담</span></span>
+          <div style="font-size:10px;color:#5f5e5a;line-height:1.6;margin-top:3px">"얼마나 높은가"보다 <b style="color:#1a1a18">얼마나 오래 노출됐는가</b>가 더 중요. 더 일찍, 더 낮게, 더 오래 치료.</div>
+        </div>
+      </div>
+      <span id="cumulativeLDLArrow" style="font-size:11px;color:#185fa5;font-weight:700;flex-shrink:0;margin-top:2px;transition:transform .25s;display:inline-block">▶</span>
     </div>
-    <div style="font-size:10px;color:#5f5e5a;line-height:1.6">"얼마나 높은가"보다 <b style="color:#1a1a18">얼마나 오래 노출됐는가</b>가 더 중요. 더 일찍, 더 낮게, 더 오래 치료.</div>
-  </div>
-  <div style="background:#fff;border:1px solid #e2e0db;border-top:3px solid #639922;border-radius:8px;padding:10px 13px">
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
-      <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#639922;color:#fff;font-size:15px;font-weight:800;flex-shrink:0">P</span>
-      <span style="font-size:11px;font-weight:700;color:#639922;line-height:1.3">Precision Prevention<br><span style="color:#5f5e5a;font-weight:400">정밀 맞춤 예방</span></span>
+
+    <!-- 펼쳐지는 상세 내용 -->
+    <div id="cumulativeLDLBody" style="display:none;border-top:1px solid #ddeaf8">
+
+      <!-- 탭 버튼 -->
+      <div style="display:flex;border-bottom:1px solid #ddeaf8;background:#f5f9fe">
+        <button id="clTab0" onclick="switchCLTab(0)" style="flex:1;padding:7px 4px;border:none;background:#185fa5;color:#fff;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;border-right:1px solid #ddeaf8">핵심 개념</button>
+        <button id="clTab1" onclick="switchCLTab(1)" style="flex:1;padding:7px 4px;border:none;background:#f5f9fe;color:#185fa5;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;border-right:1px solid #ddeaf8">근거 데이터</button>
+        <button id="clTab2" onclick="switchCLTab(2)" style="flex:1;padding:7px 4px;border:none;background:#f5f9fe;color:#185fa5;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;border-right:1px solid #ddeaf8">생애주기별</button>
+        <button id="clTab3" onclick="switchCLTab(3)" style="flex:1;padding:7px 4px;border:none;background:#f5f9fe;color:#185fa5;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit">임상 적용</button>
+      </div>
+
+      <!-- ── 탭0: 핵심 개념 ── -->
+      <div id="clPanel0" style="padding:12px 13px;display:block">
+        <!-- 핵심 메시지 3개 -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:10px">
+          <div style="background:#e6f1fb;border:1px solid #b5d4f4;border-radius:8px;padding:9px 10px;text-align:center">
+            <div style="font-size:18px;font-weight:800;color:#185fa5;line-height:1">早</div>
+            <div style="font-size:11px;font-weight:700;color:#185fa5;margin-top:3px">더 일찍</div>
+            <div style="font-size:9px;color:#5f5e5a;margin-top:3px;line-height:1.5">조기 발견·조기 치료<br>생애 초기부터</div>
+          </div>
+          <div style="background:#e6f1fb;border:1px solid #b5d4f4;border-radius:8px;padding:9px 10px;text-align:center">
+            <div style="font-size:18px;font-weight:800;color:#185fa5;line-height:1">低</div>
+            <div style="font-size:11px;font-weight:700;color:#185fa5;margin-top:3px">더 낮게</div>
+            <div style="font-size:9px;color:#5f5e5a;margin-top:3px;line-height:1.5">LDL 목표치 달성<br>lower is better</div>
+          </div>
+          <div style="background:#e6f1fb;border:1px solid #b5d4f4;border-radius:8px;padding:9px 10px;text-align:center">
+            <div style="font-size:18px;font-weight:800;color:#185fa5;line-height:1">長</div>
+            <div style="font-size:11px;font-weight:700;color:#185fa5;margin-top:3px">더 오래</div>
+            <div style="font-size:9px;color:#5f5e5a;margin-top:3px;line-height:1.5">장기 지속 치료<br>평생 관리</div>
+          </div>
+        </div>
+
+        <!-- 핵심 원리 -->
+        <div style="background:#f0f6fc;border:1px solid #b5d4f4;border-radius:8px;padding:10px 12px;margin-bottom:8px">
+          <div style="font-size:11px;font-weight:700;color:#185fa5;margin-bottom:6px">누적 LDL 부담 (Cumulative LDL Burden) 개념</div>
+          <div style="font-size:11px;color:#1a1a18;line-height:1.75">
+            ASCVD 위험의 주요 결정인자는 LDL-C 수치 자체가 아니라 <b>LDL-C에 노출된 기간 × 높이</b>의 적분값(area under the curve)이다.<br>
+            장기간의 다양한 LDL-C 수준에 대한 노출은 RCT에서 관찰된 것보다 ASCVD 결과에 더 큰 영향을 미치며, 이는 <b>노출 기간(duration of exposure)</b>에 의한 것이다.<br>
+            따라서 어릴 때부터 건강한 생활습관을 최적화하고, 이상지질혈증의 발생을 가능한 한 조기에 예방하는 것이 중요하다.
+          </div>
+          <div style="font-size:9px;color:#5f5e5a;margin-top:5px;font-style:italic">2026 ACC/AHA Dyslipidemia Guideline — Section 4.1 (Lifestyle), Synopsis</div>
+        </div>
+
+        <!-- Mendelian randomization 근거 -->
+        <div style="background:#f8f7f5;border-left:3px solid #185fa5;border-radius:0 6px 6px 0;padding:8px 11px">
+          <div style="font-size:10px;font-weight:700;color:#185fa5;margin-bottom:3px">Mendelian Randomization 근거</div>
+          <div style="font-size:10px;color:#1a1a18;line-height:1.7">유전적으로 평생 낮은 LDL-C를 유지한 사람은 낮은 평생 ASCVD 위험과 연관됨. 반면 소아기의 높은 콜레스테롤은 성인기까지 지속되며 중년기 ASCVD 위험을 증가시킴.<br>조기 발견과 치료가 LDL-C를 안전하고 효과적으로 낮추는 것이 단·중기 RCT와 장기 추적 연구 모두에서 확인됨.</div>
+          <div style="font-size:9px;color:#5f5e5a;margin-top:4px;font-style:italic">Section 3.2 Supportive Text #2; 4.2.8.1 Children and Adolescents</div>
+        </div>
+      </div>
+
+      <!-- ── 탭1: 근거 데이터 ── -->
+      <div id="clPanel1" style="padding:12px 13px;display:none">
+        <div style="font-size:10px;font-weight:700;color:#888780;text-transform:uppercase;letter-spacing:.04em;margin-bottom:7px">핵심 코호트 · 임상시험 근거</div>
+
+        <!-- CARDIA -->
+        <div style="background:#f0f6fc;border:1px solid #b5d4f4;border-radius:8px;padding:9px 11px;margin-bottom:7px">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+            <span style="display:inline-block;padding:1px 7px;border-radius:4px;background:#185fa5;color:#fff;font-size:10px;font-weight:700">CARDIA 코호트</span>
+            <span style="font-size:9px;color:#5f5e5a">Coronary Artery Risk Development in Young Adults</span>
+          </div>
+          <div style="font-size:11px;color:#1a1a18;line-height:1.7">LDL-C area under the curve의 소폭 증가만으로도 <b>16년 추적 시 ASCVD 사건 유의하게 증가</b>. 초기 개입이 장기 사건 발생률 개선 가능성을 확인.</div>
+        </div>
+
+        <!-- FHS-OS -->
+        <div style="background:#f0f6fc;border:1px solid #b5d4f4;border-radius:8px;padding:9px 11px;margin-bottom:7px">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+            <span style="display:inline-block;padding:1px 7px;border-radius:4px;background:#185fa5;color:#fff;font-size:10px;font-weight:700">FHS-OS 코호트</span>
+            <span style="font-size:9px;color:#5f5e5a">Framingham Heart Study Offspring</span>
+          </div>
+          <div style="font-size:11px;color:#1a1a18;line-height:1.7">청년기 고지혈증에 대한 누적 노출이 이후 관상동맥질환(CHD) 위험을 <b>용량 의존적(dose-dependent)으로 증가</b>시킴.</div>
+        </div>
+
+        <!-- FOURIER-OLE -->
+        <div style="background:#f0f6fc;border:1px solid #b5d4f4;border-radius:8px;padding:9px 11px;margin-bottom:7px">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+            <span style="display:inline-block;padding:1px 7px;border-radius:4px;background:#378add;color:#fff;font-size:10px;font-weight:700">FOURIER-OLE</span>
+            <span style="font-size:9px;color:#5f5e5a">Open-Label Extension · evolocumab</span>
+          </div>
+          <div style="font-size:11px;color:#1a1a18;line-height:1.7">처음부터 evolocumab 투여군이 위약 후 전환군보다 MACE 발생률 <b>더 낮음</b> → <b>조기 치료 시작의 legacy effect</b> 확인. 치료 시작 시점이 결과에 영향.</div>
+        </div>
+
+        <!-- CTT meta-analysis -->
+        <div style="background:#f0f6fc;border:1px solid #b5d4f4;border-radius:8px;padding:9px 11px">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+            <span style="display:inline-block;padding:1px 7px;border-radius:4px;background:#0c447c;color:#fff;font-size:10px;font-weight:700">CTT Meta-analysis</span>
+          </div>
+          <div style="font-size:11px;color:#1a1a18;line-height:1.7">LDL-C 1 mmol/L(38.7 mg/dL) 감소 시 ASCVD 사건 약 22% 상대위험 감소. LDL-C 절대 달성 수준이 낮을수록 5년 주요 관상동맥 사건 발생률이 선형적으로 감소 — <b>기저 LDL 수치가 77 mg/dL 이하</b>인 경우에도 추가 감소 시 21% 위험 감소.</div>
+        </div>
+      </div>
+
+      <!-- ── 탭2: 생애주기별 ── -->
+      <div id="clPanel2" style="padding:12px 13px;display:none">
+        <div style="font-size:10px;font-weight:700;color:#888780;text-transform:uppercase;letter-spacing:.04em;margin-bottom:7px">생애주기별 누적 LDL 부담 관리 (2026 ACC/AHA)</div>
+
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <!-- 소아청소년 -->
+          <div style="background:#f0f6fc;border:1px solid #b5d4f4;border-radius:8px;padding:9px 11px">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+              <span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#185fa5;color:#fff;font-size:9px;font-weight:700;flex-shrink:0">1</span>
+              <span style="font-size:11px;font-weight:700;color:#185fa5">소아·청소년기 (Childhood &amp; Adolescence)</span>
+              <span style="font-size:9px;color:#5f5e5a;margin-left:auto">Section 4.2.8.1 · COR 1 B-NR</span>
+            </div>
+            <div style="font-size:10px;color:#1a1a18;line-height:1.7">지질 이상은 청소년 5명 중 1명, 250–300명 중 1명 FH 표현형. 소아기 콜레스테롤은 성인기까지 지속(tracks). 9–11세 보편적 지질 스크리닝 권장. 심혈관 내중막두께(cIMT)는 8–10세부터 검출 가능. <b>조기 발견 → 조기 생활습관 개입이 장기 위험 감소의 기초.</b></div>
+          </div>
+          <!-- 청년 성인 -->
+          <div style="background:#f0f6fc;border:1px solid #b5d4f4;border-radius:8px;padding:9px 11px">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+              <span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#185fa5;color:#fff;font-size:9px;font-weight:700;flex-shrink:0">2</span>
+              <span style="font-size:11px;font-weight:700;color:#185fa5">청년 성인기 (18–39세)</span>
+              <span style="font-size:9px;color:#5f5e5a;margin-left:auto">Section 4.2.8.2 · COR 1 B-NR</span>
+            </div>
+            <div style="font-size:10px;color:#1a1a18;line-height:1.7">식이·신체활동·체중 최적화로 누적 atherogenic 지질 노출 및 평생 ASCVD 위험 감소 권고 (Class I). 30년 위험도 ≥10% 또는 LDL-C 160–189 mg/dL이면 중등강도 스타틴 합리적 (Class 2a). 젊은 ASCVD 환자는 VHR 기준 미달이라도 <b>평생 누적 LDL 노출이 길어</b> 재발 위험 높음.</div>
+          </div>
+          <!-- 중년 성인 -->
+          <div style="background:#e6f1fb;border:1px solid #b5d4f4;border-radius:8px;padding:9px 11px">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+              <span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#378add;color:#fff;font-size:9px;font-weight:700;flex-shrink:0">3</span>
+              <span style="font-size:11px;font-weight:700;color:#378add">중년 성인기 (40–74세)</span>
+              <span style="font-size:9px;color:#5f5e5a;margin-left:auto">Section 4.2.3</span>
+            </div>
+            <div style="font-size:10px;color:#1a1a18;line-height:1.7">PREVENT 10년/30년 위험도 평가 + 위험증강인자 + CAC 복합 적용. 10년 위험 &lt;3%라도 atherogenic 지질 부담이 높으면 누적 노출 감소 목적으로 LLT 고려 가능. 30년 위험도 제공으로 젊은 중년층의 <b>장기 누적 위험</b> 시각화 가능.</div>
+          </div>
+          <!-- 고령 -->
+          <div style="background:#f8f7f5;border:1px solid #e2e0db;border-radius:8px;padding:9px 11px">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+              <span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#888780;color:#fff;font-size:9px;font-weight:700;flex-shrink:0">4</span>
+              <span style="font-size:11px;font-weight:700;color:#888780">고령 성인기 (75세 이상)</span>
+              <span style="font-size:9px;color:#5f5e5a;margin-left:auto">Section 4.2.8.3 · COR 1 C-EO</span>
+            </div>
+            <div style="font-size:10px;color:#1a1a18;line-height:1.7">나이 단독으로 LLT 중단 결정하지 않아야 함. 기대여명 ≥2.5년의 75세 이상에서 LLT 지속 합리적. 이미 누적된 동맥경화 부담을 고려한 개인화 접근. 허약·다약제복용·기능상태·환자 선호도를 공동 결정에 반영.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── 탭3: 임상 적용 ── -->
+      <div id="clPanel3" style="padding:12px 13px;display:none">
+        <div style="font-size:10px;font-weight:700;color:#888780;text-transform:uppercase;letter-spacing:.04em;margin-bottom:7px">임상 적용 — "더 일찍, 더 낮게, 더 오래"의 실천</div>
+
+        <div style="overflow-x:auto;margin-bottom:9px">
+          <table style="width:100%;font-size:11px;border-collapse:collapse;min-width:340px">
+            <thead><tr style="background:#e6f1fb">
+              <th style="padding:5px 7px;text-align:left;font-size:10px;font-weight:700;color:#0c447c;border-bottom:1px solid #b5d4f4">원칙</th>
+              <th style="padding:5px 7px;text-align:left;font-size:10px;font-weight:700;color:#0c447c;border-bottom:1px solid #b5d4f4">임상 행동</th>
+              <th style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#0c447c;border-bottom:1px solid #b5d4f4">근거</th>
+            </tr></thead>
+            <tbody>
+              <tr><td style="padding:5px 7px;border-bottom:1px solid #f1efe8;font-weight:700;color:#185fa5">더 일찍</td><td style="padding:5px 7px;border-bottom:1px solid #f1efe8;font-size:10px">30년 위험도 제공 · 소아 스크리닝 · 청년 성인 LDL 조기 평가 · FH 조기 진단</td><td style="padding:5px 7px;border-bottom:1px solid #f1efe8;text-align:center;font-size:10px;color:#185fa5">Sec 4.2.8</td></tr>
+              <tr style="background:#f5f9fe"><td style="padding:5px 7px;border-bottom:1px solid #f1efe8;font-weight:700;color:#185fa5">더 낮게</td><td style="padding:5px 7px;border-bottom:1px solid #f1efe8;font-size:10px">위험군별 LDL 절대 목표치 달성 · LDL 77 mg/dL 이하에서도 추가 강하 시 21% 추가 감소</td><td style="padding:5px 7px;border-bottom:1px solid #f1efe8;text-align:center;font-size:10px;color:#185fa5">CTT</td></tr>
+              <tr><td style="padding:5px 7px;font-weight:700;color:#185fa5">더 오래</td><td style="padding:5px 7px;font-size:10px">치료 중단 없이 지속 · 75세 이상도 나이 단독으로 중단 금지 · FOURIER-OLE: 조기 시작군이 만성 이득</td><td style="padding:5px 7px;text-align:center;font-size:10px;color:#185fa5">Sec 4.2.8.3</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 30년 위험도의 역할 -->
+        <div style="background:#e6f1fb;border-radius:8px;padding:9px 11px;margin-bottom:7px">
+          <div style="font-size:11px;font-weight:700;color:#185fa5;margin-bottom:4px">30년 위험도 (PREVENT 30-year risk)의 임상적 의의</div>
+          <div style="font-size:10px;color:#1a1a18;line-height:1.7">10년 위험도가 낮은 젊은 성인(30–59세)에서도 <b>30년 위험도 ≥10%</b>이면 중등강도 스타틴 합리적 (Class 2a, C-LD). 누적 LDL 부담 개념을 임상 결정에 직접 반영한 권고 — "지금 당장 10년 위험이 낮아도 평생 노출을 줄이는 것이 이득".</div>
+        </div>
+
+        <!-- 핵심 한 줄 요약 -->
+        <div style="background:#185fa5;border-radius:8px;padding:10px 12px;font-size:11px;color:#fff;line-height:1.7;text-align:center">
+          ASCVD 위험 = LDL-C 수치 × <b>노출 기간</b><br>
+          <span style="font-size:10px;opacity:.85">치료의 가치는 수치 감소만큼이나 <b>얼마나 일찍 시작했는가</b>에 달려 있다</span>
+        </div>
+      </div>
+
     </div>
-    <div style="font-size:10px;color:#5f5e5a;line-height:1.6">PREVENT 위험도 + 위험증가 인자 + CAC + ApoB + CKM 병기를 <b style="color:#1a1a18">개인별 조합</b>으로 결정.</div>
   </div>
+
+<script>
+function toggleCumulativeLDL(){
+  var body = document.getElementById('cumulativeLDLBody');
+  var arrow = document.getElementById('cumulativeLDLArrow');
+  if(body.style.display === 'none'){
+    body.style.display = 'block';
+    arrow.style.transform = 'rotate(90deg)';
+  } else {
+    body.style.display = 'none';
+    arrow.style.transform = 'rotate(0deg)';
+  }
+}
+function switchCLTab(idx){
+  [0,1,2,3].forEach(function(i){
+    var p = document.getElementById('clPanel'+i);
+    var b = document.getElementById('clTab'+i);
+    if(p) p.style.display = (i===idx) ? 'block' : 'none';
+    if(b){
+      b.style.background = (i===idx) ? '#185fa5' : '#f5f9fe';
+      b.style.color = (i===idx) ? '#fff' : '#185fa5';
+    }
+  });
+}
+</script>
+  <div style="background:#fff;border:1px solid #e2e0db;border-top:3px solid #639922;border-radius:8px;overflow:hidden">
+    <!-- 헤더: 클릭 시 펼침 -->
+    <div id="precisionHeader" onclick="togglePrecision()" style="padding:10px 13px;cursor:pointer;user-select:none;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;transition:background .15s" onmouseover="this.style.background='#f4f9f0'" onmouseout="this.style.background='#fff'">
+      <div style="display:flex;align-items:center;gap:8px;flex:1">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#639922;color:#fff;font-size:15px;font-weight:800;flex-shrink:0">P</span>
+        <div>
+          <span style="font-size:11px;font-weight:700;color:#639922;line-height:1.3">Precision Prevention<br><span style="color:#5f5e5a;font-weight:400">정밀 맞춤 예방</span></span>
+          <div style="font-size:10px;color:#5f5e5a;line-height:1.6;margin-top:3px">PREVENT 위험도 + 위험증가 인자 + CAC + ApoB + CKM 병기를 <b style="color:#1a1a18">개인별 조합</b>으로 결정.</div>
+        </div>
+      </div>
+      <span id="precisionArrow" style="font-size:11px;color:#639922;font-weight:700;flex-shrink:0;margin-top:2px;transition:transform .25s;display:inline-block">▶</span>
+    </div>
+
+    <!-- 펼쳐지는 상세 내용 -->
+    <div id="precisionBody" style="display:none;border-top:1px solid #dff0d0">
+
+      <!-- 탭 버튼 -->
+      <div style="display:flex;border-bottom:1px solid #dff0d0;background:#f6faf2">
+        <button id="ppTab0" onclick="switchPPTab(0)" style="flex:1;padding:7px 4px;border:none;background:#639922;color:#fff;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;border-right:1px solid #dff0d0">CPR 프레임워크</button>
+        <button id="ppTab1" onclick="switchPPTab(1)" style="flex:1;padding:7px 4px;border:none;background:#f6faf2;color:#3b6d11;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;border-right:1px solid #dff0d0">위험증강인자</button>
+        <button id="ppTab2" onclick="switchPPTab(2)" style="flex:1;padding:7px 4px;border:none;background:#f6faf2;color:#3b6d11;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;border-right:1px solid #dff0d0">CAC 재분류</button>
+        <button id="ppTab3" onclick="switchPPTab(3)" style="flex:1;padding:7px 4px;border:none;background:#f6faf2;color:#3b6d11;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit">ApoB · CKM</button>
+      </div>
+
+      <!-- ── 탭0: CPR 프레임워크 ── -->
+      <div id="ppPanel0" style="padding:12px 13px;display:block">
+        <!-- CPR 3단계 -->
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:10px">
+          <div style="background:#eaf3de;border:1px solid #c0dd97;border-radius:8px;padding:9px 10px;text-align:center">
+            <div style="font-size:15px;font-weight:800;color:#3b6d11;line-height:1">C</div>
+            <div style="font-size:11px;font-weight:700;color:#3b6d11;margin-top:2px">Calculate</div>
+            <div style="font-size:9px;color:#5f5e5a;margin-top:3px;line-height:1.5">PREVENT 10년/30년<br>ASCVD 위험 계산</div>
+          </div>
+          <div style="background:#eaf3de;border:1px solid #c0dd97;border-radius:8px;padding:9px 10px;text-align:center">
+            <div style="font-size:15px;font-weight:800;color:#3b6d11;line-height:1">P</div>
+            <div style="font-size:11px;font-weight:700;color:#3b6d11;margin-top:2px">Personalize</div>
+            <div style="font-size:9px;color:#5f5e5a;margin-top:3px;line-height:1.5">위험증강인자·생식<br>위험인자·PRS 반영</div>
+          </div>
+          <div style="background:#eaf3de;border:1px solid #c0dd97;border-radius:8px;padding:9px 10px;text-align:center">
+            <div style="font-size:15px;font-weight:800;color:#3b6d11;line-height:1">R</div>
+            <div style="font-size:11px;font-weight:700;color:#3b6d11;margin-top:2px">Reclassify</div>
+            <div style="font-size:9px;color:#5f5e5a;margin-top:3px;line-height:1.5">CAC로 불확실성<br>해소 · 재분류</div>
+          </div>
+        </div>
+
+        <div style="background:#f4f9f0;border:1px solid #c0dd97;border-radius:8px;padding:10px 12px;margin-bottom:8px">
+          <div style="font-size:11px;font-weight:700;color:#3b6d11;margin-bottom:5px">CPR Framework — 2026 ACC/AHA Guideline (Section 4.2.3)</div>
+          <div style="font-size:11px;color:#1a1a18;line-height:1.75">
+            10년 ASCVD 위험 추정 후, 임상적 불확실성이 있거나 환자가 치료 결정을 주저할 때 <b>CAC 측정이 경계~중간위험군에서 위험 재분류에 유용</b>하다. 이 접근이 "CPR Framework(Calculate–Personalize–Reclassify)"로 명명되었다.<br><br>
+            절대 10년·30년 위험 외에도 <b>동반질환, 기대여명, 환자 선호도, 잠재적 순이익</b>을 공유 의사결정에 반영한다.
+          </div>
+          <div style="font-size:9px;color:#5f5e5a;margin-top:5px;font-style:italic">Figure 5. CPR Framework for Risk Evaluation · Circulation 2026;153:e1154</div>
+        </div>
+
+        <!-- 위험군 분류 요약 -->
+        <div style="font-size:10px;font-weight:700;color:#888780;text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px">PREVENT 기반 1차 예방 위험군 분류</div>
+        <div style="overflow-x:auto">
+          <table style="width:100%;font-size:11px;border-collapse:collapse;min-width:320px">
+            <thead><tr style="background:#eaf3de">
+              <th style="padding:5px 7px;text-align:left;font-size:10px;font-weight:700;color:#27500a;border-bottom:1px solid #c0dd97">위험군</th>
+              <th style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#27500a;border-bottom:1px solid #c0dd97">10년 ASCVD</th>
+              <th style="padding:5px 7px;text-align:left;font-size:10px;font-weight:700;color:#27500a;border-bottom:1px solid #c0dd97">LLT 권고</th>
+              <th style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#27500a;border-bottom:1px solid #c0dd97">LDL 목표</th>
+            </tr></thead>
+            <tbody>
+              <tr><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;color:#5f5e5a">저위험</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;text-align:center">&lt;3%</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;color:#5f5e5a;font-size:10px">생활습관 우선. 위험증강인자·CAC 있으면 고려</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;text-align:center;color:#5f5e5a">—</td></tr>
+              <tr style="background:#fafaf8"><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;font-weight:600;color:#854f0b">경계위험</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;text-align:center;font-weight:700">3–&lt;5%</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;font-size:10px">위험증강인자 or CAC &gt;0 시 중등강도 스타틴 합리적 (2a)</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;text-align:center">&lt;100</td></tr>
+              <tr><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;font-weight:600;color:#ef9f27">중간위험</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;text-align:center;font-weight:700">5–&lt;10%</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;font-size:10px">중등강도 스타틴 권고. CAC로 재분류 유용 (COR I)</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;text-align:center">&lt;100</td></tr>
+              <tr style="background:#fef9f0"><td style="padding:4px 7px;font-weight:700;color:#a32d2d">고위험</td><td style="padding:4px 7px;text-align:center;font-weight:700;color:#a32d2d">≥10%</td><td style="padding:4px 7px;font-size:10px">고강도 스타틴 권고 (2차 예방 수준 위험)</td><td style="padding:4px 7px;text-align:center;font-weight:700;color:#a32d2d">&lt;70</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ── 탭1: 위험증강인자 ── -->
+      <div id="ppPanel1" style="padding:12px 13px;display:none">
+        <div style="font-size:10px;font-weight:700;color:#888780;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px">Table 13. Risk Enhancers (2026 ACC/AHA — Section 4.2.3.3)</div>
+        <div style="font-size:10px;color:#5f5e5a;margin-bottom:8px;line-height:1.6">PREVENT-ASCVD 방정식에 포함되지 않은 인자들로, 위험이 계산값보다 높을 수 있음을 시사. <b>위험증강인자의 부재가 더 낮은 위험을 의미하지는 않는다.</b></div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px">
+          <!-- 좌 -->
+          <div>
+            <div style="font-size:10px;font-weight:700;color:#3b6d11;margin-bottom:4px">임상·가족력</div>
+            <div style="background:#f4f9f0;border-radius:7px;padding:8px 10px;font-size:10px;color:#1a1a18;line-height:1.8">
+              ▸ 조기 ASCVD 가족력 (부모·형제, 남 &lt;55세, 여 &lt;65세)<br>
+              ▸ 고위험 민족 (남아시아계, 필리핀계)<br>
+              ▸ 높은 다유전자 위험점수 (PRS, 상위 10%)<br>
+              ▸ 만성 염증질환 (SLE · RA · 건선 · 염증성 관절염)
+            </div>
+          </div>
+          <!-- 우 -->
+          <div>
+            <div style="font-size:10px;font-weight:700;color:#3b6d11;margin-bottom:4px">검사·대사 지표</div>
+            <div style="background:#f4f9f0;border-radius:7px;padding:8px 10px;font-size:10px;color:#1a1a18;line-height:1.8">
+              ▸ Lp(a) ≥125 nmol/L (≥50 mg/dL)<br>
+              ▸ hsCRP ≥2 mg/L (2회 이상)<br>
+              ▸ TG ≥175 mg/dL (비공복) / ≥150 mg/dL (공복)<br>
+              ▸ LDL-C 지속 160–189 mg/dL, non-HDL ≥190 mg/dL, <b>apoB ≥120 mg/dL</b>
+            </div>
+          </div>
+        </div>
+
+        <!-- 생식 위험인자 -->
+        <div style="background:#f4f9f0;border:1px solid #c0dd97;border-radius:7px;padding:8px 10px;margin-bottom:7px">
+          <div style="font-size:10px;font-weight:700;color:#3b6d11;margin-bottom:3px">생식 위험인자 (Reproductive Risk Markers) — Section 4.2.3.4</div>
+          <div style="font-size:10px;color:#1a1a18;line-height:1.7">조기 폐경 · 자간전증 · 임신성 당뇨 · 임신성 고혈압 · 조산 — 여성에서 ASCVD 위험증강인자로 PREVENT 방정식 보완. ASCVD 위험 개인화에 반영.</div>
+        </div>
+
+        <!-- CKM -->
+        <div style="background:#eaf3de;border:1px solid #c0dd97;border-radius:7px;padding:8px 10px">
+          <div style="font-size:10px;font-weight:700;color:#3b6d11;margin-bottom:3px">CKM 증후군 (Cardiovascular-Kidney-Metabolic) — Section 4.2.3.3</div>
+          <div style="font-size:10px;color:#1a1a18;line-height:1.7">비만·인슐린저항성·CKD·당뇨·심부전이 복합된 병태. Table 13에 위험증강인자로 명시. CKM 병기가 높을수록 10년 위험 과소추정 가능 → <b>PREVENT 방정식에 albuminuria·HbA1c·zip code를 모두 포함시킬 것.</b></div>
+        </div>
+      </div>
+
+      <!-- ── 탭2: CAC 재분류 ── -->
+      <div id="ppPanel2" style="padding:12px 13px;display:none">
+        <div style="font-size:10px;font-weight:700;color:#888780;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px">Section 4.2.3.6 — Selective Imaging of Subclinical Atherosclerosis</div>
+
+        <div style="background:#f4f9f0;border:1px solid #c0dd97;border-radius:8px;padding:9px 11px;margin-bottom:8px;font-size:10px;color:#1a1a18;line-height:1.75">
+          CAC는 증상 없는 성인에서 무증상 죽상경화를 정량화하는 가장 강력한 재분류 도구. LLT 결정이 불확실할 때 <b>경계~중간위험군</b>(남 ≥40세, 여 ≥45세)에서 선택적으로 시행. 방사선 노출 ~1 mSv(유방촬영술 수준). 우발 소견(폐결절 등) &lt;10%.
+        </div>
+
+        <!-- CAC 구간별 권고 -->
+        <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:8px">
+          <div style="display:flex;gap:8px;align-items:flex-start">
+            <div style="min-width:68px;padding:4px 6px;background:#eaf3de;border-radius:5px;text-align:center;font-size:11px;font-weight:700;color:#27500a">CAC = 0</div>
+            <div style="font-size:10px;color:#1a1a18;line-height:1.6;flex:1">스타틴 유예 합리적 (중간·경계위험). 단 FH·LDL≥190·당뇨·흡연·강한 가족력은 예외. 3–7년 후 재검 고려. <span style="color:#3b6d11;font-weight:600">COR 2a</span></div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:flex-start">
+            <div style="min-width:68px;padding:4px 6px;background:#eaf3de;border-radius:5px;text-align:center;font-size:11px;font-weight:700;color:#3b6d11">1–99 AU</div>
+            <div style="font-size:10px;color:#1a1a18;line-height:1.6;flex:1">위험증강인자. LDL &lt;100 목표로 스타틴 고려. 젊은 환자는 CARDIA 데이터에서 CAC 1–19에서도 위험 상승. <span style="color:#3b6d11;font-weight:600">COR 2a</span></div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:flex-start">
+            <div style="min-width:68px;padding:4px 6px;background:#c0dd97;border-radius:5px;text-align:center;font-size:11px;font-weight:700;color:#27500a">100–299<br>&amp; ≥75%ile</div>
+            <div style="font-size:10px;color:#1a1a18;line-height:1.6;flex:1">고강도 스타틴. LDL-C ≥50% 감소 + &lt;70 mg/dL 목표. MESA: CAC 101–300에서 관상동맥 사건 위험 약 8배 증가. <span style="color:#3b6d11;font-weight:600">COR 1</span></div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:flex-start">
+            <div style="min-width:68px;padding:4px 6px;background:#97c459;border-radius:5px;text-align:center;font-size:11px;font-weight:700;color:#173404">300–999</div>
+            <div style="font-size:10px;color:#1a1a18;line-height:1.6;flex:1">고강도 스타틴 + LDL &lt;70. 2차 예방 유사 수준 위험. Ezetimibe 추가 고려 합리적 (COR 2a). <span style="color:#3b6d11;font-weight:600">COR 1</span></div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:flex-start">
+            <div style="min-width:68px;padding:4px 6px;background:#3b6d11;border-radius:5px;text-align:center;font-size:11px;font-weight:700;color:#fff">≥1000 AU</div>
+            <div style="font-size:10px;color:#1a1a18;line-height:1.6;flex:1"><b>초고위험 수준</b>. FOURIER 플라시보군 연간 사망률과 유사. LDL &lt;55 mg/dL 목표. 최대내약 스타틴 + Ezetimibe. <span style="color:#a32d2d;font-weight:600">COR 1</span></div>
+          </div>
+        </div>
+
+        <div style="background:#eaf3de;border-radius:6px;padding:7px 10px;font-size:10px;color:#27500a;line-height:1.6">
+          💡 CAC는 치료를 결정하는 도구이지, 위험이 있는 환자에서 스타틴을 보류하는 근거로 사용해서는 안 된다. CAC=0이라도 당뇨·FH·흡연 환자는 예외.
+        </div>
+      </div>
+
+      <!-- ── 탭3: ApoB · CKM ── -->
+      <div id="ppPanel3" style="padding:12px 13px;display:none">
+
+        <!-- ApoB in precision prevention -->
+        <div style="font-size:10px;font-weight:700;color:#3b6d11;text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px">ApoB — LDL-C 목표 달성 후 정밀 보완 (Section 3.3)</div>
+        <div style="background:#f4f9f0;border:1px solid #c0dd97;border-radius:8px;padding:9px 11px;margin-bottom:9px">
+          <div style="font-size:11px;color:#1a1a18;line-height:1.75">
+            ApoB 측정은 <b>LLT 중 특히 ASCVD, CKM 증후군, TG ≥200, 당뇨, 치료 중 LDL-C &lt;70 mg/dL</b>인 성인에서 잔류 지단백 관련 위험을 식별하는 데 유용 (COR 2a).<br>
+            LDL-C와 ApoB의 불일치(discordance)는 TG 상승·대사증후군에서 빈번. Martin/Hopkins 방법으로 LDL-C 계산 시 불일치 비율이 Friedewald 대비 현저히 감소하나, 여전히 ApoB가 추가 정보 제공.<br>
+            ApoB는 비공복 상태에서도 측정 가능하며 표준화되어 있어 실용적.
+          </div>
+          <div style="margin-top:7px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px">
+            <div style="background:#e6f1fb;border-radius:5px;padding:5px 7px;text-align:center">
+              <div style="font-size:12px;font-weight:700;color:#185fa5">&lt;55</div>
+              <div style="font-size:9px;color:#5f5e5a">초고위험</div>
+            </div>
+            <div style="background:#e6f1fb;border-radius:5px;padding:5px 7px;text-align:center">
+              <div style="font-size:12px;font-weight:700;color:#378add">&lt;70</div>
+              <div style="font-size:9px;color:#5f5e5a">고위험</div>
+            </div>
+            <div style="background:#e6f1fb;border-radius:5px;padding:5px 7px;text-align:center">
+              <div style="font-size:12px;font-weight:700;color:#85b7eb">&lt;90</div>
+              <div style="font-size:9px;color:#5f5e5a">중간위험</div>
+            </div>
+          </div>
+          <div style="font-size:9px;color:#5f5e5a;margin-top:3px;text-align:center">mg/dL — LDL-C 목표와 정렬 (2026 ACC/AHA)</div>
+        </div>
+
+        <!-- CKM staging -->
+        <div style="font-size:10px;font-weight:700;color:#3b6d11;text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px">CKM 증후군 병기 — 위험 개인화 핵심 (2023 AHA)</div>
+        <div style="overflow-x:auto">
+          <table style="width:100%;font-size:10px;border-collapse:collapse;min-width:320px">
+            <thead><tr style="background:#eaf3de">
+              <th style="padding:5px 7px;text-align:center;font-weight:700;color:#27500a;border-bottom:1px solid #c0dd97">병기</th>
+              <th style="padding:5px 7px;text-align:left;font-weight:700;color:#27500a;border-bottom:1px solid #c0dd97">특징</th>
+              <th style="padding:5px 7px;text-align:left;font-weight:700;color:#27500a;border-bottom:1px solid #c0dd97">지질치료 시사점</th>
+            </tr></thead>
+            <tbody>
+              <tr><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;text-align:center;font-weight:700;color:#3b6d11">0</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8">정상 대사, CKD 없음</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;color:#5f5e5a">primordial prevention</td></tr>
+              <tr style="background:#f8fdf4"><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;text-align:center;font-weight:700;color:#639922">1</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8">비만/과체중, 전당뇨, 경도 CKD</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8">생활습관 + LDL 위험 평가</td></tr>
+              <tr><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;text-align:center;font-weight:700;color:#854f0b">2</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8">당뇨, CKD 3기 이상, 대사증후군</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8"><b>ApoB·위험증강인자 적극 평가.</b> PREVENT 10년 위험 과소추정 주의</td></tr>
+              <tr style="background:#fff5ee"><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;text-align:center;font-weight:700;color:#a32d2d">3</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8">무증상 CVD (CAC, 단백뇨 등)</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8">LDL &lt;70 강화 고려. CAC로 재분류</td></tr>
+              <tr style="background:#fef5f5"><td style="padding:4px 7px;text-align:center;font-weight:700;color:#791f1f">4</td><td style="padding:4px 7px">임상적 CVD (ASCVD·심부전·CKD 4–5기)</td><td style="padding:4px 7px;font-weight:600;color:#a32d2d">2차 예방 — LDL &lt;55 (VHR) or &lt;70</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top:7px;background:#f4f9f0;border-radius:6px;padding:7px 10px;font-size:10px;color:#3b6d11;line-height:1.6">
+          CKM 병기 2 이상에서는 PREVENT 방정식에 albuminuria(UACR), HbA1c, 지역사회 사회경제적 지표(zip code)를 모두 입력하여 위험을 정밀하게 계산할 것.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+<script>
+function togglePrecision(){
+  var body = document.getElementById('precisionBody');
+  var arrow = document.getElementById('precisionArrow');
+  if(body.style.display === 'none'){
+    body.style.display = 'block';
+    arrow.style.transform = 'rotate(90deg)';
+  } else {
+    body.style.display = 'none';
+    arrow.style.transform = 'rotate(0deg)';
+  }
+}
+function switchPPTab(idx){
+  [0,1,2,3].forEach(function(i){
+    var p = document.getElementById('ppPanel'+i);
+    var b = document.getElementById('ppTab'+i);
+    if(p) p.style.display = (i===idx) ? 'block' : 'none';
+    if(b){
+      b.style.background = (i===idx) ? '#639922' : '#f6faf2';
+      b.style.color      = (i===idx) ? '#fff'    : '#3b6d11';
+    }
+  });
+}
+</script>
   <div style="background:#fff;border:1px solid #e2e0db;border-top:3px solid #a32d2d;border-radius:8px;overflow:hidden">
     <!-- 헤더: 클릭하면 펼침 -->
     <div id="residualRiskHeader" onclick="toggleResidualRisk()" style="padding:10px 13px;cursor:pointer;user-select:none;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;transition:background .15s" onmouseover="this.style.background='#fdf8f8'" onmouseout="this.style.background='#fff'">
