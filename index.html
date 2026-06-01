@@ -408,6 +408,7 @@ var GLOSSARY=[
   {abbr:'OSA',full:'Obstructive Sleep Apnea',ko:'폐쇄성 수면무호흡증',desc:'AHI ≥15(중등도 이상) 시 CKM 위험증강인자. 교감신경 항진·염증·산화스트레스로 심혈관 위험 증가'},
   {abbr:'AHI',full:'Apnea-Hypopnea Index',ko:'무호흡-저호흡 지수',desc:'수면 시간당 무호흡+저호흡 횟수. 5–14: 경도, 15–29: 중등도, ≥30: 중증 OSA'},
   {abbr:'PAD',full:'Peripheral Artery Disease',ko:'말초동맥질환',desc:'ABI <0.9, 파행, 하지 재개통술력 포함. ASCVD의 주요 임상 표현형. 2차 예방 대상'},
+  {abbr:'VHR',full:'Very High Risk',ko:'초고위험군 (2차 예방)',desc:'2026 ACC/AHA Dyslipidemia Guideline 정의. ASCVD 기왕력 환자 중 아래 기준 해당 시 VHR 분류 → <b>LDL-C &lt;55 · ApoB &lt;55 · non-HDL &lt;85 mg/dL</b> 목표 적용.<br><br><b style="color:#a32d2d">[A] 복수의 주요 ASCVD 사건 (2개 이상)</b><br><span style="padding-left:8px;display:block">MI(STEMI/NSTEMI) · 허혈성 뇌졸중/TIA · 불안정협심증 입원 · PAD(파행·재개통술·절단)</span><b style="color:#a32d2d">[B] 단일 주요 ASCVD 사건 + 고위험 조건 1개 이상</b><br><span style="padding-left:8px;display:block">▸ 당뇨병 · 고혈압 · CKD(eGFR 15–59) · 흡연 지속<br>▸ 조기 ASCVD (남 &lt;55세, 여 &lt;65세)<br>▸ FH (이형접합 가족성 고콜레스테롤혈증)<br>▸ 다혈관 관상동맥질환 (multivessel CAD)<br>▸ 최대 내약 스타틴에서도 LDL-C ≥70 mg/dL 지속<br>▸ CAC ≥300 또는 ≥75th percentile</span><br>치료: 고강도 스타틴 → Ezetimibe → PCSK9i 단계 강화. LDL &lt;55 달성 시 추가 사건 ~20% 추가 감소 (CTT)'},
   {abbr:'MI',full:'Myocardial Infarction',ko:'심근경색증',desc:'ASCVD 기왕력의 주요 유형. STEMI/NSTEMI 포함. 2차 예방 대상 — LDL 목표 <70 (일반), <55 (초고위험)'},
   {abbr:'PCSK9',full:'Proprotein Convertase Subtilisin/Kexin type 9',ko:'PCSK9 (지단백 수용체 조절 효소)',desc:'LDL 수용체를 분해하여 LDL-C 상승 유발. 억제제(evolocumab·alirocumab): LDL 추가 50–60% 감소. 초고위험 스타틴+에제티미브 미달성 시 3단계 추가 치료'},
   {abbr:'NNT',full:'Number Needed to Treat',ko:'치료 필요 수',desc:'1명의 사건을 예방하기 위해 치료해야 하는 환자 수. 낮을수록 치료 효율 높음. 위험군별: 저위험 ~267, 경계 ~100, 중간 ~53, 고위험 1차 ~24, 고위험 2차 ~11, 초고위험 2차 ~7'},
@@ -598,13 +599,294 @@ document.addEventListener('click',function(e){
     </div>
     <div style="font-size:10px;color:#5f5e5a;line-height:1.6">PREVENT 위험도 + 위험증가 인자 + CAC + ApoB + CKM 병기를 <b style="color:#1a1a18">개인별 조합</b>으로 결정.</div>
   </div>
-  <div style="background:#fff;border:1px solid #e2e0db;border-top:3px solid #a32d2d;border-radius:8px;padding:10px 13px">
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
-      <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#a32d2d;color:#fff;font-size:15px;font-weight:800;flex-shrink:0">R</span>
-      <span style="font-size:11px;font-weight:700;color:#a32d2d;line-height:1.3">Residual Risk beyond LDL<br><span style="color:#5f5e5a;font-weight:400">LDL 너머의 잔여 위험</span></span>
+  <div style="background:#fff;border:1px solid #e2e0db;border-top:3px solid #a32d2d;border-radius:8px;overflow:hidden">
+    <!-- 헤더: 클릭하면 펼침 -->
+    <div id="residualRiskHeader" onclick="toggleResidualRisk()" style="padding:10px 13px;cursor:pointer;user-select:none;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;transition:background .15s" onmouseover="this.style.background='#fdf8f8'" onmouseout="this.style.background='#fff'">
+      <div style="display:flex;align-items:center;gap:8px;flex:1">
+        <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#a32d2d;color:#fff;font-size:15px;font-weight:800;flex-shrink:0">R</span>
+        <div>
+          <span style="font-size:11px;font-weight:700;color:#a32d2d;line-height:1.3">Residual Risk beyond LDL<br><span style="color:#5f5e5a;font-weight:400">LDL 너머의 잔여 위험</span></span>
+          <div style="font-size:10px;color:#5f5e5a;line-height:1.6;margin-top:3px">스타틴으로 LDL 조절 후에도 ApoB · Lp(a) · non-HDL · TG로 <b style="color:#1a1a18">잔여 위험을 포착하고 추가 치료.</b></div>
+        </div>
+      </div>
+      <span id="residualArrow" style="font-size:11px;color:#a32d2d;font-weight:700;flex-shrink:0;margin-top:2px;transition:transform .25s;display:inline-block">▶</span>
     </div>
-    <div style="font-size:10px;color:#5f5e5a;line-height:1.6">스타틴으로 LDL 조절 후에도 ApoB · Lp(a) · non-HDL · TG로 <b style="color:#1a1a18">잔여 위험을 포착하고 추가 치료.</b></div>
+
+    <!-- 펼쳐지는 상세 내용 -->
+    <div id="residualRiskBody" style="display:none;border-top:1px solid #f0edea">
+
+      <!-- 탭 버튼 -->
+      <div style="display:flex;border-bottom:1px solid #e2e0db;background:#fafaf8">
+        <button id="rrTab0" onclick="switchRRTab(0)" style="flex:1;padding:7px 4px;border:none;background:#a32d2d;color:#fff;font-size:11px;font-weight:700;cursor:pointer;font-family:inherit;border-right:1px solid #e2e0db">개요</button>
+        <button id="rrTab1" onclick="switchRRTab(1)" style="flex:1;padding:7px 4px;border:none;background:#fafaf8;color:#a32d2d;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;border-right:1px solid #e2e0db">기전</button>
+        <button id="rrTab2" onclick="switchRRTab(2)" style="flex:1;padding:7px 4px;border:none;background:#fafaf8;color:#a32d2d;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;border-right:1px solid #e2e0db">위험도 중첩</button>
+        <button id="rrTab3" onclick="switchRRTab(3)" style="flex:1;padding:7px 4px;border:none;background:#fafaf8;color:#a32d2d;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit">임상 적용</button>
+      </div>
+
+      <!-- ── 탭0: 개요 ── -->
+      <div id="rrPanel0" style="padding:12px 13px;display:block">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:10px">
+          <!-- ApoB -->
+          <div style="background:#f0f6fc;border:1px solid #b5d4f4;border-radius:8px;padding:9px 10px">
+            <div style="display:inline-block;padding:2px 7px;border-radius:4px;background:#b5d4f4;color:#0c447c;font-size:10px;font-weight:700;margin-bottom:5px">ApoB</div>
+            <div style="font-size:10px;color:#5f5e5a;margin-bottom:5px">총 죽상동맥경화성 입자 수</div>
+            <div style="background:#e6f1fb;border-radius:5px;padding:5px 7px;margin-bottom:5px">
+              <div style="display:flex;flex-direction:column;gap:2px">
+                <div style="display:flex;align-items:baseline;justify-content:space-between">
+                  <span style="font-size:13px;font-weight:700;color:#185fa5">&lt;55</span>
+                  <span style="font-size:9px;color:#5f5e5a">초고위험 (2차 VHR)</span>
+                </div>
+                <div style="display:flex;align-items:baseline;justify-content:space-between">
+                  <span style="font-size:13px;font-weight:700;color:#378add">&lt;70</span>
+                  <span style="font-size:9px;color:#5f5e5a">고위험 (2차 non-VHR)</span>
+                </div>
+                <div style="display:flex;align-items:baseline;justify-content:space-between">
+                  <span style="font-size:13px;font-weight:700;color:#85b7eb">&lt;90</span>
+                  <span style="font-size:9px;color:#5f5e5a">중간위험 (1차)</span>
+                </div>
+              </div>
+              <div style="font-size:9px;color:#5f5e5a;margin-top:3px;border-top:1px solid #b5d4f4;padding-top:3px">mg/dL · LDL-C 목표와 정렬</div>
+            </div>
+            <div style="font-size:10px;color:#5f5e5a;line-height:1.6">LDL, VLDL, IDL, Lp(a) 포함<br>입자 1개 = ApoB 1개</div>
+          </div>
+          <!-- Lp(a) -->
+          <div style="background:#fffbf0;border:1px solid #fac775;border-radius:8px;padding:9px 10px">
+            <div style="display:inline-block;padding:2px 7px;border-radius:4px;background:#fac775;color:#633806;font-size:10px;font-weight:700;margin-bottom:5px">Lp(a)</div>
+            <div style="font-size:10px;color:#5f5e5a;margin-bottom:5px">독립적 유전성 위험인자</div>
+            <div style="background:#faeeda;border-radius:5px;padding:5px 7px;margin-bottom:5px">
+              <div style="font-size:16px;font-weight:700;color:#ba7517;line-height:1">&gt;50</div>
+              <div style="font-size:9px;color:#5f5e5a;margin-top:1px">mg/dL 고위험 / &gt;125 nmol/L</div>
+            </div>
+            <div style="font-size:10px;color:#5f5e5a;line-height:1.6">인구의 ~20% 해당<br>스타틴으로 불변 또는 ↑</div>
+          </div>
+          <!-- sdLDL -->
+          <div style="background:#fef5f5;border:1px solid #f7c1c1;border-radius:8px;padding:9px 10px">
+            <div style="display:inline-block;padding:2px 7px;border-radius:4px;background:#f7c1c1;color:#791f1f;font-size:10px;font-weight:700;margin-bottom:5px">sdLDL</div>
+            <div style="font-size:10px;color:#5f5e5a;margin-bottom:5px">LDL subparticle 최고위험</div>
+            <div style="background:#fcebeb;border-radius:5px;padding:5px 7px;margin-bottom:5px">
+              <div style="font-size:16px;font-weight:700;color:#a32d2d;line-height:1">&lt;25.5</div>
+              <div style="font-size:9px;color:#5f5e5a;margin-top:1px">nm (Pattern B)</div>
+            </div>
+            <div style="font-size:10px;color:#5f5e5a;line-height:1.6">대사증후군·당뇨에서 증가<br>LDL-C 정상에서도 존재</div>
+          </div>
+        </div>
+
+        <!-- 비교표 -->
+        <div style="font-size:10px;font-weight:700;color:#888780;text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px">세 마커 비교</div>
+        <div style="overflow-x:auto">
+          <table style="width:100%;font-size:11px;border-collapse:collapse;min-width:380px">
+            <thead><tr style="background:#f8f7f5">
+              <th style="padding:5px 7px;text-align:left;font-size:10px;font-weight:700;color:#888780;border-bottom:1px solid #e2e0db">항목</th>
+              <th style="padding:5px 7px;text-align:left;font-size:10px;font-weight:700;color:#185fa5;border-bottom:1px solid #e2e0db">ApoB</th>
+              <th style="padding:5px 7px;text-align:left;font-size:10px;font-weight:700;color:#ba7517;border-bottom:1px solid #e2e0db">Lp(a)</th>
+              <th style="padding:5px 7px;text-align:left;font-size:10px;font-weight:700;color:#a32d2d;border-bottom:1px solid #e2e0db">sdLDL</th>
+            </tr></thead>
+            <tbody>
+              <tr><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;color:#5f5e5a;font-size:10px">반영 내용</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;color:#1a1a18">총 atherogenic 입자 수</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;color:#1a1a18">혈전+염증+콜레스테롤</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;color:#1a1a18">산화·침투 용이 입자</td></tr>
+              <tr style="background:#fafaf8"><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;color:#5f5e5a;font-size:10px">LDL-C 독립성</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8">높음 ★★★</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8">완전 독립 ★★★</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8">중등도 ★★</td></tr>
+              <tr><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;color:#5f5e5a;font-size:10px">스타틴 반응</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;color:#3b6d11;font-weight:600">↓↓ 감소</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;color:#a32d2d;font-weight:600">불변 또는 ↑</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;color:#3b6d11;font-weight:600">↓ 감소</td></tr>
+              <tr style="background:#fafaf8"><td style="padding:4px 7px;color:#5f5e5a;font-size:10px">2026 가이드라인</td><td style="padding:4px 7px">Secondary target (IIa)</td><td style="padding:4px 7px">전원 1회 측정 (Class I)</td><td style="padding:4px 7px">일상 권고 약함 (IIb)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ── 탭1: 기전 ── -->
+      <div id="rrPanel1" style="padding:12px 13px;display:none">
+        <!-- ApoB 기전 -->
+        <div style="font-size:10px;font-weight:700;color:#185fa5;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px">ApoB — 입자 수의 병리학</div>
+        <div style="background:#f0f6fc;border:1px solid #b5d4f4;border-radius:8px;padding:10px 12px;margin-bottom:9px">
+          <div style="display:flex;gap:9px;margin-bottom:7px;align-items:flex-start">
+            <span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#185fa5;color:#fff;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px">1</span>
+            <div style="font-size:11px;color:#1a1a18">모든 atherogenic lipoprotein(LDL, VLDL, IDL, Lp(a))은 ApoB-100 1개씩 포함 → <b>ApoB = 총 죽상혈관 위험 입자 수</b></div>
+          </div>
+          <div style="display:flex;gap:9px;margin-bottom:7px;align-items:flex-start">
+            <span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#185fa5;color:#fff;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px">2</span>
+            <div style="font-size:11px;color:#1a1a18">LDL-C가 같아도 입자 수(ApoB)가 많으면 위험 증가 → <i>LDL discordance</i> 현상의 핵심</div>
+          </div>
+          <div style="display:flex;gap:9px;align-items:flex-start">
+            <span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:#185fa5;color:#fff;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px">3</span>
+            <div style="font-size:11px;color:#1a1a18">동맥벽에 침투·축적되는 것은 입자 자체 → 입자 수가 atherosclerosis의 causal driver</div>
+          </div>
+          <div style="background:#e6f1fb;border-radius:6px;padding:7px 9px;font-size:10px;color:#185fa5;margin-top:7px;line-height:1.6">💡 동일한 LDL-C 100 mg/dL이라도 입자가 작고 많으면(ApoB↑) 위험하고, 입자가 크고 적으면(ApoB 정상) 상대적으로 안전하다.</div>
+        </div>
+
+        <!-- Lp(a) 기전 -->
+        <div style="font-size:10px;font-weight:700;color:#ba7517;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px">Lp(a) — 3중 병리기전</div>
+        <div style="background:#fffbf0;border:1px solid #fac775;border-radius:8px;padding:10px 12px;margin-bottom:9px">
+          <div style="display:flex;gap:9px;margin-bottom:7px;align-items:flex-start">
+            <span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:5px;background:#ef9f27;color:#fff;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px">A</span>
+            <div><div style="font-size:11px;font-weight:700;color:#1a1a18">Atherogenic 기전</div><div style="font-size:10px;color:#5f5e5a;margin-top:2px">ApoB 함유 → 내막 침투, 산화 인지질(OxPL) 운반 → 대식세포 활성화</div></div>
+          </div>
+          <div style="display:flex;gap:9px;margin-bottom:7px;align-items:flex-start">
+            <span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:5px;background:#ef9f27;color:#fff;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px">B</span>
+            <div><div style="font-size:11px;font-weight:700;color:#1a1a18">Thrombogenic 기전</div><div style="font-size:10px;color:#5f5e5a;margin-top:2px">apo(a) kringle 구조 → plasminogen 구조 유사 → tPA 경쟁적 억제 → 섬유소 용해 감소</div></div>
+          </div>
+          <div style="display:flex;gap:9px;align-items:flex-start">
+            <span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:5px;background:#ef9f27;color:#fff;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px">C</span>
+            <div><div style="font-size:11px;font-weight:700;color:#1a1a18">Calcific aortic stenosis 촉진</div><div style="font-size:10px;color:#5f5e5a;margin-top:2px">OxPL → 대동맥판 석회화 가속 (LDL 강하와 무관하게 진행)</div></div>
+          </div>
+          <div style="background:#faeeda;border-radius:6px;padding:7px 9px;font-size:10px;color:#854f0b;margin-top:7px;line-height:1.6">⚠️ Lp(a)는 스타틴으로 감소하지 않으며, PCSK9i 20–30% 감소, 신규 siRNA(olpasiran, muvalaplin) 90%+ 감소.</div>
+        </div>
+
+        <!-- sdLDL 기전 -->
+        <div style="font-size:10px;font-weight:700;color:#a32d2d;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px">sdLDL — 물리화학적 취약성</div>
+        <div style="background:#fef5f5;border:1px solid #f7c1c1;border-radius:8px;padding:10px 12px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:7px">
+            <div>
+              <div style="font-size:11px;font-weight:700;color:#3b6d11;margin-bottom:3px">Large LDL (Pattern A, &gt;25.5 nm)</div>
+              <div style="font-size:10px;color:#5f5e5a;line-height:1.6">▸ 반감기 짧음<br>▸ LDL-R 친화도 높음<br>▸ 산화 저항성 있음<br>▸ 내막 침투 어려움</div>
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:700;color:#a32d2d;margin-bottom:3px">sdLDL (Pattern B, &lt;25.5 nm)</div>
+              <div style="font-size:10px;color:#5f5e5a;line-height:1.6">▸ 반감기 길어 혈중 체류↑<br>▸ LDL-R 친화도 낮음<br>▸ 산화 민감성 ↑↑<br>▸ 내막 proteoglycan 결합↑</div>
+            </div>
+          </div>
+          <div style="background:#fcebeb;border-radius:6px;padding:7px 9px;font-size:10px;color:#a32d2d;line-height:1.6">TG &gt;150 + HDL↓일 때 sdLDL Pattern B 강하게 의심. 인슐린저항성·대사증후군의 지질 지표 역할도 함.</div>
+        </div>
+      </div>
+
+      <!-- ── 탭2: 위험도 중첩 ── -->
+      <div id="rrPanel2" style="padding:12px 13px;display:none">
+        <div style="font-size:10px;font-weight:700;color:#888780;text-transform:uppercase;letter-spacing:.04em;margin-bottom:7px">일반 성인 집단 기준 고위험 유병률</div>
+        <div style="display:grid;grid-template-columns:3fr 2fr 2fr;gap:6px;margin-bottom:10px">
+          <div style="background:#e6f1fb;border-radius:7px;padding:8px 10px;text-align:center">
+            <div style="font-size:18px;font-weight:700;color:#185fa5">~30%</div>
+            <div style="font-size:9px;color:#5f5e5a;margin-top:2px">ApoB 고위험<br>(≥130 mg/dL)</div>
+          </div>
+          <div style="background:#faeeda;border-radius:7px;padding:8px 10px;text-align:center">
+            <div style="font-size:18px;font-weight:700;color:#ba7517">~20%</div>
+            <div style="font-size:9px;color:#5f5e5a;margin-top:2px">Lp(a) 고위험<br>(≥50 mg/dL)</div>
+          </div>
+          <div style="background:#fcebeb;border-radius:7px;padding:8px 10px;text-align:center">
+            <div style="font-size:18px;font-weight:700;color:#a32d2d">~30%</div>
+            <div style="font-size:9px;color:#5f5e5a;margin-top:2px">sdLDL Pattern B<br>(&lt;25.5 nm)</div>
+          </div>
+        </div>
+
+        <div style="font-size:10px;font-weight:700;color:#888780;text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px">중첩 추정 (이론치 + 실측 보정)</div>
+        <div style="overflow-x:auto">
+          <table style="width:100%;font-size:11px;border-collapse:collapse;min-width:360px">
+            <thead><tr style="background:#f8f7f5">
+              <th style="padding:5px 7px;text-align:left;font-size:10px;font-weight:700;color:#888780;border-bottom:1px solid #e2e0db">조합</th>
+              <th style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#888780;border-bottom:1px solid #e2e0db">이론치</th>
+              <th style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#a32d2d;border-bottom:1px solid #e2e0db">실제 추정</th>
+            </tr></thead>
+            <tbody>
+              <tr><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;font-size:10px"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#185fa5;margin-right:3px;vertical-align:middle"></span>ApoB ∩ <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ef9f27;margin-right:3px;vertical-align:middle"></span>Lp(a)</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;text-align:center;color:#5f5e5a">6%</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;text-align:center;font-weight:700;color:#1a1a18">8–10%</td></tr>
+              <tr style="background:#fafaf8"><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;font-size:10px"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#185fa5;margin-right:3px;vertical-align:middle"></span>ApoB ∩ <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#e24b4a;margin-right:3px;vertical-align:middle"></span>sdLDL</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;text-align:center;color:#5f5e5a">9%</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;text-align:center;font-weight:700;color:#1a1a18">18–22%</td></tr>
+              <tr><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;font-size:10px"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#ef9f27;margin-right:3px;vertical-align:middle"></span>Lp(a) ∩ <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#e24b4a;margin-right:3px;vertical-align:middle"></span>sdLDL</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;text-align:center;color:#5f5e5a">6%</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;text-align:center;font-weight:700;color:#1a1a18">5–7%</td></tr>
+              <tr style="background:#fef5f5"><td style="padding:4px 7px;font-size:10px;font-weight:700;color:#a32d2d">3개 모두 고위험</td><td style="padding:4px 7px;text-align:center;color:#5f5e5a">1.8%</td><td style="padding:4px 7px;text-align:center;font-weight:700;color:#a32d2d">2–4%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="font-size:10px;color:#5f5e5a;line-height:1.6;margin-top:6px">▸ ApoB ∩ sdLDL 중첩이 가장 큼 — 대사증후군·인슐린저항성에서 함께 증가하기 때문<br>▸ Lp(a) ∩ sdLDL 중첩은 작음 — 유전적(Lp(a)) vs 대사적(sdLDL) 기전으로 사실상 독립<br>▸ 3개 모두 이상(~2–4%)인 경우 ASCVD 위험 단독 이상 대비 <b style="color:#a32d2d">3–5배</b> 상승</div>
+
+        <div style="margin-top:9px;background:#fcebeb;border-radius:7px;padding:9px 11px;font-size:10px;color:#a32d2d;line-height:1.7">
+          <b>LDL-C 정상(≤100 mg/dL)에서의 잔류 위험</b><br>
+          LDL-C 목표 달성 후에도: ApoB 고위험 ~25%, Lp(a) 고위험 ~20%, sdLDL Pattern B ~20%<br>→ 이것이 advanced lipid testing의 근거
+        </div>
+      </div>
+
+      <!-- ── 탭3: 임상 적용 ── -->
+      <div id="rrPanel3" style="padding:12px 13px;display:none">
+        <!-- ApoB 목표치 표 -->
+        <div style="font-size:10px;font-weight:700;color:#888780;text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px">ApoB 목표치 (2026 ACC/AHA) — 위험군별</div>
+        <div style="overflow-x:auto;margin-bottom:10px">
+          <table style="width:100%;font-size:11px;border-collapse:collapse;min-width:320px">
+            <thead><tr style="background:#e6f1fb">
+              <th style="padding:5px 8px;text-align:left;font-size:10px;font-weight:700;color:#0c447c;border-bottom:1px solid #b5d4f4">위험군</th>
+              <th style="padding:5px 8px;text-align:center;font-size:10px;font-weight:700;color:#0c447c;border-bottom:1px solid #b5d4f4">LDL-C 목표</th>
+              <th style="padding:5px 8px;text-align:center;font-size:10px;font-weight:700;color:#185fa5;border-bottom:1px solid #b5d4f4">ApoB 목표</th>
+              <th style="padding:5px 8px;text-align:center;font-size:10px;font-weight:700;color:#0c447c;border-bottom:1px solid #b5d4f4">non-HDL-C 목표</th>
+            </tr></thead>
+            <tbody>
+              <tr style="background:#f0f6fc"><td style="padding:5px 8px;border-bottom:1px solid #e2e0db;font-weight:700;color:#a32d2d">초고위험 (2차 예방 VHR)</td><td style="padding:5px 8px;border-bottom:1px solid #e2e0db;text-align:center;font-weight:700;color:#a32d2d">&lt;55 mg/dL</td><td style="padding:5px 8px;border-bottom:1px solid #e2e0db;text-align:center;font-weight:700;color:#a32d2d">&lt;55 mg/dL</td><td style="padding:5px 8px;border-bottom:1px solid #e2e0db;text-align:center;color:#a32d2d">&lt;85 mg/dL</td></tr>
+              <tr><td style="padding:5px 8px;border-bottom:1px solid #e2e0db;font-weight:700;color:#854f0b">고위험 (2차 non-VHR / 1차 고위험)</td><td style="padding:5px 8px;border-bottom:1px solid #e2e0db;text-align:center;font-weight:700;color:#854f0b">&lt;70 mg/dL</td><td style="padding:5px 8px;border-bottom:1px solid #e2e0db;text-align:center;font-weight:700;color:#854f0b">&lt;70 mg/dL</td><td style="padding:5px 8px;border-bottom:1px solid #e2e0db;text-align:center;color:#854f0b">&lt;100 mg/dL</td></tr>
+              <tr style="background:#f8f7f5"><td style="padding:5px 8px;font-weight:700;color:#185fa5">경계~중간위험 (1차 예방)</td><td style="padding:5px 8px;text-align:center;font-weight:700;color:#185fa5">&lt;100 mg/dL</td><td style="padding:5px 8px;text-align:center;font-weight:700;color:#185fa5">&lt;90 mg/dL</td><td style="padding:5px 8px;text-align:center;color:#185fa5">&lt;130 mg/dL</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="background:#faeeda;border-radius:6px;padding:7px 10px;font-size:10px;color:#854f0b;line-height:1.7;margin-bottom:10px">
+          <b>Lp(a)</b>: 위험군별 치료 목표치 <b>없음</b> (현재 가이드라인). ≥50 mg/dL(≥125 nmol/L) 시 위험증강인자로 간주하여 <b>LDL-C 목표를 한 단계 강화</b>하는 간접 적용. siRNA 임상(OCEAN[a] 등) 결과 후 목표치 설정 예상.
+        </div>
+
+        <div style="font-size:10px;font-weight:700;color:#888780;text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px">측정 권고 (2026 ACC/AHA)</div>
+        <div style="overflow-x:auto;margin-bottom:10px">
+          <table style="width:100%;font-size:11px;border-collapse:collapse;min-width:360px">
+            <thead><tr style="background:#f8f7f5">
+              <th style="padding:5px 7px;text-align:left;font-size:10px;font-weight:700;color:#888780;border-bottom:1px solid #e2e0db">마커</th>
+              <th style="padding:5px 7px;text-align:left;font-size:10px;font-weight:700;color:#888780;border-bottom:1px solid #e2e0db">측정 권고 상황</th>
+              <th style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#888780;border-bottom:1px solid #e2e0db">근거 수준</th>
+            </tr></thead>
+            <tbody>
+              <tr><td style="padding:5px 7px;border-bottom:1px solid #f1efe8"><span style="display:inline-block;padding:1px 6px;border-radius:4px;background:#b5d4f4;color:#0c447c;font-size:10px;font-weight:700">ApoB</span></td><td style="padding:5px 7px;border-bottom:1px solid #f1efe8;font-size:10px;color:#1a1a18">LDL-C discordance 의심 (TG↑·대사증후군·당뇨), 치료 반응 모니터링, FH 평가</td><td style="padding:5px 7px;border-bottom:1px solid #f1efe8;text-align:center;font-size:10px;font-weight:700;color:#185fa5">IIa/B-NR</td></tr>
+              <tr style="background:#fffbf0"><td style="padding:5px 7px;border-bottom:1px solid #f1efe8"><span style="display:inline-block;padding:1px 6px;border-radius:4px;background:#fac775;color:#633806;font-size:10px;font-weight:700">Lp(a)</span></td><td style="padding:5px 7px;border-bottom:1px solid #f1efe8;font-size:10px;color:#1a1a18"><b>평생 1회</b> 측정 권고 (가족력 강한 경우·조기 ASCVD·LDL-C와 무관하게), FH 의심</td><td style="padding:5px 7px;border-bottom:1px solid #f1efe8;text-align:center;font-size:10px;font-weight:700;color:#3b6d11">Class I</td></tr>
+              <tr><td style="padding:5px 7px"><span style="display:inline-block;padding:1px 6px;border-radius:4px;background:#f7c1c1;color:#791f1f;font-size:10px;font-weight:700">sdLDL</span></td><td style="padding:5px 7px;font-size:10px;color:#5f5e5a">일상적 권고 없음. 당뇨·대사증후군에서 추가 정보 필요 시 고려</td><td style="padding:5px 7px;text-align:center;font-size:10px;color:#888780">IIb/C</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="font-size:10px;font-weight:700;color:#888780;text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px">치료별 효과</div>
+        <div style="overflow-x:auto;margin-bottom:9px">
+          <table style="width:100%;font-size:11px;border-collapse:collapse;min-width:380px">
+            <thead><tr style="background:#f8f7f5">
+              <th style="padding:5px 7px;text-align:left;font-size:10px;font-weight:700;color:#888780;border-bottom:1px solid #e2e0db">치료</th>
+              <th style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#888780;border-bottom:1px solid #e2e0db">LDL-C</th>
+              <th style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#185fa5;border-bottom:1px solid #e2e0db">ApoB</th>
+              <th style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#ba7517;border-bottom:1px solid #e2e0db">Lp(a)</th>
+              <th style="padding:5px 7px;text-align:center;font-size:10px;font-weight:700;color:#a32d2d;border-bottom:1px solid #e2e0db">sdLDL</th>
+            </tr></thead>
+            <tbody>
+              <tr><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;font-weight:600">고강도 스타틴</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;text-align:center;color:#3b6d11">↓50%</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;text-align:center;color:#3b6d11">↓40–50%</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;text-align:center;color:#a32d2d">↑0–10%</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;text-align:center;color:#3b6d11">↓</td></tr>
+              <tr style="background:#fafaf8"><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;font-weight:600">+ 에제티미브</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;text-align:center;color:#3b6d11">↓15–20%</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;text-align:center;color:#3b6d11">↓15%</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;text-align:center;color:#888780">미미</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;text-align:center;color:#3b6d11">↓ 경도</td></tr>
+              <tr><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;font-weight:600">PCSK9i</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;text-align:center;color:#3b6d11">↓60%</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;text-align:center;color:#3b6d11;font-weight:700">↓55%</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;text-align:center;color:#3b6d11">↓20–30%</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;text-align:center;color:#3b6d11;font-weight:700">↓↓</td></tr>
+              <tr style="background:#fafaf8"><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;font-weight:600">Olpasiran/siRNA</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;text-align:center;color:#888780">미미</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;text-align:center;color:#888780">미미</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;text-align:center;color:#3b6d11;font-weight:700">↓90%+</td><td style="padding:4px 7px;border-bottom:1px solid #f1efe8;text-align:center;color:#888780">—</td></tr>
+              <tr><td style="padding:4px 7px;font-weight:600">피브린산·omega-3</td><td style="padding:4px 7px;text-align:center;color:#888780">TG↓</td><td style="padding:4px 7px;text-align:center;color:#3b6d11">↓경도</td><td style="padding:4px 7px;text-align:center;color:#888780">불변</td><td style="padding:4px 7px;text-align:center;color:#3b6d11;font-weight:700">↓↓</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 임상 알고리즘 요약 -->
+        <div style="background:#f8f7f5;border:1px solid #e2e0db;border-radius:8px;padding:10px 12px;font-size:10px;line-height:1.8;color:#1a1a18">
+          <div style="font-weight:700;color:#1a1a18;margin-bottom:4px">임상 결정 흐름</div>
+          LDL-C 목표 달성? → <b>ApoB 확인</b> → 여전히 고위험 → PCSK9i 추가<br>
+          ApoB OK → <b>Lp(a) ≥50 mg/dL</b> → 고위험: CAC scoring + siRNA 임상 고려<br>
+          대사증후군·당뇨·TG↑ → <b>sdLDL Pattern B</b> → 피브린산·생활습관 집중
+        </div>
+
+        <div style="margin-top:8px;font-size:10px;color:#888780;text-align:right">Lp(a) siRNA 임상(OCEAN[a], KRAKEN) 2026–27 결과 발표 예정 → 가이드라인 업데이트 전망</div>
+      </div>
+
+    </div>
   </div>
+
+<script>
+function toggleResidualRisk(){
+  var body = document.getElementById('residualRiskBody');
+  var arrow = document.getElementById('residualArrow');
+  if(body.style.display === 'none'){
+    body.style.display = 'block';
+    arrow.style.transform = 'rotate(90deg)';
+    arrow.textContent = '▶';
+  } else {
+    body.style.display = 'none';
+    arrow.style.transform = 'rotate(0deg)';
+    arrow.textContent = '▶';
+  }
+}
+function switchRRTab(idx){
+  [0,1,2,3].forEach(function(i){
+    var p = document.getElementById('rrPanel'+i);
+    var b = document.getElementById('rrTab'+i);
+    if(p) p.style.display = (i===idx) ? 'block' : 'none';
+    if(b){
+      b.style.background = (i===idx) ? '#a32d2d' : '#fafaf8';
+      b.style.color = (i===idx) ? '#fff' : '#a32d2d';
+    }
+  });
+}
+</script>
 </div>
 <div id="cardCprSubtitle" style="font-size:9px;color:#b4b2a9;margin-top:-10px;margin-bottom:12px;text-align:left">2026 ACC/AHA Dyslipidemia Guideline 핵심 철학 — CPR Framework</div>
 
