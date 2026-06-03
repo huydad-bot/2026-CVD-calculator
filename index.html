@@ -173,7 +173,7 @@ body.mode-simple #cprIIbBox { display: none !important; }
         <div id="glossarySearchWrap" style="position:relative">
           <div id="glossaryInputWrap">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#888780" stroke-width="2.5" style="flex-shrink:0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input type="text" id="glossaryInput" placeholder="약어 검색 (LDL, CAC, NNT…)" autocomplete="off"
+            <input type="text" id="glossaryInput" placeholder="약어·약제 검색 (LDL, statin, PCSK9i…)" autocomplete="off"
               oninput="glossarySearch(this.value)"
               onfocus="glossarySearch(this.value)"
               onkeydown="glossaryKeyNav(event)">
@@ -520,7 +520,40 @@ var GLOSSARY=[
   {abbr:'JAMA',full:'Journal of the American Medical Association',ko:'미국의사협회지',desc:'세계 최고 권위의 종합 의학지 중 하나. 예) STRENGTH trial(2020) 게재.'},
   {abbr:'BMJ',full:'British Medical Journal (The BMJ)',ko:'영국의학저널',desc:'권위 있는 종합 의학지. 예) SAMSON n-of-1 시험(2020) 게재.'},
   {abbr:'CI',full:'Confidence Interval',ko:'신뢰구간',desc:'추정치의 불확실성 범위(통상 95% CI). 효과크기(RR·HR 등)와 함께 표기하며, 1을 포함하면 통계적으로 비유의.'},
-  {abbr:'CKD-EPI',full:'CKD Epidemiology Collaboration (equation)',ko:'CKD-EPI 사구체여과율 추정식',desc:'eGFR 계산식. 2021년 인종 보정을 제거한 개정판을 적용. PREVENT 모델의 eGFR 입력에 사용.'}
+  {abbr:'CKD-EPI',full:'CKD Epidemiology Collaboration (equation)',ko:'CKD-EPI 사구체여과율 추정식',desc:'eGFR 계산식. 2021년 인종 보정을 제거한 개정판을 적용. PREVENT 모델의 eGFR 입력에 사용.'},
+
+  /* ── 약제 (Medications) ── */
+  {abbr:'Statin',full:'HMG-CoA Reductase Inhibitor',ko:'스타틴 (HMG-CoA 환원효소 억제제)',desc:'콜레스테롤 생합성의 속도결정 단계인 HMG-CoA → 메발론산 전환을 억제. 간의 LDL 수용체 발현 상향조절 → LDL-C 감소. LDL 1 mmol/L(38.7 mg/dL) 감소 시 ASCVD 사건 약 22% RRR(CTT). 강도에 따라 고강도(LDL ≥50% 감소) · 중등강도(30–49%) · 저강도(<30%)으로 분류. 계열 부작용: SAMS, NODM, LFT 이상(드묾).'},
+  {abbr:'Rosuvastatin',full:'Rosuvastatin (Crestor®)',ko:'로수바스타틴',desc:'고강도 스타틴. 용량: 20–40 mg/day(고강도), 5–10 mg(중등강도). 수용성 스타틴 — CYP2C9 대사, CYP3A4 비의존. ASCVD 2차예방 및 1차예방(JUPITER trial, hs-CRP ≥2.0) 근거. 심한 CKD에서 ≤10 mg 제한 권고. AURORA trial: 투석 환자에서 MACE 감소 없음. NODM 위험은 스타틴 중 상대적으로 높음(RR ~1.2 vs 위약).'},
+  {abbr:'Atorvastatin',full:'Atorvastatin (Lipitor®)',ko:'아토르바스타틴',desc:'고강도 스타틴. 용량: 40–80 mg/day(고강도), 10–20 mg(중등강도). 지용성 — CYP3A4 대사. PROVE-IT, TNT, ASCOT-LLA 등 다수의 landmark RCT 근거. CYP3A4 억제제(아졸계, 칼슘채널차단제, 일부 PI) 병용 시 노출 증가 주의. 신이식 후 cyclosporine 병용 시 용량 제한.'},
+  {abbr:'Simvastatin',full:'Simvastatin (Zocor®)',ko:'심바스타틴',desc:'중등강도 스타틴. 용량: 20–40 mg/day. 지용성 — CYP3A4 대사. 4S trial(1994)로 2차예방 효과 최초 입증한 역사적 약물. 80 mg 제형: 횡문근융해증 위험↑ → FDA 2011년 신규 처방 금지. CYP3A4 억제제(아미오다론·암로디핀·베라파밀 등)와 DDI 가장 현저한 스타틴.'},
+  {abbr:'Pravastatin',full:'Pravastatin (Pravachol®)',ko:'프라바스타틴',desc:'중등강도 스타틴. 용량: 40–80 mg/day. 수용성 — CYP450 비의존 대사(설폰화 경로). DDI가 가장 적은 스타틴 중 하나. HIV PI 병용 시 비교적 안전. WOSCOPS(1차예방), LIPID(2차예방) 근거. NODM 위험 낮음(RR ~0.86 vs rosuvastatin).'},
+  {abbr:'Pitavastatin',full:'Pitavastatin (Livalo®)',ko:'피타바스타틴',desc:'중등강도 스타틴. 용량: 1–4 mg/day. CYP3A4 비의존 대사 — DDI 최소. NODM 위험이 스타틴 중 가장 낮음(RR ~0.77 대비 rosuvastatin). HIV 감염 환자(안정 ART 중 40–75세)에서 REPRIEVE trial: Pitavastatin 4 mg → MACE 35% 감소(2026 ACC/AHA COR I). 신장 배설 비율 낮아 CKD에서 선호.'},
+  {abbr:'Lovastatin',full:'Lovastatin (Mevacor®)',ko:'로바스타틴',desc:'저~중등강도 스타틴. 용량: 20–40 mg/day. 지용성 — CYP3A4 대사. AFCAPS/TexCAPS(1998) 1차예방 근거. HIV PI 계열 ART와 병용 금기. 현재는 다른 스타틴에 밀려 사용 빈도 낮음.'},
+  {abbr:'Fluvastatin',full:'Fluvastatin (Lescol®)',ko:'플루바스타틴',desc:'저~중등강도 스타틴. 용량: XL 80 mg 또는 40 mg bid. CYP2C9 대사. CYP3A4 비의존으로 PI 병용 시 비교적 안전하나 pitavastatin/pravastatin에 비해 근거 적음.'},
+  {abbr:'Ezetimibe',full:'Ezetimibe (Zetia®; 바이토린® = ezetimibe/simvastatin)',ko:'에제티미브',desc:'소장 NPC1L1 수송체 억제 → 식이·담즙 콜레스테롤 흡수 차단. LDL 18–20% 추가 감소. 스타틴 병용 시 상가 효과. IMPROVE-IT trial(2015): ACS 후 simvastatin+ezetimibe → simvastatin 단독 대비 MACE 6.4% 추가 감소(절대 2%). 스타틴 불내성 시 단독 사용. 2026 ACC/AHA: LDL 목표 미달 시 2단계 추가(스타틴 다음).'},
+  {abbr:'PCSK9i',full:'PCSK9 Inhibitor (Monoclonal Antibody)',ko:'PCSK9 억제제 (단클론항체)',desc:'항체로 PCSK9를 차단 → LDL 수용체 분해 억제 → 간 LDL 제거 능력 최대화 → LDL 50–60% 추가 감소. 제제: Evolocumab(Repatha®) SC 140 mg Q2W 또는 420 mg QM / Alirocumab(Praluent®) 75–150 mg Q2W. 2026 ACC/AHA: 최대내약 스타틴+ezetimibe에도 LDL 목표 미달성 시 3단계 권고(VHR COR I, 고위험 COR IIa). Lp(a) 20–30% 감소 부가 효과.'},
+  {abbr:'Evolocumab',full:'Evolocumab (Repatha®)',ko:'에볼로쿠맙',desc:'완전인간 단클론항체 PCSK9 억제제. 용량: 140 mg SC Q2W 또는 420 mg SC QM. FOURIER trial(2017): 안정 ASCVD 환자 MACE 15% 감소, LDL 중앙값 30 mg/dL 달성. FOURIER-OLE: 조기 시작군의 legacy effect 확인 — "더 일찍·더 오래" 치료의 근거. FH(HoFH 포함) 적응증.'},
+  {abbr:'Alirocumab',full:'Alirocumab (Praluent®)',ko:'알리로쿠맙',desc:'완전인간 단클론항체 PCSK9 억제제. 용량: 75 mg SC Q2W 시작, 필요 시 150 mg Q2W. ODYSSEY OUTCOMES trial(2018): ACS 후 환자에서 MACE 15% 감소, 저위험 서브군에서 LDL <25 mg/dL에서도 안전성 확인. Evolocumab과 동등한 임상 효과로 병용 없이 단독 사용.'},
+  {abbr:'Inclisiran',full:'Inclisiran (Leqvio®)',ko:'인클리시란',desc:'siRNA 기전 PCSK9 억제제. PCSK9 mRNA를 간에서 분해 → PCSK9 단백 합성 자체 억제. 용량: 284 mg SC, 초회 → 3개월 후 → 이후 6개월마다(연 2회 투여). LDL 약 50% 감소, 효과 지속성 우수. 단, 심혈관 결과 시험(ORION-4, VICTORION-2P) 진행 중 — CV outcome 근거 미확립. 2026 ACC/AHA: COR IIa(PCSK9 mAb와 동등하게 권고되지 않음, 연구 진행 중).'},
+  {abbr:'siRNA',full:'Small Interfering RNA',ko:'소간섭 RNA',desc:'RNA 간섭(RNAi) 기전을 이용한 유전자 침묵 치료. 표적 mRNA에 상보적으로 결합하여 분해 → 단백 발현 억제. 지질치료에서: Inclisiran(PCSK9 siRNA), Olpasiran(Lp(a) siRNA). 간세포 특이 전달(GalNAc 접합)로 off-target 최소화. 약효 지속 시간이 길어 투여 빈도가 낮은 것이 장점.'},
+  {abbr:'Olpasiran',full:'Olpasiran (AMG 890)',ko:'올파시란',desc:'Lp(a) 특이적 siRNA 치료제. LPA 유전자의 mRNA를 간에서 분해 → apolipoprotein(a) 합성 억제 → Lp(a) 90%+ 감소. OCEAN(a)-Dose Finding: Q12W 75 mg 용량에서 Lp(a) 95% 감소. OCEAN(a) OUTCOMES trial(심혈관 결과 시험) 진행 중(2026–27 결과 예상). 2026 ACC/AHA 가이드라인에 아직 승인 목표치 없음.'},
+  {abbr:'Muvalaplin',full:'Muvalaplin',ko:'무바라플린',desc:'Lp(a) 조립을 방해하는 경구 소분자 억제제. apolipoprotein(a)과 ApoB-100 간 결합 차단 → Lp(a) 합성 억제. olpasiran(siRNA)과 달리 경구 투여 가능. 임상 2상: Lp(a) 65–85% 감소. 3상 심혈관 결과 시험 준비 중. Lp(a) 표적 치료제 파이프라인 중 가장 진전된 경구제.'},
+  {abbr:'Olezarsen',full:'Olezarsen (AKCEA-APO-CIIIRx)',ko:'올레자르센',desc:'ApoC-III를 표적하는 ASO(antisense oligonucleotide). ApoC-III는 TG가 풍부한 지단백의 분해를 억제하는 단백질 — 억제 시 TG 대폭 감소. 중증 고중성지방혈증(TG ≥500 mg/dL) 또는 가족성 카일로미크론혈증증후군(FCS) 적응증. BALANCE trial: TG 60–70% 감소. 2026 ACC/AHA 신규 추가 약제. 주 1회 SC 투여.'},
+  {abbr:'ASO',full:'Antisense Oligonucleotide',ko:'안티센스 올리고뉴클레오타이드',desc:'표적 mRNA에 상보적으로 결합하여 RNase H 매개 분해를 유도, 단백 발현 억제. siRNA와 유사하나 작용 기전 일부 상이. 지질치료 적용: Mipomersen(ApoB-100 표적, HoFH), Olezarsen(ApoC-III 표적, 중증 고TG혈증). 간 특이 전달로 전신 부작용 최소화.'},
+  {abbr:'Bempedoic acid',full:'Bempedoic acid (Nexletol®; Nexlizet® = +ezetimibe)',ko:'벰페도산',desc:'ATP 시트르산 분해효소(ACL) 억제 → 간 콜레스테롤 합성 상류 차단. 간에서만 활성화(간 특이적 프로드럭) → 골격근 CYP450 비의존 → 근육 부작용 없음. LDL 약 18–25% 감소. CLEAR Outcomes(2023, NEJM): 스타틴 불내성 환자에서 MACE 13% 감소. 2026 ACC/AHA: 스타틴 불내성 시 비스타틴 옵션으로 권고. 주의: 요산 상승(통풍 악화 가능), 힘줄파열 드묾.'},
+  {abbr:'Icosapent ethyl',full:'Icosapent ethyl (Vascepa®; 고순도 EPA)',ko:'이코사펜트산에틸',desc:'고순도 EPA(에이코사펜타엔산) 에틸에스테르. 일반 어유(EPA+DHA 혼합)와 다른 단일 성분. 용량: 2 g bid(4 g/day). REDUCE-IT(2018): 스타틴 복용 중 TG 135–499 + ASCVD/당뇨 고위험군에서 MACE 25% 감소. 기전: TG 강하 외 항염·항산화·항혈전 효과 추정. STRENGTH(EPA+DHA 혼합): MACE 감소 없음 → 고순도 EPA 단독 제제만 근거 있음. 적응증: TG ≥175 mg/dL + ASCVD 고위험/2차예방.'},
+  {abbr:'Evinacumab',full:'Evinacumab (Evkeeza®)',ko:'에비나쿠맙',desc:'ANGPTL3 단클론항체 억제제. ANGPTL3(Angiopoietin-like protein 3)는 LPL·HL를 억제하여 TG 및 LDL 상승 유발. 억제 시 LDL 47–49% 추가 감소. 2021년 FDA 승인: HoFH(동형접합 가족성 고콜레스테롤혈증) 성인 적응증. LDL 수용체 기능이 없는 HoFH에서도 효과 — PCSK9i가 듣지 않는 경우의 대안. IV 주입 Q4W.'},
+  {abbr:'Mipomersen',full:'Mipomersen (Kynamro®)',ko:'미포메르센',desc:'ApoB-100을 표적하는 ASO. 간 ApoB-100 mRNA 분해 → 모든 ApoB 함유 지단백(LDL·VLDL·Lp(a)) 합성 감소. LDL 20–35% 감소. FDA 2013년 HoFH 성인 적응증 승인. 간지방증(steatohepatitis) 위험으로 사용 제한적. 주 1회 SC 주사.'},
+  {abbr:'Lomitapide',full:'Lomitapide (Juxtapid®)',ko:'로미타피드',desc:'미토콘드리아 트리글리세리드 전달 단백(MTP) 억제제 → ApoB 함유 지단백 조립 억제 → 간 VLDL·카일로미크론 분비 감소 → LDL 40–50% 추가 감소. FDA 2012년 HoFH 성인 적응증 승인. 경구 투여. 주요 부작용: 간독성(간지방증·LFT 상승), GI 부작용(지방 흡수 불량). REMS 프로그램 의무화. LDL 분리반출(apheresis)과 병용 가능.'},
+  {abbr:'Colesevelam',full:'Colesevelam (Welchol®)',ko:'콜레세벨람',desc:'담즙산 격리제(BAS, Bile Acid Sequestrant). 장내 담즙산에 결합 → 간의 콜레스테롤 → 담즙산 전환 증가 → LDL 수용체 발현 상향 → LDL 15–18% 감소. 경구 정제 또는 분말. GI 부작용(변비·복부팽만). TG를 경미하게 상승시킬 수 있어 고TG혈증 시 주의. 혈당강하 효과도 있어 T2DM 병용 시 추가 이점. 스타틴 불내성 또는 임신 중 안전한 LDL 강하가 필요한 경우 고려.'},
+  {abbr:'Fenofibrate',full:'Fenofibrate (Tricor®, Antara®)',ko:'페노피브레이트',desc:'PPARα 효능제 → LPL 발현 증가·ApoC-III 감소 → TG 분해 촉진, TG 30–50% 감소, HDL 소폭 증가. LDL 효과는 제한적. ACCORD Lipid trial: 스타틴+fenofibrate는 스타틴 단독 대비 심혈관 이익 추가 없음(전체). TG ≥500 mg/dL 시 췌장염 예방 목적 사용. 주의: 신독성(eGFR 저하), statin+gemfibrozil 병용 금지(fenofibrate는 허용). CKD에서 용량 조절 필요.'},
+  {abbr:'Gemfibrozil',full:'Gemfibrozil (Lopid®)',ko:'젬피브로질',desc:'PPARα 효능제 피브레이트 계열. Helsinki Heart Study(1차예방): TG 감소, HDL 증가, 관상동맥 사건 34% 감소. VA-HIT(2차예방): 낮은 HDL-C 환자에서 gemfibrozil → MACE 22% 감소. 스타틴과 병용 시 OATP1B1 억제로 스타틴 혈중 농도 급증 → 횡문근융해증 위험 — 스타틴+gemfibrozil 병용 금기. Fenofibrate는 이 DDI 없음.'},
+  {abbr:'Niacin',full:'Niacin (Nicotinic Acid; Niaspan® extended-release)',ko:'나이아신(니코틴산)',desc:'비타민 B3. 고용량 시 HDL 증가(25–35%), TG 감소(20–50%), LDL 감소(15–20%)의 광범위 지질 효과. 과거 스타틴 이전 2차예방 근거. AIM-HIGH, HPS2-THRIVE: 스타틴 배경 치료에서 niacin 추가 시 MACE 추가 감소 없음, 오히려 심각한 부작용(근육통·간독성·혈당 상승·홍조) 증가. 2026 ACC/AHA: 지질치료 루틴 사용 권고하지 않음.'},
+  {abbr:'Omega-3',full:'Omega-3 Fatty Acids (Mixed EPA+DHA)',ko:'오메가-3 지방산 (EPA+DHA 혼합)',desc:'어유 유래 다가불포화지방산. TG 강하 효과 확인. 단, EPA+DHA 혼합 어유 보충제는 STRENGTH trial에서 MACE 감소 없음(HR 0.99). 일반 어유 보충제(OTC)는 심혈관 사건 예방 근거 없음. 심혈관 이익이 확립된 제제는 고순도 EPA 단독인 Icosapent ethyl(REDUCE-IT)뿐. 2026 ACC/AHA: 일반 어유(식이보충제) COR III(권고하지 않음) 명시.'},
+  {abbr:'Rituximab',full:'Rituximab (Rituxan®, MabThera®)',ko:'리툭시맙',desc:'CD20 표적 단클론항체 — B세포 고갈. 지질치료 직접 적응증은 아니나, 스타틴 관련 IMNM(anti-HMGCR 근병증)에서 스테로이드·IVIG 반응 불충분 시 면역억제 3차 선택약으로 사용.'},
+  {abbr:'Cyclosporine',full:'Cyclosporine (Sandimmune®, Neoral®)',ko:'사이클로스포린',desc:'칼시뉴린 억제제 면역억제제. 신장·심장 이식 후 거부반응 예방. OATP1B1 및 CYP3A4 억제로 스타틴 혈중 농도 대폭 상승 → 근독성 위험. 병용 시 스타틴 용량 상한 엄격 제한(예: simvastatin ≤10 mg, atorvastatin ≤10 mg). Bempedoic acid도 cyclosporine과 DDI 가능.'},
+  {abbr:'Colchicine',full:'Colchicine (Colcrys®, LoDoCo)',ko:'콜히친',desc:'항염 약물. 심혈관 적응증: LoDoCo2 trial(2020) — 안정 관상동맥질환에서 저용량 colchicine 0.5 mg/day → MACE 31% 감소. COLCOT trial(2019) — MI 후 colchicine → MACE 23% 감소. 잔류 염증성 위험(hs-CRP 상승) 환자에서 스타틴 보조 항염 전략으로 주목. 2026 ACC/AHA에서 ASCVD 2차예방 항염 치료 옵션으로 언급.'}
 ];
 
 var _glIdx=-1, _glFiltered=[];
@@ -540,7 +573,8 @@ function glossarySearch(val){
   _glFiltered=GLOSSARY.filter(function(d){
     return d.abbr.toUpperCase().indexOf(q)===0||
            d.abbr.toUpperCase().replace(/[^A-Z0-9]/g,'').indexOf(q)===0||
-           d.ko.replace(/ /g,'').indexOf(val)>=0;
+           d.full.toUpperCase().indexOf(q)===0||
+           d.ko.replace(/ /g,'').indexOf(val)===0;
   });
   // 정확 매치 먼저
   _glFiltered.sort(function(a,b){
@@ -561,10 +595,13 @@ function renderGlossary(){
     drop.innerHTML='<div class="gl-empty">검색 결과 없음</div>';
     drop.style.display='block';return;
   }
+  var DRUG_ABBRS=['Statin','Rosuvastatin','Atorvastatin','Simvastatin','Pravastatin','Pitavastatin','Lovastatin','Fluvastatin','Ezetimibe','PCSK9i','Evolocumab','Alirocumab','Inclisiran','siRNA','Olpasiran','Muvalaplin','Olezarsen','ASO','Bempedoic acid','Icosapent ethyl','Evinacumab','Mipomersen','Lomitapide','Colesevelam','Fenofibrate','Gemfibrozil','Niacin','Omega-3','Rituximab','Cyclosporine','Colchicine'];
   var html=_glFiltered.map(function(d,i){
     var desc=d.desc?'<div class="gl-detail"><div class="gl-desc">'+d.desc+'</div></div>':'';
+    var isDrug=DRUG_ABBRS.indexOf(d.abbr)>=0;
+    var badge=isDrug?'<span style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:9px;font-weight:700;background:#e8f4e8;color:#2a6a2a;margin-left:5px;vertical-align:middle">💊 약제</span>':'';
     return '<div class="gl-item" data-idx="'+i+'" onmousedown="event.preventDefault()" onclick="expandGlItem('+i+',this)">'
-      +'<div class="gl-abbr">'+d.abbr+'</div>'
+      +'<div class="gl-abbr">'+d.abbr+badge+'</div>'
       +'<div class="gl-ko">'+d.ko+'</div>'
       +'<div class="gl-full">'+d.full+'</div>'
       +desc
