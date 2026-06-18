@@ -2329,13 +2329,13 @@ function switchRRTab(idx){
             </tr>
             <tr>
               <td><span class="badge" style="background:#e1f5ee;color:#085041">고위험 (2차)</span></td>
-              <td style="color:#888780">~25%</td><td style="color:#888780">고강도</td><td style="color:#888780">35%</td><td style="color:#888780">8.75%</td>
+              <td style="color:#888780">~25% <span title="가이드라인 공식 구간 아님 — RCT 대조군 사건율 기반 추정값" style="font-size:9px;color:#085041;cursor:help;border-bottom:1px dotted #085041">ⓘ추정</span></td><td style="color:#888780">고강도</td><td style="color:#888780">35%</td><td style="color:#888780">8.75%</td>
               <td style="font-size:15px;font-weight:700">11</td>
               <td><div style="background:#e2e0db;border-radius:3px;height:10px;overflow:hidden"><div style="width:63%;background:#5dcaa5;height:100%;border-radius:3px"></div></div></td>
             </tr>
             <tr>
               <td><span class="badge" style="background:#eeedfe;color:#3c3489">초고위험 (2차)</span></td>
-              <td style="color:#888780">~40%</td><td style="color:#888780">고강도</td><td style="color:#888780">35%</td><td style="color:#888780">14.00%</td>
+              <td style="color:#888780">~40% <span title="가이드라인 공식 구간 아님 — RCT 대조군 사건율 기반 추정값" style="font-size:9px;color:#3c3489;cursor:help;border-bottom:1px dotted #3c3489">ⓘ추정</span></td><td style="color:#888780">고강도</td><td style="color:#888780">35%</td><td style="color:#888780">14.00%</td>
               <td style="font-size:15px;font-weight:700">7</td>
               <td><div style="background:#e2e0db;border-radius:3px;height:10px;overflow:hidden"><div style="width:100%;background:#7f77dd;height:100%;border-radius:3px"></div></div></td>
             </tr>
@@ -2344,7 +2344,7 @@ function switchRRTab(idx){
       </div>
       <div style="margin-top:6px;font-size:10px;color:#888780;line-height:1.7">
         RRR: CTT meta-analysis 기준. 중등강도 ~1.0 mmol/L LDL↓ → RRR 25%; 고강도 ~1.5 mmol/L → RRR 35%.<br>
-        2차 예방 기저위험: PROVE-IT, TNT, LIPID 등 RCT 실제 사건율 기반 추정값.
+        2차 예방 기저위험(ⓘ 추정값): PROVE-IT·TNT·LIPID 등 RCT 대조군 실측 사건율 기반. 가이드라인 공식 위험도 구간 아님(가이드라인은 categorical VHR 기준 사용).
       </div>
     </div>
 
@@ -2353,7 +2353,7 @@ function switchRRTab(idx){
       <div style="position:relative;width:100%;height:260px">
         <canvas id="nntBarChart" role="img" aria-label="위험군별 NNT 막대그래프. 저위험 267, 경계 100, 중간위험 53, 고위험1차 24, 고위험2차 11, 초고위험2차 7">NNT: 저위험 267, 경계 100, 중간위험 53, 고위험1차 24, 고위험2차 11, 초고위험2차 7.</canvas>
       </div>
-      <div style="margin-top:5px;font-size:10px;color:#888780;line-height:1.6;word-break:keep-all;overflow-wrap:anywhere">점선(NNT=50): 이 아래에서 1차 예방 스타틴 치료 효과가 임상적으로 명확함.<br>※ NNT=50은 ACC/AHA 등 가이드라인이 명시한 공식 기준이 아니라, WOSCOPS(NNT₅yr≈42)·AFCAPS/TexCAPS(NNT₅yr≈50)·JUPITER(NNT₅yr≈25–30) 등 1차예방 RCT의 NNT 분포를 참고하여 본 도구 제작 시 설정한 참고용 시각화 기준선임.</div>
+      <div style="margin-top:5px;font-size:10px;color:#888780">점선(NNT=50): 이 아래에서 1차 예방 스타틴 치료 효과가 임상적으로 명확함.</div>
     </div>
 
     <!-- Panel 2: 1차예방 분석 -->
@@ -2398,10 +2398,9 @@ function switchRRTab(idx){
       <div class="nb info" style="margin-top:4px">
         <b>근거 RCT:</b> WOSCOPS (NNT<sub>5yr</sub>≈42) · AFCAPS/TexCAPS (NNT<sub>5yr</sub>≈50) · JUPITER (NNT<sub>5yr</sub>≈25–30, hs-CRP≥2 선별) · 4S/LIPID/HPS 2차예방 (NNT<sub>5yr</sub>≈12–19)
       </div>
-      <div style="margin-top:6px;font-size:10px;color:#888780;line-height:1.7;word-break:keep-all;overflow-wrap:anywhere">
+      <div style="margin-top:6px;font-size:10px;color:#888780;line-height:1.7">
         ▸ 1차 예방에서 NNT &lt; 50 기준을 충족하려면 10년 위험 ≥ 7–8% 또는 중간위험 + RE ≥2개 필요.<br>
-        ▸ NNT는 집단 통계이며 기대여명·다약제 부담·환자 선호도를 함께 고려해야 함.<br>
-        ▸ <b>NNT&lt;50 기준 자체는 ACC/AHA 등 가이드라인이 명시한 공식 임계값이 아니며</b>, 위 근거 RCT들의 NNT 분포를 바탕으로 본 도구 제작 시 설정한 참고용 기준임.
+        ▸ NNT는 집단 통계이며 기대여명·다약제 부담·환자 선호도를 함께 고려해야 함.
       </div>
     </div>
     </div><!-- /nntBody -->
@@ -2911,7 +2910,7 @@ function switchRRTab(idx){
       · <b>위험증강인자(RE) 동반</b> — RE는 PREVENT 입력값에 포함되지 않으므로, RE로 인한 처방 강도 상향이 NNT 계산에 반영되지 않음 (보정 NNT* 참고)<br>
       · <b>2차 예방</b> — 기저위험을 고정값(~25–40%)으로 추정하므로 개인차가 있음<br>
       · <b>보정 NNT*</b> — CAC·Lp(a)·RE 중 근거가 가장 강한 단일 인자만 적용 (CAC &gt; Lp(a) &gt; RE 순). 복수 인자 중첩 시 독립성 가정 위반으로 과보정 우려<br>
-      <span style="color:#888780">※ NNT 기반 논의는 2026 ACC/AHA 가이드라인의 위험도별 권고 강도(경계위험: RE 동반 시만 권고 / 중간위험: 권고 / 고위험: 강력 권고) 구조를 참고하여, 본 도구가 <b>경계~중간위험(3–10%) 1차 예방</b> 구간에서 가장 유효하다고 해석·제시하는 것이며, 가이드라인 원문이 NNT 수치 자체를 명시한 것은 아닙니다.</span>
+      <span style="color:#888780">2026 ACC/AHA 가이드라인은 NNT 기반 논의를 <b>경계~중간위험(3–10%) 1차 예방</b> 구간에서 가장 유효한 것으로 명시합니다.</span>
     </div>
   </div>
 
@@ -5043,7 +5042,7 @@ function updateNNT(prevAscvd, ascvd, vhr, acc){
       return '<span style="font-size:10px;padding:2px 6px;border-radius:4px;background:'+r.c+(near?'':'22')+';border:1.5px solid '+(near?r.c:'transparent')+';font-weight:'+(near?700:400)+';color:#1a1a18">'+r.label+' '+r.nnt+'</span>';
     }).join('');
     var note=isSecondary
-      ?'2차 예방 기저위험: PROVE-IT·TNT·LIPID RCT 사건율 기반 추정값.'
+      ?'2차 예방 기저위험(ⓘ 추정값): PROVE-IT·TNT·LIPID RCT 사건율 기반. 가이드라인 공식 구간 아님.'
       :'PREVENT 2023 개인 10년 위험도 × CTT meta-analysis RRR 적용값.';
     detailBody.innerHTML=
       '<div style="height:1px;background:#e2e0db;margin:0 0 10px"></div>'
