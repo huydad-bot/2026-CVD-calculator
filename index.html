@@ -132,6 +132,14 @@ body.mode-simple #cprIIbBox { display: none !important; }
 .gl-empty{padding:14px 13px;color:#888780;font-size:12px;text-align:center}
 @media(max-width:760px){#glossaryInputWrap{width:150px}}
 @media print{#glossarySearchWrap{display:none!important}}
+
+/* ── 화면 확대 (글자 크게 보기) ── */
+html.zoom-150{zoom:1.5}
+html.zoom-200{zoom:2}
+@media print{
+  html.zoom-150,html.zoom-200{zoom:1!important}
+}
+#zoomToggleBtn.active{background:#185fa5!important;color:#fff!important;border-color:#185fa5!important}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
@@ -166,6 +174,12 @@ body.mode-simple #cprIIbBox { display: none !important; }
           onmouseover="this.style.background='#f4f3f0'" onmouseout="this.style.background='#fff'">
           <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
           새로입력
+        </button>
+        <button type="button" id="zoomToggleBtn" onclick="toggleZoom()" title="화면 글자 크기 확대"
+          style="display:inline-flex;align-items:center;gap:5px;padding:0 13px;border:1px solid #d0cec8;border-radius:7px;background:#fff;color:#5f5e5a;font-size:12px;font-weight:600;line-height:1.5;cursor:pointer;font-family:inherit;height:100%;box-sizing:border-box;transition:background .12s;-webkit-appearance:none;white-space:nowrap;flex-shrink:0;"
+          onmouseover="this.style.background='#f4f3f0'" onmouseout="this.style.background='#fff'">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+          <span id="zoomBtnLabel">화면 확대</span>
         </button>
       </div>
       <!-- ── 약어/용어 검색창 ── -->
@@ -2984,6 +2998,40 @@ document.addEventListener('DOMContentLoaded', function(){
   setViewMode('simple');
 });
 // ──────────────────────────────────────────────────────────────
+
+// ── 화면 글자 확대 토글 (100% → 150% → 200% → 100%) ──────────────
+const ZOOM_LEVELS = [1, 1.5, 2];
+function applyZoomUI(level){
+  const html = document.documentElement;
+  html.classList.remove('zoom-150','zoom-200');
+  if(level === 1.5) html.classList.add('zoom-150');
+  if(level === 2)   html.classList.add('zoom-200');
+  const btn = document.getElementById('zoomToggleBtn');
+  const label = document.getElementById('zoomBtnLabel');
+  if(label){
+    label.textContent = (level === 1) ? '화면 확대' : (level===1.5 ? '화면 확대 150%' : '화면 확대 200%');
+  }
+  if(btn){
+    btn.classList.toggle('active', level !== 1);
+  }
+}
+function toggleZoom(){
+  let cur = parseFloat(localStorage.getItem('nnhZoomLevel') || '1');
+  let idx = ZOOM_LEVELS.indexOf(cur);
+  if(idx === -1) idx = 0;
+  idx = (idx + 1) % ZOOM_LEVELS.length;
+  const next = ZOOM_LEVELS[idx];
+  localStorage.setItem('nnhZoomLevel', String(next));
+  applyZoomUI(next);
+}
+document.addEventListener('DOMContentLoaded', function(){
+  const saved = parseFloat(localStorage.getItem('nnhZoomLevel') || '1');
+  if(ZOOM_LEVELS.indexOf(saved) !== -1 && saved !== 1){
+    applyZoomUI(saved);
+  }
+});
+// ──────────────────────────────────────────────────────────────
+
 
 
 /* ── PCE 2013 ── */
