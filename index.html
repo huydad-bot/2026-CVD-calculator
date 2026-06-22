@@ -134,10 +134,10 @@ body.mode-simple #cprIIbBox { display: none !important; }
 @media print{#glossarySearchWrap{display:none!important}}
 
 /* ── 화면 확대 (글자 크게 보기) ── */
+html.zoom-125{zoom:1.25}
 html.zoom-150{zoom:1.5}
-html.zoom-200{zoom:2}
 @media print{
-  html.zoom-150,html.zoom-200{zoom:1!important}
+  html.zoom-125,html.zoom-150{zoom:1!important}
 }
 #zoomToggleBtn.active{background:#185fa5!important;color:#fff!important;border-color:#185fa5!important}
 </style>
@@ -3000,17 +3000,17 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 // ──────────────────────────────────────────────────────────────
 
-// ── 화면 글자 확대 토글 (100% → 150% → 200% → 100%) ──────────────
-const ZOOM_LEVELS = [1, 1.5, 2];
+// ── 화면 글자 확대 토글 (100% → 125% → 150% → 100%) ──────────────
+const ZOOM_LEVELS = [1, 1.25, 1.5];
 function applyZoomUI(level){
   const html = document.documentElement;
-  html.classList.remove('zoom-150','zoom-200');
-  if(level === 1.5) html.classList.add('zoom-150');
-  if(level === 2)   html.classList.add('zoom-200');
+  html.classList.remove('zoom-125','zoom-150');
+  if(level === 1.25) html.classList.add('zoom-125');
+  if(level === 1.5)  html.classList.add('zoom-150');
   const btn = document.getElementById('zoomToggleBtn');
   const label = document.getElementById('zoomBtnLabel');
   if(label){
-    label.textContent = (level === 1) ? '화면 확대' : (level===1.5 ? '화면 확대 150%' : '화면 확대 200%');
+    label.textContent = (level === 1) ? '화면 확대' : (level===1.25 ? '화면 확대 125%' : '화면 확대 150%');
   }
   if(btn){
     btn.classList.toggle('active', level !== 1);
