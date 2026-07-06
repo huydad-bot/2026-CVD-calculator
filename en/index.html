@@ -4732,7 +4732,7 @@ function renderAbsIndsDefault(){
 function runBackCalc(){
   const intensity = g('backCalcIntensity')?.value;
   if(!intensity){
-    alert('Please select statin intensity first.');
+    customAlert('Please select statin intensity first.');
     return;
   }
   const postLdl = parseFloat(g('postLdl')?.value);
@@ -4741,7 +4741,7 @@ function runBackCalc(){
   const postTg  = parseFloat(g('postTg')?.value);
 
   if(isNaN(postLdl) && isNaN(postTc)){
-    alert('Please enter a post-treatment LDL-C or TC value first.');
+    customAlert('Please enter a post-treatment LDL-C or TC value first.');
     return;
   }
 
@@ -5103,7 +5103,7 @@ function updateNNT(prevAscvd, ascvd, vhr, acc){
 
 // ── Reset all (new patient) ──
 function clearAllInputs(){
-  if(!confirm('Reset all input values and start a new patient?')) return;
+  customConfirm('Reset all input values and start a new patient?', function(){
 
   // 1. Reset numeric/text inputs
   ['age','tc','hdl','ldl','tg','sbp','egfr',
@@ -5199,6 +5199,8 @@ function clearAllInputs(){
 
   // 9. Scroll to top
   window.scrollTo({top:0, behavior:'smooth'});
+
+  });
 }
 
 // ── NNT tab switch ──
@@ -5271,6 +5273,55 @@ function buildNNTChart(el){
     }]
   });
 }
+</script>
+<!-- Custom dialog modal (buttons always render in English, independent of browser locale) -->
+<div id="customDialogOverlay" style="display:none;position:fixed;inset:0;z-index:10500;background:rgba(0,0,0,0.45);align-items:center;justify-content:center;padding:16px">
+  <div style="background:#fff;border-radius:12px;max-width:360px;width:100%;padding:20px 22px;box-shadow:0 10px 40px rgba(0,0,0,0.25)">
+    <div id="customDialogMessage" style="font-size:13.5px;color:#1a1a18;line-height:1.6;margin-bottom:18px"></div>
+    <div style="display:flex;justify-content:flex-end;gap:8px">
+      <button id="customDialogCancelBtn" type="button" style="padding:7px 16px;border:1px solid #d0cec8;border-radius:7px;background:#fff;color:#5f5e5a;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit">Cancel</button>
+      <button id="customDialogOkBtn" type="button" style="padding:7px 16px;border:none;border-radius:7px;background:#1a1a18;color:#fff;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit">OK</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var overlay = document.getElementById('customDialogOverlay');
+  var msgEl = document.getElementById('customDialogMessage');
+  var cancelBtn = document.getElementById('customDialogCancelBtn');
+  var okBtn = document.getElementById('customDialogOkBtn');
+  var pendingCallback = null;
+
+  function closeDialog(){
+    overlay.style.display='none';
+    pendingCallback=null;
+  }
+
+  okBtn.addEventListener('click', function(){
+    var cb = pendingCallback;
+    closeDialog();
+    if(cb) cb();
+  });
+  cancelBtn.addEventListener('click', closeDialog);
+  overlay.addEventListener('click', function(e){ if(e.target===overlay) closeDialog(); });
+
+  // customConfirm(message, onConfirm): shows Cancel + OK, runs onConfirm only if OK is clicked
+  window.customConfirm = function(message, onConfirm){
+    msgEl.textContent = message;
+    cancelBtn.style.display='inline-block';
+    pendingCallback = onConfirm;
+    overlay.style.display='flex';
+  };
+
+  // customAlert(message, onOk?): shows OK only
+  window.customAlert = function(message, onOk){
+    msgEl.textContent = message;
+    cancelBtn.style.display='none';
+    pendingCallback = onOk || null;
+    overlay.style.display='flex';
+  };
+})();
 </script>
 </body>
 </html>
