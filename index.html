@@ -3227,7 +3227,7 @@ function clamp(v){return Math.min(100,Math.max(0,v));}
 /* ── ACC/AHA 2026 Statin Recommendation ── */
 /* 2026 ACC/AHA/Multisociety Dyslipidemia Guideline (Blumenthal RS et al, JACC/Circulation 2026) */
 /* Risk thresholds based on PREVENT-ASCVD: Low <3%, Borderline 3-5%, Intermediate 5-10%, High ≥10% */
-function accRec(age,risk,ldl,dm,ascvd,vhr,nE,tg,smoker,bpTx,r30){
+function accRec(age,risk,ldl,dm,ascvd,vhr,nE,tg,smoker,bpTx,r30,egfr){
   if(ascvd){
     if(vhr)return{c:'hi',l:'고강도',ind:'2차 예방 — 초고위험',d:['Rosuvastatin 20–40 mg','Atorvastatin 40–80 mg'],n:'LDL <55 미달성 → Ezetimibe 또는 PCSK9 억제제 추가 (동등 위치, 임상 판단에 따라 선택). Inclisiran은 CV outcome 근거 확립 전으로 PCSK9 mAb와 동등하게 권고되지 않음 (Class 2a, 연구 진행 중)',nt:'dng',ldlTgt:55,nhTgt:85};
     return{c:'hi',l:'고강도',ind:'2차 예방 (ASCVD 기왕력, 비초고위험)',d:['Rosuvastatin 20–40 mg','Atorvastatin 40–80 mg'],n:'LDL <70 미달성 → Ezetimibe 추가 고려',nt:'info',ldlTgt:70,nhTgt:100};
@@ -3253,6 +3253,15 @@ function accRec(age,risk,ldl,dm,ascvd,vhr,nE,tg,smoker,bpTx,r30){
   }
   if(age>79)return{c:'mo',l:'중등강도 (개별화)',ind:'79세 초과',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],n:'다제 복용·근병증·낙상 위험 고려. 기존 스타틴 유지 합리적. 개별 임상 판단.',nt:'info',ldlTgt:100,nhTgt:130};
   if(ldl<70)return{c:'no',l:'개별 판단',ind:'LDL < 70 mg/dL',d:[],n:'LDL 이미 낮음. 이차성 원인 및 기저 질환 확인.',nt:'info',ldlTgt:null,nhTgt:null};
+  // ── 말기신질환(CKD 5기·투석 수준, eGFR<15) ──
+  // 당뇨병이 있어도 "위험도 무관 스타틴" 원칙보다 이 근거가 우선함: 4D(당뇨·투석 환자 대상), AURORA 연구 —
+  // 스타틴으로 LDL은 유의하게 낮췄으나 심혈관 주요 사건 감소는 확인되지 않음. 신규 시작 권고하지 않음(2026 가이드라인).
+  if(egfr!=null && egfr>0 && egfr<15){
+    const dmPart = dm ? ' 당뇨병이 동반되어 있어도(당뇨병 자체는 위험도 무관 적응증이지만) 이 근거가 우선 적용됩니다 — 4D 연구가 바로 당뇨병 혈액투석 환자를 대상으로 수행되었습니다.' : '';
+    return{c:'no',l:'개별 상담 필요',ind:'말기신질환(CKD 5기·투석 수준, eGFR<15)',d:[],
+      n:'eGFR '+egfr+' (말기신질환/투석 수준): 스타틴을 새로 시작하는 것의 심혈관 이득이 명확하지 않습니다(2026 가이드라인, 4D·AURORA 연구 근거).'+dmPart+' 이미 스타틴을 복용 중이었다면 유지는 합리적일 수 있습니다. 신장내과와 개별 상담이 필요합니다. 이 근거 자체가 "LDL-C를 특정 수치까지 낮추면 이득이 있다"는 것을 보여주지 못했으므로, 확립된 LDL-C 목표치가 없습니다.',
+      nt:'warn',ldlTgt:null,nhTgt:null,noTargetReason:'esrd'};
+  }
   if(dm){
     if(risk>=10){
       if(ldl<70)return{c:'no',l:'목표 LDL 달성 (투약 전)',ind:'당뇨 + PREVENT-ASCVD ≥10% — 치료 전 LDL 이미 목표 이하',d:[],
@@ -3309,6 +3318,11 @@ function preventClass(primRisk,ldl,ascvd,dm,egfr,age,sex,sbp,bpTx,smoker,hdl,nE,
       : {cat:'Severe hypercholesterolemia',l:100,nh:130,ab:90,c:'#a32d2d',bg:'#fcebeb',
          basis:'LDL-C ≥190 mg/dL 단독: high-intensity statin + LDL-C <100 mg/dL 기본 목표. 위험증강인자 추가 확인 시 <70으로 강화',row:null};
   }
+  // 말기신질환(CKD 5기·투석 수준, eGFR<15) — 당뇨병이 있어도 이 근거가 우선함 (4D·AURORA 연구, 2026 가이드라인)
+  if(egfr!=null && egfr>0 && egfr<15){
+    return{cat:dm?'당뇨병 + 말기신질환(투석 수준)':'말기신질환(CKD 5기·투석 수준)',l:null,nh:null,ab:null,c:'#854f0b',bg:'#faeeda',
+      basis:`eGFR ${egfr} (CKD 5기·투석 수준): 스타틴 신규 시작의 심혈관 이득 불명확(4D·AURORA 연구, 2026 가이드라인). ${dm?'당뇨병이 있어도 이 근거가 우선 적용됨. ':''}기존 복용 중이면 유지 권고. 신장내과 개별 상담 필요. LDL-C 목표치를 낮추는 것의 이득이 확인되지 않아 확립된 목표치 없음 (참고) PREVENT-ASCVD ${primRisk.toFixed(1)}%`,row:null};
+  }
   if(dm){
     if(primRisk>=10) return{cat:'당뇨병 + PREVENT 고위험',l:70,nh:100,ab:70,c:'#a32d2d',bg:'#fcebeb',basis:`당뇨병 + PREVENT-ASCVD ${primRisk.toFixed(1)}% ≥10%`,row:'pr-high'};
     return{cat:'당뇨병',l:100,nh:130,ab:90,c:'#854f0b',bg:'#faeeda',basis:`당뇨병: 최소 중등강도 statin, PREVENT-ASCVD ${primRisk.toFixed(1)}%`,row:primRisk>=5?'pr-inter':primRisk>=3?'pr-border':'pr-low'};
@@ -3329,6 +3343,13 @@ function preventClass(primRisk,ldl,ascvd,dm,egfr,age,sex,sbp,bpTx,smoker,hdl,nE,
 
 /* ── Stepwise Flow ── */
 function makeFlow(acc,preventCat,ldl,ascvd,vhr,onStatin=false,baselineLdl=null,targetOverride=null){
+  // ── 말기신질환(ESRD/투석): LDL-C 목표치 자체가 확립되어 있지 않음 — 단계적 치료 흐름 미적용 ──
+  if(acc.noTargetReason==='esrd'){
+    return `<div class="nb warn" style="margin-top:4px">
+      ⚠ 이 환자(말기신질환·투석 수준)에서는 LDL-C를 특정 수치까지 낮추는 것의 심혈관 이득이 근거로 확인되지 않아(4D·AURORA 연구), 확립된 LDL-C 목표치와 단계적 치료 흐름이 적용되지 않습니다.<br>
+      <span style="font-size:10px;color:#854f0b">신규 스타틴 시작은 권장되지 않으며(2026 가이드라인), 기존 복용 중이었다면 유지를 고려할 수 있습니다. 신장내과와 개별 상담하십시오.</span>
+    </div>`;
+  }
   // ── [Bug A] LDL<70 케이스: ldlTgt=null → 단계적 치료 흐름 불필요 ──
   if(!onStatin && acc.ldlTgt===null){
     return `<div class="nb suc" style="margin-top:4px">
@@ -3578,6 +3599,12 @@ function makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt
   const ckdStNote = (ckdActive && acc.c!=='lo' && acc.c!=='no')
     ? `\nCKD 주의: Rosuvastatin 신배설 높음 → Atorvastatin 우선 고려${Number(egfr)<30?' (eGFR '+egfr+' mL/min: Rosuvastatin 10 mg 이하로 용량 제한).':`  (eGFR ${egfr} mL/min).`}`
     : '';
+
+  // ── [특수0] 말기신질환(ESRD/투석): 목표치 자체가 확립되어 있지 않음 ──
+  if(acc.noTargetReason==='esrd'){
+    const stTxt = onStatin ? `현재 스타틴 복용 중이며, on-treatment LDL-C ${currentLdl} mg/dL임.` : `치료 전 LDL-C ${ldl} mg/dL임.`;
+    return `말기신질환(CKD 5기·투석 수준, eGFR ${egfr})으로 스타틴 신규 시작의 심혈관 이득이 근거로 확인되지 않음(4D·AURORA 연구, 2026 가이드라인). LDL-C를 특정 수치까지 낮추는 것의 이득이 확인되지 않아 확립된 LDL-C 목표치 없음.\n${stTxt}\n${onStatin?'기존 복용 중이므로 유지를 고려할 수 있음.':'신규 스타틴 시작은 권장하지 않음.'} 신장내과와 개별 상담 권고.` + tgText;
+  }
 
   // ── [특수1] LDL < 70: 이미 낮음 — 이차성 원인 감별 필요 ──
   if(acc.ldlTgt === null){
@@ -4185,7 +4212,8 @@ function upd(){
   const cac1000Active=g('cac1000')&&g('cac1000').checked;     // CAC ≥1000
   const anyCAC=cac1to99Active||cacActive||cac300Active||cac1000Active;
   const ckdAbs=(egfr>=15&&egfr<60&&age>=40);
-  const dmAbs=dm&&age>=30&&age<=79;
+  const dmEsrd=dm&&egfr>0&&egfr<15; // 말기신질환(투석 수준) — DM의 '위험도 무관' 원칙보다 이 근거가 우선
+  const dmAbs=dm&&age>=30&&age<=79&&!dmEsrd;
   const hivChecked=g('enhHiv')?.checked??false;
   const hivAbs=hivChecked&&age>=40&&age<=75;
   const ldl190Abs=ldl>=190;
@@ -4200,6 +4228,7 @@ function upd(){
     if(cacActive&&!ascvd) notes.push('CAC 100–299 또는 ≥75 백분위 — 스타틴 충분조건, LDL<70 목표');
     if(ckdAbs&&!ascvd) notes.push('CKD (eGFR 15–59) + 나이≥40세 — 위험도 무관 중등강도 스타틴');
     if(dmAbs&&!ascvd) notes.push(`당뇨병 — 위험도 무관 ${primRisk>=10?'고강도':'중등강도'} 스타틴`);
+    if(dmEsrd&&!ascvd) notes.push('당뇨병 + 말기신질환(eGFR<15, 투석 수준) — 신규 스타틴 시작 이득 불명확, 개별 상담 필요 (당뇨병의 위험도 무관 원칙보다 우선)');
     if(hivAbs&&!ascvd) notes.push('HIV (안정 cART, 40–75세) — 위험도 무관 중등강도 스타틴 (Class I)');
     return notes;
   }
@@ -4283,7 +4312,7 @@ function upd(){
   g('ksolaOut').innerHTML=`
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:5px;flex-wrap:wrap">
       <span class="kbadge" style="color:${preventCat.c};background:${preventCat.bg}">${preventCat.cat}</span>
-      <span style="font-size:12px;font-weight:600">기저 LDL-C 치료 기준/목표 &lt;${preventCat.l} mg/dL</span>
+      <span style="font-size:12px;font-weight:600">${preventCat.l!=null?`기저 LDL-C 치료 기준/목표 &lt;${preventCat.l} mg/dL`:'확립된 LDL-C 목표치 없음 (개별 판단)'}</span>
     </div>
     <div style="font-size:11px;color:#5f5e5a">근거: ${preventCat.basis}</div>
     ${ksolExc.length?`<div style="font-size:12px;font-weight:700;color:#a32d2d;margin-top:6px;line-height:1.6">⚠ 위험도 분류 무관 적응증 해당 — ${ksolExc.map(n=>`(${n})`).join(' ')}</div>`:''}`;
@@ -4293,7 +4322,7 @@ function upd(){
     (onStatin&&hasPostRisk?`<br>치료 중: 10년 ASCVD ${txPrevAscvd.toFixed(1)}% · 10년 Total CVD ${txPrev.toFixed(1)}% · 10년 HF ${txPrevHf.toFixed(1)}%`:``);
 
   // ACC/AHA rec — baseline indication; current values are used for control/add-on assessment
-  let acc=accRec(age,primRisk,ldl,dm,ascvd,vhr,nE,tg,smoker,bpTx,prev30Ascvd);
+  let acc=accRec(age,primRisk,ldl,dm,ascvd,vhr,nE,tg,smoker,bpTx,prev30Ascvd,egfr);
 
   // ── LDL≥190 정밀 맞춤: 기본정보 기준 <100이나 위험증강인자 명시적 체크 시 <70으로 강화 ──
   // 기본정보로 이미 <70이면 불필요. <100인 경우에만 위험증강인자로 강화
@@ -4430,9 +4459,9 @@ function upd(){
       key:'dm',
       active:dmAbs,
       label:`당뇨병 (30–79세)`,
-      detail:dmAbs?`${age}세 당뇨병 — ${primRisk>=10?'PREVENT ≥10%: 고강도':'PREVENT &lt;10%: 중등강도'} 스타틴 권고`:(dm?`당뇨병 있으나 나이 ${age}세 (적용 연령 30–79세 범위 외)`:'해당 없음'),
+      detail:dmAbs?`${age}세 당뇨병 — ${primRisk>=10?'PREVENT ≥10%: 고강도':'PREVENT &lt;10%: 중등강도'} 스타틴 권고`:(dmEsrd?`당뇨병 있으나 eGFR ${egfr}(말기신질환/투석 수준) — 신규 스타틴 시작 이득 불명확, 개별 상담 필요`:(dm?`당뇨병 있으나 나이 ${age}세 (적용 연령 30–79세 범위 외)`:'해당 없음')),
       strength:dm&&primRisk>=10?'고강도':'중등강도',
-      basis:'당뇨 단독으로도 최소 중등강도 스타틴; PREVENT 점수에 관계없이 치료 시작'
+      basis:'당뇨 단독으로도 최소 중등강도 스타틴; PREVENT 점수에 관계없이 치료 시작. 단, 말기신질환(투석 수준)에서는 신규 시작 근거 불명확(4D·AURORA 연구)'
     },
     {
       key:'hiv',
@@ -4536,7 +4565,7 @@ function upd(){
   }
 
   // ApoB 목표치 — LDL 목표와 수치 일치 원칙 (2026 ACC/AHA: <55/<70/<90)
-  const dispAbTgt = dispLdlTgt<=55 ? 55 : dispLdlTgt<=70 ? 70 : 90;
+  const dispAbTgt = dispLdlTgt==null ? null : (dispLdlTgt<=55 ? 55 : dispLdlTgt<=70 ? 70 : 90);
 
   const curLabel=onStatin?'치료 중':'현재/치료 전';
   const showCur = onStatin; // 스타틴 미복용 시 치료 중/현재 컬럼 공란
@@ -4550,16 +4579,19 @@ function upd(){
   const statusApoB   = showCur ? statusCell(currentApoBDisplay,dispAbTgt) : statusCell(apoBDisplay,dispAbTgt);
   const statusTg     = showCur ? statusCell(currentTg,150) : statusCell(tg,150);
   const statusHdl    = showCur ? statusHdlCell(currentHdl,sex) : statusHdlCell(hdl,sex);
+  const ldlTgtCell = dispLdlTgt!=null ? `&lt;${dispLdlTgt} <span style="font-size:10px;color:#888">mg/dL</span>` : `<span style="color:#854f0b;font-size:11px">목표치 없음(개별판단)</span>`;
+  const nhTgtCell  = dispNhTgt!=null  ? `&lt;${dispNhTgt} <span style="font-size:10px;color:#888">mg/dL</span>`  : `<span style="color:#854f0b;font-size:11px">목표치 없음(개별판단)</span>`;
+  const abTgtCell  = dispAbTgt!=null  ? `&lt;${dispAbTgt} mg/dL` : `<span style="color:#854f0b;font-size:11px">목표치 없음(개별판단)</span>`;
   g('lipidTbl').innerHTML=`
-    <tr><td>LDL-C</td><td style="font-weight:600">${ldl} mg/dL</td>${curLdlCell}<td>&lt;${dispLdlTgt} <span style="font-size:10px;color:#888">mg/dL</span></td><td>${statusLdl}</td></tr>
-    <tr><td>Non-HDL-C <span style="color:#888;font-size:10px">(TC−HDL)</span></td><td style="font-weight:600">${nonHDL} mg/dL</td>${curNhCell}<td>&lt;${dispNhTgt} <span style="font-size:10px;color:#888">mg/dL</span></td><td>${statusNh}</td></tr>
-    <tr><td>ApoB <span style="color:#888;font-size:10px">(${apoBLabel})</span></td><td style="font-weight:600">${apob_meas!==null?apoBDisplay:'~'+apoBDisplay} mg/dL</td>${curApoBCell}<td>&lt;${dispAbTgt} mg/dL</td><td>${statusApoB}</td></tr>
+    <tr><td>LDL-C</td><td style="font-weight:600">${ldl} mg/dL</td>${curLdlCell}<td>${ldlTgtCell}</td><td>${statusLdl}</td></tr>
+    <tr><td>Non-HDL-C <span style="color:#888;font-size:10px">(TC−HDL)</span></td><td style="font-weight:600">${nonHDL} mg/dL</td>${curNhCell}<td>${nhTgtCell}</td><td>${statusNh}</td></tr>
+    <tr><td>ApoB <span style="color:#888;font-size:10px">(${apoBLabel})</span></td><td style="font-weight:600">${apob_meas!==null?apoBDisplay:'~'+apoBDisplay} mg/dL</td>${curApoBCell}<td>${abTgtCell}</td><td>${statusApoB}</td></tr>
     <tr><td>중성지방</td><td style="font-weight:600">${tg} mg/dL</td>${curTgCell}<td>&lt;150</td><td>${statusTg}</td></tr>
     <tr><td>HDL-C</td><td style="font-weight:600">${hdl} mg/dL</td>${curHdlCell}<td>남 ≥40 / 여 ≥50</td><td>${statusHdl}</td></tr>
   `;
 
   // Base rec without risk enhancers (for impact comparison) — baseline
-  const accBase=accRec(age,primRisk,ldl,dm,ascvd,vhr,0,tg,smoker,bpTx,prev30Ascvd);
+  const accBase=accRec(age,primRisk,ldl,dm,ascvd,vhr,0,tg,smoker,bpTx,prev30Ascvd,egfr);
   const upgraded=!ascvd&&nE>0&&accBase.l!==acc.l;
 
   g('accRecOut').innerHTML=recHTML(acc,'ACC/AHA · PREVENT 기반 — baseline 위험도 기준');
@@ -4591,9 +4623,13 @@ function upd(){
       </div>`;
   }
   if(onStatin){
-    const ldlGap=Math.max(0,Math.round(currentLdl-dispLdlTgt));
-    const controlClass=currentLdl<=dispLdlTgt?'suc':'warn';
-    g('accRecOut').innerHTML+=`<div class="nb ${controlClass}">현재 스타틴 치료 중: 기저 위험군은 <b>${preventCat.cat}</b>으로 유지합니다. 현재 LDL-C ${currentLdl} mg/dL, 목표 &lt;${dispLdlTgt} mg/dL ${currentLdl<=dispLdlTgt?'달성':'미달성: 추가 감소 필요 '+ldlGap+' mg/dL'}.</div>`;
+    if(dispLdlTgt==null){
+      g('accRecOut').innerHTML+=`<div class="nb warn">현재 스타틴 치료 중: 기저 위험군은 <b>${preventCat.cat}</b>입니다. 현재 LDL-C ${currentLdl} mg/dL — 이 상태에서는 확립된 LDL-C 목표치가 없어 달성/미달성 판정을 하지 않습니다. 유지 여부는 신장내과와 개별 상담하십시오.</div>`;
+    } else {
+      const ldlGap=Math.max(0,Math.round(currentLdl-dispLdlTgt));
+      const controlClass=currentLdl<=dispLdlTgt?'suc':'warn';
+      g('accRecOut').innerHTML+=`<div class="nb ${controlClass}">현재 스타틴 치료 중: 기저 위험군은 <b>${preventCat.cat}</b>으로 유지합니다. 현재 LDL-C ${currentLdl} mg/dL, 목표 &lt;${dispLdlTgt} mg/dL ${currentLdl<=dispLdlTgt?'달성':'미달성: 추가 감소 필요 '+ldlGap+' mg/dL'}.</div>`;
+    }
   }
   if(currentTg>=500) g('accRecOut').innerHTML+=`<div class="nb dng">⚠ 현재 TG ≥500 mg/dL: 급성 췌장염 예방 위해 2차 원인 평가 및 Fibrate/처방 omega-3 계열 치료를 고려하십시오.</div>`;
   if(g('cacCheck')&&g('cacCheck').checked&&!ascvd){
@@ -4690,13 +4726,13 @@ function upd(){
       ${onStatin&&hasPostRisk?`<tr style="background:#f5f5f4"><th style="padding:6px 8px;border:1px solid #ccc;text-align:left">치료 중 PREVENT 10년 위험</th><td colspan="3" style="padding:6px 8px;border:1px solid #ccc">${txPrev.toFixed(1)}% (Total CVD) / ${txPrevAscvd.toFixed(1)}% (ASCVD) / ${txPrevHf.toFixed(1)}% (HF) — 재분류가 아닌 현재 조절 상태</td></tr>`:''}
       <tr style="background:#f5f5f4">
         <th style="padding:6px 8px;border:1px solid #ccc;text-align:left">LDL-C 치료 전 / 현재 / 목표</th>
-        <td style="padding:6px 8px;border:1px solid #ccc">${ldl} / ${currentLdl} / &lt;${dispLdlTgt} mg/dL</td>
+        <td style="padding:6px 8px;border:1px solid #ccc">${ldl} / ${currentLdl} / ${dispLdlTgt!=null?`&lt;${dispLdlTgt} mg/dL`:'목표치 없음(개별판단)'}</td>
         <th style="padding:6px 8px;border:1px solid #ccc;text-align:left">Non-HDL-C 치료 전 / 현재 / 목표</th>
-        <td style="padding:6px 8px;border:1px solid #ccc">${nonHDL} / ${currentNonHDL} / &lt;${dispNhTgt} mg/dL</td>
+        <td style="padding:6px 8px;border:1px solid #ccc">${nonHDL} / ${currentNonHDL} / ${dispNhTgt!=null?`&lt;${dispNhTgt} mg/dL`:'목표치 없음(개별판단)'}</td>
       </tr>
       <tr>
         <th style="padding:6px 8px;border:1px solid #ccc;text-align:left">ApoB (${apoBLabel}) 치료 전 / 현재 / 목표</th>
-        <td style="padding:6px 8px;border:1px solid #ccc">${apob_meas!==null?apoBDisplay:'~'+apoBDisplay} / ${currentApoBLabel==='측정값'?currentApoBDisplay:'~'+currentApoBDisplay} / &lt;${dispAbTgt} mg/dL</td>
+        <td style="padding:6px 8px;border:1px solid #ccc">${apob_meas!==null?apoBDisplay:'~'+apoBDisplay} / ${currentApoBLabel==='측정값'?currentApoBDisplay:'~'+currentApoBDisplay} / ${dispAbTgt!=null?`&lt;${dispAbTgt} mg/dL`:'목표치 없음(개별판단)'}</td>
         <th style="padding:6px 8px;border:1px solid #ccc;text-align:left">eGFR / 현재 TG</th>
         <td style="padding:6px 8px;border:1px solid #ccc">${egfr} / ${currentTg} mg/dL</td>
       </tr>
