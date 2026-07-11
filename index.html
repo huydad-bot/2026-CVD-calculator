@@ -542,7 +542,11 @@ document.addEventListener('keydown', function(e){
 var SECTION_META = {
   cumulativeLDL: { header:'cumulativeLDLHeader', body:'cumulativeLDLBody', badge:'C', en:'Cumulative LDL Burden', ko:'누적 LDL 부담', color:'#185fa5' },
   precision:     { header:'precisionHeader',     body:'precisionBody',     badge:'P', en:'Precision Prevention', ko:'정밀 맞춤 예방',   color:'#639922' },
-  residual:      { header:'residualRiskHeader',  body:'residualRiskBody',  badge:'R', en:'Residual Risk beyond LDL', ko:'LDL 너머의 잔여 위험', color:'#a32d2d' }
+  residual:      { header:'residualRiskHeader',  body:'residualRiskBody',  badge:'R', en:'Residual Risk beyond LDL', ko:'LDL 너머의 잔여 위험', color:'#a32d2d' },
+  absInd:        { header:null, body:'absIndBody',        badge:'✓', en:'Absolute Statin Indications', ko:'위험도 분류 무관 스타틴 적응증', color:'#185fa5' },
+  specialStatin: { header:null, body:'specialStatinBody',  badge:'!', en:'Statin in Special Situations', ko:'특수 상황에서 스타틴 치료',       color:'#7b5ea7' },
+  nnt:           { header:null, body:'nntBody',            badge:'≡', en:'NNT Comparison', ko:'스타틴 치료 효과 — NNT 비교',                 color:'#7b5ea7' },
+  nnh:           { header:null, body:'nnhBody',            badge:'⚠', en:'NNH Comparison', ko:'스타틴 부작용 — NNH 비교',                    color:'#a32d2d' }
 };
 function openSectionModal(key){
   var m = SECTION_META[key];
@@ -2160,7 +2164,7 @@ function switchRRTab(idx){
 
   <!-- ══ 위험도 무관 스타틴 절대 적응증 ══ -->
   <div class="card" id="cardAbsInd" style="border-top:3px solid #7b5ea7">
-    <div class="sec" onclick="toggleSection('absIndBody','absIndArrow')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none">
+    <div class="sec" onclick="openSectionModal('absInd')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none">
       <span>위험도 분류 무관 스타틴 적응증 <span style="font-size:11px;font-weight:600;color:#185fa5;letter-spacing:0;text-transform:none;margin-left:4px">기본정보 입력 또는 CAC 점수 입력시 해당 항목이 활성화 됩니다</span><span style="font-size:9px;font-weight:400;color:#888780;letter-spacing:0;text-transform:none"> (PREVENT 점수에 구속되지 않음)</span></span>
       <span id="absIndArrow" style="font-size:12px;color:#888780;transition:transform .2s;display:inline-block">▶</span>
     </div>
@@ -2174,7 +2178,7 @@ function switchRRTab(idx){
 
   <!-- ══ 특수상황에서 스타틴 치료 여부 확인 ══ -->
   <div class="card" id="cardSpecialStatin" style="border-top:3px solid #7b5ea7">
-    <div class="sec" onclick="toggleSection('specialStatinBody','specialStatinArrow')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;color:#7b5ea7">
+    <div class="sec" onclick="openSectionModal('specialStatin')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;color:#7b5ea7">
       <span style="display:flex;align-items:center;gap:7px">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7b5ea7" stroke-width="2.5" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
         특수 상황에서 스타틴 치료
@@ -2489,7 +2493,7 @@ function switchRRTab(idx){
 
   <!-- ══ NNT 비교 ══ -->
   <div class="card" id="cardNntLeft" style="border-top:3px solid #7b5ea7">
-    <div class="sec" onclick="toggleSection('nntBody','nntArrow')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;color:#7b5ea7">
+    <div class="sec" onclick="openSectionModal('nnt')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;color:#7b5ea7">
       <span style="display:flex;align-items:center;gap:7px">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7b5ea7" stroke-width="2.5" style="flex-shrink:0"><path d="M3 18h18"/><path d="M3 12h12"/><path d="M3 6h6"/></svg>
         스타틴 치료 효과 — NNT 비교
@@ -2627,7 +2631,7 @@ function switchRRTab(idx){
 
   <!-- ══ NNH 독립 카드 ══ -->
   <div class="card" id="cardNnhLeft" style="border-top:3px solid #e24b4a">
-    <div class="sec" onclick="toggleNNHBox()" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;color:#a32d2d">
+    <div class="sec" onclick="openSectionModal('nnh')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;color:#a32d2d">
       <span style="display:flex;align-items:center;gap:7px">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a32d2d" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
         스타틴 부작용 — NNH 비교
