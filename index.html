@@ -388,6 +388,206 @@ document.getElementById('helpModal').addEventListener('click',function(e){
 });
 </script>
 
+<!-- ══════ CPR (Calculate-Personalize-Reclassify) 상세 모달 ══════ -->
+<div id="cprModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.45);overflow-y:auto;padding:24px 14px" onclick="if(event.target===this)closeCPRModal()">
+  <div style="max-width:640px;margin:0 auto;background:#fff;border-radius:14px;box-shadow:0 8px 40px rgba(0,0,0,0.22);overflow:hidden">
+    <!-- 모달 헤더 -->
+    <div id="cprModalHeader" style="background:#639922;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span id="cprModalBadge" style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,0.2);color:#fff;font-size:18px;font-weight:800;flex-shrink:0">C</span>
+        <div>
+          <div id="cprModalTitleEn" style="font-size:15px;font-weight:700;color:#fff">Calculate</div>
+          <div id="cprModalTitleKo" style="font-size:11px;color:rgba(255,255,255,.85);margin-top:2px">PREVENT 10년/30년 ASCVD 위험 계산</div>
+        </div>
+      </div>
+      <button onclick="closeCPRModal()" style="background:rgba(255,255,255,0.18);border:none;border-radius:7px;width:30px;height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;line-height:1;flex-shrink:0">×</button>
+    </div>
+    <!-- 모달 본문 -->
+    <div id="cprModalBody" style="padding:20px 22px 24px;font-size:12px;color:#1a1a18;line-height:1.75"></div>
+    <div style="text-align:right;padding:0 22px 20px">
+      <button onclick="closeCPRModal()" style="padding:8px 22px;background:#3b6d11;color:#fff;border:none;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit">닫기</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var CPR_DATA = {
+  C: {
+    badge:'C', en:'Calculate', ko:'PREVENT 10년/30년 ASCVD 위험 계산',
+    body: '\
+      <div style="background:#f4f9f0;border:1px solid #c0dd97;border-radius:8px;padding:12px 14px;margin-bottom:12px">\
+        <div style="font-size:12px;font-weight:700;color:#3b6d11;margin-bottom:6px">CPR Framework — 2026 ACC/AHA Guideline (Section 4.2.3)</div>\
+        <div style="font-size:12px;color:#1a1a18;line-height:1.8">10년 ASCVD 위험을 먼저 추정하고, 임상적 불확실성이 있거나 환자가 치료 결정을 주저할 때 다음 단계(Personalize·Reclassify)로 넘어간다. 절대 10년·30년 위험 외에도 <b>동반질환, 기대여명, 환자 선호도, 잠재적 순이익</b>을 공유 의사결정에 반영한다.</div>\
+        <div style="font-size:10px;color:#5f5e5a;margin-top:6px;font-style:italic">Figure 5. CPR Framework for Risk Evaluation · Circulation 2026;153:e1154</div>\
+      </div>\
+      <div style="font-size:11px;font-weight:700;color:#888780;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px">PREVENT 기반 1차 예방 위험군 분류</div>\
+      <div style="overflow-x:auto">\
+        <table style="width:100%;font-size:12px;border-collapse:collapse;min-width:360px">\
+          <thead><tr style="background:#eaf3de">\
+            <th style="padding:6px 8px;text-align:left;font-size:11px;font-weight:700;color:#27500a;border-bottom:1px solid #c0dd97">위험군</th>\
+            <th style="padding:6px 8px;text-align:center;font-size:11px;font-weight:700;color:#27500a;border-bottom:1px solid #c0dd97">10년 ASCVD</th>\
+            <th style="padding:6px 8px;text-align:left;font-size:11px;font-weight:700;color:#27500a;border-bottom:1px solid #c0dd97">LLT 권고</th>\
+            <th style="padding:6px 8px;text-align:center;font-size:11px;font-weight:700;color:#27500a;border-bottom:1px solid #c0dd97">LDL 목표</th>\
+          </tr></thead>\
+          <tbody>\
+            <tr><td style="padding:5px 8px;border-bottom:1px solid #f1efe8;color:#5f5e5a">저위험</td><td style="padding:5px 8px;border-bottom:1px solid #f1efe8;text-align:center">&lt;3%</td><td style="padding:5px 8px;border-bottom:1px solid #f1efe8;color:#5f5e5a;font-size:11px">생활습관 우선. 위험증강인자·CAC 있으면 고려</td><td style="padding:5px 8px;border-bottom:1px solid #f1efe8;text-align:center;color:#5f5e5a">—</td></tr>\
+            <tr style="background:#fafaf8"><td style="padding:5px 8px;border-bottom:1px solid #f1efe8;font-weight:600;color:#854f0b">경계위험</td><td style="padding:5px 8px;border-bottom:1px solid #f1efe8;text-align:center;font-weight:700">3–&lt;5%</td><td style="padding:5px 8px;border-bottom:1px solid #f1efe8;font-size:11px">위험증강인자 or CAC &gt;0 시 중등강도 스타틴 합리적 (2a)</td><td style="padding:5px 8px;border-bottom:1px solid #f1efe8;text-align:center">&lt;100</td></tr>\
+            <tr><td style="padding:5px 8px;border-bottom:1px solid #f1efe8;font-weight:600;color:#ef9f27">중간위험</td><td style="padding:5px 8px;border-bottom:1px solid #f1efe8;text-align:center;font-weight:700">5–&lt;10%</td><td style="padding:5px 8px;border-bottom:1px solid #f1efe8;font-size:11px">중등강도 스타틴 권고. CAC로 재분류 유용 (COR I)</td><td style="padding:5px 8px;border-bottom:1px solid #f1efe8;text-align:center">&lt;100</td></tr>\
+            <tr style="background:#fef9f0"><td style="padding:5px 8px;font-weight:700;color:#a32d2d">고위험</td><td style="padding:5px 8px;text-align:center;font-weight:700;color:#a32d2d">≥10%</td><td style="padding:5px 8px;font-size:11px">고강도 스타틴 권고 (2차 예방 수준 위험)</td><td style="padding:5px 8px;text-align:center;font-weight:700;color:#a32d2d">&lt;70</td></tr>\
+          </tbody>\
+        </table>\
+      </div>'
+  },
+  P: {
+    badge:'P', en:'Personalize', ko:'위험증강인자·생식위험인자·PRS 반영',
+    body: '\
+      <div style="font-size:11px;color:#5f5e5a;margin-bottom:10px;line-height:1.7">Table 13. Risk Enhancers (2026 ACC/AHA — Section 4.2.3.3). PREVENT-ASCVD 방정식에 포함되지 않은 인자들로, 위험이 계산값보다 높을 수 있음을 시사한다. <b style="color:#1a1a18">위험증강인자의 부재가 더 낮은 위험을 의미하지는 않는다.</b></div>\
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">\
+        <div>\
+          <div style="font-size:11px;font-weight:700;color:#3b6d11;margin-bottom:5px">임상·가족력</div>\
+          <div style="background:#f4f9f0;border-radius:7px;padding:9px 11px;font-size:11px;color:#1a1a18;line-height:1.85">\
+            ▸ 조기 ASCVD 가족력 (부모·형제, 남 &lt;55세, 여 &lt;65세)<br>\
+            ▸ 고위험 민족 (남아시아계, 필리핀계)<br>\
+            ▸ 높은 다유전자 위험점수 (PRS, 상위 10%)<br>\
+            ▸ 만성 염증질환 (SLE·RA·건선·염증성 관절염)\
+          </div>\
+        </div>\
+        <div>\
+          <div style="font-size:11px;font-weight:700;color:#3b6d11;margin-bottom:5px">검사·대사 지표</div>\
+          <div style="background:#f4f9f0;border-radius:7px;padding:9px 11px;font-size:11px;color:#1a1a18;line-height:1.85">\
+            ▸ Lp(a) ≥125 nmol/L (≥50 mg/dL)<br>\
+            ▸ hsCRP ≥2 mg/L (2회 이상)<br>\
+            ▸ TG ≥175 mg/dL (비공복) / ≥150 mg/dL (공복)<br>\
+            ▸ LDL-C 지속 160–189 mg/dL, non-HDL ≥190 mg/dL, <b>apoB ≥120 mg/dL</b>\
+          </div>\
+        </div>\
+      </div>\
+      <div style="background:#f4f9f0;border:1px solid #c0dd97;border-radius:7px;padding:9px 11px;margin-bottom:8px">\
+        <div style="font-size:11px;font-weight:700;color:#3b6d11;margin-bottom:4px">생식 위험인자 (Reproductive Risk Markers) — Section 4.2.3.4</div>\
+        <div style="font-size:11px;color:#1a1a18;line-height:1.75">조기 폐경·자간전증·임신성 당뇨·임신성 고혈압·조산 — 여성에서 ASCVD 위험증강인자로 PREVENT 방정식을 보완한다. ASCVD 위험 개인화에 반영한다.</div>\
+      </div>\
+      <div style="background:#eaf3de;border:1px solid #c0dd97;border-radius:7px;padding:9px 11px">\
+        <div style="font-size:11px;font-weight:700;color:#3b6d11;margin-bottom:4px">CKM 증후군 (Cardiovascular-Kidney-Metabolic) — Section 4.2.3.3</div>\
+        <div style="font-size:11px;color:#1a1a18;line-height:1.75">비만·인슐린저항성·CKD·당뇨·심부전이 복합된 병태. Table 13에 위험증강인자로 명시되어 있다. CKM 병기가 높을수록 10년 위험이 과소추정될 수 있어 <b>PREVENT 방정식에 albuminuria·HbA1c·zip code를 모두 포함</b>시켜야 한다.</div>\
+      </div>'
+  },
+  R: {
+    badge:'R', en:'Reclassify', ko:'CAC로 불확실성 해소·재분류',
+    body: '\
+      <div style="font-size:11px;font-weight:700;color:#888780;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px">Section 4.2.3.6 — Selective Imaging of Subclinical Atherosclerosis</div>\
+      <div style="background:#f4f9f0;border:1px solid #c0dd97;border-radius:8px;padding:10px 12px;margin-bottom:10px;font-size:11px;color:#1a1a18;line-height:1.8">CAC는 증상 없는 성인에서 무증상 죽상경화를 정량화하는 가장 강력한 재분류 도구다. LLT 결정이 불확실할 때 <b>경계~중간위험군</b>(남 ≥40세, 여 ≥45세)에서 선택적으로 시행한다. 방사선 노출은 약 1 mSv(유방촬영술 수준)이며, 우발 소견(폐결절 등)은 10% 미만이다.</div>\
+      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px">\
+        <div style="display:flex;gap:10px;align-items:flex-start">\
+          <div style="min-width:76px;padding:5px 7px;background:#eaf3de;border-radius:5px;text-align:center;font-size:12px;font-weight:700;color:#27500a">CAC = 0</div>\
+          <div style="font-size:11px;color:#1a1a18;line-height:1.7;flex:1">스타틴 유예가 합리적(중간·경계위험). 단 FH·LDL≥190·당뇨·흡연·강한 가족력은 예외. 3–7년 후 재검 고려. <span style="color:#3b6d11;font-weight:600">COR 2a</span></div>\
+        </div>\
+        <div style="display:flex;gap:10px;align-items:flex-start">\
+          <div style="min-width:76px;padding:5px 7px;background:#eaf3de;border-radius:5px;text-align:center;font-size:12px;font-weight:700;color:#3b6d11">1–99 AU</div>\
+          <div style="font-size:11px;color:#1a1a18;line-height:1.7;flex:1">위험증강인자에 해당. LDL &lt;100 목표로 스타틴 고려. 젊은 환자는 CARDIA 데이터에서 CAC 1–19에서도 위험 상승. <span style="color:#3b6d11;font-weight:600">COR 2a</span></div>\
+        </div>\
+        <div style="display:flex;gap:10px;align-items:flex-start">\
+          <div style="min-width:76px;padding:5px 7px;background:#c0dd97;border-radius:5px;text-align:center;font-size:11px;font-weight:700;color:#27500a">100–299<br>&amp; ≥75%ile</div>\
+          <div style="font-size:11px;color:#1a1a18;line-height:1.7;flex:1">고강도 스타틴. LDL-C ≥50% 감소 + &lt;70 mg/dL 목표. MESA: CAC 101–300에서 관상동맥 사건 위험 약 8배 증가. <span style="color:#3b6d11;font-weight:600">COR 1</span></div>\
+        </div>\
+        <div style="display:flex;gap:10px;align-items:flex-start">\
+          <div style="min-width:76px;padding:5px 7px;background:#97c459;border-radius:5px;text-align:center;font-size:12px;font-weight:700;color:#173404">300–999</div>\
+          <div style="font-size:11px;color:#1a1a18;line-height:1.7;flex:1">고강도 스타틴 + LDL &lt;70. 2차 예방과 유사한 수준의 위험. Ezetimibe 추가 고려가 합리적(COR 2a). <span style="color:#3b6d11;font-weight:600">COR 1</span></div>\
+        </div>\
+        <div style="display:flex;gap:10px;align-items:flex-start">\
+          <div style="min-width:76px;padding:5px 7px;background:#3b6d11;border-radius:5px;text-align:center;font-size:12px;font-weight:700;color:#fff">≥1000 AU</div>\
+          <div style="font-size:11px;color:#1a1a18;line-height:1.7;flex:1"><b>초고위험 수준</b>. FOURIER 위약군 연간 사망률과 유사. LDL &lt;55 mg/dL 목표. 최대내약 스타틴 + Ezetimibe. <span style="color:#a32d2d;font-weight:600">COR 1</span></div>\
+        </div>\
+      </div>\
+      <div style="background:#eaf3de;border-radius:6px;padding:8px 11px;font-size:11px;color:#27500a;line-height:1.7">💡 CAC는 치료를 결정하는 도구이지, 위험이 있는 환자에서 스타틴을 보류하는 근거로 사용해서는 안 된다. CAC=0이라도 당뇨·FH·흡연 환자는 예외다.</div>'
+  }
+};
+
+function openCPRModal(key){
+  var d = CPR_DATA[key];
+  if(!d) return;
+  document.getElementById('cprModalBadge').textContent = d.badge;
+  document.getElementById('cprModalTitleEn').textContent = d.en;
+  document.getElementById('cprModalTitleKo').textContent = d.ko;
+  document.getElementById('cprModalBody').innerHTML = d.body;
+  document.getElementById('cprModal').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+function closeCPRModal(){
+  document.getElementById('cprModal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape') closeCPRModal();
+});
+</script>
+
+<!-- ══════ 대형 섹션 모달 (Cumulative LDL Burden / Precision Prevention / Residual Risk) ══════ -->
+<div id="sectionModal" style="display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,0.5);overflow-y:auto;padding:24px 14px" onclick="if(event.target===this)closeSectionModal()">
+  <div style="max-width:900px;margin:0 auto;background:#fff;border-radius:14px;box-shadow:0 10px 50px rgba(0,0,0,0.28);overflow:hidden">
+    <div id="sectionModalHeader" style="background:#185fa5;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;z-index:2">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span id="sectionModalBadge" style="display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,0.22);color:#fff;font-size:19px;font-weight:800;flex-shrink:0">C</span>
+        <div>
+          <div id="sectionModalTitleEn" style="font-size:16px;font-weight:700;color:#fff">Cumulative LDL Burden</div>
+          <div id="sectionModalTitleKo" style="font-size:11px;color:rgba(255,255,255,.85);margin-top:2px">누적 LDL 부담</div>
+        </div>
+      </div>
+      <button onclick="closeSectionModal()" style="background:rgba(255,255,255,0.18);border:none;border-radius:7px;width:32px;height:32px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-size:19px;line-height:1;flex-shrink:0">×</button>
+    </div>
+    <div id="sectionModalBody" style="max-height:calc(85vh - 64px);overflow-y:auto"></div>
+  </div>
+</div>
+
+<script>
+var SECTION_META = {
+  cumulativeLDL: { header:'cumulativeLDLHeader', body:'cumulativeLDLBody', badge:'C', en:'Cumulative LDL Burden', ko:'누적 LDL 부담', color:'#185fa5' },
+  precision:     { header:'precisionHeader',     body:'precisionBody',     badge:'P', en:'Precision Prevention', ko:'정밀 맞춤 예방',   color:'#639922' },
+  residual:      { header:'residualRiskHeader',  body:'residualRiskBody',  badge:'R', en:'Residual Risk beyond LDL', ko:'LDL 너머의 잔여 위험', color:'#a32d2d' }
+};
+function openSectionModal(key){
+  var m = SECTION_META[key];
+  if(!m) return;
+  var body = document.getElementById(m.body);
+  if(!body) return;
+  // 원래 위치 기억 (닫을 때 되돌리기 위함)
+  if(!body._origParent){
+    body._origParent = body.parentNode;
+    body._origNext = body.nextSibling;
+  }
+  document.getElementById('sectionModalBadge').textContent = m.badge;
+  document.getElementById('sectionModalTitleEn').textContent = m.en;
+  document.getElementById('sectionModalTitleKo').textContent = m.ko;
+  document.getElementById('sectionModalHeader').style.background = m.color;
+  document.getElementById('sectionModalBadge').style.color = '#fff';
+
+  var container = document.getElementById('sectionModalBody');
+  container.innerHTML = '';
+  body.style.display = 'block';
+  body.style.border = 'none';
+  container.appendChild(body);
+
+  document.getElementById('sectionModal').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+function closeSectionModal(){
+  var container = document.getElementById('sectionModalBody');
+  var body = container.firstElementChild;
+  if(body && body._origParent){
+    if(body._origNext && body._origNext.parentNode===body._origParent){
+      body._origParent.insertBefore(body, body._origNext);
+    } else {
+      body._origParent.appendChild(body);
+    }
+    body.style.display = 'none';
+  }
+  document.getElementById('sectionModal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape') closeSectionModal();
+});
+</script>
+
 <!-- ══════ 약어/용어 검색 ══════ -->
 <script>
 var GLOSSARY=[
@@ -711,7 +911,7 @@ document.addEventListener('click',function(e){
 <div id="cardCprBanner" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px">
   <div style="background:#fff;border:1px solid #e2e0db;border-top:3px solid #185fa5;border-radius:8px;overflow:hidden">
     <!-- 헤더: 클릭 시 펼침 -->
-    <div id="cumulativeLDLHeader" onclick="toggleCumulativeLDL()" style="padding:10px 13px;cursor:pointer;user-select:none;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;transition:background .15s" onmouseover="this.style.background='#f0f6fc'" onmouseout="this.style.background='#fff'">
+    <div id="cumulativeLDLHeader" onclick="openSectionModal('cumulativeLDL')" style="padding:10px 13px;cursor:pointer;user-select:none;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;transition:background .15s" onmouseover="this.style.background='#f0f6fc'" onmouseout="this.style.background='#fff'">
       <div style="display:flex;align-items:center;gap:8px;flex:1">
         <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#185fa5;color:#fff;font-size:15px;font-weight:800;flex-shrink:0">C</span>
         <div>
@@ -915,7 +1115,7 @@ function switchCLTab(idx){
 </script>
   <div style="background:#fff;border:1px solid #e2e0db;border-top:3px solid #639922;border-radius:8px;overflow:hidden">
     <!-- 헤더: 클릭 시 펼침 -->
-    <div id="precisionHeader" onclick="togglePrecision()" style="padding:10px 13px;cursor:pointer;user-select:none;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;transition:background .15s" onmouseover="this.style.background='#f4f9f0'" onmouseout="this.style.background='#fff'">
+    <div id="precisionHeader" onclick="openSectionModal('precision')" style="padding:10px 13px;cursor:pointer;user-select:none;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;transition:background .15s" onmouseover="this.style.background='#f4f9f0'" onmouseout="this.style.background='#fff'">
       <div style="display:flex;align-items:center;gap:8px;flex:1">
         <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#639922;color:#fff;font-size:15px;font-weight:800;flex-shrink:0">P</span>
         <div>
@@ -941,20 +1141,23 @@ function switchCLTab(idx){
       <div id="ppPanel0" style="padding:12px 13px;display:block">
         <!-- CPR 3단계 -->
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:10px">
-          <div style="background:#eaf3de;border:1px solid #c0dd97;border-radius:8px;padding:9px 10px;text-align:center">
+          <div onclick="openCPRModal('C')" style="background:#eaf3de;border:1px solid #c0dd97;border-radius:8px;padding:9px 10px;text-align:center;cursor:pointer;transition:background .15s" onmouseover="this.style.background='#dcecc8'" onmouseout="this.style.background='#eaf3de'">
             <div style="font-size:15px;font-weight:800;color:#3b6d11;line-height:1">C</div>
             <div style="font-size:11px;font-weight:700;color:#3b6d11;margin-top:2px">Calculate</div>
             <div style="font-size:9px;color:#5f5e5a;margin-top:3px;line-height:1.5">PREVENT 10년/30년<br>ASCVD 위험 계산</div>
+            <div style="font-size:8px;color:#639922;margin-top:4px;opacity:.75">클릭하여 자세히 ▾</div>
           </div>
-          <div style="background:#eaf3de;border:1px solid #c0dd97;border-radius:8px;padding:9px 10px;text-align:center">
+          <div onclick="openCPRModal('P')" style="background:#eaf3de;border:1px solid #c0dd97;border-radius:8px;padding:9px 10px;text-align:center;cursor:pointer;transition:background .15s" onmouseover="this.style.background='#dcecc8'" onmouseout="this.style.background='#eaf3de'">
             <div style="font-size:15px;font-weight:800;color:#3b6d11;line-height:1">P</div>
             <div style="font-size:11px;font-weight:700;color:#3b6d11;margin-top:2px">Personalize</div>
             <div style="font-size:9px;color:#5f5e5a;margin-top:3px;line-height:1.5">위험증강인자·생식<br>위험인자·PRS 반영</div>
+            <div style="font-size:8px;color:#639922;margin-top:4px;opacity:.75">클릭하여 자세히 ▾</div>
           </div>
-          <div style="background:#eaf3de;border:1px solid #c0dd97;border-radius:8px;padding:9px 10px;text-align:center">
+          <div onclick="openCPRModal('R')" style="background:#eaf3de;border:1px solid #c0dd97;border-radius:8px;padding:9px 10px;text-align:center;cursor:pointer;transition:background .15s" onmouseover="this.style.background='#dcecc8'" onmouseout="this.style.background='#eaf3de'">
             <div style="font-size:15px;font-weight:800;color:#3b6d11;line-height:1">R</div>
             <div style="font-size:11px;font-weight:700;color:#3b6d11;margin-top:2px">Reclassify</div>
             <div style="font-size:9px;color:#5f5e5a;margin-top:3px;line-height:1.5">CAC로 불확실성<br>해소 · 재분류</div>
+            <div style="font-size:8px;color:#639922;margin-top:4px;opacity:.75">클릭하여 자세히 ▾</div>
           </div>
         </div>
 
@@ -1145,7 +1348,7 @@ function switchPPTab(idx){
 </script>
   <div style="background:#fff;border:1px solid #e2e0db;border-top:3px solid #a32d2d;border-radius:8px;overflow:hidden">
     <!-- 헤더: 클릭하면 펼침 -->
-    <div id="residualRiskHeader" onclick="toggleResidualRisk()" style="padding:10px 13px;cursor:pointer;user-select:none;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;transition:background .15s" onmouseover="this.style.background='#fdf8f8'" onmouseout="this.style.background='#fff'">
+    <div id="residualRiskHeader" onclick="openSectionModal('residual')" style="padding:10px 13px;cursor:pointer;user-select:none;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;transition:background .15s" onmouseover="this.style.background='#fdf8f8'" onmouseout="this.style.background='#fff'">
       <div style="display:flex;align-items:center;gap:8px;flex:1">
         <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#a32d2d;color:#fff;font-size:15px;font-weight:800;flex-shrink:0">R</span>
         <div>
