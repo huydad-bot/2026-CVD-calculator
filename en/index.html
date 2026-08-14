@@ -388,6 +388,209 @@ document.getElementById('helpModal').addEventListener('click',function(e){
 });
 </script>
 
+<!-- ══════ CPR (Calculate-Personalize-Reclassify) Detail Modal ══════ -->
+<div id="cprModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.45);overflow-y:auto;padding:24px 14px" onclick="if(event.target===this)closeCPRModal()">
+  <div style="max-width:640px;margin:0 auto;background:#fff;border-radius:14px;box-shadow:0 8px 40px rgba(0,0,0,0.22);overflow:hidden">
+    <!-- Modal header -->
+    <div id="cprModalHeader" style="background:#639922;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span id="cprModalBadge" style="display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:8px;background:rgba(255,255,255,0.2);color:#fff;font-size:18px;font-weight:800;flex-shrink:0">C</span>
+        <div>
+          <div id="cprModalTitleEn" style="font-size:15px;font-weight:700;color:#fff">Calculate</div>
+          <div id="cprModalTitleKo" style="font-size:11px;color:rgba(255,255,255,.85);margin-top:2px">PREVENT 10-yr/30-yr ASCVD risk calculation</div>
+        </div>
+      </div>
+      <button onclick="closeCPRModal()" style="background:rgba(255,255,255,0.18);border:none;border-radius:7px;width:30px;height:30px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;line-height:1;flex-shrink:0">×</button>
+    </div>
+    <!-- Modal body -->
+    <div id="cprModalBody" style="padding:20px 22px 24px;font-size:12px;color:#1a1a18;line-height:1.75"></div>
+    <div style="text-align:right;padding:0 22px 20px">
+      <button onclick="closeCPRModal()" style="padding:8px 22px;background:#3b6d11;color:#fff;border:none;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var CPR_DATA = {
+  C: {
+    badge:'C', en:'Calculate', ko:'PREVENT 10-yr/30-yr ASCVD risk calculation',
+    body: '\
+      <div style="background:#f4f9f0;border:1px solid #c0dd97;border-radius:8px;padding:12px 14px;margin-bottom:12px">\
+        <div style="font-size:12px;font-weight:700;color:#3b6d11;margin-bottom:6px">CPR Framework — 2026 ACC/AHA Guideline (Section 4.2.3)</div>\
+        <div style="font-size:12px;color:#1a1a18;line-height:1.8">After estimating 10-year ASCVD risk, when clinical uncertainty remains or the patient is hesitant about a treatment decision, proceed to the next steps (Personalize · Reclassify). Beyond absolute 10-year/30-year risk, <b>comorbidities, life expectancy, patient preference, and potential net benefit</b> are incorporated into shared decision-making.</div>\
+        <div style="font-size:10px;color:#5f5e5a;margin-top:6px;font-style:italic">Figure 5. CPR Framework for Risk Evaluation · Circulation 2026;153:e1154</div>\
+      </div>\
+      <div style="font-size:11px;font-weight:700;color:#888780;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px">PREVENT-Based Primary Prevention Risk Categories</div>\
+      <div style="overflow-x:auto">\
+        <table style="width:100%;font-size:12px;border-collapse:collapse;min-width:360px">\
+          <thead><tr style="background:#eaf3de">\
+            <th style="padding:6px 8px;text-align:left;font-size:11px;font-weight:700;color:#27500a;border-bottom:1px solid #c0dd97">Risk Category</th>\
+            <th style="padding:6px 8px;text-align:center;font-size:11px;font-weight:700;color:#27500a;border-bottom:1px solid #c0dd97">10-yr ASCVD</th>\
+            <th style="padding:6px 8px;text-align:left;font-size:11px;font-weight:700;color:#27500a;border-bottom:1px solid #c0dd97">LLT Recommendation</th>\
+            <th style="padding:6px 8px;text-align:center;font-size:11px;font-weight:700;color:#27500a;border-bottom:1px solid #c0dd97">LDL Target</th>\
+          </tr></thead>\
+          <tbody>\
+            <tr><td style="padding:5px 8px;border-bottom:1px solid #f1efe8;color:#5f5e5a">Low risk</td><td style="padding:5px 8px;border-bottom:1px solid #f1efe8;text-align:center">&lt;3%</td><td style="padding:5px 8px;border-bottom:1px solid #f1efe8;color:#5f5e5a;font-size:11px">Lifestyle first. Consider if risk enhancers or CAC present</td><td style="padding:5px 8px;border-bottom:1px solid #f1efe8;text-align:center;color:#5f5e5a">—</td></tr>\
+            <tr style="background:#fafaf8"><td style="padding:5px 8px;border-bottom:1px solid #f1efe8;font-weight:600;color:#854f0b">Borderline risk</td><td style="padding:5px 8px;border-bottom:1px solid #f1efe8;text-align:center;font-weight:700">3–&lt;5%</td><td style="padding:5px 8px;border-bottom:1px solid #f1efe8;font-size:11px">Moderate-intensity statin reasonable if risk enhancer or CAC &gt;0 (2a)</td><td style="padding:5px 8px;border-bottom:1px solid #f1efe8;text-align:center">&lt;100</td></tr>\
+            <tr><td style="padding:5px 8px;border-bottom:1px solid #f1efe8;font-weight:600;color:#ef9f27">Intermediate risk</td><td style="padding:5px 8px;border-bottom:1px solid #f1efe8;text-align:center;font-weight:700">5–&lt;10%</td><td style="padding:5px 8px;border-bottom:1px solid #f1efe8;font-size:11px">Moderate-intensity statin recommended. CAC useful for reclassification (COR I)</td><td style="padding:5px 8px;border-bottom:1px solid #f1efe8;text-align:center">&lt;100</td></tr>\
+            <tr style="background:#fef9f0"><td style="padding:5px 8px;font-weight:700;color:#a32d2d">High risk</td><td style="padding:5px 8px;text-align:center;font-weight:700;color:#a32d2d">≥10%</td><td style="padding:5px 8px;font-size:11px">High-intensity statin recommended (secondary-prevention-level risk)</td><td style="padding:5px 8px;text-align:center;font-weight:700;color:#a32d2d">&lt;70</td></tr>\
+          </tbody>\
+        </table>\
+      </div>'
+  },
+  P: {
+    badge:'P', en:'Personalize', ko:'Incorporate risk enhancers, reproductive risk factors, PRS',
+    body: '\
+      <div style="font-size:11px;color:#5f5e5a;margin-bottom:10px;line-height:1.7">Table 13. Risk Enhancers (2026 ACC/AHA — Section 4.2.3.3). Factors not included in the PREVENT-ASCVD equations, suggesting risk may be higher than the calculated value. <b style="color:#1a1a18">The absence of risk enhancers does not necessarily mean lower risk.</b></div>\
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">\
+        <div>\
+          <div style="font-size:11px;font-weight:700;color:#3b6d11;margin-bottom:5px">Clinical &amp; Family History</div>\
+          <div style="background:#f4f9f0;border-radius:7px;padding:9px 11px;font-size:11px;color:#1a1a18;line-height:1.85">\
+            ▸ Premature ASCVD family history (parent/sibling, men &lt;55 yr, women &lt;65 yr)<br>\
+            ▸ High-risk ethnicity (South Asian, Filipino)<br>\
+            ▸ High polygenic risk score (PRS, top 10%)<br>\
+            ▸ Chronic inflammatory disease (SLE · RA · psoriasis · inflammatory arthritis)\
+          </div>\
+        </div>\
+        <div>\
+          <div style="font-size:11px;font-weight:700;color:#3b6d11;margin-bottom:5px">Lab &amp; Metabolic Markers</div>\
+          <div style="background:#f4f9f0;border-radius:7px;padding:9px 11px;font-size:11px;color:#1a1a18;line-height:1.85">\
+            ▸ Lp(a) ≥125 nmol/L (≥50 mg/dL)<br>\
+            ▸ hsCRP ≥2 mg/L (on ≥2 occasions)<br>\
+            ▸ TG ≥175 mg/dL (non-fasting) / ≥150 mg/dL (fasting)<br>\
+            ▸ Persistent LDL-C 160–189 mg/dL, non-HDL ≥190 mg/dL, <b>ApoB ≥120 mg/dL</b>\
+          </div>\
+        </div>\
+      </div>\
+      <div style="background:#f4f9f0;border:1px solid #c0dd97;border-radius:7px;padding:9px 11px;margin-bottom:8px">\
+        <div style="font-size:11px;font-weight:700;color:#3b6d11;margin-bottom:4px">Reproductive Risk Markers — Section 4.2.3.4</div>\
+        <div style="font-size:11px;color:#1a1a18;line-height:1.75">Premature menopause · pre-eclampsia · gestational diabetes · gestational hypertension · preterm delivery — risk enhancers specific to women that supplement the PREVENT equations. Incorporated into personalized ASCVD risk assessment.</div>\
+      </div>\
+      <div style="background:#eaf3de;border:1px solid #c0dd97;border-radius:7px;padding:9px 11px">\
+        <div style="font-size:11px;font-weight:700;color:#3b6d11;margin-bottom:4px">CKM Syndrome (Cardiovascular-Kidney-Metabolic) — Section 4.2.3.3</div>\
+        <div style="font-size:11px;color:#1a1a18;line-height:1.75">A composite condition of obesity, insulin resistance, CKD, diabetes, and heart failure. Specified as a risk enhancer in Table 13. Higher CKM stage may cause underestimation of 10-year risk, so <b>be sure to include albuminuria, HbA1c, and zip code in the PREVENT equation.</b></div>\
+      </div>'
+  },
+  R: {
+    badge:'R', en:'Reclassify', ko:'Resolve uncertainty with CAC · reclassify',
+    body: '\
+      <div style="font-size:11px;font-weight:700;color:#888780;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px">Section 4.2.3.6 — Selective Imaging of Subclinical Atherosclerosis</div>\
+      <div style="background:#f4f9f0;border:1px solid #c0dd97;border-radius:8px;padding:10px 12px;margin-bottom:10px;font-size:11px;color:#1a1a18;line-height:1.8">CAC is the most powerful reclassification tool for quantifying subclinical atherosclerosis in asymptomatic adults. Selectively performed in <b>borderline-to-intermediate-risk</b> patients (men ≥40, women ≥45) when the LLT decision is uncertain. Radiation exposure is about 1 mSv (comparable to mammography), and incidental findings (e.g., pulmonary nodules) occur in less than 10%.</div>\
+      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px">\
+        <div style="display:flex;gap:10px;align-items:flex-start">\
+          <div style="min-width:76px;padding:5px 7px;background:#eaf3de;border-radius:5px;text-align:center;font-size:12px;font-weight:700;color:#27500a">CAC = 0</div>\
+          <div style="font-size:11px;color:#1a1a18;line-height:1.7;flex:1">Reasonable to defer statin (intermediate/borderline risk). Exceptions: FH, LDL≥190, diabetes, smoking, strong family history. Consider retesting in 3–7 years. <span style="color:#3b6d11;font-weight:600">COR 2a</span></div>\
+        </div>\
+        <div style="display:flex;gap:10px;align-items:flex-start">\
+          <div style="min-width:76px;padding:5px 7px;background:#eaf3de;border-radius:5px;text-align:center;font-size:12px;font-weight:700;color:#3b6d11">1–99 AU</div>\
+          <div style="font-size:11px;color:#1a1a18;line-height:1.7;flex:1">Counts as a risk enhancer. Consider statin with LDL &lt;100 target. CARDIA data show elevated risk even at CAC 1–19 in younger patients. <span style="color:#3b6d11;font-weight:600">COR 2a</span></div>\
+        </div>\
+        <div style="display:flex;gap:10px;align-items:flex-start">\
+          <div style="min-width:76px;padding:5px 7px;background:#c0dd97;border-radius:5px;text-align:center;font-size:11px;font-weight:700;color:#27500a">100–299<br>&amp; ≥75%ile</div>\
+          <div style="font-size:11px;color:#1a1a18;line-height:1.7;flex:1">High-intensity statin. LDL-C ≥50% reduction + target &lt;70 mg/dL. MESA: CAC 101–300 associated with an ~8-fold increase in coronary event risk. <span style="color:#3b6d11;font-weight:600">COR 1</span></div>\
+        </div>\
+        <div style="display:flex;gap:10px;align-items:flex-start">\
+          <div style="min-width:76px;padding:5px 7px;background:#97c459;border-radius:5px;text-align:center;font-size:12px;font-weight:700;color:#173404">300–999</div>\
+          <div style="font-size:11px;color:#1a1a18;line-height:1.7;flex:1">High-intensity statin + LDL &lt;70. Risk approaching secondary-prevention level. Adding ezetimibe reasonable to consider (COR 2a). <span style="color:#3b6d11;font-weight:600">COR 1</span></div>\
+        </div>\
+        <div style="display:flex;gap:10px;align-items:flex-start">\
+          <div style="min-width:76px;padding:5px 7px;background:#3b6d11;border-radius:5px;text-align:center;font-size:12px;font-weight:700;color:#fff">≥1000 AU</div>\
+          <div style="font-size:11px;color:#1a1a18;line-height:1.7;flex:1"><b>Very-high-risk level</b>. Comparable to the annual mortality of the FOURIER placebo arm. LDL &lt;55 mg/dL target. Maximally tolerated statin + ezetimibe. <span style="color:#a32d2d;font-weight:600">COR 1</span></div>\
+        </div>\
+      </div>\
+      <div style="background:#eaf3de;border-radius:6px;padding:8px 11px;font-size:11px;color:#27500a;line-height:1.7">💡 CAC is a tool for guiding treatment decisions, not a basis for withholding statin therapy in patients who are otherwise at risk. Even CAC=0 has exceptions in patients with diabetes, FH, or who smoke.</div>'
+  }
+};
+
+function openCPRModal(key){
+  var d = CPR_DATA[key];
+  if(!d) return;
+  document.getElementById('cprModalBadge').textContent = d.badge;
+  document.getElementById('cprModalTitleEn').textContent = d.en;
+  document.getElementById('cprModalTitleKo').textContent = d.ko;
+  document.getElementById('cprModalBody').innerHTML = d.body;
+  document.getElementById('cprModal').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+function closeCPRModal(){
+  document.getElementById('cprModal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape') closeCPRModal();
+});
+</script>
+
+<!-- ══════ Large Section Modal (Cumulative LDL Burden / Precision Prevention / Residual Risk) ══════ -->
+<div id="sectionModal" style="display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,0.5);overflow-y:auto;padding:24px 14px" onclick="if(event.target===this)closeSectionModal()">
+  <div style="max-width:900px;margin:0 auto;background:#fff;border-radius:14px;box-shadow:0 10px 50px rgba(0,0,0,0.28);overflow:hidden">
+    <div id="sectionModalHeader" style="background:#185fa5;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;z-index:2">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span id="sectionModalBadge" style="display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,0.22);color:#fff;font-size:19px;font-weight:800;flex-shrink:0">C</span>
+        <div>
+          <div id="sectionModalTitleEn" style="font-size:16px;font-weight:700;color:#fff">Cumulative LDL Burden</div>
+          <div id="sectionModalTitleKo" style="font-size:11px;color:rgba(255,255,255,.85);margin-top:2px">Cumulative LDL Burden</div>
+        </div>
+      </div>
+      <button onclick="closeSectionModal()" style="background:rgba(255,255,255,0.18);border:none;border-radius:7px;width:32px;height:32px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-size:19px;line-height:1;flex-shrink:0">×</button>
+    </div>
+    <div id="sectionModalBody" style="max-height:calc(85vh - 64px);overflow-y:auto"></div>
+  </div>
+</div>
+
+<script>
+var SECTION_META = {
+  cumulativeLDL: { header:'cumulativeLDLHeader', body:'cumulativeLDLBody', badge:'C', en:'Cumulative LDL Burden', ko:'Cumulative LDL Burden', color:'#185fa5' },
+  precision:     { header:'precisionHeader',     body:'precisionBody',     badge:'P', en:'Precision Prevention', ko:'Precision Prevention',   color:'#639922' },
+  residual:      { header:'residualRiskHeader',  body:'residualRiskBody',  badge:'R', en:'Residual Risk beyond LDL', ko:'Residual Risk beyond LDL', color:'#a32d2d' },
+  absInd:        { header:null, body:'absIndBody',        badge:'✓', en:'Absolute Statin Indications', ko:'Absolute Statin Indications', color:'#185fa5' },
+  specialStatin: { header:null, body:'specialStatinBody',  badge:'!', en:'Statin in Special Situations', ko:'Statin in Special Situations',       color:'#7b5ea7' },
+  nnt:           { header:null, body:'nntBody',            badge:'≡', en:'NNT Comparison', ko:'Statin Treatment Effect — NNT Comparison',                 color:'#7b5ea7' },
+  nnh:           { header:null, body:'nnhBody',            badge:'⚠', en:'NNH Comparison', ko:'Statin Adverse Effects — NNH Comparison',                    color:'#a32d2d' }
+};
+function openSectionModal(key){
+  var m = SECTION_META[key];
+  if(!m) return;
+  var body = document.getElementById(m.body);
+  if(!body) return;
+  // Remember original position (to restore on close)
+  if(!body._origParent){
+    body._origParent = body.parentNode;
+    body._origNext = body.nextSibling;
+  }
+  document.getElementById('sectionModalBadge').textContent = m.badge;
+  document.getElementById('sectionModalTitleEn').textContent = m.en;
+  document.getElementById('sectionModalTitleKo').textContent = m.ko;
+  document.getElementById('sectionModalHeader').style.background = m.color;
+  document.getElementById('sectionModalBadge').style.color = '#fff';
+
+  var container = document.getElementById('sectionModalBody');
+  container.innerHTML = '';
+  body.style.display = 'block';
+  body.style.border = 'none';
+  container.appendChild(body);
+
+  document.getElementById('sectionModal').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+function closeSectionModal(){
+  var container = document.getElementById('sectionModalBody');
+  var body = container.firstElementChild;
+  if(body && body._origParent){
+    if(body._origNext && body._origNext.parentNode===body._origParent){
+      body._origParent.insertBefore(body, body._origNext);
+    } else {
+      body._origParent.appendChild(body);
+    }
+    body.style.display = 'none';
+  }
+  document.getElementById('sectionModal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape') closeSectionModal();
+});
+</script>
 <!-- ══════ Abbreviation/Term Search ══════ -->
 <script>
 var GLOSSARY=[
@@ -410,7 +613,7 @@ var GLOSSARY=[
   {abbr:'CKD',full:'Chronic Kidney Disease',ko:'Chronic kidney disease',desc:'A risk-enhancing factor for ASCVD at eGFR 15–59 mL/min/1.73m². Automatically applied under age 40. Statin dose adjustment required at eGFR &lt;30.'},
   {abbr:'eGFR',full:'estimated Glomerular Filtration Rate',ko:'Estimated glomerular filtration rate',desc:'Calculated with the 2021 CKD-EPI equation. A variable in the PREVENT risk model (mg/dL). CKD if &lt;60; end-stage renal disease if &lt;15.'},
   {abbr:'UACR',full:'Urine Albumin-to-Creatinine Ratio',ko:'Urine albumin-to-creatinine ratio',desc:'A marker of kidney damage (mg/g). ≥30: microalbuminuria. ≥300: macroalbuminuria. A variable in PREVENT 2023.'},
-  {abbr:'HbA1c',full:'Hemoglobin A1c (Glycated Hemoglobin)',ko:'Hemoglobin A1c (glycated hemoglobin)',desc:'A marker of 3-month glycemic control (%). 5.7–6.4%: prediabetes. ≥6.5%: diagnostic of diabetes. A variable in PREVENT 2023 — a separate coefficient (hba1cDm) applies if diabetic and a separate one (hba1cNoDm) if non-diabetic. Note: UACR must also be entered for the "full model" (which includes HbA1c) to be used; entering HbA1c alone without UACR falls back to the base model, in which the coefficient is 0 and has no effect on risk.'},
+  {abbr:'HbA1c',full:'Hemoglobin A1c (Glycated Hemoglobin)',ko:'Hemoglobin A1c (glycated hemoglobin)',desc:'A marker of 3-month glycemic control (%). 5.7–6.4%: prediabetes. ≥6.5%: diagnostic of diabetes. A variable in PREVENT 2023 — a separate coefficient (hba1cDm) applies if diabetic and a separate one (hba1cNoDm) if non-diabetic. Entering HbA1c alone activates PREVENT\'s dedicated HbA1c-only model (AHA supplemental Table S12.C/H) and is fully incorporated into the risk estimate. If UACR is also entered, the Full model is used instead.'},
   {abbr:'BMI',full:'Body Mass Index',ko:'Body mass index',desc:'Weight (kg) / height (m²). ≥25: overweight, ≥30: obese, ≥35: severely obese (a CKM risk-enhancing factor). A variable in the PREVENT model.'},
   {abbr:'CAC',full:'Coronary Artery Calcification (Score)',ko:'Coronary artery calcium score',desc:'A CT-based quantitative measure of subclinical atherosclerosis. CAC=0: reasonable to defer statin therapy for ~10 years. 1–99: risk-enhancing factor. 100–299 or ≥75th percentile: sufficient condition for statin therapy (LDL&lt;70). 300–999: high-intensity statin. ≥1000: very-high-risk level (LDL&lt;55).'},
   {abbr:'ABI',full:'Ankle-Brachial Index',ko:'Ankle-brachial index',desc:'&lt;0.9: peripheral artery disease (PAD). A risk-enhancing factor if asymptomatic (LDL&lt;100); reclassified as ASCVD secondary prevention if claudication, revascularization, or ulceration is present. &gt;1.40: non-compressible due to vascular calcification — toe-brachial index recommended.'},
@@ -709,7 +912,7 @@ document.addEventListener('click',function(e){
 <div id="cardCprBanner" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px">
   <div style="background:#fff;border:1px solid #e2e0db;border-top:3px solid #185fa5;border-radius:8px;overflow:hidden">
     <!-- Header: click to expand -->
-    <div id="cumulativeLDLHeader" onclick="toggleCumulativeLDL()" style="padding:10px 13px;cursor:pointer;user-select:none;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;transition:background .15s" onmouseover="this.style.background='#f0f6fc'" onmouseout="this.style.background='#fff'">
+    <div id="cumulativeLDLHeader" onclick="openSectionModal('cumulativeLDL')" style="padding:10px 13px;cursor:pointer;user-select:none;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;transition:background .15s" onmouseover="this.style.background='#f0f6fc'" onmouseout="this.style.background='#fff'">
       <div style="display:flex;align-items:center;gap:8px;flex:1">
         <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#185fa5;color:#fff;font-size:15px;font-weight:800;flex-shrink:0">C</span>
         <div>
@@ -913,7 +1116,7 @@ function switchCLTab(idx){
 </script>
   <div style="background:#fff;border:1px solid #e2e0db;border-top:3px solid #639922;border-radius:8px;overflow:hidden">
     <!-- Header: click to expand -->
-    <div id="precisionHeader" onclick="togglePrecision()" style="padding:10px 13px;cursor:pointer;user-select:none;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;transition:background .15s" onmouseover="this.style.background='#f4f9f0'" onmouseout="this.style.background='#fff'">
+    <div id="precisionHeader" onclick="openSectionModal('precision')" style="padding:10px 13px;cursor:pointer;user-select:none;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;transition:background .15s" onmouseover="this.style.background='#f4f9f0'" onmouseout="this.style.background='#fff'">
       <div style="display:flex;align-items:center;gap:8px;flex:1">
         <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#639922;color:#fff;font-size:15px;font-weight:800;flex-shrink:0">P</span>
         <div>
@@ -939,20 +1142,23 @@ function switchCLTab(idx){
       <div id="ppPanel0" style="padding:12px 13px;display:block">
         <!-- CPR 3 steps -->
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:10px">
-          <div style="background:#eaf3de;border:1px solid #c0dd97;border-radius:8px;padding:9px 10px;text-align:center">
+          <div onclick="openCPRModal('C')" style="background:#eaf3de;border:1px solid #c0dd97;border-radius:8px;padding:9px 10px;text-align:center;cursor:pointer;transition:background .15s" onmouseover="this.style.background='#dcecc8'" onmouseout="this.style.background='#eaf3de'">
             <div style="font-size:15px;font-weight:800;color:#3b6d11;line-height:1">C</div>
             <div style="font-size:11px;font-weight:700;color:#3b6d11;margin-top:2px">Calculate</div>
             <div style="font-size:9px;color:#5f5e5a;margin-top:3px;line-height:1.5">Calculate PREVENT<br>10-yr/30-yr ASCVD risk</div>
+            <div style="font-size:8px;color:#639922;margin-top:4px;opacity:.75">Click for details ▾</div>
           </div>
-          <div style="background:#eaf3de;border:1px solid #c0dd97;border-radius:8px;padding:9px 10px;text-align:center">
+          <div onclick="openCPRModal('P')" style="background:#eaf3de;border:1px solid #c0dd97;border-radius:8px;padding:9px 10px;text-align:center;cursor:pointer;transition:background .15s" onmouseover="this.style.background='#dcecc8'" onmouseout="this.style.background='#eaf3de'">
             <div style="font-size:15px;font-weight:800;color:#3b6d11;line-height:1">P</div>
             <div style="font-size:11px;font-weight:700;color:#3b6d11;margin-top:2px">Personalize</div>
             <div style="font-size:9px;color:#5f5e5a;margin-top:3px;line-height:1.5">Incorporate risk enhancers,<br>reproductive factors, PRS</div>
+            <div style="font-size:8px;color:#639922;margin-top:4px;opacity:.75">Click for details ▾</div>
           </div>
-          <div style="background:#eaf3de;border:1px solid #c0dd97;border-radius:8px;padding:9px 10px;text-align:center">
+          <div onclick="openCPRModal('R')" style="background:#eaf3de;border:1px solid #c0dd97;border-radius:8px;padding:9px 10px;text-align:center;cursor:pointer;transition:background .15s" onmouseover="this.style.background='#dcecc8'" onmouseout="this.style.background='#eaf3de'">
             <div style="font-size:15px;font-weight:800;color:#3b6d11;line-height:1">R</div>
             <div style="font-size:11px;font-weight:700;color:#3b6d11;margin-top:2px">Reclassify</div>
             <div style="font-size:9px;color:#5f5e5a;margin-top:3px;line-height:1.5">Resolve uncertainty<br>with CAC · reclassify</div>
+            <div style="font-size:8px;color:#639922;margin-top:4px;opacity:.75">Click for details ▾</div>
           </div>
         </div>
 
@@ -1143,7 +1349,7 @@ function switchPPTab(idx){
 </script>
   <div style="background:#fff;border:1px solid #e2e0db;border-top:3px solid #a32d2d;border-radius:8px;overflow:hidden">
     <!-- Header: click to expand -->
-    <div id="residualRiskHeader" onclick="toggleResidualRisk()" style="padding:10px 13px;cursor:pointer;user-select:none;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;transition:background .15s" onmouseover="this.style.background='#fdf8f8'" onmouseout="this.style.background='#fff'">
+    <div id="residualRiskHeader" onclick="openSectionModal('residual')" style="padding:10px 13px;cursor:pointer;user-select:none;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;transition:background .15s" onmouseover="this.style.background='#fdf8f8'" onmouseout="this.style.background='#fff'">
       <div style="display:flex;align-items:center;gap:8px;flex:1">
         <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#a32d2d;color:#fff;font-size:15px;font-weight:800;flex-shrink:0">R</span>
         <div>
@@ -1630,7 +1836,7 @@ function switchRRTab(idx){
       </div>
       <div class="field">
         <span class="fl">HbA1c (%)</span>
-        <input type="number" autocomplete="off" id="hba1c" step="0.1" min="5" max="16" placeholder="applied if UACR entered" style="width:130px">
+        <input type="number" autocomplete="off" id="hba1c" step="0.1" min="5" max="16" placeholder="excluded if left blank" style="width:130px">
       </div>
     </div>
     <div class="field">
@@ -1644,7 +1850,10 @@ function switchRRTab(idx){
       </div>
     </div>
     <div style="margin-top:2px;margin-bottom:2px;padding:4px 9px;background:#f1efe8;border-radius:6px;font-size:10px;color:#5f5e5a">
-      ※ HbA1c must be entered together with UACR for the full model to apply. It affects risk regardless of diabetes status — even prediabetic values (e.g., 6.2%) are incorporated.
+      ※ Height/weight (BMI) is used only for the heart failure risk estimate and does not affect the atherosclerotic cardiovascular disease (ASCVD) or total cardiovascular disease risk (by design of the AHA PREVENT model).
+    </div>
+    <div style="margin-top:2px;margin-bottom:2px;padding:4px 9px;background:#f1efe8;border-radius:6px;font-size:10px;color:#5f5e5a">
+      ※ UACR and HbA1c each activate PREVENT's own dedicated model when entered alone (Full model is used when both are entered). Risk is incorporated regardless of diabetes status — even prediabetic values (e.g., 6.2%) are included.
     </div>
     <div class="divider" style="margin-top:8px"></div>
     <div class="field" style="margin-top:7px;margin-bottom:0">
@@ -1954,7 +2163,7 @@ function switchRRTab(idx){
 
   <!-- ══ Statin Indications Independent of Risk Category ══ -->
   <div class="card" id="cardAbsInd" style="border-top:3px solid #7b5ea7">
-    <div class="sec" onclick="toggleSection('absIndBody','absIndArrow')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none">
+    <div class="sec" onclick="openSectionModal('absInd')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none">
       <span>Statin Indications Independent of Risk Category <span style="font-size:11px;font-weight:600;color:#185fa5;letter-spacing:0;text-transform:none;margin-left:4px">Activated once basic info or a CAC score is entered</span><span style="font-size:9px;font-weight:400;color:#888780;letter-spacing:0;text-transform:none"> (not bound by the PREVENT score)</span></span>
       <span id="absIndArrow" style="font-size:12px;color:#888780;transition:transform .2s;display:inline-block">▶</span>
     </div>
@@ -1968,7 +2177,7 @@ function switchRRTab(idx){
 
   <!-- ══ Statin Therapy in Special Situations ══ -->
   <div class="card" id="cardSpecialStatin" style="border-top:3px solid #7b5ea7">
-    <div class="sec" onclick="toggleSection('specialStatinBody','specialStatinArrow')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;color:#7b5ea7">
+    <div class="sec" onclick="openSectionModal('specialStatin')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;color:#7b5ea7">
       <span style="display:flex;align-items:center;gap:7px">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7b5ea7" stroke-width="2.5" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
         Statin Therapy in Special Situations
@@ -2283,7 +2492,7 @@ function switchRRTab(idx){
 
   <!-- ══ NNT Comparison ══ -->
   <div class="card" id="cardNntLeft" style="border-top:3px solid #7b5ea7">
-    <div class="sec" onclick="toggleSection('nntBody','nntArrow')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;color:#7b5ea7">
+    <div class="sec" onclick="openSectionModal('nnt')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;color:#7b5ea7">
       <span style="display:flex;align-items:center;gap:7px">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7b5ea7" stroke-width="2.5" style="flex-shrink:0"><path d="M3 18h18"/><path d="M3 12h12"/><path d="M3 6h6"/></svg>
         Statin Treatment Effect — NNT Comparison
@@ -2421,7 +2630,7 @@ function switchRRTab(idx){
 
   <!-- ══ Standalone NNH Card ══ -->
   <div class="card" id="cardNnhLeft" style="border-top:3px solid #e24b4a">
-    <div class="sec" onclick="toggleNNHBox()" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;color:#a32d2d">
+    <div class="sec" onclick="openSectionModal('nnh')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;color:#a32d2d">
       <span style="display:flex;align-items:center;gap:7px">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a32d2d" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
         Statin Adverse Effects — NNH Comparison
@@ -3096,6 +3305,62 @@ const PREVENT_COEFS = {
         heart_failure: [0.5478829,-0.1111928,0,0,-0.4547346,0.2527602,0.4385384,0.2397952,0.0640931,0.2643081,0.1354588,0.0570689,0.220666,0,-0.0436769,0,0,0,-0.1168376,-0.2730055,-0.1573691,-0.0174998,-0.1128676,0.057746,0.2446441,0.1076782,0.1233486,0.1274796,0.0985062,0.0804844,0.0022806,-2.425439]
       }
     }
+  },
+
+  // HbA1c-only model (AHA official supplemental Table S12.C, S12.H)
+  hba1c: {
+    y10: {
+      female: {
+        total_cvd: [0.7858178,0,0.0194438,-0.1521964,-0.2296681,0.3465777,0.5366241,0.5411682,0,0,0.5931898,0.0472458,0.3158567,-0.1535174,-0.0687752,0.1054746,-0.0761119,0.0307469,-0.0905966,-0.2241857,-0.080186,0,-0.1667286,0,0,0,0,0,0.1338348,0.1622409,-0.0142496,-3.306162],
+        ascvd: [0.7111831,0,0.106797,-0.1425745,-0.0736824,0.3480844,0.5112951,0.4880292,0,0,0.4754997,0.0438132,0.2259093,-0.0648872,-0.0437645,0.0697082,-0.0506382,0.0327475,-0.0996442,-0.1924338,-0.0803539,0,-0.1682586,0,0,0,0,0,0.1339055,0.1596461,0.0015678,-3.838746],
+        heart_failure: [0.8997391,0,0,0,-0.4422749,0.3378691,0.681284,0.5886005,-0.0148657,0.2958374,0.73447,0.05926,0.3543475,0,-0.1002139,0,0,0,-0.0878765,-0.303684,-0.1178943,-0.008345,-0.1912183,0,0,0,0,0,0.1856442,0.1833083,-0.0143112,-4.288225]
+      },
+      male: {
+        total_cvd: [0.7699177,0,0.0605093,-0.0888525,-0.417713,0.3288657,0.4759471,0.4385663,0,0,0.5334616,0.0206431,0.2917524,-0.1383313,-0.0482622,0.1393796,-0.0463501,0.0205926,-0.1037717,-0.1737697,-0.0915839,0,-0.1637039,0,0,0,0,0,0.13159,0.1295185,-0.0128373,-3.040901],
+        ascvd: [0.7064146,0,0.1532267,-0.1082166,-0.2675288,0.3173809,0.432604,0.3958842,0,0,0.3665014,0.0250243,0.2061158,-0.0899988,-0.0334959,0.1034168,-0.0255406,0.0247538,-0.0917441,-0.1499195,-0.098089,0,-0.1305231,0,0,0,0,0,0.1157161,0.1288303,-0.0010001,-3.51835],
+        heart_failure: [0.911787,0,0,0,-0.6568071,0.3524645,0.5849752,0.5014014,-0.0512352,0.365294,0.6892219,0.0292377,0.3038296,0,-0.0515032,0,0,0,-0.1262343,-0.2449514,-0.1392217,0.0009592,-0.1917105,0,0,0,0,0,0.1652857,0.1505859,-0.0113444,-3.961954]
+      }
+    },
+    y30: {
+      female: {
+        total_cvd: [0.5343493,-0.0952314,0.0298124,-0.1578451,-0.1504488,0.3173368,0.4314738,0.3209399,0,0,0.1771435,0.0582828,0.2888947,-0.0795886,-0.0600438,0.0920598,-0.0696108,0.0308807,-0.0954051,-0.2763408,-0.1623944,0,-0.1430514,0,0,0,0,0,0.0940543,0.1116486,-0.0024798,-1.341059],
+        ascvd: [0.4555574,-0.0903501,0.1148321,-0.1458754,0.0089323,0.3139029,0.386281,0.2714309,0,0,0.0930987,0.0532216,0.1862181,0.0106964,-0.0329713,0.0583609,-0.0463273,0.0324717,-0.1004777,-0.2266944,-0.1541859,0,-0.1286005,0,0,0,0,0,0.0875827,0.1126417,0.0124356,-2.011533],
+        heart_failure: [0.6210856,-0.1000972,0,0,-0.3773697,0.295316,0.5681692,0.3449139,0.0540094,0.249767,0.2875781,0.0692013,0.3334936,0,-0.0922339,0,0,0,-0.0907885,-0.3554646,-0.2008846,-0.0079611,-0.156803,0,0,0,0,0,0.1448336,0.1277838,-0.0022589,-2.193553]
+      },
+      male: {
+        total_cvd: [0.4519873,-0.101624,0.0700456,-0.0968005,-0.1923527,0.2827043,0.3417152,0.2105272,0,0,0.1113291,0.0640135,0.2334248,-0.0299421,-0.0393204,0.1228854,-0.0463737,0.0184599,-0.1085744,-0.2208049,-0.1577978,0,-0.1179375,0,0,0,0,0,0.0768169,0.0777295,0.0092204,-1.180767],
+        ascvd: [0.3883267,-0.0958114,0.1613374,-0.1144418,-0.0474338,0.2691281,0.2859773,0.1759553,0,0,-0.0242898,0.0644523,0.142874,0.0115062,-0.02333,0.0899664,-0.0275478,0.022573,-0.090802,-0.1771894,-0.1548847,0,-0.0732754,0,0,0,0,0,0.0591089,0.0821158,0.0179755,-1.777708],
+        heart_failure: [0.5703729,-0.1084544,0,0,-0.4471767,0.2910152,0.4507242,0.259585,0.0850676,0.2637222,0.2454706,0.0675649,0.2611991,0,-0.0408908,0,0,0,-0.1241051,-0.2849461,-0.2032308,-0.0239714,-0.138301,0,0,0,0,0,0.1101184,0.0949198,0.0084192,-1.974999]
+      }
+    }
+  },
+
+  // Urine albumin-to-creatinine ratio (UACR)-only model (AHA official supplemental Table S12.B, S12.G)
+  acr: {
+    y10: {
+      female: {
+        total_cvd: [0.7969249,0,0.0256635,-0.1588107,-0.2255701,0.3396649,0.8047515,0.5285338,0,0,0.4803511,0.0434472,0.2985207,-0.1497787,-0.0742889,0.106756,-0.0778126,0.0306768,-0.0907168,-0.2705122,-0.0830564,0,-0.1389249,0,0,0,0.1793037,0.0132073,0,0,0,-3.738341],
+        ascvd: [0.7201999,0,0.1135771,-0.1493506,-0.0726677,0.3436259,0.7773094,0.4746662,0,0,0.3824646,0.0394178,0.2125182,-0.0603046,-0.0466053,0.0733118,-0.0534262,0.0325689,-0.0999887,-0.2411762,-0.0826941,0,-0.1444737,0,0,0,0.1501217,0.0050257,0,0,0,-4.174614],
+        heart_failure: [0.9145975,0,0,0,-0.4441346,0.3260323,0.9611365,0.5755787,0.0008831,0.2988964,0.5915291,0.0556823,0.3314097,0,-0.1078596,0,0,0,-0.0875231,-0.356859,-0.1220248,-0.0053637,-0.1610389,0,0,0,0.2197281,0.0326667,0,0,0,-4.841506]
+      },
+      male: {
+        total_cvd: [0.7768655,0,0.0659949,-0.0951111,-0.420667,0.3120151,0.698521,0.4314669,0,0,0.3841364,0.009384,0.2676494,-0.1390966,-0.0579315,0.1383719,-0.0488332,0.0200406,-0.102454,-0.2236355,-0.089485,0,-0.1321848,0,0,0,0.1887974,0.0916979,0,0,0,-3.510705],
+        ascvd: [0.7141718,0,0.1602194,-0.1139086,-0.2719456,0.3058719,0.6600631,0.3884022,0,0,0.2466316,0.0151852,0.186167,-0.0894395,-0.0411884,0.1058212,-0.028089,0.0240427,-0.0912325,-0.2004894,-0.096936,0,-0.1022867,0,0,0,0.1510073,0.0556,0,0,0,-3.85146],
+        heart_failure: [0.9111795,0,0,0,-0.6693649,0.3290082,0.8377655,0.4978917,-0.042749,0.3624165,0.5075796,0.0137716,0.2739963,0,-0.0645712,0,0,0,-0.1230039,-0.3013297,-0.1410318,0.0021531,-0.1548018,0,0,0,0.2306299,0.1472194,0,0,0,-4.556907]
+      }
+    },
+    y30: {
+      female: {
+        total_cvd: [0.5491768,-0.0937311,0.0359847,-0.1642965,-0.1483404,0.313353,0.6253766,0.3147172,0,0,0.1094663,0.0550705,0.2782433,-0.0786239,-0.0628947,0.093204,-0.0710685,0.0306363,-0.0951455,-0.3168231,-0.1636391,0,-0.1265483,0,0,0,0.1142251,-0.0055863,0,0,0,-1.583738],
+        ascvd: [0.4629669,-0.0902777,0.1215214,-0.1522069,0.0092679,0.3113609,0.581256,0.263167,0,0,0.0391726,0.0492959,0.1786178,0.0131058,-0.0325135,0.0617093,-0.0489189,0.0321079,-0.1003185,-0.2684574,-0.1547301,0,-0.1130703,0,0,0,0.0903471,-0.0145818,0,0,0,-2.178888],
+        heart_failure: [0.6319513,-0.1009284,0,0,-0.3787175,0.2863393,0.7631221,0.3355843,0.0677084,0.2517238,0.1940067,0.0664006,0.3171436,0,-0.0970661,0,0,0,-0.0896239,-0.400743,-0.2042041,-0.0054699,-0.13602,0,0,0,0.1486028,0.011608,0,0,0,-2.538952]
+      },
+      male: {
+        total_cvd: [0.464491,-0.0998895,0.0757606,-0.1031778,-0.1990714,0.2715816,0.4754637,0.2069672,0,0,0.0331103,0.0540474,0.2189911,-0.0331044,-0.04534,0.1214535,-0.0483995,0.0178997,-0.1059324,-0.2492861,-0.1561543,0,-0.1012429,0,0,0,0.1007571,0.0572456,0,0,0,-1.398727],
+        ascvd: [0.3995607,-0.094557,0.1686692,-0.1202145,-0.0555561,0.2633566,0.4362036,0.1716233,0,0,-0.0775282,0.0561236,0.1319331,0.0102428,-0.0269294,0.0920557,-0.0297021,0.0217935,-0.0893347,-0.2081467,-0.1542716,0,-0.0597254,0,0,0,0.0684872,0.0193962,0,0,0,-1.873449],
+        heart_failure: [0.5750236,-0.1062268,0,0,-0.4633994,0.2742874,0.612208,0.2614987,0.0895459,0.2632424,0.1430472,0.0535184,0.2417468,0,-0.0498574,0,0,0,-0.1193827,-0.316651,-0.2046122,-0.0216878,-0.1165637,0,0,0,0.1366452,0.1078355,0,0,0,-2.314872]
+      }
+    }
   }
 };
 
@@ -3122,13 +3387,14 @@ function preventFeatureVector(v, model) {
   let sdi4to6 = 0, sdi7to10 = 0, missingSdi = 0;
   let lnUacr = 0, missingUacr = 0, hba1cDm = 0, hba1cNoDm = 0, missingHba1c = 0;
 
-  if (model === "full") {
-    missingSdi = 1;
+  if (model === "full" || model === "acr") {
     if (v.uacr == null) {
       missingUacr = 1;
     } else {
       lnUacr = Math.log(v.uacr);
     }
+  }
+  if (model === "full" || model === "hba1c") {
     if (v.hba1c == null) {
       missingHba1c = 1;
     } else if (dm === 1) {
@@ -3136,6 +3402,9 @@ function preventFeatureVector(v, model) {
     } else {
       hba1cNoDm = v.hba1c - 5.3;
     }
+  }
+  if (model === "full") {
+    missingSdi = 1;
   }
 
   return [
@@ -3175,7 +3444,12 @@ function preventFeatureVector(v, model) {
 }
 
 function choosePreventModel(v) {
+  // AHA PREVENT official methodology (Khan et al. Circulation 2024, Supplemental Table S12.A-J):
+  // 5 independently-fitted models exist — Base / HbA1c-only / UACR-only / SDI-only / Full.
+  // This tool does not collect SDI (zip code), so it selects among Base / HbA1c-only / UACR-only / Full.
   if (v.hba1c != null && v.uacr != null) return "full";
+  if (v.hba1c != null) return "hba1c";
+  if (v.uacr != null) return "acr";
   return "base";
 }
 
@@ -3225,7 +3499,7 @@ function clamp(v){return Math.min(100,Math.max(0,v));}
 /* ── ACC/AHA 2026 Statin Recommendation ── */
 /* 2026 ACC/AHA/Multisociety Dyslipidemia Guideline (Blumenthal RS et al, JACC/Circulation 2026) */
 /* Risk thresholds based on PREVENT-ASCVD: Low <3%, Borderline 3-5%, Intermediate 5-10%, High ≥10% */
-function accRec(age,risk,ldl,dm,ascvd,vhr,nE,tg,smoker,bpTx,r30){
+function accRec(age,risk,ldl,dm,ascvd,vhr,nE,tg,smoker,bpTx,r30,egfr){
   if(ascvd){
     if(vhr)return{c:'hi',l:'High intensity',ind:'Secondary prevention — very high risk',d:['Rosuvastatin 20–40 mg','Atorvastatin 40–80 mg'],n:'If LDL <55 not met → add ezetimibe or a PCSK9 inhibitor (equivalent standing, choose per clinical judgment). Inclisiran is not yet recommended on par with PCSK9 mAbs pending established CV outcome evidence (Class 2a, trials ongoing)',nt:'dng',ldlTgt:55,nhTgt:85};
     return{c:'hi',l:'High intensity',ind:'Secondary prevention (established ASCVD, not very high risk)',d:['Rosuvastatin 20–40 mg','Atorvastatin 40–80 mg'],n:'If LDL <70 not met → consider adding ezetimibe',nt:'info',ldlTgt:70,nhTgt:100};
@@ -3251,6 +3525,16 @@ function accRec(age,risk,ldl,dm,ascvd,vhr,nE,tg,smoker,bpTx,r30){
   }
   if(age>79)return{c:'mo',l:'Moderate intensity (individualized)',ind:'Over age 79',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],n:'Consider polypharmacy, myopathy risk, and fall risk. Reasonable to continue an existing statin. Individualize clinically.',nt:'info',ldlTgt:100,nhTgt:130};
   if(ldl<70)return{c:'no',l:'Individualized judgment',ind:'LDL < 70 mg/dL',d:[],n:'LDL is already low. Check for secondary causes and underlying conditions.',nt:'info',ldlTgt:null,nhTgt:null};
+  // ── End-stage renal disease (CKD stage 5 / dialysis level, eGFR<15) ──
+  // Takes precedence even in diabetes over the "risk-independent statin" principle: the 4D trial (diabetic dialysis
+  // patients) and AURORA trial found statins significantly lowered LDL but did not confirm a reduction in major
+  // cardiovascular events. New initiation is not recommended (2026 guideline).
+  if(egfr!=null && egfr>0 && egfr<15){
+    const dmPart = dm ? ' Even with diabetes present (though diabetes alone is a risk-independent indication), this evidence takes precedence — the 4D trial was conducted specifically in diabetic hemodialysis patients.' : '';
+    return{c:'no',l:'Individualized consultation needed',ind:'End-stage renal disease (CKD stage 5 / dialysis level, eGFR<15)',d:[],
+      n:'eGFR '+egfr+' (end-stage renal disease/dialysis level): the cardiovascular benefit of newly starting a statin is not established (2026 guideline, based on the 4D and AURORA trials).'+dmPart+' If already on a statin, continuing may be reasonable. Individualized consultation with nephrology is needed. Because this evidence base does not show a benefit from lowering LDL-C to any specific value, there is no established LDL-C target.',
+      nt:'warn',ldlTgt:null,nhTgt:null,noTargetReason:'esrd'};
+  }
   if(dm){
     if(risk>=10){
       if(ldl<70)return{c:'no',l:'LDL target already met (pre-treatment)',ind:'Diabetes + PREVENT-ASCVD ≥10% — pre-treatment LDL already at target',d:[],
@@ -3307,6 +3591,11 @@ function preventClass(primRisk,ldl,ascvd,dm,egfr,age,sex,sbp,bpTx,smoker,hdl,nE,
       : {cat:'Severe hypercholesterolemia',l:100,nh:130,ab:90,c:'#a32d2d',bg:'#fcebeb',
          basis:'LDL-C ≥190 mg/dL alone: high-intensity statin + default LDL-C <100 mg/dL target. Intensifies to <70 if additional risk enhancers confirmed',row:null};
   }
+  // End-stage renal disease (CKD stage 5 / dialysis level, eGFR<15) — takes precedence even in diabetes (4D/AURORA trials, 2026 guideline)
+  if(egfr!=null && egfr>0 && egfr<15){
+    return{cat:dm?'Diabetes + end-stage renal disease (dialysis level)':'End-stage renal disease (CKD stage 5 / dialysis level)',l:null,nh:null,ab:null,c:'#854f0b',bg:'#faeeda',
+      basis:`eGFR ${egfr} (CKD stage 5 / dialysis level): cardiovascular benefit of newly starting a statin is not established (4D/AURORA trials, 2026 guideline). ${dm?'This takes precedence even with diabetes present. ':''}Continuing is recommended if already on a statin. Individualized consultation with nephrology is needed. No established target, since this evidence base does not show benefit from lowering LDL-C to any specific value (reference) PREVENT-ASCVD ${primRisk.toFixed(1)}%`,row:null};
+  }
   if(dm){
     if(primRisk>=10) return{cat:'Diabetes + high PREVENT risk',l:70,nh:100,ab:70,c:'#a32d2d',bg:'#fcebeb',basis:`Diabetes + PREVENT-ASCVD ${primRisk.toFixed(1)}% ≥10%`,row:'pr-high'};
     return{cat:'Diabetes',l:100,nh:130,ab:90,c:'#854f0b',bg:'#faeeda',basis:`Diabetes: at least moderate-intensity statin, PREVENT-ASCVD ${primRisk.toFixed(1)}%`,row:primRisk>=5?'pr-inter':primRisk>=3?'pr-border':'pr-low'};
@@ -3327,6 +3616,13 @@ function preventClass(primRisk,ldl,ascvd,dm,egfr,age,sex,sbp,bpTx,smoker,hdl,nE,
 
 /* ── Stepwise Flow ── */
 function makeFlow(acc,preventCat,ldl,ascvd,vhr,onStatin=false,baselineLdl=null,targetOverride=null){
+  // ── End-stage renal disease (ESRD/dialysis): no established LDL-C target — stepwise flow does not apply ──
+  if(acc.noTargetReason==='esrd'){
+    return `<div class="nb warn" style="margin-top:4px">
+      ⚠ For this patient (end-stage renal disease / dialysis level), the cardiovascular benefit of lowering LDL-C to any specific value is not established (4D/AURORA trials), so no established LDL-C target or stepwise treatment flow applies.<br>
+      <span style="font-size:10px;color:#854f0b">Newly starting a statin is not recommended (2026 guideline); if already on one, continuing may be considered. Consult individually with nephrology.</span>
+    </div>`;
+  }
   // ── [Bug A] LDL<70 case: ldlTgt=null → no stepwise treatment flow needed ──
   if(!onStatin && acc.ldlTgt===null){
     return `<div class="nb suc" style="margin-top:4px">
@@ -3553,11 +3849,41 @@ function addonSentence(currentLdl, target, acc, onStatin){
   }
   return 'if the target is not met, intensifying lifestyle modification and reassessing statin indications should be considered';
 }
-function makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt, acc, onStatin, currentTg, absInds, anyAbs, carotidOverride, activeEnhLabels, ckdActive, egfr}){
+function makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt, acc, onStatin, currentTg, absInds, anyAbs, carotidOverride, activeEnhLabels, ckdActive, egfr, ascvd, vhr}){
   const riskLabel = preventCat && preventCat.cat ? preventCat.cat : riskBandText(prevAscvd);
   const txState = onStatin ? `Current LDL-C is ${currentLdl} mg/dL, and ` : '';
   const addonText = addonSentence(currentLdl, dispLdlTgt, acc, onStatin);
-  const tgText = Number(currentTg)>=500 ? `\nHowever, current TG is ${currentTg} mg/dL (≥500 mg/dL), so separately consider evaluating secondary causes for acute pancreatitis prevention, as well as fibrate/prescription omega-3 therapy.` : '';
+
+  // Helper that assembles the result summary as a bullet (•) list — blank lines are excluded automatically
+  const bl = (lines) => lines.filter(l => l && String(l).trim()).map(l => '• ' + String(l).trim()).join('\n');
+
+  // TG ≥500 supplemental note (1 bullet line)
+  const tgLine = Number(currentTg) >= 500
+    ? `Current TG is ${currentTg} mg/dL (≥500 mg/dL) — also separately consider evaluating secondary causes for acute pancreatitis prevention, as well as fibrate/prescription omega-3 therapy`
+    : '';
+
+  // ── NNT/NNH reference note calculation (1 bullet line) ──
+  // NNT: based on PREVENT baseline risk (primary) or assumed secondary-prevention risk × statin RRR (moderate 25%/high-intensity 35%) (same logic as updateNNT, default with no correction factor applied)
+  // NNH: CTT Collaboration Lancet 2026 pooled NNH (4-year, RCT-based) — moderate-intensity ≈21 / high-intensity ≈12
+  let nntLine = '';
+  {
+    let riskPct, rrrPct, highIntensity;
+    if(ascvd){
+      riskPct = vhr ? 40 : 25;
+      rrrPct = 35;
+      highIntensity = true;
+    } else {
+      riskPct = prevAscvd || 0;
+      highIntensity = acc && acc.c==='hi';
+      rrrPct = highIntensity ? 35 : 25;
+    }
+    if(riskPct > 0){
+      const arr = (riskPct/100) * (rrrPct/100);
+      const nntVal = Math.round(1/arr);
+      const nnhVal = highIntensity ? 12 : 21;
+      nntLine = `Reference: NNT ≈ ${nntVal}, NNH ≈ ${nnhVal} (${highIntensity?'high-intensity':'moderate-intensity'} statin, 10-year/4-year estimates)`;
+    }
+  }
 
   // Whether outside the age range — omit the PREVENT risk figure in that case
   const ageOutOfRange = age < 30 || age >= 80;
@@ -3572,39 +3898,63 @@ function makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt
     ? ageRangeNote
     : `Per PREVENT 2023, the 10-year ASCVD risk is ${prevAscvd.toFixed(1)}% (${riskLabel})`;
 
-  // CKD statin caution note (only when a statin is recommended)
-  const ckdStNote = (ckdActive && acc.c!=='lo' && acc.c!=='no')
-    ? `\nCKD caution: rosuvastatin has high renal excretion → prefer atorvastatin${Number(egfr)<30?' (eGFR '+egfr+' mL/min: limit rosuvastatin to ≤10 mg).':`  (eGFR ${egfr} mL/min).`}`
+  // CKD statin caution note (1 bullet line, only when a statin is recommended)
+  const ckdLine = (ckdActive && acc.c!=='lo' && acc.c!=='no')
+    ? `CKD caution: rosuvastatin has high renal excretion → prefer atorvastatin${Number(egfr)<30?' (eGFR '+egfr+' mL/min: limit rosuvastatin to ≤10 mg)':` (eGFR ${egfr} mL/min)`}`
     : '';
+
+  // ── [Special case 0] End-stage renal disease (ESRD/dialysis): no established target itself ──
+  if(acc.noTargetReason==='esrd'){
+    const stTxt = onStatin ? `Currently on a statin, with on-treatment LDL-C of ${currentLdl} mg/dL` : `Pre-treatment LDL-C is ${ldl} mg/dL`;
+    return bl([
+      `End-stage renal disease (CKD stage 5 / dialysis level, eGFR ${egfr}) — cardiovascular benefit of newly starting a statin is not established (4D/AURORA trials, 2026 guideline)`,
+      `No established LDL-C target, since benefit from lowering LDL-C to any specific value is not established`,
+      stTxt,
+      `${onStatin?'Since already on a statin, continuing may be considered':'Newly starting a statin is not recommended'}. Individualized consultation with nephrology is recommended`,
+      tgLine
+    ]);
+  }
 
   // ── [Special case 1] LDL < 70: already low — evaluate for secondary causes ──
   if(acc.ldlTgt === null){
     const ldlLowNote = onStatin
-      ? `Currently on a statin, with on-treatment LDL-C of ${currentLdl} mg/dL, already at a low level.`
-      : `Pre-treatment LDL-C is ${ldl} mg/dL, already at a low level. Does not meet current statin therapy indications.`;
+      ? `Currently on a statin, with on-treatment LDL-C of ${currentLdl} mg/dL, already at a low level`
+      : `Pre-treatment LDL-C is ${ldl} mg/dL, already at a low level — does not meet current statin therapy indications`;
     const riskPrefix = ageOutOfRange
       ? ageRangeNote
       : `Per PREVENT 2023, the 10-year ASCVD risk is ${prevAscvd.toFixed(1)}%, corresponding to ${riskLabel}`;
-    return `${riskPrefix}.\n${ldlLowNote}\nRecommend evaluating for secondary causes (hypothyroidism, liver disease, malnutrition, malabsorption, medications, etc.) and underlying conditions. Follow-up recommended.` + tgText;
+    return bl([
+      riskPrefix,
+      ldlLowNote,
+      `Recommend evaluating for secondary causes (hypothyroidism, liver disease, malnutrition, malabsorption, medications, etc.) and underlying conditions`,
+      `Follow-up recommended`,
+      tgLine
+    ]);
   }
 
   // ── [Special case 2] Low/borderline risk, statin not needed ──
   if((acc.c==='lo'||acc.c==='no') && !anyAbs && !carotidOverride){
     const riskNote = acc.c==='lo'
-      ? 'Low risk (<3%) — not a candidate for routine statin recommendation. Lifestyle modification (diet, exercise, smoking cessation) is prioritized.'
-      : 'Borderline risk (3–<5%) — low preference for a statin in the absence of risk enhancers. Lifestyle modification is prioritized; a CAC score can help guide the decision if needed.';
+      ? 'Low risk (<3%) — not a candidate for routine statin recommendation. Lifestyle modification (diet, exercise, smoking cessation) is prioritized'
+      : 'Borderline risk (3–<5%) — low preference for a statin in the absence of risk enhancers. Lifestyle modification is prioritized; a CAC score can help guide the decision if needed';
     const ldlNote = ldl >= (dispLdlTgt||130)
-      ? `Pre-treatment LDL-C is ${ldl} mg/dL, not meeting the target &lt;${dispLdlTgt||130} mg/dL. Recommend intensifying lifestyle modification.`
-      : `Pre-treatment LDL-C is ${ldl} mg/dL, within the target &lt;${dispLdlTgt||130} mg/dL range.`;
+      ? `Pre-treatment LDL-C is ${ldl} mg/dL, not meeting the target <${dispLdlTgt||130} mg/dL — recommend intensifying lifestyle modification`
+      : `Pre-treatment LDL-C is ${ldl} mg/dL, within the target <${dispLdlTgt||130} mg/dL range`;
     const riskPrefix = ageOutOfRange
       ? ageRangeNote
       : `Per PREVENT 2023, the 10-year ASCVD risk is ${prevAscvd.toFixed(1)}%, corresponding to ${riskLabel}`;
-    return `${riskPrefix}.\n${riskNote}\n${ldlNote} Periodic follow-up recommended.` + tgText;
+    return bl([
+      riskPrefix,
+      riskNote,
+      ldlNote,
+      `Periodic follow-up recommended`,
+      tgLine
+    ]);
   }
 
-  // Generate the risk-enhancer list sentence
-  const enhText = (activeEnhLabels && activeEnhLabels.length > 0 && (acc.c==='mo'||acc.c==='hi') && !anyAbs && !carotidOverride)
-    ? `\nConfirmed risk enhancers (${activeEnhLabels.length}): ${activeEnhLabels.join('; ')}.`
+  // Risk-enhancer list sentence (1 bullet line)
+  const enhLine = (activeEnhLabels && activeEnhLabels.length > 0 && (acc.c==='mo'||acc.c==='hi') && !anyAbs && !carotidOverride)
+    ? `Confirmed risk enhancers (${activeEnhLabels.length}): ${activeEnhLabels.join('; ')}`
     : '';
 
   if(anyAbs && absInds){
@@ -3616,21 +3966,44 @@ function makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt
     if(onlyDmCkdActive && acc.c==='no' && ldl < (dispLdlTgt||100)){
       const isHivOnly = activeInds.every(i=>i.key==='hiv');
       const principleNote = isHivOnly
-        ? 'The 2026 ACC/AHA Class I principle is that a statin should be considered in HIV patients aged 40–75 regardless of LDL level, but the guideline does not explicitly require starting a statin when the target is already met before treatment.'
-        : 'The 2026 ACC/AHA "regardless of LDL-C level" principle is that a statin should be considered irrespective of LDL level, but the guideline does not explicitly require starting a statin when the target is already met before treatment.';
-      return `${preventLine}, and this meets a risk-independent statin indication (${indNames}).\nHowever, pre-treatment LDL-C of ${ldl} mg/dL is already at or below the target &lt;${dispLdlTgt} mg/dL.\n${principleNote}\nAlthough statin therapy is a recommended indication, since pre-treatment LDL-C is already within target, continuing lifestyle modification with periodic follow-up is recommended.` + tgText;
+        ? 'The 2026 ACC/AHA Class I principle is that a statin should be considered in HIV patients aged 40–75 regardless of LDL level, but the guideline does not explicitly require starting a statin when the target is already met before treatment'
+        : 'The 2026 ACC/AHA "regardless of LDL-C level" principle is that a statin should be considered irrespective of LDL level, but the guideline does not explicitly require starting a statin when the target is already met before treatment';
+      return bl([
+        `${preventLine}, and this meets a risk-independent statin indication (${indNames})`,
+        `Pre-treatment LDL-C of ${ldl} mg/dL is already at or below the target <${dispLdlTgt} mg/dL`,
+        principleNote,
+        `Although statin therapy is a recommended indication, since pre-treatment LDL-C is already within target, continuing lifestyle modification with periodic follow-up is recommended`,
+        tgLine
+      ]);
     }
     const prevPrefix = ageOutOfRange
-      ? `Meets a risk-category-independent statin indication, so treatment is recommended. ${ageRangeNote}`
+      ? `Meets a risk-category-independent statin indication, so treatment is recommended ${ageRangeNote}`
       : `${preventLine}, but meets a risk-category-independent statin indication below, so treatment is recommended regardless of the PREVENT score`;
-    return `${prevPrefix}.\nIndication: ${indNames}.\nPre-treatment LDL-C is ${ldl} mg/dL, and ${txState}the LDL-C target is &lt;${dispLdlTgt} mg/dL.\n${strengthText} statin therapy is recommended, and ${addonText}.${ckdStNote}` + tgText;
+    return bl([
+      prevPrefix,
+      `Indication: ${indNames}`,
+      `Pre-treatment LDL-C is ${ldl} mg/dL, and ${txState}the LDL-C target is <${dispLdlTgt} mg/dL`,
+      `${strengthText} statin therapy is recommended, and ${addonText}`,
+      ckdLine,
+      tgLine,
+      nntLine
+    ]);
   }
 
   if(carotidOverride){
     const riskPrefix = ageOutOfRange
       ? ageRangeNote
       : `Per PREVENT 2023, the 10-year ASCVD risk is ${prevAscvd.toFixed(1)}%, corresponding to ${riskLabel}`;
-    return `${riskPrefix}.\nCarotid ultrasound plaque ≥1.5 mm confirmed.\nAs an ESC/EAS 2025 Class IIa risk-modifying factor, risk is reclassified upward to borderline-to-intermediate risk and statin therapy is considered (not a risk-independent automatic indication).\nPre-treatment LDL-C is ${ldl} mg/dL, and ${txState}the LDL-C target is &lt;${dispLdlTgt} mg/dL.\nModerate-intensity statin therapy is considered, and ${addonText}.${ckdStNote}` + tgText;
+    return bl([
+      riskPrefix,
+      `Carotid ultrasound plaque ≥1.5 mm confirmed`,
+      `As an ESC/EAS 2025 Class IIa risk-modifying factor, risk is reclassified upward to borderline-to-intermediate risk and statin therapy is considered (not a risk-independent automatic indication)`,
+      `Pre-treatment LDL-C is ${ldl} mg/dL, and ${txState}the LDL-C target is <${dispLdlTgt} mg/dL`,
+      `Moderate-intensity statin therapy is considered, and ${addonText}`,
+      ckdLine,
+      tgLine,
+      nntLine
+    ]);
   }
 
   // ── [Special case 3] Low risk (<3%) + 30-year ASCVD ≥10% ──
@@ -3642,14 +4015,28 @@ function makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt
     const riskPrefix = ageOutOfRange
       ? ageRangeNote
       : `Per PREVENT 2023, the 10-year ASCVD risk is ${prevAscvd.toFixed(1)}%, corresponding to low risk (<3%)`;
-    return `${riskPrefix}. Not a candidate for routine statin recommendation.\nPre-treatment LDL-C ${ldl} mg/dL, target &lt;${dispLdlTgt||130} mg/dL. Lifestyle modification (diet, exercise, smoking cessation) is recommended first.\n(Reference) 30-year ASCVD risk of ${r30disp} confirms long-term cumulative risk ≥10%. With an NNT of about ${nnt10}, the 10-year clinical significance of a statin is limited, but strongly intensifying lifestyle modification and sharing the long-term risk with the patient for shared decision-making is recommended.\n※ 2026 ACC/AHA Class IIb: a moderate-intensity statin "may be considered" if 30-year risk ≥10% — decide after discussing NNT and patient preference.` + tgText;
+    return bl([
+      `${riskPrefix} — not a candidate for routine statin recommendation`,
+      `Pre-treatment LDL-C ${ldl} mg/dL, target <${dispLdlTgt||130} mg/dL — lifestyle modification (diet, exercise, smoking cessation) is recommended first`,
+      `(Reference) 30-year ASCVD risk of ${r30disp} confirms long-term cumulative risk ≥10%. With an NNT of about ${nnt10}, the 10-year clinical significance of a statin is limited, but strongly intensifying lifestyle modification and sharing the long-term risk with the patient for shared decision-making is recommended`,
+      `※ 2026 ACC/AHA Class IIb: a moderate-intensity statin "may be considered" if 30-year risk ≥10% — decide after discussing NNT and patient preference`,
+      tgLine
+    ]);
   }
 
   const statinText = statinSentence(acc);
   const riskPrefix = ageOutOfRange
     ? ageRangeNote
     : `Per PREVENT 2023, the 10-year ASCVD risk is ${prevAscvd.toFixed(1)}%, corresponding to ${riskLabel}`;
-  return `${riskPrefix}.\n${enhText ? enhText.trimStart() + '\n' : ''}Pre-treatment LDL-C is ${ldl} mg/dL, and ${txState}the current LDL-C target is judged to be &lt;${dispLdlTgt} mg/dL.\nAccordingly, ${statinText}, and ${addonText}.${ckdStNote}` + tgText;
+  return bl([
+    riskPrefix,
+    enhLine,
+    `Pre-treatment LDL-C is ${ldl} mg/dL, and ${txState}the current LDL-C target is judged to be <${dispLdlTgt} mg/dL`,
+    `Accordingly, ${statinText}, and ${addonText}`,
+    ckdLine,
+    tgLine,
+    nntLine
+  ]);
 }
 
 function getRadioValue(name){
@@ -4183,7 +4570,8 @@ function upd(){
   const cac1000Active=g('cac1000')&&g('cac1000').checked;     // CAC ≥1000
   const anyCAC=cac1to99Active||cacActive||cac300Active||cac1000Active;
   const ckdAbs=(egfr>=15&&egfr<60&&age>=40);
-  const dmAbs=dm&&age>=30&&age<=79;
+  const dmEsrd=dm&&egfr>0&&egfr<15; // End-stage renal disease (dialysis level) — takes precedence over diabetes' "risk-independent" principle
+  const dmAbs=dm&&age>=30&&age<=79&&!dmEsrd;
   const hivChecked=g('enhHiv')?.checked??false;
   const hivAbs=hivChecked&&age>=40&&age<=75;
   const ldl190Abs=ldl>=190;
@@ -4198,6 +4586,7 @@ function upd(){
     if(cacActive&&!ascvd) notes.push('CAC 100–299 or ≥75th percentile — sufficient condition for statin, LDL<70 target');
     if(ckdAbs&&!ascvd) notes.push('CKD (eGFR 15–59) + age≥40 — risk-independent moderate-intensity statin');
     if(dmAbs&&!ascvd) notes.push(`Diabetes — risk-independent ${primRisk>=10?'high-intensity':'moderate-intensity'} statin`);
+    if(dmEsrd&&!ascvd) notes.push('Diabetes + end-stage renal disease (eGFR<15, dialysis level) — benefit of newly starting a statin is unclear, individualized consultation needed (takes precedence over diabetes\' risk-independent principle)');
     if(hivAbs&&!ascvd) notes.push('HIV (stable cART, age 40–75) — risk-independent moderate-intensity statin (Class I)');
     return notes;
   }
@@ -4291,7 +4680,7 @@ function upd(){
     (onStatin&&hasPostRisk?`<br>On-treatment: 10-yr ASCVD ${txPrevAscvd.toFixed(1)}% · 10-yr Total CVD ${txPrev.toFixed(1)}% · 10-yr HF ${txPrevHf.toFixed(1)}%`:``);
 
   // ACC/AHA rec — baseline indication; current values are used for control/add-on assessment
-  let acc=accRec(age,primRisk,ldl,dm,ascvd,vhr,nE,tg,smoker,bpTx,prev30Ascvd);
+  let acc=accRec(age,primRisk,ldl,dm,ascvd,vhr,nE,tg,smoker,bpTx,prev30Ascvd,egfr);
 
   // ── LDL≥190 precision refinement: default <100 from basic info, intensified to <70 if risk enhancer explicitly checked ──
   // Unnecessary if basic info already yields <70. Only intensify from <100 via risk enhancer.
@@ -4428,9 +4817,9 @@ function upd(){
       key:'dm',
       active:dmAbs,
       label:`Diabetes (age 30–79)`,
-      detail:dmAbs?`Age ${age}, diabetes — ${primRisk>=10?'PREVENT ≥10%: high-intensity':'PREVENT &lt;10%: moderate-intensity'} statin recommended`:(dm?`Diabetes present but age ${age} (outside the applicable 30–79 range)`:'Not applicable'),
+      detail:dmAbs?`Age ${age}, diabetes — ${primRisk>=10?'PREVENT ≥10%: high-intensity':'PREVENT &lt;10%: moderate-intensity'} statin recommended`:(dmEsrd?`Diabetes present but eGFR ${egfr} (end-stage renal disease/dialysis level) — benefit of newly starting a statin is unclear, individualized consultation needed`:(dm?`Diabetes present but age ${age} (outside the applicable 30–79 range)`:'Not applicable')),
       strength:dm&&primRisk>=10?'High intensity':'Moderate intensity',
-      basis:'Diabetes alone warrants at least moderate-intensity statin; treatment starts regardless of the PREVENT score'
+      basis:'Diabetes alone warrants at least moderate-intensity statin; treatment starts regardless of the PREVENT score. However, in end-stage renal disease (dialysis level), evidence for new initiation is unclear (4D/AURORA trials)'
     },
     {
       key:'hiv',
@@ -4528,9 +4917,13 @@ function upd(){
   if(ckdAbs && dispLdlTgt > 100){ dispLdlTgt=100; dispNhTgt=Math.min(dispNhTgt,130); }
   if(!ascvd){
     if(cac1000Active && dispLdlTgt > 55){ dispLdlTgt=55; dispNhTgt=Math.min(dispNhTgt,85); }
+    else if(cac300Active && dispLdlTgt > 70){ dispLdlTgt=70; dispNhTgt=Math.min(dispNhTgt,100); }
+    else if(cacActive && dispLdlTgt > 70){ dispLdlTgt=70; dispNhTgt=Math.min(dispNhTgt,100); }
+    else if(cac1to99Active && dispLdlTgt > 100){ dispLdlTgt=100; dispNhTgt=Math.min(dispNhTgt,130); }
   }
+
   // ApoB target — kept consistent with the LDL target (2026 ACC/AHA: <55/<70/<90)
-  const dispAbTgt = dispLdlTgt<=55 ? 55 : dispLdlTgt<=70 ? 70 : 90;
+  const dispAbTgt = dispLdlTgt==null ? null : (dispLdlTgt<=55 ? 55 : dispLdlTgt<=70 ? 70 : 90);
 
   const curLabel=onStatin?'On-treatment':'Current/pre-treatment';
   const showCur = onStatin; // Blank the current/on-treatment column if not on a statin
@@ -4544,16 +4937,19 @@ function upd(){
   const statusApoB   = showCur ? statusCell(currentApoBDisplay,dispAbTgt) : statusCell(apoBDisplay,dispAbTgt);
   const statusTg     = showCur ? statusCell(currentTg,150) : statusCell(tg,150);
   const statusHdl    = showCur ? statusHdlCell(currentHdl,sex) : statusHdlCell(hdl,sex);
+  const ldlTgtCell = dispLdlTgt!=null ? `&lt;${dispLdlTgt} <span style="font-size:10px;color:#888">mg/dL</span>` : `<span style="color:#854f0b;font-size:11px">No established target (individualize)</span>`;
+  const nhTgtCell  = dispNhTgt!=null  ? `&lt;${dispNhTgt} <span style="font-size:10px;color:#888">mg/dL</span>`  : `<span style="color:#854f0b;font-size:11px">No established target (individualize)</span>`;
+  const abTgtCell  = dispAbTgt!=null  ? `&lt;${dispAbTgt} mg/dL` : `<span style="color:#854f0b;font-size:11px">No established target (individualize)</span>`;
   g('lipidTbl').innerHTML=`
-    <tr><td>LDL-C</td><td style="font-weight:600">${ldl} mg/dL</td>${curLdlCell}<td>&lt;${dispLdlTgt} <span style="font-size:10px;color:#888">mg/dL</span></td><td>${statusLdl}</td></tr>
-    <tr><td>Non-HDL-C <span style="color:#888;font-size:10px">(TC−HDL)</span></td><td style="font-weight:600">${nonHDL} mg/dL</td>${curNhCell}<td>&lt;${dispNhTgt} <span style="font-size:10px;color:#888">mg/dL</span></td><td>${statusNh}</td></tr>
-    <tr><td>ApoB <span style="color:#888;font-size:10px">(${apoBLabel})</span></td><td style="font-weight:600">${apob_meas!==null?apoBDisplay:'~'+apoBDisplay} mg/dL</td>${curApoBCell}<td>&lt;${dispAbTgt} mg/dL</td><td>${statusApoB}</td></tr>
+    <tr><td>LDL-C</td><td style="font-weight:600">${ldl} mg/dL</td>${curLdlCell}<td>${ldlTgtCell}</td><td>${statusLdl}</td></tr>
+    <tr><td>Non-HDL-C <span style="color:#888;font-size:10px">(TC−HDL)</span></td><td style="font-weight:600">${nonHDL} mg/dL</td>${curNhCell}<td>${nhTgtCell}</td><td>${statusNh}</td></tr>
+    <tr><td>ApoB <span style="color:#888;font-size:10px">(${apoBLabel})</span></td><td style="font-weight:600">${apob_meas!==null?apoBDisplay:'~'+apoBDisplay} mg/dL</td>${curApoBCell}<td>${abTgtCell}</td><td>${statusApoB}</td></tr>
     <tr><td>Triglycerides</td><td style="font-weight:600">${tg} mg/dL</td>${curTgCell}<td>&lt;150</td><td>${statusTg}</td></tr>
     <tr><td>HDL-C</td><td style="font-weight:600">${hdl} mg/dL</td>${curHdlCell}<td>Men ≥40 / Women ≥50</td><td>${statusHdl}</td></tr>
   `;
 
   // Base rec without risk enhancers (for impact comparison) — baseline
-  const accBase=accRec(age,primRisk,ldl,dm,ascvd,vhr,0,tg,smoker,bpTx,prev30Ascvd);
+  const accBase=accRec(age,primRisk,ldl,dm,ascvd,vhr,0,tg,smoker,bpTx,prev30Ascvd,egfr);
   const upgraded=!ascvd&&nE>0&&accBase.l!==acc.l;
 
   g('accRecOut').innerHTML=recHTML(acc,'ACC/AHA · PREVENT-based — determined from baseline risk');
@@ -4585,9 +4981,13 @@ function upd(){
       </div>`;
   }
   if(onStatin){
-    const ldlGap=Math.max(0,Math.round(currentLdl-dispLdlTgt));
-    const controlClass=currentLdl<=dispLdlTgt?'suc':'warn';
-    g('accRecOut').innerHTML+=`<div class="nb ${controlClass}">Currently on a statin: the baseline risk category is retained as <b>${preventCat.cat}</b>. Current LDL-C ${currentLdl} mg/dL, target &lt;${dispLdlTgt} mg/dL ${currentLdl<=dispLdlTgt?'met':'not met: further reduction of '+ldlGap+' mg/dL needed'}.</div>`;
+    if(dispLdlTgt==null){
+      g('accRecOut').innerHTML+=`<div class="nb warn">Currently on a statin: the baseline risk category is <b>${preventCat.cat}</b>. Current LDL-C ${currentLdl} mg/dL — no established LDL-C target applies in this state, so met/not-met status is not determined. Consult individually with nephrology regarding whether to continue.</div>`;
+    } else {
+      const ldlGap=Math.max(0,Math.round(currentLdl-dispLdlTgt));
+      const controlClass=currentLdl<=dispLdlTgt?'suc':'warn';
+      g('accRecOut').innerHTML+=`<div class="nb ${controlClass}">Currently on a statin: the baseline risk category is retained as <b>${preventCat.cat}</b>. Current LDL-C ${currentLdl} mg/dL, target &lt;${dispLdlTgt} mg/dL ${currentLdl<=dispLdlTgt?'met':'not met: further reduction of '+ldlGap+' mg/dL needed'}.</div>`;
+    }
   }
   if(currentTg>=500) g('accRecOut').innerHTML+=`<div class="nb dng">⚠ Current TG ≥500 mg/dL: consider evaluating secondary causes and fibrate/prescription omega-3 therapy to prevent acute pancreatitis.</div>`;
   if(g('cacCheck')&&g('cacCheck').checked&&!ascvd){
