@@ -23,7 +23,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Noto Sa
 @media(max-width:760px){.mgrid{grid-template-columns:1fr}}
 .card{background:#fff;border:1px solid #e2e0db;border-radius:12px;padding:14px 16px;margin-bottom:13px}
 .card:last-child{margin-bottom:0}
-.sec{font-size:15px;font-weight:800;color:#555350;letter-spacing:.04em;text-transform:uppercase;border-bottom:1px solid #e2e0db;padding-bottom:6px;margin-bottom:9px}
+.sec{font-size:14.5px;font-weight:800;color:#fff;letter-spacing:.03em;background:#185fa5;margin:-14px -16px 11px -16px;padding:10px 16px;border-radius:11px 11px 0 0}
 .fl{display:block;font-size:12.5px;color:#5f5e5a;margin-bottom:2px}
 .field{margin-bottom:7px}
 input[type=number],select{width:100%;padding:7px 10px;border:1px solid #d0cec8;border-radius:7px;font-size:14px;background:#fff;color:#1a1a18;outline:none;font-family:inherit}
@@ -533,7 +533,7 @@ var SECTION_META = {
   absInd:        { header:null, body:'absIndBody',        badge:'✓', en:'Absolute Statin Indications', ko:'위험도 분류 무관 스타틴 적응증', color:'#185fa5' },
   specialStatin: { header:null, body:'specialStatinBody',  badge:'!', en:'Statin in Special Situations', ko:'특수 상황에서 스타틴 치료',       color:'#7b5ea7' },
   nnt:           { header:null, body:'nntBody',            badge:'≡', en:'NNT Comparison', ko:'스타틴 치료 효과 — NNT 비교',                 color:'#7b5ea7' },
-  nnh:           { header:null, body:'nnhBody',            badge:'⚠', en:'NNH Comparison', ko:'스타틴 부작용 — NNH 비교',                    color:'#a32d2d' }
+  nnh:           { header:null, body:'nnhBody',            badge:'⚠', en:'NNH Comparison', ko:'스타틴 부작용 — NNH 비교',                    color:'#7b5ea7' }
 };
 function openSectionModal(key){
   var m = SECTION_META[key];
@@ -1632,7 +1632,7 @@ function switchRRTab(idx){
 
 <!-- ══════ LEFT: INPUT PANEL ══════ -->
 <div class="no-print">
-  <div class="card" style="border-top:3px solid #185fa5">
+  <div class="card" style="background:#eaf7fb">
     <div class="sec">기본 정보 &amp; 검사 입력
       <span style="font-size:10.5px;font-weight:600;color:#a32d2d;background:#fcebeb;border:1px solid #e8b4b4;border-radius:4px;padding:2px 7px;margin-left:8px;letter-spacing:0;text-transform:none">입력 필수</span>
     </div>
@@ -1820,7 +1820,7 @@ function switchRRTab(idx){
     </div>
   </div>
 
-  <div class="card" id="cardPreventExtra" style="border-top:3px solid #185fa5">
+  <div class="card" id="cardPreventExtra" style="background:#eaf7fb">
     <div class="sec">PREVENT 2023 추가 입력 (선택)</div>
     <div class="row2">
       <div class="field">
@@ -1878,10 +1878,10 @@ function switchRRTab(idx){
     </div>
   </div>
 
-  <div class="card" id="cardRiskEnhancer" style="border-top:3px solid #639922">
+  <div class="card" id="cardRiskEnhancer" style="background:#eaf7fb">
     <div class="sec" onclick="toggleSection('riskEnhancerBody','riskEnhancerArrow')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none">
-      <span>위험 증가 인자 (Risk Enhancers) <span style="font-size:12.5px;font-weight:600;color:#185fa5;letter-spacing:0;text-transform:none;margin-left:4px">정밀 맞춤 예방 목적이며, 클릭 시 자세한 내용을 확인할 수 있습니다.</span></span>
-      <span id="riskEnhancerArrow" style="font-size:13.5px;color:#888780;transition:transform .2s;display:inline-block">▶</span>
+      <span>위험 증가 인자 (Risk Enhancers) <span style="font-size:12.5px;font-weight:600;color:#bfe3ff;letter-spacing:0;text-transform:none;margin-left:4px">정밀 맞춤 예방 목적이며, 클릭 시 자세한 내용을 확인할 수 있습니다.</span></span>
+      <span id="riskEnhancerArrow" style="font-size:13.5px;color:#fff;transition:transform .2s;display:inline-block">▶</span>
     </div>
     <div id="riskEnhancerBody" style="display:none">
     <div style="font-size:11.5px;color:#888780;margin-bottom:6px;line-height:1.4">※ 해당 항목 체크 시 결과에 즉시 반영</div>
@@ -2156,10 +2156,10 @@ function switchRRTab(idx){
   </div>
 
   <!-- ══ 위험도 무관 스타틴 절대 적응증 ══ -->
-  <div class="card" id="cardAbsInd" style="border-top:3px solid #7b5ea7">
+  <div class="card" id="cardAbsInd" style="background:#eaf7fb">
     <div class="sec" onclick="openSectionModal('absInd')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none">
-      <span>위험도 분류 무관 스타틴 적응증 <span style="font-size:12.5px;font-weight:600;color:#185fa5;letter-spacing:0;text-transform:none;margin-left:4px">기본정보 입력 또는 CAC 점수 입력시 해당 항목이 활성화 됩니다</span><span style="font-size:10.5px;font-weight:400;color:#888780;letter-spacing:0;text-transform:none"> (PREVENT 점수에 구속되지 않음)</span></span>
-      <span id="absIndArrow" style="font-size:13.5px;color:#888780;transition:transform .2s;display:inline-block">▶</span>
+      <span>위험도 분류 무관 스타틴 적응증 <span style="font-size:12.5px;font-weight:600;color:#bfe3ff;letter-spacing:0;text-transform:none;margin-left:4px">기본정보 입력 또는 CAC 점수 입력시 해당 항목이 활성화 됩니다</span><span style="font-size:10.5px;font-weight:400;color:#cfe4ee;letter-spacing:0;text-transform:none"> (PREVENT 점수에 구속되지 않음)</span></span>
+      <span id="absIndArrow" style="font-size:13.5px;color:#fff;transition:transform .2s;display:inline-block">▶</span>
     </div>
     <div id="absIndBody" style="display:none">
     <div id="absIndList"></div>
@@ -2170,13 +2170,13 @@ function switchRRTab(idx){
   </div>
 
   <!-- ══ 특수상황에서 스타틴 치료 여부 확인 ══ -->
-  <div class="card" id="cardSpecialStatin" style="border-top:3px solid #7b5ea7">
-    <div class="sec" onclick="openSectionModal('specialStatin')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;color:#7b5ea7">
+  <div class="card" id="cardSpecialStatin" style="background:#eaf7fb">
+    <div class="sec" onclick="openSectionModal('specialStatin')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;background:#7b5ea7">
       <span style="display:flex;align-items:center;gap:7px">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7b5ea7" stroke-width="2.5" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
         특수 상황에서 스타틴 치료
       </span>
-      <span id="specialStatinArrow" style="font-size:13.5px;color:#7b5ea7;transition:transform .2s;display:inline-block">▶</span>
+      <span id="specialStatinArrow" style="font-size:13.5px;color:#fff;transition:transform .2s;display:inline-block">▶</span>
     </div>
     <div id="specialStatinBody" style="display:none;margin-top:4px">
       <div style="font-size:12.5px;color:#888780;margin-bottom:8px;line-height:1.5">항목을 클릭하면 2026 ACC/AHA 가이드라인 권고 내용이 표시됩니다.</div>
@@ -2484,13 +2484,13 @@ function switchRRTab(idx){
   <!-- ══ /특수상황 ══ -->
 
   <!-- ══ NNT 비교 ══ -->
-  <div class="card" id="cardNntLeft" style="border-top:3px solid #7b5ea7">
-    <div class="sec" onclick="openSectionModal('nnt')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;color:#7b5ea7">
+  <div class="card" id="cardNntLeft" style="background:#eaf7fb">
+    <div class="sec" onclick="openSectionModal('nnt')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;background:#7b5ea7">
       <span style="display:flex;align-items:center;gap:7px">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7b5ea7" stroke-width="2.5" style="flex-shrink:0"><path d="M3 18h18"/><path d="M3 12h12"/><path d="M3 6h6"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" style="flex-shrink:0"><path d="M3 18h18"/><path d="M3 12h12"/><path d="M3 6h6"/></svg>
         스타틴 치료 효과 — NNT 비교
       </span>
-      <span id="nntArrow" style="font-size:13.5px;color:#7b5ea7;transition:transform .2s;display:inline-block">▶</span>
+      <span id="nntArrow" style="font-size:13.5px;color:#fff;transition:transform .2s;display:inline-block">▶</span>
     </div>
     <div id="nntBody" style="display:none;margin-top:4px">
     <div style="margin-bottom:10px;padding:7px 11px;background:#f3eeff;border:1px solid #c9b4e8;border-radius:7px;font-size:12.5px;color:#5f5e5a;line-height:1.75">
@@ -2621,13 +2621,13 @@ function switchRRTab(idx){
   <!-- ══ /NNT 비교 ══ -->
 
   <!-- ══ NNH 독립 카드 ══ -->
-  <div class="card" id="cardNnhLeft" style="border-top:3px solid #e24b4a">
-    <div class="sec" onclick="openSectionModal('nnh')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;color:#a32d2d">
+  <div class="card" id="cardNnhLeft" style="background:#eaf7fb">
+    <div class="sec" onclick="openSectionModal('nnh')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;background:#7b5ea7">
       <span style="display:flex;align-items:center;gap:7px">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a32d2d" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
         스타틴 부작용 — NNH 비교
       </span>
-      <span id="nnhArrow" style="font-size:13.5px;color:#a32d2d;transition:transform .2s;display:inline-block">▶</span>
+      <span id="nnhArrow" style="font-size:13.5px;color:#fff;transition:transform .2s;display:inline-block">▶</span>
     </div>
     <div id="nnhBody" style="display:none;margin-top:4px">
 
@@ -2989,7 +2989,7 @@ function switchRRTab(idx){
   <div id="ageRangeCard" style="display:none;margin-bottom:11px;padding:11px 14px;border-radius:11px;border:2px solid #ef9f27;background:#fffbf2"></div>
 
   <!-- 1. Risk Scores -->
-  <div class="card">
+  <div class="card" style="background:#eaf7fb">
     <div class="sec">치료 전 baseline 위험도와 치료 중 위험도</div>
     <div class="rcmp">
       <div class="rcell hl">
@@ -3038,7 +3038,7 @@ function switchRRTab(idx){
   </div>
 
   <!-- 2. Lipid Parameters -->
-  <div class="card" id="cardLipidParam">
+  <div class="card" id="cardLipidParam" style="background:#eaf7fb">
     <div class="sec">지질 파라미터 & 목표치</div>
     <table class="lt">
       <thead><tr><th>항목</th><th>치료 전</th><th>치료 중/현재</th><th>목표</th><th>상태</th></tr></thead>
@@ -3048,7 +3048,7 @@ function switchRRTab(idx){
   </div>
 
   <!-- 3. ACC/AHA PREVENT Risk Category -->
-  <div class="card" id="cardPreventCategory">
+  <div class="card" id="cardPreventCategory" style="background:#eaf7fb">
     <div class="sec">ACC/AHA PREVENT 위험도 분류</div>
     <div id="ksolaOut"><div style="font-size:13.5px;color:#185fa5;font-weight:600">입력값을 확인하면 표시됩니다.</div></div>
     <div id="preventClassTable" style="margin-top:7px">
@@ -3066,7 +3066,7 @@ function switchRRTab(idx){
   </div>
 
   <!-- 4. Statin Recommendations -->
-  <div class="card">
+  <div class="card" style="background:#eaf7fb">
     <div class="sec">스타틴 처방 권고</div>
     <div style="font-size:11.5px;font-weight:700;color:#888780;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">ACC/AHA · PREVENT 기반 치료 제안</div>
     <div id="accRecOut"></div>
@@ -3076,7 +3076,7 @@ function switchRRTab(idx){
   </div>
 
   <!-- 6. EMR Copy Summary -->
-  <div class="card no-print">
+  <div class="card no-print" style="background:#eaf7fb">
     <div class="sec" style="display:flex;align-items:center;gap:8px">
       <span>전자차트 복사용 결과요약</span>
       <button type="button" onclick="copyResultSummary()" style="padding:3px 11px;background:#6b6b68;color:#fff;border:none;border-radius:5px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;flex-shrink:0">복사</button>
@@ -3087,7 +3087,7 @@ function switchRRTab(idx){
   </div>
 
   <!-- 7. Stepwise Add-on Therapy -->
-  <div class="card" style="border-top:3px solid #a32d2d">
+  <div class="card" style="background:#eaf7fb">
     <div class="sec">LDL 목표 미달성 시 단계적 추가 치료</div>
     <div style="margin-top:6px;margin-bottom:4px;padding:6px 11px;background:#fdf3f3;border:1px solid #e8b4b4;border-radius:7px;font-size:12.5px;color:#7a3a3a;line-height:1.7">
       <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#a32d2d" stroke-width="2.5" style="vertical-align:-1px;margin-right:4px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
@@ -3097,11 +3097,11 @@ function switchRRTab(idx){
   </div>
 
   <!-- 8. 개인화 NNT -->
-  <div class="card" id="cardNntRight" style="border-top:3px solid #7b5ea7">
-    <div class="sec" style="display:flex;align-items:center;justify-content:space-between;color:#7b5ea7">
+  <div class="card" id="cardNntRight" style="background:#eaf7fb">
+    <div class="sec" style="display:flex;align-items:center;justify-content:space-between">
       <span style="display:flex;align-items:center;gap:6px">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7b5ea7" stroke-width="2.5"><path d="M3 18h18"/><path d="M3 12h12"/><path d="M3 6h6"/></svg>
-        이 환자의 스타틴 치료 NNT <span style="font-size:12.5px;font-weight:400;color:#a08cc0">(참고용)</span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M3 18h18"/><path d="M3 12h12"/><path d="M3 6h6"/></svg>
+        이 환자의 스타틴 치료 NNT <span style="font-size:12.5px;font-weight:400;color:#d8ccee">(참고용)</span>
       </span>
       <span id="nntBadge" style="font-size:13.5px;font-weight:700;color:#fff;background:#c9b4e8;border-radius:5px;padding:2px 10px">—</span>
     </div>
@@ -3130,11 +3130,11 @@ function switchRRTab(idx){
 </div>
 
   <!-- 참고 문헌 및 주의사항 (NNT 카드 바로 아래, 오른쪽 컬럼 단독 카드) -->
-  <div class="card" id="cardReference" style="margin-top:0">
+  <div class="card" id="cardReference" style="margin-top:0;background:#eaf7fb">
     <div class="sec" id="refToggle" onclick="toggleSection('refBody','refArrowSpan')"
       style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none">
       <span>참고 문헌 및 주의사항, 피드백</span>
-      <span id="refArrowSpan" style="font-size:11.5px;color:#888780;margin-left:8px">▶</span>
+      <span id="refArrowSpan" style="font-size:11.5px;color:#cfe4ee;margin-left:8px">▶</span>
     </div>
     <div id="refBody" style="display:none;font-size:11.5px;color:#888780;line-height:1.75;margin-top:8px">
       · Goff DC Jr et al. 2013 ACC/AHA Cardiovascular Risk Guideline. <i>JACC</i> 2014;63:2935–59<br>
