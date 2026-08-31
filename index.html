@@ -96,7 +96,71 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
 
 /* Print */
 .pbtn{display:flex;align-items:center;gap:6px;padding:7px 14px;background:#1a1a18;color:#fff;border:none;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0}
-.pbtn:hover{background:#2d2d2a}
+.pbtn{transition:background .12s,transform .12s,box-shadow .12s}
+.pbtn:hover{background:#2d2d2a;transform:translateY(-2px);box-shadow:0 5px 14px rgba(0,0,0,.18)}
+.pbtn:active{transform:translateY(0);box-shadow:0 2px 6px rgba(0,0,0,.15)}
+
+/* ── 간단/상세 모드 토글 hover ── */
+#modeSimpleLabel,#modeDetailLabel{transition:background .15s,transform .12s,box-shadow .12s;position:relative}
+#modeSimpleLabel:hover,#modeDetailLabel:hover{transform:translateY(-2px);box-shadow:0 4px 10px rgba(0,0,0,.15);z-index:1}
+
+/* ── 라디오형 선택 박스(성별/흡연 등) hover ── */
+.rg label span{transition:all .12s}
+.rg label:hover span{transform:translateY(-1px);box-shadow:0 3px 8px rgba(0,0,0,.10);border-color:#9a988f}
+.rg label:has(input:checked):hover span{transform:translateY(-1px);box-shadow:0 3px 8px rgba(0,0,0,.22)}
+
+/* ── 체크박스 항목 hover ── */
+.ck{transition:background .12s,transform .12s;border-radius:6px}
+.ck:hover{background:#f0efe9}
+
+/* ── 결과/추천 카드 박스 hover ── */
+.rb{transition:transform .12s,box-shadow .12s}
+.rb:hover{transform:translateY(-2px) translateX(1px);box-shadow:0 4px 12px rgba(0,0,0,.10)}
+
+.rcell,.rcell.hl,.rcell.dim{transition:transform .12s,box-shadow .12s}
+.rcell:hover,.rcell.hl:hover,.rcell.dim:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.10)}
+
+.sw-box{transition:transform .12s,box-shadow .12s}
+.sw-box:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.08)}
+
+/* ── CPR 배너 (Cumulative LDL Burden / Precision Prevention / Residual Risk) hover ── */
+.cpr-card{transition:transform .16s,box-shadow .16s}
+.cpr-card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.14)}
+.cpr-badge{transition:transform .2s cubic-bezier(.34,1.56,.64,1)}
+.cpr-card:hover .cpr-badge{transform:scale(1.15) rotate(-6deg)}
+@media print{.cpr-card:hover{transform:none;box-shadow:none}}
+
+/* ── 대형 섹션 모달 내부 탭 버튼(핵심 개념/근거 데이터/생애주기별/임상 적용 등) hover ── */
+.sec-tab-btn{transition:transform .12s,box-shadow .12s,filter .12s;position:relative;z-index:0}
+.sec-tab-btn:hover{transform:translateY(-2px);box-shadow:0 3px 9px rgba(0,0,0,.18);filter:brightness(1.08);z-index:1}
+.sec-tab-btn:active{transform:translateY(0);filter:brightness(.97)}
+@media print{.sec-tab-btn:hover{transform:none;box-shadow:none;filter:none}}
+
+/* ── 특수상황에서 스타틴 치료 세부 항목(① 투석 ~ ⑤) hover ── */
+.ss-item-header{transition:transform .12s,box-shadow .12s,background .12s}
+.ss-item-header:hover{transform:translateX(3px);box-shadow:0 3px 10px rgba(123,94,167,.18);background:#ede4fb!important}
+@media print{.ss-item-header:hover{transform:none;box-shadow:none}}
+
+/* ── CPR 모달 내 C/P/R 미니카드 hover ── */
+.cpr-mini-card{transition:transform .14s,box-shadow .14s}
+.cpr-mini-card:hover{transform:translateY(-2px);box-shadow:0 5px 14px rgba(59,109,17,.18)}
+@media print{.cpr-mini-card:hover{transform:none;box-shadow:none}}
+
+/* ── 클릭 가능한 섹션 헤더(.sec) hover: 위험증강인자/절대적응증/특수상황/NNT/NNH/참고문헌 ── */
+.sec-clickable{transition:filter .12s,transform .12s}
+.sec-clickable:hover{filter:brightness(1.12);transform:translateY(-1px)}
+.sec-clickable:active{transform:translateY(0);filter:brightness(.95)}
+@media print{.sec-clickable:hover{filter:none;transform:none}}
+
+/* ── 작은 텍스트 토글 링크(닫기✕, 상세보기, 용어설명 등) hover ── */
+.text-toggle-link{transition:opacity .12s,transform .12s;display:inline-block}
+.text-toggle-link:hover{opacity:.65;transform:translateY(-1px)}
+
+/* ── 필박스 스타일 토글/액션 버튼(닫기, 복사, 상세보기 등) hover ── */
+.toggle-pill-btn{transition:transform .12s,box-shadow .12s,filter .12s}
+.toggle-pill-btn:hover{transform:translateY(-2px);box-shadow:0 3px 9px rgba(0,0,0,.18);filter:brightness(1.08)}
+.toggle-pill-btn:active{transform:translateY(0);filter:brightness(.95)}
+@media print{.toggle-pill-btn:hover{transform:none;box-shadow:none;filter:none}}
 .print-only{display:none}
 .print-header{margin-bottom:12px}
 
@@ -900,11 +964,11 @@ document.addEventListener('click',function(e){
 
 <!-- CPR BANNER -->
 <div id="cardCprBanner" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px">
-  <div style="background:#fff;border:1px solid #e2e0db;border-top:3px solid #185fa5;border-radius:8px;overflow:hidden">
+  <div class="cpr-card" style="background:#fff;border:1px solid #e2e0db;border-top:3px solid #185fa5;border-radius:8px;overflow:hidden">
     <!-- 헤더: 클릭 시 펼침 -->
     <div id="cumulativeLDLHeader" onclick="openSectionModal('cumulativeLDL')" style="padding:10px 13px;cursor:pointer;user-select:none;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;transition:background .15s" onmouseover="this.style.background='#f0f6fc'" onmouseout="this.style.background='#fff'">
       <div style="display:flex;align-items:center;gap:8px;flex:1">
-        <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#185fa5;color:#fff;font-size:16.5px;font-weight:800;flex-shrink:0">C</span>
+        <span class="cpr-badge" style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#185fa5;color:#fff;font-size:16.5px;font-weight:800;flex-shrink:0">C</span>
         <div>
           <span style="font-size:12.5px;font-weight:700;color:#185fa5;line-height:1.3">Cumulative LDL Burden<br><span style="color:#5f5e5a;font-weight:400">누적 LDL 부담</span></span>
           <div style="font-size:11.5px;color:#5f5e5a;line-height:1.6;margin-top:3px">"얼마나 높은가"보다 <b style="color:#1a1a18">얼마나 오래 노출됐는가</b>가 더 중요. 더 일찍, 더 낮게, 더 오래 치료.</div>
@@ -918,10 +982,10 @@ document.addEventListener('click',function(e){
 
       <!-- 탭 버튼 -->
       <div style="display:flex;border-bottom:1px solid #ddeaf8;background:#f5f9fe">
-        <button id="clTab0" onclick="switchCLTab(0)" style="flex:1;padding:7px 4px;border:none;background:#185fa5;color:#fff;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;border-right:1px solid #ddeaf8">핵심 개념</button>
-        <button id="clTab1" onclick="switchCLTab(1)" style="flex:1;padding:7px 4px;border:none;background:#f5f9fe;color:#185fa5;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;border-right:1px solid #ddeaf8">근거 데이터</button>
-        <button id="clTab2" onclick="switchCLTab(2)" style="flex:1;padding:7px 4px;border:none;background:#f5f9fe;color:#185fa5;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;border-right:1px solid #ddeaf8">생애주기별</button>
-        <button id="clTab3" onclick="switchCLTab(3)" style="flex:1;padding:7px 4px;border:none;background:#f5f9fe;color:#185fa5;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit">임상 적용</button>
+        <button id="clTab0" class="sec-tab-btn" onclick="switchCLTab(0)" style="flex:1;padding:7px 4px;border:none;background:#185fa5;color:#fff;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;border-right:1px solid #ddeaf8">핵심 개념</button>
+        <button id="clTab1" class="sec-tab-btn" onclick="switchCLTab(1)" style="flex:1;padding:7px 4px;border:none;background:#f5f9fe;color:#185fa5;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;border-right:1px solid #ddeaf8">근거 데이터</button>
+        <button id="clTab2" class="sec-tab-btn" onclick="switchCLTab(2)" style="flex:1;padding:7px 4px;border:none;background:#f5f9fe;color:#185fa5;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;border-right:1px solid #ddeaf8">생애주기별</button>
+        <button id="clTab3" class="sec-tab-btn" onclick="switchCLTab(3)" style="flex:1;padding:7px 4px;border:none;background:#f5f9fe;color:#185fa5;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit">임상 적용</button>
       </div>
 
       <!-- ── 탭0: 핵심 개념 ── -->
@@ -1104,11 +1168,11 @@ function switchCLTab(idx){
   });
 }
 </script>
-  <div style="background:#fff;border:1px solid #e2e0db;border-top:3px solid #639922;border-radius:8px;overflow:hidden">
+  <div class="cpr-card" style="background:#fff;border:1px solid #e2e0db;border-top:3px solid #639922;border-radius:8px;overflow:hidden">
     <!-- 헤더: 클릭 시 펼침 -->
     <div id="precisionHeader" onclick="openSectionModal('precision')" style="padding:10px 13px;cursor:pointer;user-select:none;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;transition:background .15s" onmouseover="this.style.background='#f4f9f0'" onmouseout="this.style.background='#fff'">
       <div style="display:flex;align-items:center;gap:8px;flex:1">
-        <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#639922;color:#fff;font-size:16.5px;font-weight:800;flex-shrink:0">P</span>
+        <span class="cpr-badge" style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#639922;color:#fff;font-size:16.5px;font-weight:800;flex-shrink:0">P</span>
         <div>
           <span style="font-size:12.5px;font-weight:700;color:#639922;line-height:1.3">Precision Prevention<br><span style="color:#5f5e5a;font-weight:400">정밀 맞춤 예방</span></span>
           <div style="font-size:11.5px;color:#5f5e5a;line-height:1.6;margin-top:3px">PREVENT 위험도 + 위험증가 인자 + CAC + ApoB + CKM 병기를 <b style="color:#1a1a18">개인별 조합</b>으로 결정.</div>
@@ -1122,29 +1186,29 @@ function switchCLTab(idx){
 
       <!-- 탭 버튼 -->
       <div style="display:flex;border-bottom:1px solid #dff0d0;background:#f6faf2">
-        <button id="ppTab0" onclick="switchPPTab(0)" style="flex:1;padding:7px 4px;border:none;background:#639922;color:#fff;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;border-right:1px solid #dff0d0">CPR 프레임워크</button>
-        <button id="ppTab1" onclick="switchPPTab(1)" style="flex:1;padding:7px 4px;border:none;background:#f6faf2;color:#3b6d11;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;border-right:1px solid #dff0d0">위험증강인자</button>
-        <button id="ppTab2" onclick="switchPPTab(2)" style="flex:1;padding:7px 4px;border:none;background:#f6faf2;color:#3b6d11;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;border-right:1px solid #dff0d0">CAC 재분류</button>
-        <button id="ppTab3" onclick="switchPPTab(3)" style="flex:1;padding:7px 4px;border:none;background:#f6faf2;color:#3b6d11;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit">ApoB · CKM</button>
+        <button id="ppTab0" class="sec-tab-btn" onclick="switchPPTab(0)" style="flex:1;padding:7px 4px;border:none;background:#639922;color:#fff;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;border-right:1px solid #dff0d0">CPR 프레임워크</button>
+        <button id="ppTab1" class="sec-tab-btn" onclick="switchPPTab(1)" style="flex:1;padding:7px 4px;border:none;background:#f6faf2;color:#3b6d11;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;border-right:1px solid #dff0d0">위험증강인자</button>
+        <button id="ppTab2" class="sec-tab-btn" onclick="switchPPTab(2)" style="flex:1;padding:7px 4px;border:none;background:#f6faf2;color:#3b6d11;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;border-right:1px solid #dff0d0">CAC 재분류</button>
+        <button id="ppTab3" class="sec-tab-btn" onclick="switchPPTab(3)" style="flex:1;padding:7px 4px;border:none;background:#f6faf2;color:#3b6d11;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit">ApoB · CKM</button>
       </div>
 
       <!-- ── 탭0: CPR 프레임워크 ── -->
       <div id="ppPanel0" style="padding:12px 13px;display:block">
         <!-- CPR 3단계 -->
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:10px">
-          <div onclick="openCPRModal('C')" style="background:#eaf3de;border:1px solid #c0dd97;border-radius:8px;padding:9px 10px;text-align:center;cursor:pointer;transition:background .15s" onmouseover="this.style.background='#dcecc8'" onmouseout="this.style.background='#eaf3de'">
+          <div class="cpr-mini-card" onclick="openCPRModal('C')" style="background:#eaf3de;border:1px solid #c0dd97;border-radius:8px;padding:9px 10px;text-align:center;cursor:pointer;transition:background .15s" onmouseover="this.style.background='#dcecc8'" onmouseout="this.style.background='#eaf3de'">
             <div style="font-size:16.5px;font-weight:800;color:#3b6d11;line-height:1">C</div>
             <div style="font-size:12.5px;font-weight:700;color:#3b6d11;margin-top:2px">Calculate</div>
             <div style="font-size:10.5px;color:#5f5e5a;margin-top:3px;line-height:1.5">PREVENT 10년/30년<br>ASCVD 위험 계산</div>
             <div style="font-size:8px;color:#639922;margin-top:4px;opacity:.75">클릭하여 자세히 ▾</div>
           </div>
-          <div onclick="openCPRModal('P')" style="background:#eaf3de;border:1px solid #c0dd97;border-radius:8px;padding:9px 10px;text-align:center;cursor:pointer;transition:background .15s" onmouseover="this.style.background='#dcecc8'" onmouseout="this.style.background='#eaf3de'">
+          <div class="cpr-mini-card" onclick="openCPRModal('P')" style="background:#eaf3de;border:1px solid #c0dd97;border-radius:8px;padding:9px 10px;text-align:center;cursor:pointer;transition:background .15s" onmouseover="this.style.background='#dcecc8'" onmouseout="this.style.background='#eaf3de'">
             <div style="font-size:16.5px;font-weight:800;color:#3b6d11;line-height:1">P</div>
             <div style="font-size:12.5px;font-weight:700;color:#3b6d11;margin-top:2px">Personalize</div>
             <div style="font-size:10.5px;color:#5f5e5a;margin-top:3px;line-height:1.5">위험증강인자·생식<br>위험인자·PRS 반영</div>
             <div style="font-size:8px;color:#639922;margin-top:4px;opacity:.75">클릭하여 자세히 ▾</div>
           </div>
-          <div onclick="openCPRModal('R')" style="background:#eaf3de;border:1px solid #c0dd97;border-radius:8px;padding:9px 10px;text-align:center;cursor:pointer;transition:background .15s" onmouseover="this.style.background='#dcecc8'" onmouseout="this.style.background='#eaf3de'">
+          <div class="cpr-mini-card" onclick="openCPRModal('R')" style="background:#eaf3de;border:1px solid #c0dd97;border-radius:8px;padding:9px 10px;text-align:center;cursor:pointer;transition:background .15s" onmouseover="this.style.background='#dcecc8'" onmouseout="this.style.background='#eaf3de'">
             <div style="font-size:16.5px;font-weight:800;color:#3b6d11;line-height:1">R</div>
             <div style="font-size:12.5px;font-weight:700;color:#3b6d11;margin-top:2px">Reclassify</div>
             <div style="font-size:10.5px;color:#5f5e5a;margin-top:3px;line-height:1.5">CAC로 불확실성<br>해소 · 재분류</div>
@@ -1337,11 +1401,11 @@ function switchPPTab(idx){
   });
 }
 </script>
-  <div style="background:#fff;border:1px solid #e2e0db;border-top:3px solid #a32d2d;border-radius:8px;overflow:hidden">
+  <div class="cpr-card" style="background:#fff;border:1px solid #e2e0db;border-top:3px solid #a32d2d;border-radius:8px;overflow:hidden">
     <!-- 헤더: 클릭하면 펼침 -->
     <div id="residualRiskHeader" onclick="openSectionModal('residual')" style="padding:10px 13px;cursor:pointer;user-select:none;display:flex;align-items:flex-start;justify-content:space-between;gap:8px;transition:background .15s" onmouseover="this.style.background='#fdf8f8'" onmouseout="this.style.background='#fff'">
       <div style="display:flex;align-items:center;gap:8px;flex:1">
-        <span style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#a32d2d;color:#fff;font-size:16.5px;font-weight:800;flex-shrink:0">R</span>
+        <span class="cpr-badge" style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#a32d2d;color:#fff;font-size:16.5px;font-weight:800;flex-shrink:0">R</span>
         <div>
           <span style="font-size:12.5px;font-weight:700;color:#a32d2d;line-height:1.3">Residual Risk beyond LDL<br><span style="color:#5f5e5a;font-weight:400">LDL 너머의 잔여 위험</span></span>
           <div style="font-size:11.5px;color:#5f5e5a;line-height:1.6;margin-top:3px">스타틴으로 LDL 조절 후에도 ApoB · Lp(a) · non-HDL · TG로 <b style="color:#1a1a18">잔여 위험을 포착하고 추가 치료.</b></div>
@@ -1355,10 +1419,10 @@ function switchPPTab(idx){
 
       <!-- 탭 버튼 -->
       <div style="display:flex;border-bottom:1px solid #e2e0db;background:#fafaf8">
-        <button id="rrTab0" onclick="switchRRTab(0)" style="flex:1;padding:7px 4px;border:none;background:#a32d2d;color:#fff;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;border-right:1px solid #e2e0db">개요</button>
-        <button id="rrTab1" onclick="switchRRTab(1)" style="flex:1;padding:7px 4px;border:none;background:#fafaf8;color:#a32d2d;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;border-right:1px solid #e2e0db">기전</button>
-        <button id="rrTab2" onclick="switchRRTab(2)" style="flex:1;padding:7px 4px;border:none;background:#fafaf8;color:#a32d2d;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;border-right:1px solid #e2e0db">위험도 중첩</button>
-        <button id="rrTab3" onclick="switchRRTab(3)" style="flex:1;padding:7px 4px;border:none;background:#fafaf8;color:#a32d2d;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit">임상 적용</button>
+        <button id="rrTab0" class="sec-tab-btn" onclick="switchRRTab(0)" style="flex:1;padding:7px 4px;border:none;background:#a32d2d;color:#fff;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;border-right:1px solid #e2e0db">개요</button>
+        <button id="rrTab1" class="sec-tab-btn" onclick="switchRRTab(1)" style="flex:1;padding:7px 4px;border:none;background:#fafaf8;color:#a32d2d;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;border-right:1px solid #e2e0db">기전</button>
+        <button id="rrTab2" class="sec-tab-btn" onclick="switchRRTab(2)" style="flex:1;padding:7px 4px;border:none;background:#fafaf8;color:#a32d2d;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;border-right:1px solid #e2e0db">위험도 중첩</button>
+        <button id="rrTab3" class="sec-tab-btn" onclick="switchRRTab(3)" style="flex:1;padding:7px 4px;border:none;background:#fafaf8;color:#a32d2d;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit">임상 적용</button>
       </div>
 
       <!-- ── 탭0: 개요 ── -->
@@ -1644,7 +1708,7 @@ function switchRRTab(idx){
         <div style="display:flex;align-items:center;gap:6px">
           <input type="number" id="age" min="20" max="90" value="" autocomplete="off"
             style="width:68px;padding:5px 8px;border:1px solid #d0cec8;border-radius:7px;font-size:17.5px;font-weight:700;color:#1a1a18;text-align:center">
-          <span onclick="toggleAgeRangeInfo()" style="font-size:12.5px;color:#185fa5;font-weight:600;cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px" title="범위 외 연령 안내 보기">30–79세: PREVENT 검증 범위</span>
+          <span class="text-toggle-link" onclick="toggleAgeRangeInfo()" style="font-size:12.5px;color:#185fa5;font-weight:600;cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px" title="범위 외 연령 안내 보기">30–79세: PREVENT 검증 범위</span>
         </div>
         <div id="ageRangeInfo" style="display:none;margin-top:5px;padding:9px 11px;background:#eaf2fb;border-radius:8px;border-left:3px solid #185fa5;font-size:11.5px;color:#1a1a18;line-height:1.8;width:295px;max-width:295px;box-sizing:border-box;overflow:hidden;overflow-wrap:anywhere;word-break:keep-all;white-space:normal">
           <div style="font-weight:700;color:#185fa5;margin-bottom:4px">PREVENT 2023 검증 범위 외 연령 적용 원칙</div>
@@ -1662,7 +1726,7 @@ function switchRRTab(idx){
           - LDL ≥190 → 위험도 무관 고강도 스타틴 적응증 섹션 활용<br>
           - 당뇨병·CKD 3-4기 → 가이드라인 권고 대상은 <b>40–75세</b>; 75세 초과는 생활습관 병행하에 <b>공동 결정(consider)</b>으로 격하<br>
           - 1차 예방: Frailty · 기대여명 · 다약제복용 · 환자 선호도 기반 공동 결정 (2026 ACC/AHA)</span>
-          <div style="text-align:right;margin-top:4px"><span onclick="toggleAgeRangeInfo()" style="font-size:11.5px;color:#185fa5;cursor:pointer;font-weight:600">닫기 ✕</span></div>
+          <div style="text-align:right;margin-top:4px"><span class="text-toggle-link" onclick="toggleAgeRangeInfo()" style="font-size:11.5px;color:#185fa5;cursor:pointer;font-weight:600">닫기 ✕</span></div>
         </div>
         <div id="ageOutOfRange" style="display:none;margin-top:4px;padding:5px 9px;border-radius:6px;font-size:12.5px;line-height:1.55"></div>
       </div>
@@ -1747,7 +1811,7 @@ function switchRRTab(idx){
     <!-- 스타틴 복용 중 -->
     <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px">
       <label class="ck" style="display:inline-flex;margin-bottom:0"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:4px;vertical-align:middle">●</span><input type="checkbox" id="onStatin"> <b>현재 스타틴 복용 중</b></label>
-      <span style="font-size:12.5px;color:#185fa5;font-weight:600;line-height:1.5">치료 전 지질수치 값을 모를 때, 복용 중인 <span onclick="var b=document.getElementById('statinIntensityBox');var s=getComputedStyle(b).display==='none';b.style.display=s?'block':'none';this.querySelector('.chev').textContent=s?' ▴':' ▾';" style="color:#0c447c;font-weight:800;text-decoration:underline;text-decoration-style:dotted;cursor:pointer">스타틴 강도<span class="chev" style="font-size:10.5px"> ▾</span></span>를 선택하여 추정값을 계산, 입력할 수 있습니다.</span>
+      <span style="font-size:12.5px;color:#185fa5;font-weight:600;line-height:1.5">치료 전 지질수치 값을 모를 때, 복용 중인 <span class="text-toggle-link" onclick="var b=document.getElementById('statinIntensityBox');var s=getComputedStyle(b).display==='none';b.style.display=s?'block':'none';this.querySelector('.chev').textContent=s?' ▴':' ▾';" style="color:#0c447c;font-weight:800;text-decoration:underline;text-decoration-style:dotted;cursor:pointer">스타틴 강도<span class="chev" style="font-size:10.5px"> ▾</span></span>를 선택하여 추정값을 계산, 입력할 수 있습니다.</span>
     </div>
     <!-- 스타틴 강도 분류표 (클릭 시 펼침) -->
     <div id="statinIntensityBox" style="display:none;margin-bottom:8px;padding:10px 12px;background:#f0f6fc;border:1px solid #b5d4f4;border-radius:8px">
@@ -1858,7 +1922,7 @@ function switchRRTab(idx){
     <div class="field" style="margin-top:0;margin-bottom:0">
       <span class="fl">ApoB — 직접 측정값 (mg/dL)</span>
       <input type="number" autocomplete="off" id="apob" step="1" min="20" max="300" placeholder="미입력 시 LDL-C 기반 추정값 자동 사용">
-      <div style="font-size:11.5px;color:#888780;margin-top:3px;line-height:1.5">※ TG ≥150 · 당뇨 · 치료 중 LDL &lt;70 · <span id="ldlNonhdlTerm" onclick="toggleLdlNonhdlBox()" style="color:#c07a00;font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px" title="클릭하여 설명 보기">LDL·non-HDL 불일치</span> 해당 시 직접 측정 권장 (2026 ACC/AHA Class IIa)</div>
+      <div style="font-size:11.5px;color:#888780;margin-top:3px;line-height:1.5">※ TG ≥150 · 당뇨 · 치료 중 LDL &lt;70 · <span id="ldlNonhdlTerm" class="text-toggle-link" onclick="toggleLdlNonhdlBox()" style="color:#c07a00;font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px" title="클릭하여 설명 보기">LDL·non-HDL 불일치</span> 해당 시 직접 측정 권장 (2026 ACC/AHA Class IIa)</div>
       <div id="ldlNonhdlBox" style="display:none;margin-top:5px;padding:9px 11px;background:#fffbee;border-radius:8px;border-left:3px solid #c07a00;line-height:1.7">
         <div style="font-size:11.5px;font-weight:700;color:#c07a00;margin-bottom:4px">▸ LDL·non-HDL 불일치(Discordance)란?</div>
         <div style="font-size:11.5px;color:#5a4a00">
@@ -1875,7 +1939,7 @@ function switchRRTab(idx){
           잔여 콜레스테롤(Remnant-C)에 의한 <b>잔류 심혈관위험(Residual Risk)</b>이 존재함을 의미한다.<br>
           이 경우 ApoB 직접 측정으로 실제 죽상경화성 입자 부담을 추가 확인한다.
         </div>
-        <div style="text-align:right;margin-top:5px"><span onclick="toggleLdlNonhdlBox()" style="font-size:11.5px;color:#c07a00;cursor:pointer;font-weight:600">닫기 ✕</span></div>
+        <div style="text-align:right;margin-top:5px"><span class="text-toggle-link" onclick="toggleLdlNonhdlBox()" style="font-size:11.5px;color:#c07a00;cursor:pointer;font-weight:600">닫기 ✕</span></div>
       </div>
     </div>
     <div id="apobIndBox" style="display:none;margin-top:5px;padding:7px 10px;background:#e6f1fb;border-radius:7px;border-left:3px solid #185fa5">
@@ -1885,7 +1949,7 @@ function switchRRTab(idx){
   </div>
 
   <div class="card" id="cardRiskEnhancer" style="background:#eaf7fb">
-    <div class="sec" onclick="toggleSection('riskEnhancerBody','riskEnhancerArrow')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none">
+    <div class="sec sec-clickable" onclick="toggleSection('riskEnhancerBody','riskEnhancerArrow')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none">
       <span>위험 증가 인자 (Risk Enhancers) <span style="font-size:12.5px;font-weight:600;color:#bfe3ff;letter-spacing:0;text-transform:none;margin-left:4px">정밀 맞춤 예방 목적이며, 클릭 시 자세한 내용을 확인할 수 있습니다.</span></span>
       <span id="riskEnhancerArrow" style="font-size:13.5px;color:#fff;transition:transform .2s;display:inline-block">▶</span>
     </div>
@@ -1945,7 +2009,7 @@ function switchRRTab(idx){
       <input type="checkbox" class="enh" id="enhCkm">
       <div>
         <div style="font-weight:600;color:#1a1a18">심혈관-신장-대사 (CKM) 증후군
-          <span onclick="event.preventDefault();event.stopPropagation();toggleSection('ckmPanel','ckmPanelArrow')"
+          <span class="text-toggle-link" onclick="event.preventDefault();event.stopPropagation();toggleSection('ckmPanel','ckmPanelArrow')"
             style="font-size:11.5px;color:#185fa5;cursor:pointer;margin-left:6px;font-weight:400">
             상세 ▾<span id="ckmPanelArrow" style="display:none"></span>
           </span>
@@ -1983,7 +2047,7 @@ function switchRRTab(idx){
         ※ 2023 AHA: PREVENT는 CKM 성분(eGFR·UACR·HbA1c·BMI) 포함 — PREVENT 점수가 이미 부분 반영.<br>
         ※ 위 항목은 PREVENT에 미포함된 잔여 CKM 위험을 추가 반영하는 목적.
       </div>
-      <div style="text-align:right;margin-top:6px"><span onclick="event.preventDefault();event.stopPropagation();toggleSection('ckmPanel','ckmPanelArrow')" style="font-size:11.5px;color:#185fa5;cursor:pointer;font-weight:600">닫기 ✕</span></div>
+      <div style="text-align:right;margin-top:6px"><span class="text-toggle-link" onclick="event.preventDefault();event.stopPropagation();toggleSection('ckmPanel','ckmPanelArrow')" style="font-size:11.5px;color:#185fa5;cursor:pointer;font-weight:600">닫기 ✕</span></div>
     </div>
 
     <!-- ── 만성 염증성 질환 ── -->
@@ -1991,7 +2055,7 @@ function switchRRTab(idx){
       <input type="checkbox" class="enh" id="enhInflam">
       <div>
         <div style="font-weight:600;color:#1a1a18">만성 염증성 질환
-          <span onclick="event.preventDefault();event.stopPropagation();toggleSection('inflamPanel','inflamPanelArrow')"
+          <span class="text-toggle-link" onclick="event.preventDefault();event.stopPropagation();toggleSection('inflamPanel','inflamPanelArrow')"
             style="font-size:11.5px;color:#185fa5;cursor:pointer;margin-left:6px;font-weight:400">
             상세 ▾<span id="inflamPanelArrow" style="display:none"></span>
           </span>
@@ -2034,7 +2098,7 @@ function switchRRTab(idx){
           </div>
         </label>
       </div>
-      <div style="text-align:right;margin-top:6px"><span onclick="event.preventDefault();event.stopPropagation();toggleSection('inflamPanel','inflamPanelArrow')" style="font-size:11.5px;color:#c9a02a;cursor:pointer;font-weight:600">닫기 ✕</span></div>
+      <div style="text-align:right;margin-top:6px"><span class="text-toggle-link" onclick="event.preventDefault();event.stopPropagation();toggleSection('inflamPanel','inflamPanelArrow')" style="font-size:11.5px;color:#c9a02a;cursor:pointer;font-weight:600">닫기 ✕</span></div>
     </div>
 
     <!-- ── Table 13 #5 ── -->
@@ -2163,7 +2227,7 @@ function switchRRTab(idx){
 
   <!-- ══ 위험도 무관 스타틴 절대 적응증 ══ -->
   <div class="card" id="cardAbsInd" style="background:#eaf7fb">
-    <div class="sec" onclick="openSectionModal('absInd')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none">
+    <div class="sec sec-clickable" onclick="openSectionModal('absInd')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none">
       <span>위험도 분류 무관 스타틴 적응증 <span style="font-size:12.5px;font-weight:600;color:#bfe3ff;letter-spacing:0;text-transform:none;margin-left:4px">기본정보 입력 또는 CAC 점수 입력시 해당 항목이 활성화 됩니다</span><span style="font-size:10.5px;font-weight:400;color:#cfe4ee;letter-spacing:0;text-transform:none"> (PREVENT 점수에 구속되지 않음)</span></span>
       <span id="absIndArrow" style="font-size:13.5px;color:#fff;transition:transform .2s;display:inline-block">▶</span>
     </div>
@@ -2177,7 +2241,7 @@ function switchRRTab(idx){
 
   <!-- ══ 특수상황에서 스타틴 치료 여부 확인 ══ -->
   <div class="card" id="cardSpecialStatin" style="background:#eaf7fb">
-    <div class="sec" onclick="openSectionModal('specialStatin')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;background:#7b5ea7">
+    <div class="sec sec-clickable" onclick="openSectionModal('specialStatin')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;background:#7b5ea7">
       <span style="display:flex;align-items:center;gap:7px">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
         특수 상황에서 스타틴 치료
@@ -2189,7 +2253,7 @@ function switchRRTab(idx){
 
       <!-- ① 투석 환자 -->
       <div style="margin-bottom:6px">
-        <div onclick="toggleSection('ss1body','ss1arrow')" style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:8px 11px;background:#f3eeff;border:1px solid #c9b4e8;border-radius:8px;user-select:none">
+        <div class="ss-item-header" onclick="toggleSection('ss1body','ss1arrow')" style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:8px 11px;background:#f3eeff;border:1px solid #c9b4e8;border-radius:8px;user-select:none">
           <div style="display:flex;align-items:center;gap:7px">
             <span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:5px;background:#7b5ea7;color:#fff;font-size:11.5px;font-weight:800;flex-shrink:0">1</span>
             <span style="font-size:13.5px;font-weight:700;color:#1a1a18">투석중인 환자에서 치료시작, 치료 지속</span>
@@ -2234,7 +2298,7 @@ function switchRRTab(idx){
 
       <!-- ② 신이식 환자 -->
       <div style="margin-bottom:6px">
-        <div onclick="toggleSection('ss2body','ss2arrow')" style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:8px 11px;background:#f3eeff;border:1px solid #c9b4e8;border-radius:8px;user-select:none">
+        <div class="ss-item-header" onclick="toggleSection('ss2body','ss2arrow')" style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:8px 11px;background:#f3eeff;border:1px solid #c9b4e8;border-radius:8px;user-select:none">
           <div style="display:flex;align-items:center;gap:7px">
             <span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:5px;background:#7b5ea7;color:#fff;font-size:11.5px;font-weight:800;flex-shrink:0">2</span>
             <span style="font-size:13.5px;font-weight:700;color:#1a1a18">신이식 환자에서 스타틴 치료, 주의 사항</span>
@@ -2308,7 +2372,7 @@ function switchRRTab(idx){
 
       <!-- ③ 말기 환자 -->
       <div style="margin-bottom:6px">
-        <div onclick="toggleSection('ss3body','ss3arrow')" style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:8px 11px;background:#f3eeff;border:1px solid #c9b4e8;border-radius:8px;user-select:none">
+        <div class="ss-item-header" onclick="toggleSection('ss3body','ss3arrow')" style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:8px 11px;background:#f3eeff;border:1px solid #c9b4e8;border-radius:8px;user-select:none">
           <div style="display:flex;align-items:center;gap:7px">
             <span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:5px;background:#7b5ea7;color:#fff;font-size:11.5px;font-weight:800;flex-shrink:0">3</span>
             <span style="font-size:13.5px;font-weight:700;color:#1a1a18">말기 환자들에서의 스타틴 치료</span>
@@ -2352,7 +2416,7 @@ function switchRRTab(idx){
 
       <!-- ④ 항암 환자 -->
       <div style="margin-bottom:6px">
-        <div onclick="toggleSection('ss4body','ss4arrow')" style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:8px 11px;background:#f3eeff;border:1px solid #c9b4e8;border-radius:8px;user-select:none">
+        <div class="ss-item-header" onclick="toggleSection('ss4body','ss4arrow')" style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:8px 11px;background:#f3eeff;border:1px solid #c9b4e8;border-radius:8px;user-select:none">
           <div style="display:flex;align-items:center;gap:7px">
             <span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:5px;background:#7b5ea7;color:#fff;font-size:11.5px;font-weight:800;flex-shrink:0">4</span>
             <span style="font-size:13.5px;font-weight:700;color:#1a1a18">활성 암환자에서 스타틴치료</span>
@@ -2418,7 +2482,7 @@ function switchRRTab(idx){
 
       <!-- ⑤ 기타 주의사항 -->
       <div>
-        <div onclick="toggleSection('ss5body','ss5arrow')" style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:8px 11px;background:#f3eeff;border:1px solid #c9b4e8;border-radius:8px;user-select:none">
+        <div class="ss-item-header" onclick="toggleSection('ss5body','ss5arrow')" style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:8px 11px;background:#f3eeff;border:1px solid #c9b4e8;border-radius:8px;user-select:none">
           <div style="display:flex;align-items:center;gap:7px">
             <span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:5px;background:#7b5ea7;color:#fff;font-size:11.5px;font-weight:800;flex-shrink:0">5</span>
             <span style="font-size:13.5px;font-weight:700;color:#1a1a18">기타 주의사항</span>
@@ -2491,7 +2555,7 @@ function switchRRTab(idx){
 
   <!-- ══ NNT 비교 ══ -->
   <div class="card" id="cardNntLeft" style="background:#eaf7fb">
-    <div class="sec" onclick="openSectionModal('nnt')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;background:#7b5ea7">
+    <div class="sec sec-clickable" onclick="openSectionModal('nnt')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;background:#7b5ea7">
       <span style="display:flex;align-items:center;gap:7px">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" style="flex-shrink:0"><path d="M3 18h18"/><path d="M3 12h12"/><path d="M3 6h6"/></svg>
         스타틴 치료 효과 — NNT 비교
@@ -2508,9 +2572,9 @@ function switchRRTab(idx){
     </div>
     <!-- 탭 버튼 -->
     <div style="display:flex;gap:5px;margin-bottom:10px;flex-wrap:wrap">
-      <button id="nntTabBtn0" onclick="switchNNTTab(0)" style="padding:5px 12px;border-radius:6px;font-size:13.5px;font-weight:600;cursor:pointer;border:1px solid #c9b4e8;background:#1a1a18;color:#fff;font-family:inherit">NNT 비교표</button>
-      <button id="nntTabBtn1" onclick="switchNNTTab(1)" style="padding:5px 12px;border-radius:6px;font-size:13.5px;font-weight:600;cursor:pointer;border:1px solid #c9b4e8;background:#f3eeff;color:#7b5ea7;font-family:inherit">시각화</button>
-      <button id="nntTabBtn2" onclick="switchNNTTab(2)" style="padding:5px 12px;border-radius:6px;font-size:13.5px;font-weight:600;cursor:pointer;border:1px solid #c9b4e8;background:#f3eeff;color:#7b5ea7;font-family:inherit">1차예방 분석</button>
+      <button id="nntTabBtn0" class="sec-tab-btn" onclick="switchNNTTab(0)" style="padding:5px 12px;border-radius:6px;font-size:13.5px;font-weight:600;cursor:pointer;border:1px solid #c9b4e8;background:#1a1a18;color:#fff;font-family:inherit">NNT 비교표</button>
+      <button id="nntTabBtn1" class="sec-tab-btn" onclick="switchNNTTab(1)" style="padding:5px 12px;border-radius:6px;font-size:13.5px;font-weight:600;cursor:pointer;border:1px solid #c9b4e8;background:#f3eeff;color:#7b5ea7;font-family:inherit">시각화</button>
+      <button id="nntTabBtn2" class="sec-tab-btn" onclick="switchNNTTab(2)" style="padding:5px 12px;border-radius:6px;font-size:13.5px;font-weight:600;cursor:pointer;border:1px solid #c9b4e8;background:#f3eeff;color:#7b5ea7;font-family:inherit">1차예방 분석</button>
     </div>
 
     <!-- Panel 0: NNT 비교표 -->
@@ -2628,7 +2692,7 @@ function switchRRTab(idx){
 
   <!-- ══ NNH 독립 카드 ══ -->
   <div class="card" id="cardNnhLeft" style="background:#eaf7fb">
-    <div class="sec" onclick="openSectionModal('nnh')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;background:#7b5ea7">
+    <div class="sec sec-clickable" onclick="openSectionModal('nnh')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;background:#7b5ea7">
       <span style="display:flex;align-items:center;gap:7px">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
         스타틴 부작용 — NNH 비교
@@ -2671,9 +2735,9 @@ function switchRRTab(idx){
             <tbody>
               <tr>
                 <td>
-                  <b style="cursor:pointer;color:#185fa5;text-decoration:underline dotted;text-underline-offset:2px"
+                  <b class="text-toggle-link" style="cursor:pointer;color:#185fa5;text-decoration:underline dotted;text-underline-offset:2px"
                      onclick="toggleNodmDetail()" title="클릭하여 상세 설명 보기">신규 당뇨 (NODM)</b>
-                  <br><span style="font-size:10.5px;color:#185fa5;cursor:pointer" onclick="toggleNodmDetail()">&#9658; 상세 보기</span>
+                  <br><span class="text-toggle-link" style="font-size:10.5px;color:#185fa5;cursor:pointer" onclick="toggleNodmDetail()">&#9658; 상세 보기</span>
                 </td>
                 <td style="color:#854f0b">+0.10–0.43%/yr</td>
                 <td>1.10–1.36</td>
@@ -2690,7 +2754,7 @@ function switchRRTab(idx){
           <!-- 고정 헤더 -->
           <div style="padding:10px 16px 9px;background:#faeeda;border-bottom:1px solid #f5d88a;border-radius:10px 10px 0 0;display:flex;align-items:center;justify-content:space-between">
             <span style="font-size:13.5px;font-weight:700;color:#854f0b">신규 당뇨 (NODM) &#8212; 기전 및 임상 적용</span>
-            <button onclick="toggleNodmDetail()" style="padding:3px 13px;background:#854f0b;color:#fff;border:none;border-radius:5px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit">닫기 &#10005;</button>
+            <button class="toggle-pill-btn" onclick="toggleNodmDetail()" style="padding:3px 13px;background:#854f0b;color:#fff;border:none;border-radius:5px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit">닫기 &#10005;</button>
           </div>
           <!-- 스크롤 본문 -->
           <div style="max-height:420px;overflow-y:auto;overflow-x:hidden;padding:14px 16px 12px;background:#fffbf0;line-height:1.75">
@@ -2802,10 +2866,10 @@ function switchRRTab(idx){
               </tr>
               <tr>
                 <td>
-                  <b style="cursor:pointer;color:#185fa5;text-decoration:underline dotted;text-underline-offset:2px"
+                  <b class="text-toggle-link" style="cursor:pointer;color:#185fa5;text-decoration:underline dotted;text-underline-offset:2px"
                      onclick="toggleSamsDetail()" title="클릭하여 상세 설명 보기">약리적 SAMS</b>
                   <br><span style="font-size:11.5px;color:#888780">(진성, 근육통 등)</span>
-                  <br><span style="font-size:10.5px;color:#185fa5;cursor:pointer" onclick="toggleSamsDetail()">▶ 상세 보기</span>
+                  <br><span class="text-toggle-link" style="font-size:10.5px;color:#185fa5;cursor:pointer" onclick="toggleSamsDetail()">▶ 상세 보기</span>
                 </td>
                 <td style="color:#854f0b">+0.5–2%/yr<br><span style="font-size:11.5px">(NLA 2022 추정)</span></td>
                 <td>RCT ~1.07<br><span style="font-size:11.5px">관찰 1.5–3×</span></td>
@@ -2823,7 +2887,7 @@ function switchRRTab(idx){
           <!-- ── 고정 헤더 ── -->
           <div style="padding:10px 16px 9px;background:#ddeefa;border-bottom:1px solid #b8d4ee;border-radius:10px 10px 0 0;display:flex;align-items:center;justify-content:space-between">
             <span style="font-size:13.5px;font-weight:700;color:#185fa5">약리적 SAMS &#8212; 기전 및 임상 적용</span>
-            <button onclick="toggleSamsDetail()" style="padding:3px 13px;background:#185fa5;color:#fff;border:none;border-radius:5px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit">닫기 &#10005;</button>
+            <button class="toggle-pill-btn" onclick="toggleSamsDetail()" style="padding:3px 13px;background:#185fa5;color:#fff;border:none;border-radius:5px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit">닫기 &#10005;</button>
           </div>
 
           <!-- ── 스크롤 본문 (height 고정 → 반드시 scrollbar 생성) ── -->
@@ -3085,7 +3149,7 @@ function switchRRTab(idx){
   <div class="card no-print" style="background:#eaf7fb">
     <div class="sec" style="display:flex;align-items:center;gap:8px">
       <span>전자차트 복사용 결과요약</span>
-      <button type="button" onclick="copyResultSummary()" style="padding:3px 11px;background:#6b6b68;color:#fff;border:none;border-radius:5px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;flex-shrink:0">복사</button>
+      <button type="button" class="toggle-pill-btn" onclick="copyResultSummary()" style="padding:3px 11px;background:#6b6b68;color:#fff;border:none;border-radius:5px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;flex-shrink:0">복사</button>
     </div>
     <div id="copyStatus" class="nb info" style="display:none;margin-bottom:7px"></div>
     <div id="excelStatus" class="nb info" style="display:none;margin-bottom:7px"></div>
@@ -3113,7 +3177,7 @@ function switchRRTab(idx){
     </div>
     <div id="nntSummary" style="font-size:12.5px;color:#888780;margin-top:4px">기본정보 입력 시 이 환자의 개인화 NNT가 계산됩니다.</div>
     <div id="nntBtnWrap" style="display:none;margin-top:8px">
-      <button onclick="toggleSection('nntDetail','nntDetailArrow')" style="display:flex;align-items:center;gap:5px;padding:5px 12px;border-radius:6px;font-size:13.5px;font-weight:600;cursor:pointer;border:1px solid #c9b4e8;background:#f3eeff;color:#7b5ea7;font-family:inherit">
+      <button class="toggle-pill-btn" onclick="toggleSection('nntDetail','nntDetailArrow')" style="display:flex;align-items:center;gap:5px;padding:5px 12px;border-radius:6px;font-size:13.5px;font-weight:600;cursor:pointer;border:1px solid #c9b4e8;background:#f3eeff;color:#7b5ea7;font-family:inherit">
         자세히 보기 <span id="nntDetailArrow" style="font-size:11.5px">▶</span>
       </button>
     </div>
@@ -3137,7 +3201,7 @@ function switchRRTab(idx){
 
   <!-- 참고 문헌 및 주의사항 (NNT 카드 바로 아래, 오른쪽 컬럼 단독 카드) -->
   <div class="card" id="cardReference" style="margin-top:0;background:#eaf7fb">
-    <div class="sec" id="refToggle" onclick="toggleSection('refBody','refArrowSpan')"
+    <div class="sec sec-clickable" id="refToggle" onclick="toggleSection('refBody','refArrowSpan')"
       style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none">
       <span>참고 문헌 및 주의사항, 피드백</span>
       <span id="refArrowSpan" style="font-size:11.5px;color:#cfe4ee;margin-left:8px">▶</span>
@@ -4817,7 +4881,7 @@ function upd(){
         ${ind.active?`<div style="font-size:11.5px;color:#888780;margin-top:3px;line-height:1.5">${ind.basis}</div>`:''}
         ${ind.key==='ldl190'&&ind.active?`
         <div style="margin-top:7px">
-          <button onclick="toggleDLCN()" style="display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border:1px solid #c9b4e8;border-radius:6px;background:#f3eeff;color:#7b5ea7;font-size:11.5px;font-weight:700;cursor:pointer;font-family:inherit">
+          <button class="toggle-pill-btn" onclick="toggleDLCN()" style="display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border:1px solid #c9b4e8;border-radius:6px;background:#f3eeff;color:#7b5ea7;font-size:11.5px;font-weight:700;cursor:pointer;font-family:inherit">
             <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#7b5ea7" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
             FH 진단기준 (DLCN 점수) <span id="dlcnArrow" style="font-size:10.5px">▶</span>
           </button>
@@ -4850,7 +4914,7 @@ function upd(){
         <b>HoFH 임상진단 (DLCN 비적용):</b> LDL &gt; 400 mg/dL + 소아기 건판종 또는 양 부모 HeFH 수준 LDL<br>
         <b>LDL 목표:</b> HeFH &lt;70 · HeFH+ASCVD &lt;55 · LDL≥190(비FH) &lt;100 mg/dL
       </div>
-      <div style="text-align:right;margin-top:6px"><span onclick="toggleDLCN()" style="font-size:11.5px;color:#7b5ea7;cursor:pointer;font-weight:600">닫기 ✕</span></div>
+      <div style="text-align:right;margin-top:6px"><span class="text-toggle-link" onclick="toggleDLCN()" style="font-size:11.5px;color:#7b5ea7;cursor:pointer;font-weight:600">닫기 ✕</span></div>
     </div>`:''}`;
   });
   if(g('absIndList')) g('absIndList').innerHTML=absHtml;
