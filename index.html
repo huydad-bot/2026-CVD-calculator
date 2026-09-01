@@ -3856,11 +3856,11 @@ function makeFlow(acc,preventCat,ldl,ascvd,vhr,onStatin=false,baselineLdl=null,t
         : '생활습관 교정';
   const s1drugs=onStatin
     ? '치료 후/현재 LDL-C 기준으로 목표 달성 여부를 평가합니다.'
-    : acc.c==='hi'
-      ? 'Rosuvastatin 20–40 mg &nbsp;|&nbsp; Atorvastatin 40–80 mg'
-      : acc.c==='mo'
-        ? 'Atorvastatin 10–20 mg &nbsp;|&nbsp; Rosuvastatin 5–10 mg'
-        : '식이·운동·금연';
+    : (acc.c==='hi'||acc.c==='mo')
+      ? (Array.isArray(acc.d)&&acc.d.length
+          ? acc.d.join(' &nbsp;|&nbsp; ')
+          : (acc.c==='hi' ? 'Rosuvastatin 20–40 mg &nbsp;|&nbsp; Atorvastatin 40–80 mg' : 'Atorvastatin 10–20 mg &nbsp;|&nbsp; Rosuvastatin 5–10 mg'))
+      : '식이·운동·금연';
   const s1ldl=onStatin?ldl:(acc.c==='hi'?afterHi:acc.c==='mo'?afterMo:ldl);
 
   // ── [Bug C] onStatin: Step1 note에 스타틴 최대화 확인 문구 추가 ──
@@ -4135,11 +4135,15 @@ function makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt
     const prevPrefix = ageOutOfRange
       ? `위험도 분류 무관 스타틴 적응증에 해당하여 치료를 권고함 ${ageRangeNote}`
       : `${preventLine}이나, 아래 위험도 분류 무관 스타틴 적응증에 해당하여 PREVENT 점수와 무관하게 치료를 권고함`;
+    const hivPrefLine = (activeInds.some(i=>i.key==='hiv') && strengthText==='중등강도')
+      ? `선호 약제: Pitavastatin 4 mg (CYP3A4 비의존 → protease inhibitor 상호작용 최소, REPRIEVE trial)`
+      : '';
     return bl([
       prevPrefix,
       `적응증: ${indNames}`,
       `치료 전 LDL-C는 ${ldl} mg/dL이며, ${txState}LDL-C 목표는 <${dispLdlTgt} mg/dL`,
       `${strengthText} 스타틴 치료를 권고하며, ${addonText}`,
+      hivPrefLine,
       ckdLine,
       tgLine,
       nntLine
@@ -4916,8 +4920,12 @@ function upd(){
                nt:'info',ldlTgt:100,nhTgt:130};
         }
       } else {
-        // 당뇨·CKD 등 다른 절대 적응증이 이미 처방을 결정한 경우 — HIV 추가 명시
+        // 당뇨·CKD 등 다른 절대 적응증이 이미 처방을 결정한 경우 — HIV 추가 명시 + 선호 약제를 Step 1 목록에도 반영
+        const hivPrefDrugs = (acc.c==='mo' && Array.isArray(acc.d))
+          ? ['Pitavastatin 4 mg', ...acc.d.filter(x=>!x.startsWith('Pitavastatin'))]
+          : acc.d;
         acc={...acc,
+          d: hivPrefDrugs,
           ind: acc.ind + ' · HIV (안정 cART, 40–75세)',
           n: (acc.n||'') + '<br><span style="color:#a32d2d;font-weight:700">▸ 추가 적응증 — HIV (안정 cART) 40–75세</span>: 2026 ACC/AHA Class I (REPRIEVE trial). 현재 처방 강도(중등강도)로 LDL 목표 &lt;100 mg/dL 충족. 선호 약제: <b>Pitavastatin 4 mg</b> — CYP3A4 비의존, Protease inhibitor 상호작용 최소.'
         };
