@@ -618,16 +618,16 @@ document.addEventListener('keydown', function(e){
       </div>
 
       <div style="overflow-x:auto">
-        <table style="width:100%;min-width:980px;border-collapse:collapse;font-size:12.5px">
+        <table style="width:100%;min-width:1100px;border-collapse:collapse;font-size:12.5px">
           <thead>
             <tr style="background:#2e5339">
               <th style="color:#fff;font-weight:700;text-align:center;padding:9px 6px;border:1px solid #3d6b4a;width:34px">#</th>
-              <th style="color:#fff;font-weight:700;text-align:left;padding:9px 10px;border:1px solid #3d6b4a;width:150px">관리군</th>
-              <th style="color:#fff;font-weight:700;text-align:left;padding:9px 10px;border:1px solid #3d6b4a">어떤 환자인가</th>
-              <th style="color:#fff;font-weight:700;text-align:left;padding:9px 10px;border:1px solid #3d6b4a">위험도를 어떻게 판단하나</th>
-              <th style="color:#fff;font-weight:700;text-align:left;padding:9px 10px;border:1px solid #3d6b4a">스타틴, 언제 시작하나</th>
-              <th style="color:#fff;font-weight:700;text-align:left;padding:9px 10px;border:1px solid #3d6b4a;width:100px">LDL-C 목표</th>
-              <th style="color:#fff;font-weight:700;text-align:left;padding:9px 10px;border:1px solid #3d6b4a">한 줄 메모</th>
+              <th style="color:#fff;font-weight:700;text-align:left;padding:9px 10px;border:1px solid #3d6b4a;width:140px">관리군</th>
+              <th style="color:#fff;font-weight:700;text-align:left;padding:9px 10px;border:1px solid #3d6b4a;width:190px">어떤 환자인가</th>
+              <th style="color:#fff;font-weight:700;text-align:left;padding:9px 10px;border:1px solid #3d6b4a;width:190px">위험도를 어떻게 판단하나</th>
+              <th style="color:#fff;font-weight:700;text-align:left;padding:9px 10px;border:1px solid #3d6b4a;width:250px">스타틴, 언제 시작하나</th>
+              <th style="color:#fff;font-weight:700;text-align:left;padding:9px 10px;border:1px solid #3d6b4a;width:140px">LDL-C 목표</th>
+              <th style="color:#fff;font-weight:700;text-align:left;padding:9px 10px;border:1px solid #3d6b4a;width:160px">한 줄 메모</th>
             </tr>
           </thead>
           <tbody id="groupsModalBody"></tbody>
@@ -640,6 +640,7 @@ document.addEventListener('keydown', function(e){
           <li><b>1~4군은 "환자가 누구인지"</b>로 정해지고(1차예방 대상인지, LDL≥190인지, 당뇨가 있는지, ASCVD를 이미 앓았는지), <b>5~6군은 "검사에서 무엇이 나왔는지"</b>로 정해진다(영상에서 플라크가 보였는지, TG 수치가 높은지). 그래서 한 환자가 여러 군에 걸칠 수 있다 — 예: 당뇨병(3군) 환자에게서 우연히 CAC 300점(5군)이 나오면, 더 엄격한 5군 목표(&lt;70)를 따른다.</li>
           <li><b>PREVENT 계산기(1군에서 쓰는 위험도 계산 도구)는 2, 4, 5군에는 아예 쓰지 않는다.</b> LDL이 190 이상이면 계산기의 적용 범위(70~189)를 벗어나고, 이미 ASCVD를 앓았거나 영상에서 플라크가 확인된 사람은 "앞으로의 위험을 추정"할 필요 없이 이미 답이 나온 상태이기 때문이다. 이 세 군은 각자 자기만의 기준을 따로 갖는다. 반대로 <b>3군(당뇨)과 6군(고중성지방혈증)은 PREVENT 계산 대상에 그대로 포함</b>된다 — 당뇨는 계산에 들어가는 항목이고, TG는 애초에 계산기 적용 조건에 없기 때문이다. 이 두 군은 "계산은 정상대로 하되, 그 결과와 별개로 추가 규칙이 얹히는" 구조다.</li>
           <li><b>2차 예방(4군)은 위험도를 다시 잴 필요가 없는 유일한 군</b>이다 — 이미 병을 앓았다는 사실 자체가 답이라, 무조건 고강도 스타틴부터 시작한다.</li>
+          <li><b>5군 내에서도 CAC와 경동맥 플라크는 근거 수준이 다르다.</b> "위험도 무관·목표치 확립"이라는 5군의 성격은 CAC에만 온전히 적용된다. 경동맥 플라크는 2026 ACC/AHA 원문도 "LLT는 유익하나 구체적 LDL 목표를 정할 근거는 불충분"하다고 명시하고, 논의 자체가 중간·일부 경계위험군 맥락에 한정되어 있어 저위험군에 그대로 적용할 근거가 없다. 대퇴동맥 플라크는 이 가이드라인에 아예 언급되지 않는다.</li>
         </ul>
       </div>
     </div>
@@ -649,41 +650,41 @@ document.addEventListener('keydown', function(e){
 <script>
 var GROUPS_DATA = [
   { n:1, name:'1차 예방', nameEn:'Primary Prevention',
-    def:'심혈관질환·뇌졸중을 앓은 적 없고, 영상검사에서 혈관 플라크가 확인된 적도 없으며, LDL-C가 70~189인 30~79세',
+    def:'• 심혈관질환·뇌졸중을 앓은 적 없음<br>• 영상검사에서 혈관 플라크가 확인된 적도 없음<br>• LDL-C 70~189 mg/dL, 30~79세',
     tool:'PREVENT 계산기로 10년·30년 위험도 산출',
     statin:'• <b style="color:#5f5e5a">저위험(&lt;3%)</b>: 생활습관만<br>• <b style="color:#854f0b">경계위험(3–&lt;5%)</b>: 위험인자 있으면 중등강도 스타틴 고려(조건부)<br>• <b style="color:#ef9f27">중간위험(5–&lt;10%)</b>: 중등강도 스타틴 권고(무조건)<br>• <b style="color:#a32d2d">고위험(≥10%)</b>: 고강도 스타틴 권고',
     ldl:'• 경계·중간위험 &lt;100<br>• 고위험 &lt;70',
-    note:'남 40세·여 45세 이상이면 CAC 점수(심장 CT)로 재분류 가능' },
+    note:'• 남 40세·여 45세 이상이면 CAC 점수(심장 CT)로 재분류 가능' },
   { n:2, name:'중증 고콜레스테롤혈증', nameEn:'LDL-C ≥190 mg/dL',
-    def:'다른 원인 질환 없이 LDL-C가 190 이상으로 매우 높은 경우(가족성 고콜레스테롤혈증 포함)',
-    tool:'※ PREVENT 계산 대상 아님 — LDL이 190 이상이면 계산기 적용 범위(70~189) 밖<br>대신 가족성 고콜레스테롤혈증 여부를 임상기준·유전자검사로 확인',
-    statin:'나이나 위험도 계산과 상관없이 원칙적으로 시작',
-    ldl:'고강도 스타틴부터, 필요하면 다른 약 추가',
-    note:'LDL≥160인 젊은 성인이나, 집안에 조기 심장병 병력이 강하면 더 일찍 치료 고려' },
+    def:'• 다른 원인 질환 없이 LDL-C ≥190 mg/dL<br>• 가족성 고콜레스테롤혈증(FH) 포함',
+    tool:'※ PREVENT 계산 대상 아님<br>• LDL≥190이면 계산기 적용 범위(70~189) 밖<br>• 대신 FH 여부를 임상기준·유전자검사로 확인',
+    statin:'• 나이·위험도 계산과 상관없이 원칙적으로 시작',
+    ldl:'• 고강도 스타틴부터 시작<br>• 필요하면 다른 약 추가',
+    note:'• LDL≥160인 젊은 성인<br>• 집안에 조기 심장병 병력이 강한 경우<br>→ 더 일찍 치료 고려' },
   { n:3, name:'당뇨병', nameEn:'ASCVD 없는 당뇨',
-    def:'1형이든 2형이든 당뇨병이 있지만, 아직 심장병·뇌졸중을 앓은 적은 없는 경우',
-    tool:'✓ PREVENT 계산 대상에 포함(당뇨는 계산에 들어가는 항목) — 대부분 중간·고위험으로 나옴<br>단, 40~75세는 계산 결과와 무관하게 "당뇨=치료 시작"이 우선(오른쪽 참고)',
-    statin:'40~75세는 당뇨 자체가 치료 이유 — LDL 수치나 콩팥 기능이 정상이어도 시작<br>CKD 3~4기, HIV도 당뇨와 마찬가지로 각각 단독 치료 이유(셋 중 하나만 있어도 해당, 다 있어야 하는 것 아님)<br>75세 초과: 생활습관과 함께 고려',
-    ldl:'위험도에 따라 &lt;100 또는 &lt;70',
-    note:'위험 인자가 여러 개 겹치면 더 강하게 치료' },
+    def:'• 1형이든 2형이든 당뇨병이 있음<br>• 아직 심장병·뇌졸중을 앓은 적은 없음',
+    tool:'✓ PREVENT 계산 대상에 포함<br>• 당뇨는 계산 항목 — 대부분 중간·고위험으로 나옴<br>• 단, 40~75세는 계산 결과와 무관하게 "당뇨=치료 시작"이 우선',
+    statin:'• 40~75세: 당뇨 자체가 치료 이유 — LDL·콩팥 기능 정상이어도 시작<br>• 75세 초과: 생활습관과 함께 고려',
+    ldl:'• 위험도에 따라 &lt;100 또는 &lt;70',
+    note:'• 위험 인자가 여러 개 겹치면 더 강하게 치료' },
   { n:4, name:'임상적 ASCVD', nameEn:'2차 예방',
-    def:'이미 심근경색, 뇌졸중, 말초동맥질환을 앓은 적이 있는 경우',
-    tool:'※ PREVENT 계산 대상 아님 — 이미 병을 앓았다는 사실 자체가 답이라 "앞으로의 위험"을 계산할 필요가 없음<br>대신 초고위험인지 아닌지만 구분(최근 12개월 내 급성관상동맥증후군, 여러 번의 주요사건, 또는 사건 1회+고위험 동반질환 65세 초과·재관류술·흡연·당뇨·심부전·고혈압 등)',
-    statin:'무조건 고강도 스타틴부터 시작',
-    ldl:'고위험 &lt;70<br>초고위험 &lt;55',
-    note:'약으로 목표에 못 미치면 에제티미브 → PCSK9 억제제/inclisiran → bempedoic acid 순으로 추가' },
+    def:'• 이미 심근경색, 뇌졸중, 말초동맥질환을 앓은 적이 있음',
+    tool:'※ PREVENT 계산 대상 아님 — 이미 병을 앓았다는 사실 자체가 답<br>• 초고위험 여부만 구분: 최근 12개월 내 급성관상동맥증후군, 여러 번의 주요사건<br>• 또는 사건 1회 + 고위험 동반질환(65세 초과·재관류술·흡연·당뇨·심부전·고혈압 등)',
+    statin:'• 무조건 고강도 스타틴부터 시작',
+    ldl:'• 고위험 &lt;70<br>• 초고위험 &lt;55',
+    note:'• 목표 미달 시: 에제티미브 → PCSK9 억제제/inclisiran → bempedoic acid 순으로 추가' },
   { n:5, name:'무증상 죽상경화', nameEn:'Subclinical Atherosclerosis',
-    def:'증상은 없지만 CT·초음파 같은 영상검사에서 혈관 플라크가 우연히 발견된 경우',
-    tool:'※ PREVENT 계산 대상 아님 — 이미 플라크가 보인다는 건 위험을 "추정"할 필요 없이 "확인"된 상태<br>CAC 점수(심장 CT) 또는 경동맥·대퇴동맥 플라크로 판단',
-    statin:'CAC 1–99점 & 나이별 하위 75%: 중등도 강도 스타틴 권고<br>CAC ≥100점 또는 상위 25%: 고강도 스타틴 권고<br>CAC ≥1000점: 고강도 필수<br>경동맥·대퇴동맥 플라크가 보여도 마찬가지로 재분류 근거',
-    ldl:'• CAC 1–99: &lt;100<br>• CAC ≥100: &lt;70<br>• CAC ≥1000: &lt;55',
-    note:'⚠ 1군(PREVENT 위험도 계산 대상)에서 CAC를 재분류용 위험증강인자로만 참고해 스타틴 시작 여부를 "고려"하는 것과는 다르다 — 5군은 CAC 검사 자체로 무증상 죽상경화가 "확인"된 상태이므로, CAC 1–99라도 중등도 스타틴이 권고 사항이다(강도만 100점 이상 구간보다 낮을 뿐, 권고 여부 자체가 약해지는 것은 아님). 다른 목적으로 찍은 CT(조영 없는 흉부 CT 등)에서 우연히 보인 석회화도 활용 가능(신설)' },
+    def:'• 영상검사에서 CAC(관상동맥 석회화)<br>• 경동맥 초음파 플라크 발견<br>• 우연히 발견된 관상동맥 석회화(비게이팅 CT)',
+    tool:'※ PREVENT 계산 대상 아님(CAC 경로에 한함)<br>• CAC 점수(심장 CT)가 1차·확정 근거<br>• 경동맥 초음파 플라크: "LLT 유익하나 구체적 목표 근거 불충분" — 중간·일부 경계위험군의 경우 스타틴 권고(저위험군은 스타틴 권고 근거 없음)',
+    statin:'• CAC 1–99 & 나이별 하위 75%: 중등도 강도 스타틴 권고<br>• CAC ≥100 또는 상위 25%: 고강도 스타틴 권고<br>• CAC ≥1000: 고강도 필수<br>• 경동맥 플라크: LLT 유익성 인정되나 목표치·독립적 적응증 여부는 근거 불충분 — 위험도와 결합해서만 판단<br>• 우연히 발견된 관상동맥 석회화(비게이팅 CT, 육안 정성평가): 경미(mild) → 중등도 강도 스타틴 / 중등도·심함(moderate·severe) → 고강도 스타틴',
+    ldl:'• CAC 1–99: &lt;100<br>• CAC ≥100: &lt;70<br>• CAC ≥1000: &lt;55<br><br>• 경동맥 플라크 단독: 공식 목표치 없음(잠정 &lt;100 수준으로 참고)<br><br>• 우연히 발견된 석회화 — 경미: &lt;100 / 중등도·심함: 목표 숫자 원문 미명시(실무상 &lt;70 적용 가능)',
+    note:'⚠ CAC 1–99도 "고려"가 아니라 중등도 스타틴 권고 사항<br>• 경동맥 플라크는 근거 약함 — 위험도와 결합해서만 참고(대퇴동맥은 언급 없음)<br>• 우연히 발견된 관상동맥 석회화(비게이팅 CT)는 정량 점수가 아닌 육안 등급으로 판단' },
   { n:6, name:'고중성지방혈증', nameEn:'Hypertriglyceridemia',
-    def:'공복 중성지방(TG)이 계속 높게 나오는 경우',
-    tool:'✓ PREVENT 계산 대상에 포함(TG는 계산기 적용 조건에 없음) — 위험도 계산은 1군과 동일하게 진행<br>TG가 높은 원인부터 확인(음주, 조절 안 된 당뇨, 갑상선기능저하증 등)<br>TG≥400이면 계산에 쓸 LDL-C는 직접 측정치나 non-HDL-C로 대체(계산식 오차 보정)',
-    statin:'중성지방 자체보다 심장병 예방이 목적 — 스타틴이 기본 치료',
-    ldl:'LDL-C·non-HDL-C 목표도 함께 관리',
-    note:'TG ≥1000이면 췌장염 예방을 위해 TG강하제(피브레이트, 오메가-3 등)를 추가로 고려' }
+    def:'• 공복 중성지방(TG)이 계속 높게 나옴',
+    tool:'✓ PREVENT 계산 대상에 포함(TG는 계산기 적용 조건에 없음)<br>• 위험도 계산은 1군과 동일하게 진행<br>• TG 높은 원인부터 확인(음주, 조절 안 된 당뇨, 갑상선기능저하증 등)<br>• TG≥400이면 계산용 LDL-C는 직접 측정치나 non-HDL-C로 대체',
+    statin:'• 중성지방 자체보다 심장병 예방이 목적 — 스타틴이 기본 치료',
+    ldl:'• LDL-C·non-HDL-C 목표도 함께 관리',
+    note:'• TG ≥1000이면 췌장염 예방을 위해 TG강하제(피브레이트, 오메가-3 등)를 추가로 고려' }
 ];
 
 function renderGroupsModal(){
@@ -797,7 +798,7 @@ var GLOSSARY=[
   {abbr:'UACR',full:'Urine Albumin-to-Creatinine Ratio',ko:'소변 알부민-크레아티닌 비',desc:'신장 손상 지표(mg/g). 30 이상: 미세알부민뇨. 300 이상: 대량알부민뇨. PREVENT 2023 포함 변수'},
   {abbr:'HbA1c',full:'Hemoglobin A1c (Glycated Hemoglobin)',ko:'당화혈색소',desc:'3개월 혈당 조절 지표(%). 5.7–6.4%: 전당뇨. ≥6.5%: 당뇨 진단. PREVENT 2023 포함 변수. 당뇨(dm=1) 시 hba1cDm 계수, 비당뇨(dm=0) 시 hba1cNoDm 계수로 각각 별도 반영. 단독으로 입력해도 PREVENT의 HbA1c 전용 모델(AHA 보충자료 Table S12.C/H)이 적용되어 위험도에 반영됨. UACR도 함께 입력하면 Full model이 적용됨'},
   {abbr:'BMI',full:'Body Mass Index',ko:'체질량지수',desc:'체중(kg) / 신장(m²). ≥25: 과체중, ≥30: 비만, ≥35: 고도비만(CKM 위험증강인자). PREVENT 모델 포함 변수'},
-  {abbr:'CAC',full:'Coronary Artery Calcification (Score)',ko:'관상동맥 석회화 점수',desc:'CT로 측정하는 무증상 죽상경화 정량 지표. CAC=0: 10년 스타틴 유예 합리적. 1–99: 1군(경계·중간위험 재분류 목적)에서는 위험증강인자로 참고하지만, 5군(CAC로 무증상 죽상경화가 이미 확인된 경우)에서는 그 자체로 중등도 스타틴 권고 근거(LDL<100). 100–299 또는 ≥75백분위: 스타틴 충분조건(LDL<70). 300–999: 고강도 스타틴. ≥1000: 초고위험 수준(LDL<55)'},
+  {abbr:'CAC',full:'Coronary Artery Calcification (Score)',ko:'관상동맥 석회화 점수',desc:'CT로 측정하는 무증상 죽상경화 정량 지표. CAC=0: 10년 위험 낮음(부재 확인은 아님) — 스타틴 유예 합리적, 1군(PREVENT) 트랙 유지. CAC≥1(양성) 확인 시 1군에서 5군(Subclinical atherosclerosis) 기준으로 전환: 1–99는 중등도 스타틴 권고(LDL<100), 100–299 또는 ≥75백분위는 고강도 스타틴 충분조건(LDL<70), 300–999는 고강도 스타틴, ≥1000은 초고위험 수준(LDL<55)'},
   {abbr:'ABI',full:'Ankle-Brachial Index',ko:'발목-상완 지수',desc:'<0.9: 말초동맥질환(PAD). 무증상이면 위험증강인자(LDL<100). 파행·재개통술·궤양 있으면 ASCVD 2차 예방으로 전환. >1.40: 혈관 석회화로 비압박성 — toe-brachial index 시행 권장'},
   {abbr:'PRS',full:'Polygenic Risk Score',ko:'다유전자 위험 점수',desc:'수십만 개 SNP 조합으로 산출한 유전 위험도. CAD PRS 상위 10% 이내 또는 상대위험도 ≥2배 시 위험증강인자 (2026 ACC/AHA Class 2a)'},
   {abbr:'CAD',full:'Coronary Artery Disease',ko:'관상동맥질환',desc:'ASCVD의 주요 임상 표현형. 안정협심증·불안정협심증·MI 포함'},
@@ -2307,9 +2308,9 @@ function switchRRTab(idx){
     <label class="ck">
       <input type="checkbox" class="enh" id="carotidPlaque">
       <div><div style="font-weight:600;color:#1a1a18">경동맥 초음파 plaque ≥ 1.5 mm</div>
-      <div style="font-size:11.5px;color:#888780;margin-top:1px">ESC/EAS 2025 Class IIa 위험수정인자 — 위험도 상향 재분류 근거 (자동 처방 적응증 아님)</div></div>
+      <div style="font-size:11.5px;color:#888780;margin-top:1px">ESC/EAS 2025 Class IIa 위험수정인자 — 2026 ACC/AHA도 목표치 미확정 명시 (자동 처방 적응증 아님)</div></div>
     </label>
-    <div id="carotidDesc" style="display:none;font-size:11.5px;color:#888780;padding:1px 0 4px 19px;line-height:1.5">ESC/EAS 2025 Class IIa 위험수정인자 · 저~중간위험에서 위험도 상향 재분류 근거 — 위험도 무관 자동 처방 적응증이 아님. LDL 목표 &lt;100 mg/dL (재분류 후 기준 충족 시)</div>
+    <div id="carotidDesc" style="display:none;font-size:11.5px;color:#888780;padding:1px 0 4px 19px;line-height:1.5">ESC/EAS 2025 Class IIa 위험수정인자 · 저~중간위험에서 위험도 상향 재분류 근거. 2026 ACC/AHA(Circulation 2026;153:e1154)도 "LLT는 유익하나 구체적 LDL-C 목표를 권고할 근거는 불충분"이라고 명시 — 위험도 무관 자동 처방 적응증이 아님. LDL 목표 &lt;100 mg/dL (재분류 후 기준 충족 시, 잠정)</div>
 
     <!-- CAC -->
     <label class="ck" style="margin-top:3px">
@@ -4894,13 +4895,14 @@ function upd(){
     // CAC 1–99: 위험증강인자로만 작용 — accRec의 nE 계산에 이미 반영됨. 별도 override 없음.
 
     // 경동맥 plaque ≥1.5 mm: ESC/EAS 2025 Class IIa 위험수정인자 — 위험도 상향 재분류 근거
+    // 2026 ACC/AHA(Circulation 2026;153:e1154)도 "LLT beneficial하나 specific LDL-C goal 근거 불충분"이라 명시 — CAC와 달리 위험도 무관 확정 적응증 아님
     // 저위험(<3%)에서는 스타틴 override 없음; 경계위험(3–5%) 이상에서만 스타틴 고려 강화
     // CAC override가 이미 적용된 경우(ldlTgt ≤100)에는 중복 적용 않음
     const carotidActive = g('carotidPlaque')?.checked;
     if(carotidActive && (!acc.ldlTgt || acc.ldlTgt > 100) && primRisk >= 3){
       acc={c:'mo',l:'중등강도 고려',ind:'경동맥 plaque ≥1.5 mm — 위험수정인자로 위험도 상향 재분류 (ESC/EAS 2025 IIa)',
            d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],
-           n:'경동맥 plaque ≥1.5 mm: <b>ESC/EAS 2025 Class IIa 위험수정인자</b>. 위험도와 무관하게 스타틴을 자동 적용하는 것이 아니라, 저~중간위험 환자에서 위험도를 상향 재분류하는 근거로 활용됩니다. 재분류된 위험도와 LDL-C 수준에 따라 중등강도 스타틴 치료를 고려하며, LDL 목표 &lt;100 mg/dL.',
+           n:'경동맥 plaque ≥1.5 mm: <b>ESC/EAS 2025 Class IIa 위험수정인자</b>이며, 2026 ACC/AHA도 "LLT는 유익하나 구체적 LDL-C·non-HDL-C 목표를 권고할 근거는 불충분"하다고 명시합니다. 즉 CAC와 달리 위험도 무관·목표치 확정 적응증이 아니며, 저~중간위험 환자에서 위험도를 상향 재분류하는 보조 근거로만 활용됩니다. 재분류된 위험도와 LDL-C 수준에 따라 중등강도 스타틴 치료를 고려하며, LDL 목표 &lt;100 mg/dL(잠정).',
            nt:'warn',ldlTgt:100,nhTgt:130};
     }
 
