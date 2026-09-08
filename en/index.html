@@ -2371,11 +2371,11 @@ function switchRRTab(idx){
     </label>
     <div id="carotidDesc" style="display:none;font-size:11.5px;color:#888780;padding:1px 0 4px 19px;line-height:1.5">ESC/EAS 2025 Class IIa risk-modifying factor · supports upward risk reclassification in low-to-intermediate risk. 2026 ACC/AHA (Circulation 2026;153:e1154) also states "LLT is beneficial, but current evidence is insufficient to recommend a specific LDL-C goal" — not a risk-independent automatic treatment indication. LDL target &lt;100 mg/dL (once reclassification criteria are met, tentative)</div>
 
-    <!-- CAC — separate from the Table 13 risk enhancers, dedicated 2026 ACC/AHA Section 4.2.3.6 recommendation -->
+    <!-- CAC — separate from the Table 13 risk enhancers, dedicated 2026 ACC/AHA Section 4.2.7 recommendation -->
     <div style="font-size:11.5px;font-weight:700;color:#888780;letter-spacing:.04em;margin:10px 0 2px;padding-top:8px;border-top:1px dashed #d0cec8">
-      ─ Coronary Artery Calcium (CAC) — Dedicated 2026 ACC/AHA Section 4.2.3.6 Recommendation ─
+      ─ Coronary Artery Calcium (CAC) — Dedicated 2026 ACC/AHA Section 4.2.7 Recommendation ─
     </div>
-    <div style="font-size:11px;color:#a8a79f;margin-bottom:5px;line-height:1.5">※ Not included in the Table 13 risk-enhancer list — follows its own dedicated recommendation section (Section 4.2.3.6) with its own COR grading</div>
+    <div style="font-size:11px;color:#a8a79f;margin-bottom:5px;line-height:1.5">※ Not included in the Table 13 risk-enhancer list — testing indications are in Section 4.2.3.6; score-based goals follow their own dedicated Section 4.2.7 with its own COR grading</div>
     <label class="ck" style="margin-top:3px">
       <input type="checkbox" id="cacMain">
       <span>Enter Coronary Artery Calcium (CAC) Score</span>
@@ -2385,7 +2385,6 @@ function switchRRTab(idx){
       <input type="checkbox" class="enh" id="cac0"     style="display:none">
       <input type="checkbox" class="enh" id="cac1to99" style="display:none">
       <input type="checkbox" class="enh" id="cacCheck" style="display:none">
-      <input type="checkbox" class="enh" id="cac300"   style="display:none">
       <input type="checkbox" class="enh" id="cac1000"  style="display:none">
       <div class="cac-opt" data-cac="cac0"
         style="padding:7px 9px;border:1px solid #a8cf8a;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s;margin-bottom:5px">
@@ -2400,18 +2399,12 @@ function switchRRTab(idx){
         </div>
         <div class="cac-opt" data-cac="cacCheck"
           style="padding:7px 9px;border:1px solid #d0cec8;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s">
-          <div style="font-size:13.5px;font-weight:700;color:#1a1a18">CAC 100–299</div>
-          <div style="font-size:11.5px;color:#888780;margin-top:2px;line-height:1.45">or ≥75th percentile<br>sufficient condition for statin · LDL &lt;70</div>
+          <div style="font-size:13.5px;font-weight:700;color:#1a1a18">CAC ≥100</div>
+          <div style="font-size:11.5px;color:#888780;margin-top:2px;line-height:1.45">or ≥75th percentile<br>High-intensity statin · LDL &lt;70</div>
         </div>
-        <div class="cac-opt" data-cac="cac300"
-          style="padding:7px 9px;border:1px solid #d0cec8;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s">
-          <div style="font-size:13.5px;font-weight:700;color:#1a1a18">CAC 300–999</div>
-          <div style="font-size:11.5px;color:#888780;margin-top:2px;line-height:1.45">High-intensity statin<br>LDL &lt;70 · optionally &lt;55</div>
-        </div>
-        <div class="cac-opt" data-cac="cac1000"
-          style="padding:7px 9px;border:1px solid #d0cec8;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s">
+        <div class="cac-opt" data-cac="cac1000" style="grid-column:1 / span 2;padding:7px 9px;border:1px solid #d0cec8;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s">
           <div style="font-size:13.5px;font-weight:700;color:#1a1a18">CAC ≥1000</div>
-          <div style="font-size:11.5px;color:#888780;margin-top:2px;line-height:1.45">Very-high-risk level<br>LDL target &lt;55 · maximal intensity</div>
+          <div style="font-size:11.5px;color:#888780;margin-top:2px;line-height:1.45">Very-high-risk level · LDL target &lt;55 · maximal intensity</div>
         </div>
       </div>
     </div>
@@ -2864,7 +2857,7 @@ function switchRRTab(idx){
           <span class="badge" style="background:#faeeda;color:#412402;border:1px solid #fac775">Effective with REs present</span>
           <span style="margin-left:auto;font-size:13.5px;color:#888780">NNT ≈ 53</span>
         </div>
-        <div style="font-size:12.5px;color:#5f5e5a;padding-left:23px">With ≥2 REs or CAC ≥100, effective NNT falls to ~35–40 → below the NNT &lt;50 threshold. Class IIa.<br>Reassess if Lp(a)≥50, CAC 100–299, hs-CRP≥2, or multiple premature family history present.</div>
+        <div style="font-size:12.5px;color:#5f5e5a;padding-left:23px">With ≥2 REs or CAC ≥100, effective NNT falls to ~35–40 → below the NNT &lt;50 threshold. Class IIa.<br>Reassess if Lp(a)≥50, CAC ≥100, hs-CRP≥2, or multiple premature family history present.</div>
       </div>
       <div style="border-left:3px solid #639922;border-radius:0 7px 7px 0;background:#eaf3de;padding:8px 11px;margin-bottom:6px">
         <div style="display:flex;align-items:center;gap:7px;margin-bottom:3px;flex-wrap:wrap">
@@ -4543,7 +4536,7 @@ function upd(){
     const _egfr=parseFloat(g('egfr').value)||90;
     const _age=parseInt(ageRaw)||0;
     const _ckdEnh=(_egfr>=15&&_egfr<60&&_age>0&&_age<40);
-    const _cacIds=['cac0','cac1to99','cacCheck','cac300','cac1000'];
+    const _cacIds=['cac0','cac1to99','cacCheck','cac1000'];
     const nE=[...document.querySelectorAll('.enh:checked')].filter(el=>_cacIds.indexOf(el.id)<0).length+(_ckdEnh?1:0);
     if(g('enhCount')) g('enhCount').textContent=nE;
     if(g('ckdEnhDisplay')) g('ckdEnhDisplay').style.display=_ckdEnh?'flex':'none';
@@ -4561,7 +4554,7 @@ function upd(){
         const items=[
           {key:'ascvd',label:'Established ASCVD (secondary prevention)',sub:'MI · stroke · TIA · ACS · coronary revascularization · peripheral artery disease, etc.',active:!!_ascvdEarly,strength:'High intensity'},
           {key:'ldl190',label:'LDL-C ≥ 190 mg/dL (severe hypercholesterolemia / suspected FH)',sub:'Excessive cumulative LDL exposure; rule out familial hypercholesterolemia',active:_ldl190,strength:'High intensity'},
-          {key:'cac',label:'CAC 100–299 / 300–999 / ≥1000 — sufficient condition for statin',sub:'2026 ACC/AHA: a sufficient condition for starting a statin regardless of PREVENT risk',active:false},
+          {key:'cac',label:'CAC ≥100 / ≥1000 — sufficient condition for statin',sub:'2026 ACC/AHA Section 4.2.7: a sufficient condition for starting a statin regardless of PREVENT risk',active:false},
           {key:'ckd',label:'CKD (eGFR 15–59) + age ≥ 40',sub:'Traditional risk equations underestimate risk in CKD',active:false},
           {key:'dm',label:'Diabetes (age 30–79)',sub:'Diabetes alone warrants at least moderate-intensity statin',active:false},
           {key:'hiv',label:'HIV (stable cART, age 40–75)',sub:'REPRIEVE trial: pitavastatin 4 mg → 35% MACE reduction',active:false},
@@ -4646,7 +4639,7 @@ function upd(){
   //   age <40 → counted only as a risk enhancer (ckdEnh, auto-added to nE)
   const ckdEnh=(egfr>=15&&egfr<60&&age<40);
 
-  const cacIds=['cac0','cac1to99','cacCheck','cac300','cac1000'];
+  const cacIds=['cac0','cac1to99','cacCheck','cac1000'];
   const nE=[...document.querySelectorAll('.enh:checked')].filter(el=>cacIds.indexOf(el.id)<0).length+(ckdEnh?1:0);
   g('enhCount').textContent=nE;
   // Auto-display the CKD-under-40 risk enhancer
@@ -4815,12 +4808,11 @@ function upd(){
   }
 
   // ── Absolute indication flags (calculated before badge display) ──
-  const cacActive=g('cacCheck')&&g('cacCheck').checked;       // CAC 100–299 or ≥75th percentile
+  const cacActive=g('cacCheck')&&g('cacCheck').checked;       // CAC ≥100 or ≥75th percentile (100–299/300–999 merged)
   const cac0Active=g('cac0')&&g('cac0').checked;  // CAC = 0 — grounds for a 10-year deferral (COR 2a)
   const cac1to99Active=g('cac1to99')&&g('cac1to99').checked;  // CAC 1–99 — has its own dedicated override (COR 2a)
-  const cac300Active=g('cac300')&&g('cac300').checked;        // CAC 300–999
   const cac1000Active=g('cac1000')&&g('cac1000').checked;     // CAC ≥1000
-  const anyCAC=cac1to99Active||cacActive||cac300Active||cac1000Active;
+  const anyCAC=cac1to99Active||cacActive||cac1000Active;
   const ckdAbs=(egfr>=15&&egfr<60&&age>=40);
   const dmEsrd=dm&&egfr>0&&egfr<15; // End-stage renal disease (dialysis level) — takes precedence over diabetes' "risk-independent" principle
   const dmAbs=dm&&age>=30&&age<=79&&!dmEsrd;
@@ -4834,8 +4826,7 @@ function upd(){
     if(!excludeAscvd && ascvd) notes.push(vhr?'Established ASCVD (very high risk: LDL<55 target)':'Established ASCVD (high-intensity statin, LDL<70 target)');
     if(ldl190Abs) notes.push('LDL-C ≥190 mg/dL — suspected FH, risk-independent high-intensity statin');
     if(cac1000Active&&!ascvd) notes.push('CAC ≥1000 — very-high-risk level, LDL<55 target');
-    if(cac300Active&&!ascvd) notes.push('CAC 300–999 — LDL<70 target (optionally intensify to <55)');
-    if(cacActive&&!ascvd) notes.push('CAC 100–299 or ≥75th percentile — sufficient condition for statin, LDL<70 target');
+    if(cacActive&&!ascvd) notes.push('CAC ≥100 or ≥75th percentile — sufficient condition for statin, LDL<70 target');
     if(cac1to99Active&&!ascvd) notes.push('CAC 1–99 — moderate-intensity statin reasonable (COR 2a), LDL<100 target');
     if(ckdAbs&&!ascvd) notes.push('CKD (eGFR 15–59) + age≥40 — risk-independent moderate-intensity statin');
     if(dmAbs&&!ascvd) notes.push(`Diabetes — risk-independent ${primRisk>=10?'high-intensity':'moderate-intensity'} statin`);
@@ -4969,19 +4960,11 @@ function upd(){
            n:'CAC ≥1000: extensive subclinical atherosclerosis. 2026 ACC/AHA — managed on par with very-high-risk ASCVD. LDL &lt;55 mg/dL target; maximally tolerated statin + consider adding ezetimibe.',
            nt:'dng',ldlTgt:55,nhTgt:85};
     }
-    // CAC 300–999: no separate target in the guideline text — the ≥100 AU category applies, LDL <70
-    // Per the guideline authors' JACC editorial: <55 at CAC ≥300 is an "optional goal"
-    else if(cac300Active && (!acc.ldlTgt || acc.ldlTgt > 70)){
-      acc={c:'hi',l:'High intensity',ind:'CAC 300–999 — LDL <70 mg/dL target (consider <55 if needed)',
-           d:['Rosuvastatin 20–40 mg','Atorvastatin 40–80 mg'],
-           n:'CAC 300–999: extensive subclinical atherosclerosis. 2026 ACC/AHA — the ≥100 AU category applies: high-intensity statin and LDL &lt;70 mg/dL target. Guideline authors\' recommendation: <55 mg/dL at CAC ≥300 is an optional intensification per clinical judgment.',
-           nt:'warn',ldlTgt:70,nhTgt:100};
-    }
-    // CAC 100–299 or ≥75th percentile: LDL <70, sufficient condition for statin
+    // CAC ≥100 or ≥75th percentile: high intensity, LDL <70 (2026 ACC/AHA Section 4.2.7 — recommendations 2 and 3 merged, both COR 1/LOE B-R with identical targets)
     else if(cacActive && (!acc.ldlTgt || acc.ldlTgt > 70)){
-      acc={c:'hi',l:'Consider high intensity',ind:'CAC 100–299 or ≥75th percentile — sufficient condition for statin (LDL <70)',
-           d:['Atorvastatin 40 mg','Rosuvastatin 20 mg'],
-           n:'CAC 100–299: 2026 ACC/AHA — a sufficient condition for statin regardless of PREVENT risk. LDL &lt;70 mg/dL target.',
+      acc={c:'hi',l:'High intensity',ind:'CAC ≥100 or ≥75th percentile — sufficient condition for statin (LDL <70)',
+           d:['Atorvastatin 40–80 mg','Rosuvastatin 20–40 mg'],
+           n:'CAC ≥100: 2026 ACC/AHA Section 4.2.7 — a sufficient condition for statin regardless of PREVENT risk (COR 1, LOE B-R). LDL &lt;70 mg/dL, non-HDL-C &lt;100 mg/dL target. CAC 100–299 and 300–999 are separately numbered formal recommendations in the guideline, but share the same numeric target, so they are merged into one here.',
            nt:'warn',ldlTgt:70,nhTgt:100};
     }
     // CAC 1–99 & <75th percentile: 2026 ACC/AHA COR 2a — moderate-intensity statin is reasonable, LDL <100
@@ -4991,7 +4974,7 @@ function upd(){
     else if(cac1to99Active && (!acc.ldlTgt || acc.ldlTgt >= 100)){
       acc={c:'mo',l:'Moderate intensity (reasonable)',ind:'CAC 1–99 & <75th percentile — moderate-intensity statin reasonable (COR 2a, LDL <100)',
            d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],
-           n:'CAC 1–99: a finding under 2026 ACC/AHA Section 4.2.3.6. Once CAC&gt;0 is confirmed, initiating treatment itself is recommended (COR 1); moderate intensity with an LDL &lt;100 target is reasonable (COR 2a). Distinct from the generic Table 13 risk enhancers, once CAC is confirmed by testing this applies regardless of the PREVENT risk number.',
+           n:'CAC 1–99: a finding under 2026 ACC/AHA Section 4.2.7 (Recommendation 4, COR 2a, LOE B-R). Once CAC&gt;0 is confirmed, initiating treatment itself is recommended (COR 1, Section 4.2.3.6); moderate intensity with an LDL &lt;100 target is reasonable (COR 2a). Distinct from the generic Table 13 risk enhancers, once CAC is confirmed by testing this applies regardless of the PREVENT risk number.',
            nt:'info',ldlTgt:100,nhTgt:130};
     }
     // CAC = 0: 2026 ACC/AHA COR 2a — reasonable to defer a statin in borderline/intermediate risk
@@ -5067,25 +5050,21 @@ function upd(){
     },
     {
       key:'cac',
-      active:(cacActive||cac300Active||cac1000Active||cac1to99Active)&&!ascvd,
+      active:(cacActive||cac1000Active||cac1to99Active)&&!ascvd,
       label:cac1000Active
         ?'CAC ≥1000 — very-high-risk level, sufficient condition for statin (LDL target <55 mg/dL, maximal intensity)'
-        :cac300Active
-          ?'CAC 300–999 — extensive subclinical atherosclerosis, sufficient condition for statin (LDL target <70 mg/dL, optionally consider <55)'
-          :cacActive
-            ?'CAC 100–299 (or ≥75th percentile) — sufficient condition for statin (LDL target <70 mg/dL)'
-            :'CAC 1–99 (or <75th percentile) — moderate-intensity statin reasonable (COR 2a, LDL target <100 mg/dL)',
-      detail:(cacActive||cac300Active||cac1000Active||cac1to99Active)
+        :cacActive
+          ?'CAC ≥100 (or ≥75th percentile) — sufficient condition for statin (LDL target <70 mg/dL)'
+          :'CAC 1–99 (or <75th percentile) — moderate-intensity statin reasonable (COR 2a, LDL target <100 mg/dL)',
+      detail:(cacActive||cac1000Active||cac1to99Active)
         ?(cac1000Active
             ?'Extensive subclinical atherosclerosis (CAC ≥1000) — high-intensity statin, LDL target &lt;55 mg/dL'
-            :cac300Active
-              ?'Extensive subclinical atherosclerosis (CAC 300–999) — high-intensity statin, LDL target &lt;70 mg/dL. Guideline authors: &lt;55 mg/dL is an optional intensification to consider'
-              :cacActive
-                ?'Objective evidence of subclinical atherosclerosis (CAC 100–299) — high-intensity statin, LDL target &lt;70 mg/dL'
-                :'Subclinical atherosclerosis finding (CAC 1–99) — moderate-intensity statin reasonable (COR 2a), LDL target &lt;100 mg/dL')
+            :cacActive
+              ?'Objective evidence of subclinical atherosclerosis (CAC ≥100) — high-intensity statin, LDL target &lt;70 mg/dL (guideline Recommendations 2 and 3 merged, same target)'
+              :'Subclinical atherosclerosis finding (CAC 1–99) — moderate-intensity statin reasonable (COR 2a), LDL target &lt;100 mg/dL')
         :'Not applicable',
-      strength:cac1000Active||cac300Active||cacActive?'High intensity':'Moderate intensity',
-      basis:'2026 ACC/AHA Section 4.2.3.6: once CAC&gt;0 is confirmed, initiating treatment is recommended (COR 1); CAC 1–99 makes moderate intensity reasonable (COR 2a), CAC ≥100 is a sufficient condition for high intensity. See the risk-enhancer box\'s CAC grade for the specific LDL target'
+      strength:cac1000Active||cacActive?'High intensity':'Moderate intensity',
+      basis:'2026 ACC/AHA Section 4.2.3.6 (initiating treatment recommended once CAC&gt;0 is confirmed, COR 1) and Section 4.2.7 (score-based goals — CAC 1–99 is COR 2a moderate intensity, CAC≥100 is COR 1 sufficient condition for high intensity). See the risk-enhancer box\'s CAC grade for the specific LDL target'
     },
     {
       key:'ckd',
@@ -5198,7 +5177,6 @@ function upd(){
   if(ckdAbs && dispLdlTgt > 100){ dispLdlTgt=100; dispNhTgt=Math.min(dispNhTgt,130); }
   if(!ascvd){
     if(cac1000Active && dispLdlTgt > 55){ dispLdlTgt=55; dispNhTgt=Math.min(dispNhTgt,85); }
-    else if(cac300Active && dispLdlTgt > 70){ dispLdlTgt=70; dispNhTgt=Math.min(dispNhTgt,100); }
     else if(cacActive && dispLdlTgt > 70){ dispLdlTgt=70; dispNhTgt=Math.min(dispNhTgt,100); }
     else if(cac1to99Active && dispLdlTgt > 100){ dispLdlTgt=100; dispNhTgt=Math.min(dispNhTgt,130); }
   }
@@ -5392,7 +5370,7 @@ function renderAbsIndsDefault(){
   const items=[
     {key:'ascvd', label:'History of ASCVD (secondary prevention)',         sub:'MI · stroke · TIA · ACS · coronary revascularization · peripheral artery disease, etc.'},
     {key:'ldl190',label:'LDL-C ≥ 190 mg/dL (severe hypercholesterolemia / suspected FH)', sub:'Excess cumulative LDL exposure; familial hypercholesterolemia should be considered'},
-    {key:'cac',   label:'CAC 100–299 / 300–999 / ≥1000 — sufficient condition for statin therapy', sub:'2026 ACC/AHA: sufficient condition to initiate statin therapy regardless of PREVENT risk'},
+    {key:'cac',   label:'CAC ≥100 / ≥1000 — sufficient condition for statin therapy', sub:'2026 ACC/AHA Section 4.2.7: sufficient condition to initiate statin therapy regardless of PREVENT risk'},
     {key:'ckd',   label:'CKD (eGFR 15–59) + age ≥ 40', sub:'Traditional risk equations underestimate risk in CKD; dialysis patients require separate judgment'},
     {key:'dm',    label:'Diabetes (age 30–79)',                 sub:'Diabetes alone warrants at least moderate-intensity statin; initiate regardless of PREVENT score'},
     {key:'hiv',   label:'HIV (stable on cART, age 40–75)',         sub:'REPRIEVE trial: pitavastatin 4 mg → 35% reduction in MACE — check under chronic inflammatory disease panel'},
@@ -5584,7 +5562,7 @@ g('cacMain').addEventListener('change', function(){
   const panel = g('cacPanel');
   panel.style.display = this.checked ? 'block' : 'none';
   if(!this.checked){
-    ['cac0','cac1to99','cacCheck','cac300','cac1000'].forEach(id=>{
+    ['cac0','cac1to99','cacCheck','cac1000'].forEach(id=>{
       if(g(id)){ g(id).checked=false; }
     });
     document.querySelectorAll('.cac-opt').forEach(el=>{
@@ -5610,7 +5588,7 @@ document.querySelectorAll('.cac-opt').forEach(btn=>{
     this.style.borderColor='#1a1a18';
     this.querySelectorAll('div').forEach(d=>d.style.color='#fff');
     // Sync hidden checkboxes (single-select)
-    ['cac0','cac1to99','cacCheck','cac300','cac1000'].forEach(id=>{
+    ['cac0','cac1to99','cacCheck','cac1000'].forEach(id=>{
       if(g(id)) g(id).checked = (id===targetId);
     });
     upd();
@@ -5701,11 +5679,9 @@ function updateNNT(prevAscvd, ascvd, vhr, acc){
   var adjMult=1, adjLabel='', adjBasis='';
   var cac1=g('cac1to99')&&g('cac1to99').checked;
   var cac2=g('cacCheck')&&g('cacCheck').checked;
-  var cac3=g('cac300')&&g('cac300').checked;
   var cac4=g('cac1000')&&g('cac1000').checked;
   if(cac4)       { adjMult=2.8; adjLabel='CAC ≥1000';  adjBasis='MESA cohort'; }
-  else if(cac3)  { adjMult=2.2; adjLabel='CAC 300–999'; adjBasis='MESA cohort'; }
-  else if(cac2)  { adjMult=1.8; adjLabel='CAC 100–299'; adjBasis='MESA cohort'; }
+  else if(cac2)  { adjMult=1.8; adjLabel='CAC ≥100';   adjBasis='MESA cohort'; }
   else if(cac1)  { adjMult=1.5; adjLabel='CAC 1–99';   adjBasis='MESA cohort'; }
   else if(g('enhLpa')&&g('enhLpa').checked){
     adjMult=1.4; adjLabel='Lp(a) ≥50 mg/dL'; adjBasis='observational study estimate';
@@ -5713,7 +5689,7 @@ function updateNNT(prevAscvd, ascvd, vhr, acc){
     var reEls=document.querySelectorAll('input.enh:checked');
     var reCount=0;
     reEls.forEach(function(el){
-      if(['cac0','cac1to99','cacCheck','cac300','cac1000'].indexOf(el.id)<0) reCount++;
+      if(['cac0','cac1to99','cacCheck','cac1000'].indexOf(el.id)<0) reCount++;
     });
     if(reCount>=3)      { adjMult=1.4; adjLabel=reCount+' risk enhancer(s)'; adjBasis='estimate'; }
     else if(reCount>=1) { adjMult=1.2; adjLabel=reCount+' risk enhancer(s)'; adjBasis='estimate'; }
@@ -5848,7 +5824,7 @@ function clearAllInputs(){
   ['bpTx','smoker','dm','ascvdHx','veryHigh','onStatin',
    'prsCheck','enhCkm','enhInflam','enhHiv','enhLpa','enhHsCRP',
    'enhTg175','enhLdl160','abiCheck','carotidPlaque','cacMain',
-   'cac0','cac1to99','cacCheck','cac300','cac1000'].forEach(function(id){
+   'cac0','cac1to99','cacCheck','cac1000'].forEach(function(id){
     var el=document.getElementById(id);
     if(el && el.checked){ el.checked=false; el.dispatchEvent(new Event('change')); }
   });
