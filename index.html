@@ -639,11 +639,36 @@ document.addEventListener('keydown', function(e){
         <ul style="margin:0;padding-left:18px;font-size:12.5px;color:#3a3a36;line-height:1.75">
           <li><b>1~4군은 "환자가 누구인지"</b>로 정해지고(1차예방 대상인지, LDL≥190인지, 당뇨가 있는지, ASCVD를 이미 앓았는지), <b>5~6군은 "검사에서 무엇이 나왔는지"</b>로 정해진다(영상에서 플라크가 보였는지, TG 수치가 높은지). 그래서 한 환자가 여러 군에 걸칠 수 있다 — 예: 당뇨병(3군) 환자에게서 우연히 CAC 300점(5군)이 나오면, 더 엄격한 5군 목표(&lt;70)를 따른다.</li>
           <li><b>PREVENT 계산기(1군에서 쓰는 위험도 계산 도구)는 2, 4군에는 아예 쓰지 않는다.</b> LDL이 190 이상이면 계산기의 적용 범위(70~189)를 벗어나고, 이미 ASCVD를 앓은 사람은 "앞으로의 위험을 추정"할 필요 없이 이미 답이 나온 상태이기 때문이다. 이 두 군은 각자 자기만의 기준을 따로 갖는다.</li>
-          <li><b>5군은 안에서 갈린다</b> — CAC 경로는 2·4군과 마찬가지로 PREVENT와 완전히 무관하다(CAC 자체가 이미 확인된 소견이므로). 반면 경동맥 초음파 플라크 경로는 오히려 반대로, PREVENT로 산출한 위험도(중간·일부 경계위험)가 전제조건이라 PREVENT 계산이 반드시 필요하다. 즉 같은 5군이라도 CAC면 계산기를 안 쓰고, 경동맥 플라크면 계산기를 써야 한다.</li>
+          <li><b>5군은 안에서 갈린다</b> — CAC 경로는 정확히는 "PREVENT와 완전히 무관"이 아니라 "PREVENT로 검사 여부를 정하고, CAC 확인 후엔 그 숫자를 더 안 쓰는" 2단계 구조다. CAC 검사 자체가 중간위험·일부 경계위험(치료 결정이 애매할 때)에서만 권고되므로, 저위험군은 애초에 CAC 검사 적응증이 없다(단, 다른 목적 CT에서 우연히 발견된 경우는 위험군 무관하게 예외). 반면 경동맥 초음파 플라크 경로는 반대로 PREVENT로 산출한 위험도(중간·일부 경계위험)가 계속 전제조건으로 남아 있어 PREVENT 계산이 끝까지 필요하다.</li>
           <li><b>3군(당뇨)과 6군(고중성지방혈증)은 PREVENT 계산 대상에 그대로 포함</b>된다 — 당뇨는 계산에 들어가는 항목이고, TG는 애초에 계산기 적용 조건에 없기 때문이다. 이 두 군은 "계산은 정상대로 하되, 그 결과와 별개로 추가 규칙이 얹히는" 구조다.</li>
           <li><b>2차 예방(4군)은 위험도를 다시 잴 필요가 없는 유일한 군</b>이다 — 이미 병을 앓았다는 사실 자체가 답이라, 무조건 고강도 스타틴부터 시작한다.</li>
           <li><b>5군 내에서도 CAC와 경동맥 플라크는 근거 수준이 다르다.</b> "위험도 무관·목표치 확립"이라는 5군의 성격은 CAC에만 온전히 적용된다. 경동맥 플라크는 2026 ACC/AHA 원문도 "LLT는 유익하나 구체적 LDL 목표를 정할 근거는 불충분"하다고 명시하고, 논의 자체가 중간·일부 경계위험군 맥락에 한정되어 있어 저위험군에 그대로 적용할 근거가 없다. 대퇴동맥 플라크는 이 가이드라인에 아예 언급되지 않는다.</li>
         </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ CAC 나이별 백분위 계산기 안내 모달 (groupsModal 위에 중첩) ══════ -->
+<div id="cacPercentileModal" style="display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,0.55);overflow-y:auto;padding:24px 14px" onclick="if(event.target===this)closeCacPercentileModal()">
+  <div style="max-width:420px;margin:0 auto;background:#fff;border-radius:12px;box-shadow:0 10px 50px rgba(0,0,0,0.35);overflow:hidden">
+    <div style="background:#2e5339;padding:12px 16px;display:flex;align-items:center;justify-content:space-between">
+      <span style="font-size:14px;font-weight:800;color:#fff">CAC 나이별 백분위 계산기</span>
+      <button onclick="closeCacPercentileModal()" style="background:rgba(255,255,255,0.18);border:none;border-radius:6px;width:26px;height:26px;cursor:pointer;color:#fff;font-size:16px;line-height:1">×</button>
+    </div>
+    <div style="padding:16px;font-size:12.5px;color:#3a3a36;line-height:1.7">
+      <div style="margin-bottom:12px;padding:10px 12px;background:#f2f5ef;border-radius:8px;border-left:3px solid #2e5339">
+        <div style="font-weight:700;color:#2e5339;margin-bottom:3px">45–84세</div>
+        MESA 코호트(6,814명, CVD·치료 중인 당뇨 없음) 기반 — 백인·흑인·히스패닉·중국계<br>
+        <a href="https://tools.mesa-nhlbi.org/Calcium/input.aspx" target="_blank" rel="noopener" style="color:#185fa5;font-weight:700;text-decoration:underline">계산기 열기 ↗</a>
+      </div>
+      <div style="padding:10px 12px;background:#fffbee;border-radius:8px;border-left:3px solid #c07a00">
+        <div style="font-weight:700;color:#c07a00;margin-bottom:3px">30–45세</div>
+        CARDIA·CAC Consortium·Walter Reed 코호트(19,725명) 기반 — <b>백인·흑인만 제공</b><br>
+        <a href="https://www.cac-tools.com/#calc" target="_blank" rel="noopener" style="color:#185fa5;font-weight:700;text-decoration:underline">계산기 열기 ↗</a>
+      </div>
+      <div style="margin-top:12px;font-size:11.5px;color:#888780">
+        ※ 아시아인 전용 참조값은 두 계산기 모두 제공하지 않습니다. 45–84세 계산기는 "중국계(Chinese)" 옵션이 있어 동아시아인의 근사치로 활용 가능하지만, 30–45세 계산기는 인종 옵션이 백인·흑인뿐입니다.
       </div>
     </div>
   </div>
@@ -677,10 +702,10 @@ var GROUPS_DATA = [
     note:'• 목표 미달 시: 에제티미브 → PCSK9 억제제/inclisiran → bempedoic acid 순으로 추가' },
   { n:5, name:'무증상 죽상경화', nameEn:'Subclinical Atherosclerosis',
     def:'• 영상검사에서 CAC(관상동맥 석회화)<br>• 경동맥 초음파 플라크 발견<br>• 우연히 발견된 관상동맥 석회화(비게이팅 CT)',
-    tool:'※ PREVENT 계산 대상 아님(CAC 경로에 한함)<br>• CAC 점수(심장 CT)가 1차·확정 근거<br><br>✓ PREVENT 계산 대상(경동맥 플라크 경로)<br>• 경동맥 초음파 플라크: "LLT 유익하나 구체적 목표 근거 불충분" — 중간·일부 경계위험군의 경우 스타틴 권고(저위험군은 스타틴 권고 근거 없음)',
-    statin:'• CAC 1–99 & 나이별 하위 75%: 중등도 강도 스타틴 권고<br>• CAC ≥100 또는 상위 25%: 고강도 스타틴 권고<br>• CAC ≥1000: 고강도 필수<br>• 경동맥 플라크: LLT 유익성 인정되나 목표치·독립적 적응증 여부는 근거 불충분 — 위험도와 결합해서만 판단<br>• 우연히 발견된 관상동맥 석회화(비게이팅 CT, 육안 정성평가): 경미(mild) → 중등도 강도 스타틴 / 중등도·심함(moderate·severe) → 고강도 스타틴',
+    tool:'<b>CAC 검사 적응증</b>: PREVENT 중간위험(5–&lt;10%) 또는 일부 경계위험(3–&lt;5%)일 때만 CAC 검사가 권고됨(저위험군은 검사 불필요)<br>CAC&gt;0으로 확인되면, 그 이후의 목표·강도는 PREVENT 위험도 수치 아니라 CAC 점수로 결정됨<br><br>✓ PREVENT 계산 대상(경동맥 플라크 경로)<br>• 경동맥 초음파 플라크: "LLT 유익하나 구체적 목표 근거 불충분" — 중간·일부 경계위험군의 경우 스타틴 권고(저위험군은 스타틴 권고 근거 없음)<br><br>⚡ 예외 — 우연히 발견된 관상동맥 석회화(비게이팅 CT): <b>위험군 제한 없음</b> — 저위험군에서 다른 목적 CT 중 우연히 발견되어도 치료 시작·강화 논의 시 "고려"해야 함(COR 1). 단, CAC 정식검사처럼 구체적 목표치까지 정해진 것은 아님',
+    statin:'• CAC 1–99 & <span class="text-toggle-link" onclick="event.stopPropagation();openCacPercentileModal()" style="color:#185fa5;font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px">나이별 하위 75%</span>: 중등도 강도 스타틴 권고<br>• CAC ≥100 또는 상위 25%: 고강도 스타틴 권고<br>• CAC ≥1000: 고강도 필수<br>• 경동맥 플라크: LLT 유익성 인정되나 목표치·독립적 적응증 여부는 근거 불충분 — 위험도와 결합해서만 판단<br>• 우연히 발견된 관상동맥 석회화(비게이팅 CT, 육안 정성평가): 경미(mild) → 중등도 강도 스타틴 / 중등도·심함(moderate·severe) → 고강도 스타틴',
     ldl:'• CAC 1–99: &lt;100<br>• CAC ≥100: &lt;70<br>• CAC ≥1000: &lt;55<br><br>• 경동맥 플라크 단독: 공식 목표치 없음(잠정 &lt;100 수준으로 참고)<br><br>• 우연히 발견된 석회화 — 경미: &lt;100 / 중등도·심함: 목표 숫자 원문 미명시(실무상 &lt;70 적용 가능)',
-    note:'⚠ CAC 1–99도 "고려"가 아니라 중등도 스타틴 권고 사항<br>• 경동맥 플라크는 근거 약함 — 위험도와 결합해서만 참고(대퇴동맥은 언급 없음)<br>• 우연히 발견된 관상동맥 석회화(비게이팅 CT)는 정량 점수가 아닌 육안 등급으로 판단' },
+    note:'⚠ CAC 1–99도 "고려"가 아니라 중등도 스타틴 권고 사항<br>• "PREVENT 계산 대상 아님"은 CAC 확인 이후 얘기 — 애초에 CAC 검사를 받는 것 자체는 통상 PREVENT(중간·일부 경계위험)에서 출발함. 저위험군은 CAC 검사 적응증이 없되, 우연발견은 예외<br>• 경동맥 플라크는 근거 약함 — 위험도와 결합해서만 참고(대퇴동맥은 언급 없음)' },
   { n:6, name:'고중성지방혈증', nameEn:'Hypertriglyceridemia',
     def:'• 공복 중성지방(TG)이 계속 높게 나옴',
     tool:'✓ PREVENT 계산 대상에 포함(TG는 계산기 적용 조건에 없음)<br>• 위험도 계산은 1군과 동일하게 진행<br>• TG 높은 원인부터 확인(음주, 조절 안 된 당뇨, 갑상선기능저하증 등)<br>• TG≥400이면 계산용 LDL-C는 직접 측정치나 non-HDL-C로 대체',
@@ -714,8 +739,16 @@ function closeGroupsModal(){
   document.getElementById('groupsModal').style.display = 'none';
   document.body.style.overflow = '';
 }
+function openCacPercentileModal(){
+  document.getElementById('cacPercentileModal').style.display = 'block';
+}
+function closeCacPercentileModal(){
+  document.getElementById('cacPercentileModal').style.display = 'none';
+}
 document.addEventListener('keydown', function(e){
   if(e.key === 'Escape'){
+    var c = document.getElementById('cacPercentileModal');
+    if(c && c.style.display === 'block'){ closeCacPercentileModal(); return; }
     var m = document.getElementById('groupsModal');
     if(m && m.style.display === 'block') closeGroupsModal();
   }
