@@ -618,16 +618,16 @@ document.addEventListener('keydown', function(e){
       </div>
 
       <div style="overflow-x:auto">
-        <table style="width:100%;min-width:980px;border-collapse:collapse;font-size:12.5px">
+        <table style="width:100%;min-width:1100px;border-collapse:collapse;font-size:12.5px">
           <thead>
             <tr style="background:#2e5339">
               <th style="color:#fff;font-weight:700;text-align:center;padding:9px 6px;border:1px solid #3d6b4a;width:34px">#</th>
-              <th style="color:#fff;font-weight:700;text-align:left;padding:9px 10px;border:1px solid #3d6b4a;width:150px">Group</th>
-              <th style="color:#fff;font-weight:700;text-align:left;padding:9px 10px;border:1px solid #3d6b4a">Who is this patient</th>
-              <th style="color:#fff;font-weight:700;text-align:left;padding:9px 10px;border:1px solid #3d6b4a">How risk is judged</th>
-              <th style="color:#fff;font-weight:700;text-align:left;padding:9px 10px;border:1px solid #3d6b4a">When to start a statin</th>
-              <th style="color:#fff;font-weight:700;text-align:left;padding:9px 10px;border:1px solid #3d6b4a;width:100px">LDL-C goal</th>
-              <th style="color:#fff;font-weight:700;text-align:left;padding:9px 10px;border:1px solid #3d6b4a">Note</th>
+              <th style="color:#fff;font-weight:700;text-align:left;padding:9px 10px;border:1px solid #3d6b4a;width:140px">Group</th>
+              <th style="color:#fff;font-weight:700;text-align:left;padding:9px 10px;border:1px solid #3d6b4a;width:190px">Who is this patient</th>
+              <th style="color:#fff;font-weight:700;text-align:left;padding:9px 10px;border:1px solid #3d6b4a;width:190px">How risk is judged</th>
+              <th style="color:#fff;font-weight:700;text-align:left;padding:9px 10px;border:1px solid #3d6b4a;width:250px">When to start a statin</th>
+              <th style="color:#fff;font-weight:700;text-align:left;padding:9px 10px;border:1px solid #3d6b4a;width:140px">LDL-C goal</th>
+              <th style="color:#fff;font-weight:700;text-align:left;padding:9px 10px;border:1px solid #3d6b4a;width:160px">Note</th>
             </tr>
           </thead>
           <tbody id="groupsModalBody"></tbody>
@@ -638,8 +638,11 @@ document.addEventListener('keydown', function(e){
         <div style="font-size:13.5px;font-weight:800;color:#2e5339;margin-bottom:7px">3 keys to reading this table</div>
         <ul style="margin:0;padding-left:18px;font-size:12.5px;color:#3a3a36;line-height:1.75">
           <li><b>Groups 1–4 are defined by "who the patient is"</b> (primary-prevention candidate, LDL≥190, diabetes, history of ASCVD), while <b>Groups 5–6 are defined by "what testing found"</b> (imaging findings, TG level). So one patient can fall into more than one group — e.g., a patient with diabetes (Group 3) who incidentally has a CAC score of 300 (Group 5) follows the stricter Group 5 goal (&lt;70).</li>
-          <li><b>The PREVENT calculator (the risk tool used in Group 1) is not used at all for Groups 2, 4, and 5.</b> An LDL of 190 or higher falls outside the calculator's range (70–189), and a patient who already has ASCVD or confirmed plaque on imaging doesn't need their "future risk" estimated — the answer is already known. Each of these three groups follows its own separate criteria. Conversely, <b>Groups 3 (diabetes) and 6 (hypertriglyceridemia) remain within the PREVENT calculation</b> — diabetes is an input to the calculator, and TG level isn't part of the calculator's eligibility criteria at all. These two groups follow the standard calculation, with extra rules layered on top regardless of the result.</li>
+          <li><b>The PREVENT calculator (the risk tool used in Group 1) is not used at all for Groups 2 and 4.</b> An LDL of 190 or higher falls outside the calculator's range (70–189), and a patient who already has ASCVD doesn't need their "future risk" estimated — the answer is already known. Each of these two groups follows its own separate criteria.</li>
+          <li><b>Group 5 splits internally.</b> The CAC pathway is completely independent of PREVENT, just like Groups 2 and 4 (CAC itself is already a confirmed finding). The carotid ultrasound plaque pathway, however, is the opposite — it requires a PREVENT-derived risk category (intermediate or select borderline risk) as a precondition, so the calculator is required. In other words, within the same Group 5, CAC skips the calculator while carotid plaque requires it.</li>
+          <li><b>Groups 3 (diabetes) and 6 (hypertriglyceridemia) remain within the PREVENT calculation</b> — diabetes is an input to the calculator, and TG level isn't part of the calculator's eligibility criteria at all. These two groups follow the standard calculation, with extra rules layered on top regardless of the result.</li>
           <li><b>Secondary prevention (Group 4) is the only group where risk doesn't need to be re-assessed</b> — having already had an event is itself the answer, so a high-intensity statin is the default with no re-scoring.</li>
+          <li><b>Within Group 5, CAC and carotid plaque differ in strength of evidence.</b> The "risk-independent, goal-established" character of Group 5 fully applies only to CAC. The 2026 ACC/AHA text itself states that for carotid plaque, "LLT is beneficial, but current evidence is insufficient to recommend a specific LDL goal," and the discussion is limited to intermediate/select borderline-risk populations — there is no basis for applying it to low-risk patients. Femoral artery plaque is not mentioned anywhere in this guideline.</li>
         </ul>
       </div>
     </div>
@@ -649,41 +652,41 @@ document.addEventListener('keydown', function(e){
 <script>
 var GROUPS_DATA = [
   { n:1, name:'Primary Prevention', nameEn:'',
-    def:'No prior heart attack or stroke, no plaque confirmed on imaging, LDL-C 70–189 mg/dL, age 30–79',
+    def:'• No prior heart attack or stroke<br>• No plaque ever confirmed on imaging<br>• LDL-C 70–189 mg/dL, age 30–79',
     tool:'PREVENT calculator estimates 10-year and 30-year risk',
     statin:'• <b style="color:#5f5e5a">Low risk (&lt;3%)</b>: lifestyle only<br>• <b style="color:#854f0b">Borderline (3–&lt;5%)</b>: consider moderate-intensity statin if risk enhancers present (conditional)<br>• <b style="color:#ef9f27">Intermediate (5–&lt;10%)</b>: moderate-intensity statin recommended (unconditional)<br>• <b style="color:#a32d2d">High (≥10%)</b>: high-intensity statin recommended',
-    ldl:'Borderline/Intermediate &lt;100<br>High &lt;70',
-    note:'CAC scoring can reclassify risk in men ≥40 / women ≥45' },
+    ldl:'• Borderline/Intermediate &lt;100<br>• High &lt;70',
+    note:'• CAC scoring can reclassify risk in men ≥40 / women ≥45' },
   { n:2, name:'Severe Hypercholesterolemia', nameEn:'LDL-C ≥190 mg/dL',
-    def:'LDL-C ≥190 with no identified secondary cause (includes familial hypercholesterolemia)',
-    tool:'✗ Not part of PREVENT calculation — LDL ≥190 falls outside the calculator\'s range (70–189)<br>Instead, evaluate for FH using clinical criteria and genetic testing',
-    statin:'Recommended in principle regardless of age or calculated risk',
-    ldl:'Start with a high-intensity statin, add other agents if needed',
-    note:'Consider earlier treatment in young adults with LDL≥160 or a strong family history of early ASCVD' },
+    def:'• LDL-C ≥190 mg/dL with no identified secondary cause<br>• Includes familial hypercholesterolemia (FH)',
+    tool:'✗ Not part of PREVENT calculation<br>• LDL≥190 falls outside the calculator\'s range (70–189)<br>• Instead, evaluate for FH using clinical criteria and genetic testing',
+    statin:'• Recommended in principle regardless of age or calculated risk',
+    ldl:'• Start with a high-intensity statin<br>• Add other agents if needed',
+    note:'• Consider earlier treatment in young adults with LDL≥160<br>• Or a strong family history of early ASCVD<br>→ treat earlier' },
   { n:3, name:'Diabetes', nameEn:'without ASCVD',
-    def:'Type 1 or type 2 diabetes, but no history of heart attack or stroke yet',
-    tool:'✓ Still part of the PREVENT calculation (diabetes is an input variable) — usually comes out intermediate or high risk<br>But for ages 40–75, the rule below takes priority regardless of the calculated result',
-    statin:'For ages 40–75, diabetes itself is the reason to treat — start even if LDL and kidney function are normal<br>CKD stage 3–4 and HIV are each independent reasons to treat, same as diabetes (any ONE of the three is enough — they don\'t all need to be present together)<br>Over age 75: consider alongside lifestyle measures',
-    ldl:'&lt;100 or &lt;70 depending on risk',
-    note:'Treat more intensively when several risk factors overlap' },
+    def:'• Type 1 or type 2 diabetes<br>• No history of heart attack or stroke yet',
+    tool:'✓ Still part of the PREVENT calculation<br>• Diabetes is an input variable — usually comes out intermediate or high risk<br>• But for ages 40–75, "diabetes = start treatment" takes priority regardless of the calculated result',
+    statin:'• Ages 40–75: diabetes itself is the reason to treat — start even if LDL and kidney function are normal<br>• Over age 75: consider alongside lifestyle measures',
+    ldl:'• &lt;100 or &lt;70 depending on risk',
+    note:'• Treat more intensively when several risk factors overlap' },
   { n:4, name:'Clinical ASCVD', nameEn:'Secondary Prevention',
-    def:'History of myocardial infarction, stroke, or peripheral artery disease',
-    tool:'✗ Not part of PREVENT calculation — having already had an event is itself the answer, so there\'s no need to estimate "future risk"<br>Instead, only "very high risk" vs. not is distinguished (very high risk: ACS within the last 12 months, multiple major events, or one major event plus high-risk conditions such as age &gt;65, revascularization, current smoking, diabetes, heart failure, hypertension, etc.)',
-    statin:'Start high-intensity statin unconditionally',
-    ldl:'High risk &lt;70<br>Very high risk &lt;55',
-    note:'If goals aren\'t met with a statin, add in order: ezetimibe → PCSK9 inhibitor/inclisiran → bempedoic acid' },
+    def:'• History of myocardial infarction, stroke, or peripheral artery disease',
+    tool:'✗ Not part of PREVENT calculation — having already had an event is itself the answer<br>• Only "very high risk" vs. not is distinguished: ACS within the last 12 months, multiple major events<br>• Or one major event plus high-risk conditions (age &gt;65, revascularization, current smoking, diabetes, heart failure, hypertension, etc.)',
+    statin:'• Start high-intensity statin unconditionally',
+    ldl:'• High risk &lt;70<br>• Very high risk &lt;55',
+    note:'• If goals aren\'t met with a statin: add in order — ezetimibe → PCSK9 inhibitor/inclisiran → bempedoic acid' },
   { n:5, name:'Subclinical Atherosclerosis', nameEn:'',
-    def:'No symptoms, but plaque incidentally found on imaging such as CT or ultrasound',
-    tool:'✗ Not part of PREVENT calculation — once plaque is visible, risk is "confirmed," not something that needs to be "estimated"<br>Judged by CAC score (cardiac CT) or carotid/femoral plaque',
-    statin:'CAC 1–99 & below the age-based 75th percentile: consider<br>CAC ≥100 or ≥75th percentile: recommended<br>CAC ≥1000: high-intensity required<br>Carotid/femoral plaque on its own is likewise grounds for reclassification',
-    ldl:'CAC 1–99: &lt;100<br>CAC ≥100: &lt;70<br>CAC ≥1000: &lt;55',
-    note:'Calcium incidentally seen on a non-cardiac CT (e.g., a non-contrast chest CT) can also be used (new)' },
+    def:'• CAC (coronary artery calcification) on imaging<br>• Carotid ultrasound plaque<br>• Incidentally found coronary calcification (non-gated CT)',
+    tool:'✗ Not part of PREVENT calculation (CAC pathway only)<br>• CAC score (cardiac CT) is the primary, established basis<br><br>✓ Part of PREVENT calculation (carotid plaque pathway)<br>• Carotid ultrasound plaque: "LLT beneficial but current evidence insufficient for a specific goal" — statin recommended in intermediate/select borderline risk (no basis for low risk)',
+    statin:'• CAC 1–99 & below the age-based 75th percentile: moderate-intensity statin recommended<br>• CAC ≥100 or ≥75th percentile: high-intensity statin recommended<br>• CAC ≥1000: high-intensity required<br>• Carotid plaque: LLT benefit accepted, but evidence is insufficient for a specific goal or a standalone indication — weigh together with calculated risk only<br>• Incidentally found coronary calcification (non-gated CT, visual/qualitative grading): mild → moderate-intensity statin / moderate–severe → high-intensity statin',
+    ldl:'• CAC 1–99: &lt;100<br>• CAC ≥100: &lt;70<br>• CAC ≥1000: &lt;55<br><br>• Carotid plaque alone: no formal goal (tentatively &lt;100 as a reference)<br><br>• Incidental calcification — mild: &lt;100 / moderate–severe: no specific number given in the guideline (practically &lt;70 is reasonable)',
+    note:'⚠ CAC 1–99 is a recommendation for moderate-intensity statin, not merely "consider"<br>• Carotid plaque evidence is weaker — weigh together with calculated risk only (femoral artery not mentioned in this guideline)<br>• Incidentally found coronary calcification (non-gated CT) is judged by visual grade, not a quantitative score' },
   { n:6, name:'Hypertriglyceridemia', nameEn:'',
-    def:'Fasting triglycerides (TG) persistently elevated',
-    tool:'✓ Still part of the PREVENT calculation (TG is not part of the calculator\'s eligibility criteria at all) — risk is calculated the same way as in Group 1<br>Identify the cause of the elevated TG first (alcohol, uncontrolled diabetes, hypothyroidism, etc.)<br>If TG ≥400, use directly measured LDL-C or non-HDL-C in place of calculated LDL-C (corrects for equation error)',
-    statin:'The goal is preventing ASCVD, not lowering TG itself — a statin remains the foundation of treatment',
-    ldl:'LDL-C/non-HDL-C goals are managed alongside TG',
-    note:'If TG ≥1000, consider adding a TG-lowering agent (fibrate, omega-3, etc.) to prevent pancreatitis' }
+    def:'• Fasting triglycerides (TG) persistently elevated',
+    tool:'✓ Still part of the PREVENT calculation (TG is not part of the calculator\'s eligibility criteria at all)<br>• Risk is calculated the same way as in Group 1<br>• Identify the cause of the elevated TG first (alcohol, uncontrolled diabetes, hypothyroidism, etc.)<br>• If TG ≥400, use directly measured LDL-C or non-HDL-C in place of calculated LDL-C',
+    statin:'• The goal is preventing ASCVD, not lowering TG itself — a statin remains the foundation of treatment',
+    ldl:'• LDL-C/non-HDL-C goals are managed alongside TG',
+    note:'• If TG ≥1000, consider adding a TG-lowering agent (fibrate, omega-3, etc.) to prevent pancreatitis' }
 ];
 
 function renderGroupsModal(){
@@ -797,7 +800,7 @@ var GLOSSARY=[
   {abbr:'UACR',full:'Urine Albumin-to-Creatinine Ratio',ko:'Urine albumin-to-creatinine ratio',desc:'A marker of kidney damage (mg/g). ≥30: microalbuminuria. ≥300: macroalbuminuria. A variable in PREVENT 2023.'},
   {abbr:'HbA1c',full:'Hemoglobin A1c (Glycated Hemoglobin)',ko:'Hemoglobin A1c (glycated hemoglobin)',desc:'A marker of 3-month glycemic control (%). 5.7–6.4%: prediabetes. ≥6.5%: diagnostic of diabetes. A variable in PREVENT 2023 — a separate coefficient (hba1cDm) applies if diabetic and a separate one (hba1cNoDm) if non-diabetic. Entering HbA1c alone activates PREVENT\'s dedicated HbA1c-only model (AHA supplemental Table S12.C/H) and is fully incorporated into the risk estimate. If UACR is also entered, the Full model is used instead.'},
   {abbr:'BMI',full:'Body Mass Index',ko:'Body mass index',desc:'Weight (kg) / height (m²). ≥25: overweight, ≥30: obese, ≥35: severely obese (a CKM risk-enhancing factor). A variable in the PREVENT model.'},
-  {abbr:'CAC',full:'Coronary Artery Calcification (Score)',ko:'Coronary artery calcium score',desc:'A CT-based quantitative measure of subclinical atherosclerosis. CAC=0: reasonable to defer statin therapy for ~10 years. 1–99: risk-enhancing factor. 100–299 or ≥75th percentile: sufficient condition for statin therapy (LDL&lt;70). 300–999: high-intensity statin. ≥1000: very-high-risk level (LDL&lt;55).'},
+  {abbr:'CAC',full:'Coronary Artery Calcification (Score)',ko:'Coronary artery calcium score',desc:'A CT-based quantitative measure of subclinical atherosclerosis. CAC=0: low 10-year risk (not proof of absence) — reasonable to defer statin therapy, remains on the Group 1 (PREVENT) track. CAC≥1 (positive) shifts from Group 1 to the Group 5 (Subclinical Atherosclerosis) framework: 1–99 → moderate-intensity statin recommended (LDL&lt;100); 100–299 or ≥75th percentile → sufficient condition for high-intensity statin (LDL&lt;70); 300–999 → high-intensity statin; ≥1000 → very-high-risk level (LDL&lt;55).'},
   {abbr:'ABI',full:'Ankle-Brachial Index',ko:'Ankle-brachial index',desc:'&lt;0.9: peripheral artery disease (PAD). A risk-enhancing factor if asymptomatic (LDL&lt;100); reclassified as ASCVD secondary prevention if claudication, revascularization, or ulceration is present. &gt;1.40: non-compressible due to vascular calcification — toe-brachial index recommended.'},
   {abbr:'PRS',full:'Polygenic Risk Score',ko:'Polygenic risk score',desc:'Genetic risk derived from hundreds of thousands of combined SNPs. A risk-enhancing factor if CAD PRS is in the top 10% or relative risk is ≥2-fold (2026 ACC/AHA Class 2a).'},
   {abbr:'CAD',full:'Coronary Artery Disease',ko:'Coronary artery disease',desc:'The predominant clinical phenotype of ASCVD. Includes stable angina, unstable angina, and MI.'},
@@ -1838,7 +1841,9 @@ function switchRRTab(idx){
             style="width:68px;padding:5px 8px;border:1px solid #d0cec8;border-radius:7px;font-size:17.5px;font-weight:700;color:#1a1a18;text-align:center">
           <span class="text-toggle-link" onclick="toggleAgeRangeInfo()" style="font-size:12.5px;color:#185fa5;font-weight:600;cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px" title="View guidance for out-of-range ages">30–79 yr: PREVENT validated range</span>
         </div>
-        <div id="ageRangeInfo" style="display:none;margin-top:5px;padding:9px 11px;background:#eaf2fb;border-radius:8px;border-left:3px solid #185fa5;font-size:11.5px;color:#1a1a18;line-height:1.8;width:295px;max-width:295px;box-sizing:border-box;overflow:hidden;overflow-wrap:anywhere;word-break:keep-all;white-space:normal">
+        <div id="ageRangeInfo" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.55);overflow-y:auto;padding:24px 14px" onclick="if(event.target===this)toggleAgeRangeInfo()">
+        <div style="max-width:480px;margin:0 auto;background:#eaf2fb;border-radius:10px;border-left:3px solid #185fa5;font-size:11.5px;color:#1a1a18;line-height:1.8;box-shadow:0 10px 50px rgba(0,0,0,0.35);overflow:hidden">
+        <div style="max-height:80vh;overflow-y:auto;padding:9px 11px;box-sizing:border-box;overflow-wrap:anywhere;word-break:keep-all;white-space:normal">
           <div style="font-weight:700;color:#185fa5;margin-bottom:4px">Principles for Ages Outside the PREVENT 2023 Validated Range</div>
           <b style="color:#854f0b">▸ Under age 30</b><br>
           <span style="padding-left:8px;display:block;color:#5f5e5a;word-break:keep-all;overflow-wrap:break-word">The <b>absolute LDL value and underlying diagnosis</b> take priority over the 10-year risk score.<br>
@@ -1852,6 +1857,8 @@ function switchRRTab(idx){
           Diabetes/CKD stage 3–4 → guideline-recommended age range is <b>40–75</b>; beyond 75, downgrade to <b>shared decision (consider)</b> alongside lifestyle measures<br>
           Primary prevention in general: shared decision-making based on frailty, life expectancy, polypharmacy, and patient preference (2026 ACC/AHA)</span>
           <div style="text-align:right;margin-top:4px"><span class="text-toggle-link" onclick="toggleAgeRangeInfo()" style="font-size:11.5px;color:#185fa5;cursor:pointer;font-weight:600">Close ✕</span></div>
+        </div>
+        </div>
         </div>
         <div id="ageOutOfRange" style="display:none;margin-top:4px;padding:5px 9px;border-radius:6px;font-size:12.5px;line-height:1.55"></div>
       </div>
@@ -1936,11 +1943,16 @@ function switchRRTab(idx){
     <!-- Currently on a statin -->
     <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px">
       <label class="ck" style="display:inline-flex;margin-bottom:0"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:4px;vertical-align:middle">●</span><input type="checkbox" id="onStatin"> <b>Currently on a statin</b></label>
-      <span style="font-size:12.5px;color:#185fa5;font-weight:600;line-height:1.5">If the pre-treatment lipid values are unknown, you can select the <span class="text-toggle-link" onclick="var b=document.getElementById('statinIntensityBox');var s=getComputedStyle(b).display==='none';b.style.display=s?'block':'none';this.querySelector('.chev').textContent=s?' ▴':' ▾';" style="color:#0c447c;font-weight:800;text-decoration:underline;text-decoration-style:dotted;cursor:pointer">statin intensity<span class="chev" style="font-size:10.5px"> ▾</span></span> currently used to calculate and enter an estimated baseline.</span>
+      <span style="font-size:12.5px;color:#185fa5;font-weight:600;line-height:1.5">If the pre-treatment lipid values are unknown, you can select the <span class="text-toggle-link" onclick="var b=document.getElementById('statinIntensityBox');var s=getComputedStyle(b).display==='none';b.style.display=s?'block':'none';document.body.style.overflow=s?'hidden':'';this.querySelector('.chev').textContent=s?' ▴':' ▾';" style="color:#0c447c;font-weight:800;text-decoration:underline;text-decoration-style:dotted;cursor:pointer">statin intensity<span class="chev" id="statinIntensityChev" style="font-size:10.5px"> ▾</span></span> currently used to calculate and enter an estimated baseline.</span>
     </div>
     <!-- Statin intensity table (click to expand) -->
-    <div id="statinIntensityBox" style="display:none;margin-bottom:8px;padding:10px 12px;background:#f0f6fc;border:1px solid #b5d4f4;border-radius:8px">
-      <div style="font-size:11.5px;font-weight:700;color:#0c447c;letter-spacing:.05em;text-transform:uppercase;margin-bottom:7px">Statin Intensity Classification (ACC/AHA)</div>
+    <div id="statinIntensityBox" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.55);overflow-y:auto;padding:24px 14px" onclick="if(event.target===this){var b=document.getElementById('statinIntensityBox');b.style.display='none';document.body.style.overflow='';var c=document.getElementById('statinIntensityChev');if(c)c.textContent=' ▾';}">
+    <div style="max-width:560px;margin:0 auto;background:#f0f6fc;border:1px solid #b5d4f4;border-radius:10px;box-shadow:0 10px 50px rgba(0,0,0,0.35);overflow:hidden">
+    <div style="max-height:80vh;overflow-y:auto;padding:10px 12px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:7px">
+        <span style="font-size:11.5px;font-weight:700;color:#0c447c;letter-spacing:.05em;text-transform:uppercase">Statin Intensity Classification (ACC/AHA)</span>
+        <span class="text-toggle-link" onclick="var b=document.getElementById('statinIntensityBox');b.style.display='none';document.body.style.overflow='';var c=document.getElementById('statinIntensityChev');if(c)c.textContent=' ▾';" style="font-size:11.5px;color:#0c447c;cursor:pointer;font-weight:600">Close ✕</span>
+      </div>
       <div style="overflow-x:auto">
         <table style="width:100%;font-size:12.5px;border-collapse:collapse;min-width:300px">
           <thead><tr style="background:#e6f1fb">
@@ -1967,6 +1979,8 @@ function switchRRTab(idx){
           </tbody>
         </table>
       </div>
+    </div>
+    </div>
     </div>
     <div id="postLipidBox" style="display:none;margin-bottom:6px;padding:9px 11px;background:#f8f7f5;border:1px solid #e2e0db;border-radius:8px;font-size:14.5px">
       <div style="font-size:11.5px;font-weight:700;color:#888780;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px">On-Treatment / Current Lipid Panel</div>
@@ -2042,7 +2056,9 @@ function switchRRTab(idx){
       <span class="fl">ApoB — Directly Measured Value (mg/dL)</span>
       <input type="number" autocomplete="off" id="apob" step="1" min="20" max="300" placeholder="an LDL-C-based estimate is used automatically if left blank">
       <div style="font-size:11.5px;color:#888780;margin-top:3px;line-height:1.5">※ Direct measurement recommended (2026 ACC/AHA Class IIa) if TG ≥150 · diabetes · on-treatment LDL &lt;70 · <span id="ldlNonhdlTerm" class="text-toggle-link" onclick="toggleLdlNonhdlBox()" style="color:#c07a00;font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px" title="Click to see explanation">LDL/non-HDL discordance</span></div>
-      <div id="ldlNonhdlBox" style="display:none;margin-top:5px;padding:9px 11px;background:#fffbee;border-radius:8px;border-left:3px solid #c07a00;line-height:1.7">
+      <div id="ldlNonhdlBox" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.55);overflow-y:auto;padding:24px 14px" onclick="if(event.target===this)toggleLdlNonhdlBox()">
+      <div style="max-width:480px;margin:0 auto;background:#fffbee;border-radius:10px;border-left:3px solid #c07a00;line-height:1.7;box-shadow:0 10px 50px rgba(0,0,0,0.35);overflow:hidden">
+      <div style="max-height:80vh;overflow-y:auto;padding:9px 11px">
         <div style="font-size:11.5px;font-weight:700;color:#c07a00;margin-bottom:4px">▸ What Is LDL/non-HDL Discordance?</div>
         <div style="font-size:11.5px;color:#5a4a00">
           <b>Definition:</b> LDL-C and non-HDL-C fall into different risk categories.<br>
@@ -2058,6 +2074,8 @@ function switchRRTab(idx){
           In this situation, direct ApoB measurement further confirms the true atherogenic particle burden.
         </div>
         <div style="text-align:right;margin-top:5px"><span class="text-toggle-link" onclick="toggleLdlNonhdlBox()" style="font-size:11.5px;color:#c07a00;cursor:pointer;font-weight:600">Close ✕</span></div>
+      </div>
+      </div>
       </div>
     </div>
     <div id="apobIndBox" style="display:none;margin-top:5px;padding:7px 10px;background:#e6f1fb;border-radius:7px;border-left:3px solid #185fa5">
@@ -2173,7 +2191,7 @@ function switchRRTab(idx){
       <input type="checkbox" class="enh" id="enhInflam">
       <div>
         <div style="font-weight:600;color:#1a1a18">Chronic Inflammatory Disease
-          <span class="text-toggle-link" onclick="event.preventDefault();event.stopPropagation();toggleSection('inflamPanel','inflamPanelArrow')"
+          <span class="text-toggle-link" onclick="event.preventDefault();event.stopPropagation();toggleInflamDetail()"
             style="font-size:11.5px;color:#185fa5;cursor:pointer;margin-left:6px;font-weight:400">
             Details ▾<span id="inflamPanelArrow" style="display:none"></span>
           </span>
@@ -2182,7 +2200,10 @@ function switchRRTab(idx){
         <div style="font-size:11.5px;color:#888780;margin-top:1px">RA · lupus · psoriasis · HIV · inflammatory bowel disease · ankylosing spondylitis · chronic hepatitis</div>
       </div>
     </label>
-    <div id="inflamPanel" style="display:none;margin:2px 0 8px 19px;padding:10px 12px;background:#faeeda;border-radius:7px;border-left:3px solid #c9a02a;font-size:12.5px;line-height:1.75">
+    <!-- ══ Chronic Inflammatory Disease detail panel (modal, centered) ══ -->
+    <div id="inflamPanel" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.55);overflow-y:auto;padding:24px 14px" onclick="if(event.target===this)toggleInflamDetail()">
+    <div style="max-width:560px;margin:0 auto;background:#faeeda;border-radius:10px;border-left:3px solid #c9a02a;font-size:12.5px;line-height:1.75;box-shadow:0 10px 50px rgba(0,0,0,0.35);overflow:hidden">
+      <div style="max-height:80vh;overflow-y:auto;padding:14px 16px 12px">
       <div style="font-weight:700;color:#854f0b;margin-bottom:6px">🔥 Chronic Inflammation and ASCVD</div>
       <div style="color:#5f5e5a;margin-bottom:7px">
         Persistent systemic inflammation independently increases ASCVD risk by promoting atherosclerosis and plaque instability.<br>
@@ -2216,8 +2237,11 @@ function switchRRTab(idx){
           </div>
         </label>
       </div>
-      <div style="text-align:right;margin-top:6px"><span class="text-toggle-link" onclick="event.preventDefault();event.stopPropagation();toggleSection('inflamPanel','inflamPanelArrow')" style="font-size:11.5px;color:#c9a02a;cursor:pointer;font-weight:600">Close ✕</span></div>
+      <div style="text-align:right;margin-top:6px"><span class="text-toggle-link" onclick="event.preventDefault();event.stopPropagation();toggleInflamDetail()" style="font-size:11.5px;color:#c9a02a;cursor:pointer;font-weight:600">Close ✕</span></div>
+      </div><!-- /inflam scroll body -->
     </div>
+    </div>
+    <!-- ══ /Chronic Inflammatory Disease detail panel ══ -->
 
     <!-- ── Table 13 #5 ── -->
     <label class="ck">
@@ -2295,9 +2319,9 @@ function switchRRTab(idx){
     <label class="ck">
       <input type="checkbox" class="enh" id="carotidPlaque">
       <div><div style="font-weight:600;color:#1a1a18">Carotid ultrasound plaque ≥ 1.5 mm</div>
-      <div style="font-size:11.5px;color:#888780;margin-top:1px">ESC/EAS 2025 Class IIa risk-modifying factor — supports upward risk reclassification (not an automatic treatment indication)</div></div>
+      <div style="font-size:11.5px;color:#888780;margin-top:1px">ESC/EAS 2025 Class IIa risk-modifying factor — 2026 ACC/AHA also states goal is not established (not an automatic treatment indication)</div></div>
     </label>
-    <div id="carotidDesc" style="display:none;font-size:11.5px;color:#888780;padding:1px 0 4px 19px;line-height:1.5">ESC/EAS 2025 Class IIa risk-modifying factor · supports upward risk reclassification in low-to-intermediate risk — not a risk-independent automatic treatment indication. LDL target &lt;100 mg/dL (once reclassification criteria are met)</div>
+    <div id="carotidDesc" style="display:none;font-size:11.5px;color:#888780;padding:1px 0 4px 19px;line-height:1.5">ESC/EAS 2025 Class IIa risk-modifying factor · supports upward risk reclassification in low-to-intermediate risk. 2026 ACC/AHA (Circulation 2026;153:e1154) also states "LLT is beneficial, but current evidence is insufficient to recommend a specific LDL-C goal" — not a risk-independent automatic treatment indication. LDL target &lt;100 mg/dL (once reclassification criteria are met, tentative)</div>
 
     <!-- CAC -->
     <label class="ck" style="margin-top:3px">
@@ -2870,15 +2894,16 @@ function switchRRTab(idx){
           </table>
 
         <!-- ══ NODM Detail Panel ══ -->
-        <!-- ══ NODM Detail Panel (outside table) ══ -->
-        <div id="nodmDetailPanel" style="display:none;margin:6px 0 10px;border:1.5px solid #f5d88a;border-radius:10px;font-size:12.5px;color:#1a1a18;overflow:hidden">
+        <!-- ══ NODM Detail Panel (modal, centered) ══ -->
+        <div id="nodmDetailPanel" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.55);overflow-y:auto;padding:24px 14px" onclick="if(event.target===this)toggleNodmDetail()">
+        <div style="max-width:640px;margin:0 auto;border:1.5px solid #f5d88a;border-radius:10px;font-size:12.5px;color:#1a1a18;overflow:hidden;box-shadow:0 10px 50px rgba(0,0,0,0.35)">
           <!-- Fixed header -->
-          <div style="padding:10px 16px 9px;background:#faeeda;border-bottom:1px solid #f5d88a;border-radius:10px 10px 0 0;display:flex;align-items:center;justify-content:space-between">
+          <div style="padding:10px 16px 9px;background:#faeeda;border-bottom:1px solid #f5d88a;border-radius:10px 10px 0 0;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:2">
             <span style="font-size:13.5px;font-weight:700;color:#854f0b">New-Onset Diabetes (NODM) &#8212; Mechanism and Clinical Application</span>
             <button class="toggle-pill-btn" onclick="toggleNodmDetail()" style="padding:3px 13px;background:#854f0b;color:#fff;border:none;border-radius:5px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit">Close &#10005;</button>
           </div>
           <!-- Scrollable body -->
-          <div style="max-height:420px;overflow-y:auto;overflow-x:hidden;padding:14px 16px 12px;background:#fffbf0;line-height:1.75">
+          <div style="max-height:75vh;overflow-y:auto;overflow-x:hidden;padding:14px 16px 12px;background:#fffbf0;line-height:1.75">
 
           <!-- Risk by intensity -->
           <div style="font-weight:700;color:#854f0b;margin-bottom:5px;font-size:12.5px">&#9658; Risk by Intensity (CTT 2024, over 4 years)</div>
@@ -2956,6 +2981,7 @@ function switchRRTab(idx){
 
           </div><!-- /nodm scroll body -->
         </div>
+        </div>
         <!-- ══ /NODM Detail Panel ══ -->
 
           <!-- ★ Table 2: Liver enzymes · LFT · SAMS -->
@@ -3002,17 +3028,18 @@ function switchRRTab(idx){
           </table>
 
         <!-- ══ SAMS Detail Panel ══ -->
-        <!-- ══ SAMS Detail Panel (outside table) ══ -->
-        <div id="samsDetailPanel" style="display:none;margin:6px 0 10px;border:1.5px solid #b8d4ee;border-radius:10px;font-size:12.5px;color:#1a1a18">
+        <!-- ══ SAMS Detail Panel (modal, centered) ══ -->
+        <div id="samsDetailPanel" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.55);overflow-y:auto;padding:24px 14px" onclick="if(event.target===this)toggleSamsDetail()">
+        <div style="max-width:640px;margin:0 auto;border:1.5px solid #b8d4ee;border-radius:10px;font-size:12.5px;color:#1a1a18;box-shadow:0 10px 50px rgba(0,0,0,0.35);overflow:hidden">
 
           <!-- ── Fixed header ── -->
-          <div style="padding:10px 16px 9px;background:#ddeefa;border-bottom:1px solid #b8d4ee;border-radius:10px 10px 0 0;display:flex;align-items:center;justify-content:space-between">
+          <div style="padding:10px 16px 9px;background:#ddeefa;border-bottom:1px solid #b8d4ee;border-radius:10px 10px 0 0;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:2">
             <span style="font-size:13.5px;font-weight:700;color:#185fa5">Pharmacologic SAMS &#8212; Mechanism and Clinical Application</span>
             <button class="toggle-pill-btn" onclick="toggleSamsDetail()" style="padding:3px 13px;background:#185fa5;color:#fff;border:none;border-radius:5px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit">Close &#10005;</button>
           </div>
 
           <!-- ── Scrollable body (fixed height → scrollbar always shown) ── -->
-          <div id="samsScrollBody" style="max-height:420px;overflow-y:auto;overflow-x:hidden;padding:14px 16px 12px;background:#f0f6fc;border-radius:0 0 10px 10px">
+          <div id="samsScrollBody" style="max-height:75vh;overflow-y:auto;overflow-x:hidden;padding:14px 16px 12px;background:#f0f6fc;border-radius:0 0 10px 10px">
 
             <!-- Mechanism -->
             <div style="font-weight:700;color:#185fa5;margin-bottom:6px;font-size:12.5px">&#9658; Mechanism</div>
@@ -3095,6 +3122,7 @@ function switchRRTab(idx){
             </div>
 
           </div><!-- /samsScrollBody -->
+        </div>
         </div>
         <!-- ══ /SAMS Detail Panel ══ -->
 
@@ -4887,13 +4915,14 @@ function upd(){
     // CAC 1–99: functions only as a risk enhancer — already reflected in accRec's nE calculation. No separate override.
 
     // Carotid plaque ≥1.5 mm: ESC/EAS 2025 Class IIa risk-modifying factor — basis for upward risk reclassification
+    // 2026 ACC/AHA (Circulation 2026;153:e1154) also states "LLT beneficial but evidence insufficient for a specific LDL-C goal" — unlike CAC, not a risk-independent confirmed indication
     // No statin override at low risk (<3%); statin consideration is intensified only at borderline risk (3–5%) or above
     // Skip if a CAC override has already been applied (ldlTgt ≤100)
     const carotidActive = g('carotidPlaque')?.checked;
     if(carotidActive && (!acc.ldlTgt || acc.ldlTgt > 100) && primRisk >= 3){
       acc={c:'mo',l:'Consider moderate intensity',ind:'Carotid plaque ≥1.5 mm — risk-modifying factor for upward risk reclassification (ESC/EAS 2025 IIa)',
            d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],
-           n:'Carotid plaque ≥1.5 mm: an <b>ESC/EAS 2025 Class IIa risk-modifying factor</b>. Rather than automatically triggering a statin regardless of risk, it serves as a basis for reclassifying risk upward in low-to-intermediate-risk patients. Consider moderate-intensity statin therapy based on the reclassified risk and LDL-C level, with an LDL target &lt;100 mg/dL.',
+           n:'Carotid plaque ≥1.5 mm: an <b>ESC/EAS 2025 Class IIa risk-modifying factor</b>, and the 2026 ACC/AHA guideline also states that "LLT is beneficial, but current evidence is insufficient to recommend a specific LDL-C/non-HDL-C goal." In other words, unlike CAC, it is not a risk-independent, goal-defined indication — it serves only as supporting evidence for reclassifying risk upward in low-to-intermediate-risk patients. Consider moderate-intensity statin therapy based on the reclassified risk and LDL-C level, with an LDL target &lt;100 mg/dL (tentative).',
            nt:'warn',ldlTgt:100,nhTgt:130};
     }
 
@@ -5346,13 +5375,16 @@ function toggleDLCN(){
 function toggleAgeRangeInfo(){
   const box=document.getElementById('ageRangeInfo');
   if(!box) return;
-  box.style.display=box.style.display==='none'?'block':'none';
+  const open = box.style.display !== 'none';
+  box.style.display = open ? 'none' : 'block';
+  document.body.style.overflow = open ? '' : 'hidden';
 }
 function toggleLdlNonhdlBox(){
   const box = document.getElementById('ldlNonhdlBox');
   if(!box) return;
   const open = box.style.display !== 'none';
   box.style.display = open ? 'none' : 'block';
+  document.body.style.overflow = open ? '' : 'hidden';
 }
 function toggleSection(bodyId, arrowId){
   const body = g(bodyId);
@@ -5476,12 +5508,13 @@ document.querySelectorAll('.cac-opt').forEach(btn=>{
   });
 });
 
-// ── NODM detail panel toggle ──
+// ── NODM detail panel toggle (modal) ──
 function toggleNodmDetail(){
   var panel = document.getElementById('nodmDetailPanel');
   if(!panel) return;
   var open = panel.style.display !== 'none';
   panel.style.display = open ? 'none' : 'block';
+  document.body.style.overflow = open ? '' : 'hidden';
   document.querySelectorAll('[onclick="toggleNodmDetail()"]').forEach(function(el){
     if(el.tagName === 'SPAN'){
       var t = el.textContent;
@@ -5492,18 +5525,51 @@ function toggleNodmDetail(){
   });
 }
 
-// ── SAMS detail panel toggle ──
+// ── SAMS detail panel toggle (modal) ──
 function toggleSamsDetail(){
   var panel = document.getElementById('samsDetailPanel');
   if(!panel) return;
   var open = panel.style.display !== 'none';
   panel.style.display = open ? 'none' : 'block';
+  document.body.style.overflow = open ? '' : 'hidden';
   document.querySelectorAll('[onclick="toggleSamsDetail()"]').forEach(function(el){
     if(el.tagName === 'SPAN' && (el.textContent.indexOf('▶') === 0 || el.textContent.charCodeAt(0) === 9658)){
       el.textContent = open ? '▶ Show details' : '▼ Collapse';
     }
   });
 }
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape'){
+    var n = document.getElementById('nodmDetailPanel');
+    if(n && n.style.display === 'block') toggleNodmDetail();
+    var s = document.getElementById('samsDetailPanel');
+    if(s && s.style.display === 'block') toggleSamsDetail();
+  }
+});
+
+// ── Chronic Inflammatory Disease detail panel toggle (modal) ──
+function toggleInflamDetail(){
+  var panel = document.getElementById('inflamPanel');
+  if(!panel) return;
+  var open = panel.style.display !== 'none';
+  panel.style.display = open ? 'none' : 'block';
+  document.body.style.overflow = open ? '' : 'hidden';
+}
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape'){
+    var i = document.getElementById('inflamPanel');
+    if(i && i.style.display === 'block') toggleInflamDetail();
+    var a = document.getElementById('ageRangeInfo');
+    if(a && a.style.display === 'block') toggleAgeRangeInfo();
+    var l = document.getElementById('ldlNonhdlBox');
+    if(l && l.style.display === 'block') toggleLdlNonhdlBox();
+    var si = document.getElementById('statinIntensityBox');
+    if(si && si.style.display === 'block'){
+      si.style.display='none'; document.body.style.overflow='';
+      var c=document.getElementById('statinIntensityChev'); if(c)c.textContent=' ▾';
+    }
+  }
+});
 
 // ── NNH accordion toggle ──
 function toggleNNHBox(){
@@ -5694,10 +5760,12 @@ function clearAllInputs(){
    'backCalcResult','backCalcWarn','cacPanel','abiDesc','carotidDesc',
    'nodmDetailPanel','ldlNonhdlBox','apobIndBox',
    'ageRangeInfo','ageOutOfRange','ageRangeCard',
+   'samsDetailPanel','inflamPanel','statinIntensityBox',
    'ascvdHxNotice'].forEach(function(id){
     var el=document.getElementById(id);
     if(el) el.style.display='none';
   });
+  document.body.style.overflow='';
 
   // 6. Reset CAC button styles
   document.querySelectorAll('.cac-opt').forEach(function(el){
