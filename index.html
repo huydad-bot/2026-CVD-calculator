@@ -2383,11 +2383,11 @@ function switchRRTab(idx){
     </label>
     <div id="carotidDesc" style="display:none;font-size:11.5px;color:#888780;padding:1px 0 4px 19px;line-height:1.5">ESC/EAS 2025 Class IIa 위험수정인자 · 저~중간위험에서 위험도 상향 재분류 근거. 2026 ACC/AHA(Circulation 2026;153:e1154)도 "LLT는 유익하나 구체적 LDL-C 목표를 권고할 근거는 불충분"이라고 명시 — 위험도 무관 자동 처방 적응증이 아님. LDL 목표 &lt;100 mg/dL (재분류 후 기준 충족 시, 잠정)</div>
 
-    <!-- CAC — Table 13 위험증강인자와 별개, 2026 ACC/AHA Section 4.2.3.6 전용 권고 -->
+    <!-- CAC — Table 13 위험증강인자와 별개, 2026 ACC/AHA Section 4.2.7 전용 권고 -->
     <div style="font-size:11.5px;font-weight:700;color:#888780;letter-spacing:.04em;margin:10px 0 2px;padding-top:8px;border-top:1px dashed #d0cec8">
-      ─ 관상동맥 석회화 (CAC) — 2026 ACC/AHA Section 4.2.3.6 전용 권고 ─
+      ─ 관상동맥 석회화 (CAC) — 2026 ACC/AHA Section 4.2.7 전용 권고 ─
     </div>
-    <div style="font-size:11px;color:#a8a79f;margin-bottom:5px;line-height:1.5">※ Table 13 위험증강인자 목록에는 포함되지 않음 — 자체 COR 등급을 가진 전용 권고 절(Section 4.2.3.6)을 따로 따름</div>
+    <div style="font-size:11px;color:#a8a79f;margin-bottom:5px;line-height:1.5">※ Table 13 위험증강인자 목록에는 포함되지 않음 — 검사 적응증은 Section 4.2.3.6, 점수별 목표치는 자체 COR 등급을 가진 Section 4.2.7을 따로 따름</div>
     <label class="ck" style="margin-top:3px">
       <input type="checkbox" id="cacMain">
       <span>관상동맥 석회화 (CAC) 점수 입력</span>
@@ -2397,7 +2397,6 @@ function switchRRTab(idx){
       <input type="checkbox" class="enh" id="cac0"     style="display:none">
       <input type="checkbox" class="enh" id="cac1to99" style="display:none">
       <input type="checkbox" class="enh" id="cacCheck" style="display:none">
-      <input type="checkbox" class="enh" id="cac300"   style="display:none">
       <input type="checkbox" class="enh" id="cac1000"  style="display:none">
       <div class="cac-opt" data-cac="cac0"
         style="padding:7px 9px;border:1px solid #a8cf8a;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s;margin-bottom:5px">
@@ -2412,18 +2411,12 @@ function switchRRTab(idx){
         </div>
         <div class="cac-opt" data-cac="cacCheck"
           style="padding:7px 9px;border:1px solid #d0cec8;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s">
-          <div style="font-size:13.5px;font-weight:700;color:#1a1a18">CAC 100–299</div>
-          <div style="font-size:11.5px;color:#888780;margin-top:2px;line-height:1.45">또는 ≥75 백분위<br>스타틴 충분조건 · LDL &lt;70</div>
+          <div style="font-size:13.5px;font-weight:700;color:#1a1a18">CAC ≥100</div>
+          <div style="font-size:11.5px;color:#888780;margin-top:2px;line-height:1.45">또는 ≥75 백분위<br>고강도 스타틴 · LDL &lt;70</div>
         </div>
-        <div class="cac-opt" data-cac="cac300"
-          style="padding:7px 9px;border:1px solid #d0cec8;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s">
-          <div style="font-size:13.5px;font-weight:700;color:#1a1a18">CAC 300–999</div>
-          <div style="font-size:11.5px;color:#888780;margin-top:2px;line-height:1.45">고강도 스타틴<br>LDL &lt;70 · 선택적 &lt;55</div>
-        </div>
-        <div class="cac-opt" data-cac="cac1000"
-          style="padding:7px 9px;border:1px solid #d0cec8;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s">
+        <div class="cac-opt" data-cac="cac1000" style="grid-column:1 / span 2;padding:7px 9px;border:1px solid #d0cec8;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s">
           <div style="font-size:13.5px;font-weight:700;color:#1a1a18">CAC ≥1000</div>
-          <div style="font-size:11.5px;color:#888780;margin-top:2px;line-height:1.45">초고위험 수준<br>LDL 목표 &lt;55 · 최대강도</div>
+          <div style="font-size:11.5px;color:#888780;margin-top:2px;line-height:1.45">초고위험 수준 · LDL 목표 &lt;55 · 최대강도</div>
         </div>
       </div>
     </div>
@@ -2874,7 +2867,7 @@ function switchRRTab(idx){
           <span class="badge" style="background:#faeeda;color:#412402;border:1px solid #fac775">RE 동반 시 효과적</span>
           <span style="margin-left:auto;font-size:13.5px;color:#888780">NNT ≈ 53</span>
         </div>
-        <div style="font-size:12.5px;color:#5f5e5a;padding-left:23px">RE ≥2개 또는 CAC ≥100 동반 시 유효 NNT ~35–40 → NNT &lt;50 진입. Class IIa.<br>Lp(a)≥50, CAC 100–299, hs-CRP≥2, 조기 가족력 복수 동반 시 재평가.</div>
+        <div style="font-size:12.5px;color:#5f5e5a;padding-left:23px">RE ≥2개 또는 CAC ≥100 동반 시 유효 NNT ~35–40 → NNT &lt;50 진입. Class IIa.<br>Lp(a)≥50, CAC ≥100, hs-CRP≥2, 조기 가족력 복수 동반 시 재평가.</div>
       </div>
       <div style="border-left:3px solid #639922;border-radius:0 7px 7px 0;background:#eaf3de;padding:8px 11px;margin-bottom:6px">
         <div style="display:flex;align-items:center;gap:7px;margin-bottom:3px;flex-wrap:wrap">
@@ -4550,7 +4543,7 @@ function upd(){
     const _egfr=parseFloat(g('egfr').value)||90;
     const _age=parseInt(ageRaw)||0;
     const _ckdEnh=(_egfr>=15&&_egfr<60&&_age>0&&_age<40);
-    const _cacIds=['cac0','cac1to99','cacCheck','cac300','cac1000'];
+    const _cacIds=['cac0','cac1to99','cacCheck','cac1000'];
     const nE=[...document.querySelectorAll('.enh:checked')].filter(el=>_cacIds.indexOf(el.id)<0).length+(_ckdEnh?1:0);
     if(g('enhCount')) g('enhCount').textContent=nE;
     if(g('ckdEnhDisplay')) g('ckdEnhDisplay').style.display=_ckdEnh?'flex':'none';
@@ -4568,7 +4561,7 @@ function upd(){
         const items=[
           {key:'ascvd',label:'ASCVD 기왕력 (2차 예방)',sub:'심근경색 · 뇌졸중 · TIA · ACS · 관상동맥 재개통술 · 말초동맥질환 등',active:!!_ascvdEarly,strength:'고강도'},
           {key:'ldl190',label:'LDL-C ≥ 190 mg/dL (중증 고콜레스테롤혈증 / FH 의심)',sub:'누적 LDL 노출 과다, 가족성 고콜레스테롤혈증 감별 필요',active:_ldl190,strength:'고강도'},
-          {key:'cac',label:'CAC 100–299 / 300–999 / ≥1000 — 스타틴 충분조건',sub:'2026 ACC/AHA: PREVENT 위험도 무관 스타틴 시작의 충분조건',active:false},
+          {key:'cac',label:'CAC ≥100 / ≥1000 — 스타틴 충분조건',sub:'2026 ACC/AHA Section 4.2.7: PREVENT 위험도 무관 스타틴 시작의 충분조건',active:false},
           {key:'ckd',label:'CKD (eGFR 15–59) + 나이 ≥ 40세',sub:'전통적 위험방정식이 CKD에서 위험을 과소평가',active:false},
           {key:'dm',label:'당뇨병 (30–79세)',sub:'당뇨 단독으로도 최소 중등강도 스타틴',active:false},
           {key:'hiv',label:'HIV (안정 cART, 40–75세)',sub:'REPRIEVE trial: Pitavastatin 4 mg → MACE 35% 감소',active:false},
@@ -4653,7 +4646,7 @@ function upd(){
   //   나이 <40세 → 위험증강인자로만 반영 (ckdEnh, nE에 자동 가산)
   const ckdEnh=(egfr>=15&&egfr<60&&age<40);
 
-  const cacIds=['cac0','cac1to99','cacCheck','cac300','cac1000'];
+  const cacIds=['cac0','cac1to99','cacCheck','cac1000'];
   const nE=[...document.querySelectorAll('.enh:checked')].filter(el=>cacIds.indexOf(el.id)<0).length+(ckdEnh?1:0);
   g('enhCount').textContent=nE;
   // CKD <40세 위험증강인자 자동 표시
@@ -4822,12 +4815,11 @@ function upd(){
   }
 
   // ── 절대 적응증 플래그 (배지 표시 전에 계산) ──
-  const cacActive=g('cacCheck')&&g('cacCheck').checked;       // CAC 100–299 또는 ≥75 백분위
+  const cacActive=g('cacCheck')&&g('cacCheck').checked;       // CAC ≥100 또는 ≥75 백분위 (100–299/300–999 통합)
   const cac0Active=g('cac0')&&g('cac0').checked;  // CAC = 0 — 10년 스타틴 유예 근거 (COR 2a)
   const cac1to99Active=g('cac1to99')&&g('cac1to99').checked;  // CAC 1–99 — 전용 override 있음 (COR 2a)
-  const cac300Active=g('cac300')&&g('cac300').checked;        // CAC 300–999
   const cac1000Active=g('cac1000')&&g('cac1000').checked;     // CAC ≥1000
-  const anyCAC=cac1to99Active||cacActive||cac300Active||cac1000Active;
+  const anyCAC=cac1to99Active||cacActive||cac1000Active;
   const ckdAbs=(egfr>=15&&egfr<60&&age>=40);
   const dmEsrd=dm&&egfr>0&&egfr<15; // 말기신질환(투석 수준) — DM의 '위험도 무관' 원칙보다 이 근거가 우선
   const dmAbs=dm&&age>=30&&age<=79&&!dmEsrd;
@@ -4841,8 +4833,7 @@ function upd(){
     if(!excludeAscvd && ascvd) notes.push(vhr?'ASCVD 기왕력 (초고위험: LDL<55 목표)':'ASCVD 기왕력 (고강도 스타틴, LDL<70 목표)');
     if(ldl190Abs) notes.push('LDL-C ≥190 mg/dL — FH 의심, 위험도 무관 고강도 스타틴');
     if(cac1000Active&&!ascvd) notes.push('CAC ≥1000 — 초고위험 수준, LDL<55 목표');
-    if(cac300Active&&!ascvd) notes.push('CAC 300–999 — LDL<70 목표 (선택적 <55 강화 고려)');
-    if(cacActive&&!ascvd) notes.push('CAC 100–299 또는 ≥75 백분위 — 스타틴 충분조건, LDL<70 목표');
+    if(cacActive&&!ascvd) notes.push('CAC ≥100 또는 ≥75 백분위 — 스타틴 충분조건, LDL<70 목표');
     if(cac1to99Active&&!ascvd) notes.push('CAC 1–99 — 중등도 강도 스타틴이 합리적(COR 2a), LDL<100 목표');
     if(ckdAbs&&!ascvd) notes.push('CKD (eGFR 15–59) + 나이≥40세 — 위험도 무관 중등강도 스타틴');
     if(dmAbs&&!ascvd) notes.push(`당뇨병 — 위험도 무관 ${primRisk>=10?'고강도':'중등강도'} 스타틴`);
@@ -4976,19 +4967,11 @@ function upd(){
            n:'CAC ≥1000: 광범위 무증상 죽상경화. 2026 ACC/AHA — ASCVD 초고위험에 준하는 관리. LDL &lt;55 mg/dL 목표, 최대내약 스타틴 + Ezetimibe 추가 고려.',
            nt:'dng',ldlTgt:55,nhTgt:85};
     }
-    // CAC 300–999: 가이드라인 원문에 별도 목표 없음 — ≥100 AU 범주 적용, LDL <70
-    // 가이드라인 저자 JACC 에디토리얼: CAC ≥300에서 <55는 "optional goal"
-    else if(cac300Active && (!acc.ldlTgt || acc.ldlTgt > 70)){
-      acc={c:'hi',l:'고강도',ind:'CAC 300–999 — LDL <70 mg/dL 목표 (필요 시 <55 고려)',
-           d:['Rosuvastatin 20–40 mg','Atorvastatin 40–80 mg'],
-           n:'CAC 300–999: 광범위 무증상 죽상경화증. 2026 ACC/AHA — ≥100 AU 범주 적용, 고강도 스타틴 및 LDL &lt;70 mg/dL 목표. 가이드라인 저자 권고: CAC ≥300에서 <55 mg/dL은 임상적 판단에 따른 선택적 강화 목표.',
-           nt:'warn',ldlTgt:70,nhTgt:100};
-    }
-    // CAC 100–299 또는 ≥75 백분위: LDL <70, 스타틴 충분조건
+    // CAC ≥100 또는 ≥75 백분위: 고강도, LDL <70 (원문 Section 4.2.7 — 권고 2·3 병합, 둘 다 COR1/LOE B-R, 목표치 동일)
     else if(cacActive && (!acc.ldlTgt || acc.ldlTgt > 70)){
-      acc={c:'hi',l:'고강도 고려',ind:'CAC 100–299 또는 ≥75 백분위 — 스타틴 충분조건 (LDL <70)',
-           d:['Atorvastatin 40 mg','Rosuvastatin 20 mg'],
-           n:'CAC 100–299: 2026 ACC/AHA — PREVENT 위험도 무관 스타틴 충분조건. LDL &lt;70 mg/dL 목표.',
+      acc={c:'hi',l:'고강도',ind:'CAC ≥100 또는 ≥75 백분위 — 스타틴 충분조건 (LDL <70)',
+           d:['Atorvastatin 40–80 mg','Rosuvastatin 20–40 mg'],
+           n:'CAC ≥100: 2026 ACC/AHA Section 4.2.7 — PREVENT 위험도 무관 스타틴 충분조건(COR 1, LOE B-R). LDL &lt;70 mg/dL, non-HDL-C &lt;100 mg/dL 목표. CAC 100–299와 300–999는 원문에서 번호가 다른 별도 공식 권고이나 목표 수치는 동일하여 여기서는 하나로 통합했습니다.',
            nt:'warn',ldlTgt:70,nhTgt:100};
     }
     // CAC 1–99 & <75 백분위: 2026 ACC/AHA COR 2a — 중등도 강도 스타틴이 합리적, LDL <100
@@ -4998,7 +4981,7 @@ function upd(){
     else if(cac1to99Active && (!acc.ldlTgt || acc.ldlTgt >= 100)){
       acc={c:'mo',l:'중등도 강도 (합리적)',ind:'CAC 1–99 & <75 백분위 — 중등도 강도 스타틴이 합리적 (COR 2a, LDL <100)',
            d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],
-           n:'CAC 1–99: 2026 ACC/AHA Section 4.2.3.6에 따른 소견입니다. CAC&gt;0 확인 시 치료 시작 자체는 권고(COR 1)이며, 중등도 강도·LDL &lt;100 목표는 합리적(COR 2a) 수준입니다. Table 13의 일반 위험증강인자와는 별개로, 검사로 CAC가 확인된 이후에는 PREVENT 위험도 수치와 무관하게 이 기준이 적용됩니다.',
+           n:'CAC 1–99: 2026 ACC/AHA Section 4.2.7에 따른 소견입니다(권고 4, COR 2a, LOE B-R). CAC&gt;0 확인 시 치료 시작 자체는 권고(COR 1, Section 4.2.3.6)이며, 중등도 강도·LDL &lt;100 목표는 합리적(COR 2a) 수준입니다. Table 13의 일반 위험증강인자와는 별개로, 검사로 CAC가 확인된 이후에는 PREVENT 위험도 수치와 무관하게 이 기준이 적용됩니다.',
            nt:'info',ldlTgt:100,nhTgt:130};
     }
     // CAC = 0: 2026 ACC/AHA COR 2a — 경계·중간위험에서 스타틴 유예 합리적
@@ -5073,25 +5056,21 @@ function upd(){
     },
     {
       key:'cac',
-      active:(cacActive||cac300Active||cac1000Active||cac1to99Active)&&!ascvd,
+      active:(cacActive||cac1000Active||cac1to99Active)&&!ascvd,
       label:cac1000Active
         ?'CAC ≥1000 — 초고위험 수준, 스타틴 충분조건 (LDL 목표 <55 mg/dL, 최대강도)'
-        :cac300Active
-          ?'CAC 300–999 — 무증상 죽상경화 광범위, 스타틴 충분조건 (LDL 목표 <70 mg/dL, 필요 시 <55 선택적 고려)'
-          :cacActive
-            ?'CAC 100–299 (또는 ≥75 백분위) — 스타틴 충분조건 (LDL 목표 <70 mg/dL)'
-            :'CAC 1–99 (또는 <75 백분위) — 중등도 강도 스타틴이 합리적 (COR 2a, LDL 목표 <100 mg/dL)',
-      detail:(cacActive||cac300Active||cac1000Active||cac1to99Active)
+        :cacActive
+          ?'CAC ≥100 (또는 ≥75 백분위) — 스타틴 충분조건 (LDL 목표 <70 mg/dL)'
+          :'CAC 1–99 (또는 <75 백분위) — 중등도 강도 스타틴이 합리적 (COR 2a, LDL 목표 <100 mg/dL)',
+      detail:(cacActive||cac1000Active||cac1to99Active)
         ?(cac1000Active
             ?'무증상 죽상경화 광범위(CAC ≥1000) — 고강도 스타틴, LDL 목표 &lt;55 mg/dL'
-            :cac300Active
-              ?'무증상 죽상경화 광범위(CAC 300–999) — 고강도 스타틴, LDL 목표 &lt;70 mg/dL. 가이드라인 저자: <55 mg/dL은 선택적 강화 고려'
-              :cacActive
-                ?'무증상 죽상경화의 객관적 증거(CAC 100–299) — 고강도 스타틴, LDL 목표 &lt;70 mg/dL'
-                :'무증상 죽상경화 소견(CAC 1–99) — 중등도 강도 스타틴이 합리적(COR 2a), LDL 목표 &lt;100 mg/dL')
+            :cacActive
+              ?'무증상 죽상경화의 객관적 증거(CAC ≥100) — 고강도 스타틴, LDL 목표 &lt;70 mg/dL(원문 권고 2·3 병합, 목표 동일)'
+              :'무증상 죽상경화 소견(CAC 1–99) — 중등도 강도 스타틴이 합리적(COR 2a), LDL 목표 &lt;100 mg/dL')
         :'해당 없음',
-      strength:cac1000Active||cac300Active||cacActive?'고강도':'중등강도',
-      basis:'2026 ACC/AHA Section 4.2.3.6: CAC&gt;0 확인 시 치료 시작은 권고(COR 1); CAC 1–99는 중등도 강도가 합리적(COR 2a), CAC≥100은 고강도 충분조건. 세부 LDL 목표는 위험증가 인자 박스 CAC 등급 참조'
+      strength:cac1000Active||cacActive?'고강도':'중등강도',
+      basis:'2026 ACC/AHA Section 4.2.3.6(CAC&gt;0 확인 시 치료 시작 권고, COR 1) 및 Section 4.2.7(점수별 목표치 — CAC 1–99는 COR 2a 중등도 강도, CAC≥100은 COR 1 고강도 충분조건). 세부 LDL 목표는 위험증가 인자 박스 CAC 등급 참조'
     },
     {
       key:'ckd',
@@ -5204,7 +5183,6 @@ function upd(){
   if(ckdAbs && dispLdlTgt > 100){ dispLdlTgt=100; dispNhTgt=Math.min(dispNhTgt,130); }
   if(!ascvd){
     if(cac1000Active && dispLdlTgt > 55){ dispLdlTgt=55; dispNhTgt=Math.min(dispNhTgt,85); }
-    else if(cac300Active && dispLdlTgt > 70){ dispLdlTgt=70; dispNhTgt=Math.min(dispNhTgt,100); }
     else if(cacActive && dispLdlTgt > 70){ dispLdlTgt=70; dispNhTgt=Math.min(dispNhTgt,100); }
     else if(cac1to99Active && dispLdlTgt > 100){ dispLdlTgt=100; dispNhTgt=Math.min(dispNhTgt,130); }
   }
@@ -5398,7 +5376,7 @@ function renderAbsIndsDefault(){
   const items=[
     {key:'ascvd', label:'ASCVD 기왕력 (2차 예방)',         sub:'심근경색 · 뇌졸중 · TIA · ACS · 관상동맥 재개통술 · 말초동맥질환 등'},
     {key:'ldl190',label:'LDL-C ≥ 190 mg/dL (중증 고콜레스테롤혈증 / FH 의심)', sub:'누적 LDL 노출 과다, 가족성 고콜레스테롤혈증 감별 필요'},
-    {key:'cac',   label:'CAC 100–299 / 300–999 / ≥1000 — 스타틴 충분조건', sub:'2026 ACC/AHA: PREVENT 위험도 무관 스타틴 시작의 충분조건'},
+    {key:'cac',   label:'CAC ≥100 / ≥1000 — 스타틴 충분조건', sub:'2026 ACC/AHA Section 4.2.7: PREVENT 위험도 무관 스타틴 시작의 충분조건'},
     {key:'ckd',   label:'CKD (eGFR 15–59) + 나이 ≥ 40세', sub:'전통적 위험방정식이 CKD에서 위험을 과소평가; 투석 환자는 별도 판단'},
     {key:'dm',    label:'당뇨병 (30–79세)',                 sub:'당뇨 단독으로도 최소 중등강도 스타틴; PREVENT 점수에 관계없이 치료 시작'},
     {key:'hiv',   label:'HIV (안정 cART, 40–75세)',         sub:'REPRIEVE trial: Pitavastatin 4 mg → MACE 35% 감소 — 만성 염증성 질환 패널에서 체크'},
@@ -5590,7 +5568,7 @@ g('cacMain').addEventListener('change', function(){
   const panel = g('cacPanel');
   panel.style.display = this.checked ? 'block' : 'none';
   if(!this.checked){
-    ['cac0','cac1to99','cacCheck','cac300','cac1000'].forEach(id=>{
+    ['cac0','cac1to99','cacCheck','cac1000'].forEach(id=>{
       if(g(id)){ g(id).checked=false; }
     });
     document.querySelectorAll('.cac-opt').forEach(el=>{
@@ -5616,7 +5594,7 @@ document.querySelectorAll('.cac-opt').forEach(btn=>{
     this.style.borderColor='#1a1a18';
     this.querySelectorAll('div').forEach(d=>d.style.color='#fff');
     // 숨김 체크박스 동기화 (택1)
-    ['cac0','cac1to99','cacCheck','cac300','cac1000'].forEach(id=>{
+    ['cac0','cac1to99','cacCheck','cac1000'].forEach(id=>{
       if(g(id)) g(id).checked = (id===targetId);
     });
     upd();
@@ -5706,11 +5684,9 @@ function updateNNT(prevAscvd, ascvd, vhr, acc){
   var adjMult=1, adjLabel='', adjBasis='';
   var cac1=g('cac1to99')&&g('cac1to99').checked;
   var cac2=g('cacCheck')&&g('cacCheck').checked;
-  var cac3=g('cac300')&&g('cac300').checked;
   var cac4=g('cac1000')&&g('cac1000').checked;
   if(cac4)       { adjMult=2.8; adjLabel='CAC ≥1000';  adjBasis='MESA 코호트'; }
-  else if(cac3)  { adjMult=2.2; adjLabel='CAC 300–999'; adjBasis='MESA 코호트'; }
-  else if(cac2)  { adjMult=1.8; adjLabel='CAC 100–299'; adjBasis='MESA 코호트'; }
+  else if(cac2)  { adjMult=1.8; adjLabel='CAC ≥100';   adjBasis='MESA 코호트'; }
   else if(cac1)  { adjMult=1.5; adjLabel='CAC 1–99';   adjBasis='MESA 코호트'; }
   else if(g('enhLpa')&&g('enhLpa').checked){
     adjMult=1.4; adjLabel='Lp(a) ≥50 mg/dL'; adjBasis='관찰연구 추정값';
@@ -5718,7 +5694,7 @@ function updateNNT(prevAscvd, ascvd, vhr, acc){
     var reEls=document.querySelectorAll('input.enh:checked');
     var reCount=0;
     reEls.forEach(function(el){
-      if(['cac0','cac1to99','cacCheck','cac300','cac1000'].indexOf(el.id)<0) reCount++;
+      if(['cac0','cac1to99','cacCheck','cac1000'].indexOf(el.id)<0) reCount++;
     });
     if(reCount>=3)      { adjMult=1.4; adjLabel='위험증강인자 '+reCount+'개'; adjBasis='추정값'; }
     else if(reCount>=1) { adjMult=1.2; adjLabel='위험증강인자 '+reCount+'개'; adjBasis='추정값'; }
@@ -5853,7 +5829,7 @@ function clearAllInputs(){
   ['bpTx','smoker','dm','ascvdHx','veryHigh','onStatin',
    'prsCheck','enhCkm','enhInflam','enhHiv','enhLpa','enhHsCRP',
    'enhTg175','enhLdl160','abiCheck','carotidPlaque','cacMain',
-   'cac0','cac1to99','cacCheck','cac300','cac1000'].forEach(function(id){
+   'cac0','cac1to99','cacCheck','cac1000'].forEach(function(id){
     var el=document.getElementById(id);
     if(el && el.checked){ el.checked=false; el.dispatchEvent(new Event('change')); }
   });
