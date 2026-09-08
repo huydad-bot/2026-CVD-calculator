@@ -77,6 +77,29 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
 .nb.dng{background:#fcebeb;color:#a32d2d}
 .nb.suc{background:#eaf3de;color:#3b6d11}
 
+/* CKM 증후군 상세 설명 — 화면 중앙 모달로 표시 */
+#ckmPanelBackdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9997}
+#ckmPanel.ckm-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:9998;width:92vw;max-width:520px;max-height:85vh;overflow-y:auto;box-shadow:0 10px 40px rgba(0,0,0,.28);margin:0}
+
+/* 컴팩트 모드: 설명·근거·주석 텍스트 숨김 (입력란·출력값은 그대로 유지) */
+body.compact-mode .ps,
+body.compact-mode .nb,
+body.compact-mode .rsrc,
+body.compact-mode .rind,
+body.compact-mode .expl,
+body.compact-mode #cardCprBanner,
+body.compact-mode #cardCprSubtitle,
+body.compact-mode #cardAbsInd,
+body.compact-mode #cardSpecialStatin,
+body.compact-mode #cardNntLeft,
+body.compact-mode #cardNnhLeft,
+body.compact-mode [style*="color:#888780"],
+body.compact-mode [style*="color:#a8a79f"],
+body.compact-mode [style*="font-style:italic"]{display:none!important}
+/* 컴팩트 모드 안내 배지 */
+#compactHint{display:none;font-size:11.5px;color:#888780;margin-top:3px}
+body.compact-mode #compactHint{display:block}
+
 /* Stepwise vertical flow */
 .sw{margin:0}
 .sw-row{display:flex;gap:10px;align-items:stretch;margin-bottom:0}
@@ -226,6 +249,10 @@ body.mode-simple #cprIIbBox { display: none !important; }
             <span>상세 사용</span>
           </label>
         </div>
+        <label style="display:flex;align-items:center;gap:5px;padding:0 12px;border:1px solid #d0cec8;border-radius:7px;background:#fff;color:#5f5e5a;font-size:13.5px;font-weight:600;cursor:pointer;user-select:none;height:100%;box-sizing:border-box;flex-shrink:0;" id="compactToggleLabel">
+          <input type="checkbox" id="compactModeChk" onchange="toggleCompactMode(this.checked)" style="accent-color:#185fa5;width:13px;height:13px">
+          <span>설명 감추기</span>
+        </label>
         <button type="button" onclick="openGroupsModal()"
           style="display:inline-flex;align-items:center;gap:5px;padding:0 13px;border:1px solid #d0cec8;border-radius:7px;background:#fff;color:#5f5e5a;font-size:13.5px;font-weight:600;line-height:1.5;cursor:pointer;font-family:inherit;height:100%;box-sizing:border-box;transition:background .12s;-webkit-appearance:none;white-space:nowrap;flex-shrink:0;"
           onmouseover="this.style.background='#f4f3f0'" onmouseout="this.style.background='#fff'">
@@ -1137,7 +1164,7 @@ document.addEventListener('click',function(e){
         <span class="cpr-badge" style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#185fa5;color:#fff;font-size:16.5px;font-weight:800;flex-shrink:0">C</span>
         <div>
           <span style="font-size:12.5px;font-weight:700;color:#185fa5;line-height:1.3">Cumulative LDL Burden<br><span style="color:#5f5e5a;font-weight:400">누적 LDL 부담</span></span>
-          <div style="font-size:11.5px;color:#5f5e5a;line-height:1.6;margin-top:3px">"얼마나 높은가"보다 <b style="color:#1a1a18">얼마나 오래 노출됐는가</b>가 더 중요. 더 일찍, 더 낮게, 더 오래 치료.</div>
+          <div class="expl" style="font-size:11.5px;color:#5f5e5a;line-height:1.6;margin-top:3px">"얼마나 높은가"보다 <b style="color:#1a1a18">얼마나 오래 노출됐는가</b>가 더 중요. 더 일찍, 더 낮게, 더 오래 치료.</div>
         </div>
       </div>
       <span id="cumulativeLDLArrow" style="font-size:12.5px;color:#185fa5;font-weight:700;flex-shrink:0;margin-top:2px;transition:transform .25s;display:inline-block">▶</span>
@@ -1341,7 +1368,7 @@ function switchCLTab(idx){
         <span class="cpr-badge" style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#639922;color:#fff;font-size:16.5px;font-weight:800;flex-shrink:0">P</span>
         <div>
           <span style="font-size:12.5px;font-weight:700;color:#639922;line-height:1.3">Precision Prevention<br><span style="color:#5f5e5a;font-weight:400">정밀 맞춤 예방</span></span>
-          <div style="font-size:11.5px;color:#5f5e5a;line-height:1.6;margin-top:3px">PREVENT 위험도 + 위험증가 인자 + CAC + ApoB + CKM 병기를 <b style="color:#1a1a18">개인별 조합</b>으로 결정.</div>
+          <div class="expl" style="font-size:11.5px;color:#5f5e5a;line-height:1.6;margin-top:3px">PREVENT 위험도 + 위험증가 인자 + CAC + ApoB + CKM 병기를 <b style="color:#1a1a18">개인별 조합</b>으로 결정.</div>
         </div>
       </div>
       <span id="precisionArrow" style="font-size:12.5px;color:#639922;font-weight:700;flex-shrink:0;margin-top:2px;transition:transform .25s;display:inline-block">▶</span>
@@ -1574,7 +1601,7 @@ function switchPPTab(idx){
         <span class="cpr-badge" style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#a32d2d;color:#fff;font-size:16.5px;font-weight:800;flex-shrink:0">R</span>
         <div>
           <span style="font-size:12.5px;font-weight:700;color:#a32d2d;line-height:1.3">Residual Risk beyond LDL<br><span style="color:#5f5e5a;font-weight:400">LDL 너머의 잔여 위험</span></span>
-          <div style="font-size:11.5px;color:#5f5e5a;line-height:1.6;margin-top:3px">스타틴으로 LDL 조절 후에도 ApoB · Lp(a) · non-HDL · TG로 <b style="color:#1a1a18">잔여 위험을 포착하고 추가 치료.</b></div>
+          <div class="expl" style="font-size:11.5px;color:#5f5e5a;line-height:1.6;margin-top:3px">스타틴으로 LDL 조절 후에도 ApoB · Lp(a) · non-HDL · TG로 <b style="color:#1a1a18">잔여 위험을 포착하고 추가 치료.</b></div>
         </div>
       </div>
       <span id="residualArrow" style="font-size:12.5px;color:#a32d2d;font-weight:700;flex-shrink:0;margin-top:2px;transition:transform .25s;display:inline-block">▶</span>
@@ -1856,7 +1883,7 @@ function switchRRTab(idx){
 }
 </script>
 </div>
-<div id="cardCprSubtitle" style="font-size:10.5px;color:#b4b2a9;margin-top:-10px;margin-bottom:12px;text-align:left">2026 ACC/AHA Dyslipidemia Guideline 핵심 철학 — CPR Framework</div>
+<div id="cardCprSubtitle" class="expl" style="font-size:10.5px;color:#b4b2a9;margin-top:-10px;margin-bottom:12px;text-align:left">2026 ACC/AHA Dyslipidemia Guideline 핵심 철학 — CPR Framework</div>
 
 <div class="mgrid">
 
@@ -1925,13 +1952,13 @@ function switchRRTab(idx){
       <span style="font-size:12.5px;color:#5f5e5a;white-space:nowrap"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 수축기 혈압</span>
       <input type="number" autocomplete="off" id="sbp" min="80" max="220" placeholder="mmHg" style="width:68px;padding:4px 6px;border:1px solid #d0cec8;border-radius:6px;font-size:13.5px">
       <span style="font-size:12.5px;color:#888780">mmHg</span>
-      <span style="font-size:11.5px;color:#888780;white-space:nowrap">※ 혈압강하제 투약 중이면 복약 후 측정값 입력</span>
+      <span class="expl" style="font-size:11.5px;color:#888780;white-space:nowrap">※ 혈압강하제 투약 중이면 복약 후 측정값 입력</span>
     </div>
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap">
       <span style="font-size:12.5px;color:#5f5e5a;white-space:nowrap"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> eGFR</span>
       <input type="number" autocomplete="off" id="egfr" min="5" max="130" placeholder="수치" style="width:62px;padding:4px 6px;border:1px solid #d0cec8;border-radius:6px;font-size:13.5px">
       <span style="font-size:12.5px;color:#888780">mL/min/1.73m²</span>
-      <span style="font-size:11.5px;color:#888780;white-space:nowrap">※ 미입력 시 90으로 자동계산</span>
+      <span class="expl" style="font-size:11.5px;color:#888780;white-space:nowrap">※ 미입력 시 90으로 자동계산</span>
     </div>
     <div style="font-size:12.5px;color:#185fa5;font-weight:600;margin-bottom:4px">해당사항이 있는 경우 체크하세요</div>
     <div style="display:flex;gap:14px;flex-wrap:wrap">
@@ -2083,17 +2110,17 @@ function switchRRTab(idx){
         <span id="bmiOut" style="font-size:13.5px;font-weight:700;color:#1a1a18;min-width:48px;text-align:right"></span>
       </div>
     </div>
-    <div style="margin-top:2px;margin-bottom:2px;padding:4px 9px;background:#f1efe8;border-radius:6px;font-size:11.5px;color:#5f5e5a">
+    <div class="expl" style="margin-top:2px;margin-bottom:2px;padding:4px 9px;background:#f1efe8;border-radius:6px;font-size:11.5px;color:#5f5e5a">
       ※ 키·몸무게(BMI)는 심부전 위험도 계산에만 반영되며, 동맥경화성 심혈관질환(ASCVD)·전체 심혈관질환 위험도에는 영향을 주지 않습니다(AHA PREVENT 모델 설계).
     </div>
-    <div style="margin-top:2px;margin-bottom:2px;padding:4px 9px;background:#f1efe8;border-radius:6px;font-size:11.5px;color:#5f5e5a">
+    <div class="expl" style="margin-top:2px;margin-bottom:2px;padding:4px 9px;background:#f1efe8;border-radius:6px;font-size:11.5px;color:#5f5e5a">
       ※ UACR·HbA1c는 각각 단독 입력해도 PREVENT 전용 모델이 적용되어 위험도에 반영됨(둘 다 입력 시 Full model). 당뇨 여부 무관, 전당뇨(예: 6.2%)도 위험도에 반영됨.
     </div>
   </div>
 
   <div class="card" id="cardApobPrecision" style="background:#eaf7fb">
     <div class="sec">정밀 지질 평가 — ApoB (2026 ACC/AHA)</div>
-    <div style="margin-top:2px;margin-bottom:9px;padding:4px 9px;background:#f1efe8;border-radius:6px;font-size:11.5px;color:#5f5e5a">
+    <div class="expl" style="margin-top:2px;margin-bottom:9px;padding:4px 9px;background:#f1efe8;border-radius:6px;font-size:11.5px;color:#5f5e5a">
       ※ ApoB는 PREVENT 위험도 점수 자체의 입력변수가 아니며(PREVENT 공식 예측변수 아님), 위험도 계산에는 반영되지 않습니다. 아래 <b>위험증강인자 자동판정</b> 및 <b>LDL-C 목표 설정·잔류위험 평가</b>에 사용됩니다.
     </div>
     <div class="field" style="margin-top:0;margin-bottom:0">
@@ -2141,21 +2168,21 @@ function switchRRTab(idx){
     <label class="ck">
       <input type="checkbox" class="enh" id="enhFamHx">
       <div><div style="font-weight:600;color:#1a1a18">조기 ASCVD 가족력</div>
-      <div style="font-size:11.5px;color:#888780;margin-top:1px">남 &lt;55세, 여 &lt;65세 발병</div></div>
+      <div class="expl" style="font-size:11.5px;color:#888780;margin-top:1px">남 &lt;55세, 여 &lt;65세 발병</div></div>
     </label>
 
     <!-- ── Table 13 #2 ── -->
     <label class="ck">
       <input type="checkbox" class="enh">
       <div><div style="font-weight:600;color:#1a1a18">고위험 조상 (Higher risk ancestry)</div>
-      <div style="font-size:11.5px;color:#888780;margin-top:1px">남아시아계·필리핀계 등 죽상경화 고위험 민족</div></div>
+      <div class="expl" style="font-size:11.5px;color:#888780;margin-top:1px">남아시아계·필리핀계 등 죽상경화 고위험 민족</div></div>
     </label>
 
     <!-- ── Table 13 #3 ── -->
     <label class="ck" style="margin-bottom:2px">
       <input type="checkbox" class="enh" id="prsCheck">
       <div><div style="font-weight:600;color:#1a1a18">고위험 다유전자 위험 점수 (CAD PRS)</div>
-      <div style="font-size:11.5px;color:#888780;margin-top:1px">유전자 검사 시행 시 · Class 2a</div></div>
+      <div class="expl" style="font-size:11.5px;color:#888780;margin-top:1px">유전자 검사 시행 시 · Class 2a</div></div>
     </label>
     <div id="prsPanel" style="display:none;margin:2px 0 6px 19px;padding:9px 11px;background:#eaf2fb;border-radius:7px;border-left:3px solid #185fa5;font-size:12.5px;line-height:1.7">
       <div style="font-weight:700;color:#185fa5;margin-bottom:6px">📊 CAD Polygenic Risk Score 결과 입력</div>
@@ -2190,14 +2217,15 @@ function switchRRTab(idx){
       <input type="checkbox" class="enh" id="enhCkm">
       <div>
         <div style="font-weight:600;color:#1a1a18">심혈관-신장-대사 (CKM) 증후군
-          <span class="text-toggle-link" onclick="event.preventDefault();event.stopPropagation();toggleSection('ckmPanel','ckmPanelArrow')"
+          <span class="text-toggle-link" onclick="event.preventDefault();event.stopPropagation();toggleCkmPanel()"
             style="font-size:11.5px;color:#185fa5;cursor:pointer;margin-left:6px;font-weight:400">
             상세 ▾<span id="ckmPanelArrow" style="display:none"></span>
           </span>
         </div>
-        <div style="font-size:11.5px;color:#888780;margin-top:1px">대사증후군 · 전당뇨 · 고도비만 · MASLD · 수면무호흡 · 고요산혈증</div>
+        <div class="expl" style="font-size:11.5px;color:#888780;margin-top:1px">대사증후군 · 전당뇨 · 고도비만 · MASLD · 수면무호흡 · 고요산혈증</div>
       </div>
     </label>
+    <div id="ckmPanelBackdrop" onclick="closeCkmPanel()"></div>
     <div id="ckmPanel" style="display:none;margin:2px 0 8px 19px;padding:10px 12px;background:#eaf2fb;border-radius:7px;border-left:3px solid #185fa5;font-size:12.5px;line-height:1.75">
       <div style="font-weight:700;color:#185fa5;margin-bottom:6px">🫀 CKM 증후군이란?</div>
       <div style="color:#1a1a18;margin-bottom:6px">
@@ -2228,7 +2256,7 @@ function switchRRTab(idx){
         ※ 2023 AHA: PREVENT는 CKM 성분(eGFR·UACR·HbA1c·BMI) 포함 — PREVENT 점수가 이미 부분 반영.<br>
         ※ 위 항목은 PREVENT에 미포함된 잔여 CKM 위험을 추가 반영하는 목적.
       </div>
-      <div style="text-align:right;margin-top:6px"><span class="text-toggle-link" onclick="event.preventDefault();event.stopPropagation();toggleSection('ckmPanel','ckmPanelArrow')" style="font-size:11.5px;color:#185fa5;cursor:pointer;font-weight:600">닫기 ✕</span></div>
+      <div style="text-align:right;margin-top:6px"><span class="text-toggle-link" onclick="event.preventDefault();event.stopPropagation();closeCkmPanel()" style="font-size:11.5px;color:#185fa5;cursor:pointer;font-weight:600">닫기 ✕</span></div>
     </div>
 
     <!-- ── 만성 염증성 질환 ── -->
@@ -2242,7 +2270,7 @@ function switchRRTab(idx){
           </span>
           <span style="font-size:11.5px;color:#a32d2d;font-weight:400;margin-left:4px">※ HIV 해당 시 상세 클릭 후 하단 박스 체크 요함</span>
         </div>
-        <div style="font-size:11.5px;color:#888780;margin-top:1px">RA · 루푸스 · 건선 · HIV · 염증성 장질환 · 강직성 척추염 · 만성 간염</div>
+        <div class="expl" style="font-size:11.5px;color:#888780;margin-top:1px">RA · 루푸스 · 건선 · HIV · 염증성 장질환 · 강직성 척추염 · 만성 간염</div>
       </div>
     </label>
     <!-- ══ 만성 염증성 질환 상세 패널 (모달, 화면 중앙 확대) ══ -->
@@ -2298,27 +2326,27 @@ function switchRRTab(idx){
     <label class="ck">
       <input type="checkbox" class="enh" id="enhHsCRP">
       <div><div style="font-weight:600;color:#1a1a18">hs-CRP ≥ 2.0 mg/L (≥ 0.2mg/dL)</div>
-      <div style="font-size:11.5px;color:#888780;margin-top:1px">2회 이상 측정에서 확인 시</div></div>
+      <div class="expl" style="font-size:11.5px;color:#888780;margin-top:1px">2회 이상 측정에서 확인 시</div></div>
     </label>
     <!-- ── Table 13 #7 ── -->
     <label class="ck">
       <input type="checkbox" class="enh" id="enhTg175">
       <div><div style="font-weight:600;color:#1a1a18">중성지방 ≥ 175 mg/dL</div>
-      <div style="font-size:11.5px;color:#888780;margin-top:1px">비공복 기준 / 공복 시 ≥150 mg/dL</div></div>
+      <div class="expl" style="font-size:11.5px;color:#888780;margin-top:1px">비공복 기준 / 공복 시 ≥150 mg/dL</div></div>
     </label>
 
     <!-- ── Table 13 #9 ── -->
     <label class="ck">
       <input type="checkbox" class="enh" id="enhLdl160">
       <div><div style="font-weight:600;color:#1a1a18">LDL-C ≥160–189 mg/dL</div>
-      <div style="font-size:11.5px;color:#888780;margin-top:1px">또는 non-HDL ≥190 mg/dL / ApoB ≥120 mg/dL</div></div>
+      <div class="expl" style="font-size:11.5px;color:#888780;margin-top:1px">또는 non-HDL ≥190 mg/dL / ApoB ≥120 mg/dL</div></div>
     </label>
 
     <!-- ── Table 13 #10 ── -->
     <label class="ck">
       <input type="checkbox" class="enh">
       <div><div style="font-weight:600;color:#1a1a18">생식 위험인자 (Reproductive risk markers)</div>
-      <div style="font-size:11.5px;color:#888780;margin-top:1px">조기 폐경 &lt;45세 · 자간전증 · 임신성 당뇨/고혈압 · 조산</div></div>
+      <div class="expl" style="font-size:11.5px;color:#888780;margin-top:1px">조기 폐경 &lt;45세 · 자간전증 · 임신성 당뇨/고혈압 · 조산</div></div>
     </label>
 
     <!-- CKD 40세 미만: 위험증강인자 자동 반영 -->
@@ -2350,7 +2378,7 @@ function switchRRTab(idx){
     <label class="ck">
       <input type="checkbox" class="enh" id="abiCheck">
       <div><div style="font-weight:600;color:#1a1a18">ABI &lt; 0.9 (말초동맥질환)</div>
-      <div style="font-size:11.5px;color:#888780;margin-top:1px">무증상: 위험증강인자 / 증상·시술력: ASCVD 기왕력으로 전환</div></div>
+      <div class="expl" style="font-size:11.5px;color:#888780;margin-top:1px">무증상: 위험증강인자 / 증상·시술력: ASCVD 기왕력으로 전환</div></div>
     </label>
     <div id="abiDesc" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.55);overflow-y:auto;padding:24px 14px" onclick="if(event.target===this)toggleAbiDesc()">
     <div style="max-width:480px;margin:0 auto;background:#faeeda;border-radius:10px;border-left:3px solid #ef9f27;box-shadow:0 10px 50px rgba(0,0,0,0.35);overflow:hidden">
@@ -2379,7 +2407,7 @@ function switchRRTab(idx){
     <label class="ck">
       <input type="checkbox" class="enh" id="carotidPlaque">
       <div><div style="font-weight:600;color:#1a1a18">경동맥 초음파 plaque ≥ 1.5 mm</div>
-      <div style="font-size:11.5px;color:#888780;margin-top:1px">ESC/EAS 2025 Class IIa 위험수정인자 — 2026 ACC/AHA도 목표치 미확정 명시 (자동 처방 적응증 아님)</div></div>
+      <div class="expl" style="font-size:11.5px;color:#888780;margin-top:1px">ESC/EAS 2025 Class IIa 위험수정인자 — 2026 ACC/AHA도 목표치 미확정 명시 (자동 처방 적응증 아님)</div></div>
     </label>
     <div id="carotidDesc" style="display:none;font-size:11.5px;color:#888780;padding:1px 0 4px 19px;line-height:1.5">ESC/EAS 2025 Class IIa 위험수정인자 · 저~중간위험에서 위험도 상향 재분류 근거. 2026 ACC/AHA(Circulation 2026;153:e1154)도 "LLT는 유익하나 구체적 LDL-C 목표를 권고할 근거는 불충분"이라고 명시 — 위험도 무관 자동 처방 적응증이 아님. LDL 목표 &lt;100 mg/dL (재분류 후 기준 충족 시, 잠정)</div>
 
@@ -2390,7 +2418,7 @@ function switchRRTab(idx){
     <div style="font-size:11px;color:#a8a79f;margin-bottom:5px;line-height:1.5">※ Table 13 위험증강인자 목록에는 포함되지 않음 — 검사 적응증은 Section 4.2.3.6, 점수별 목표치는 자체 COR 등급을 가진 Section 4.2.7을 따로 따름</div>
     <label class="ck" style="margin-top:3px">
       <input type="checkbox" id="cacMain">
-      <span>관상동맥 석회화 (CAC) 점수 입력</span>
+      <span style="font-weight:600;color:#1a1a18">관상동맥 석회화 (CAC) 점수 입력</span>
     </label>
     <div id="cacPanel" style="display:none;margin-top:5px;padding:8px 10px;background:#f8f7f5;border:1px solid #e2e0db;border-radius:8px">
       <div style="font-size:11.5px;font-weight:700;color:#888780;letter-spacing:.05em;margin-bottom:7px">CAC 등급 선택 — 택 1</div>
@@ -2428,7 +2456,7 @@ function switchRRTab(idx){
   <!-- ══ 위험도 무관 스타틴 절대 적응증 ══ -->
   <div class="card" id="cardAbsInd" style="background:#eaf7fb">
     <div class="sec sec-clickable" onclick="openSectionModal('absInd')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none">
-      <span>위험도 분류 무관 스타틴 적응증 <span style="font-size:12.5px;font-weight:600;color:#bfe3ff;letter-spacing:0;text-transform:none;margin-left:4px">기본정보 입력 또는 CAC 점수 입력시 해당 항목이 활성화 됩니다</span><span style="font-size:10.5px;font-weight:400;color:#cfe4ee;letter-spacing:0;text-transform:none"> (PREVENT 점수에 구속되지 않음)</span></span>
+      <span>위험도 분류 무관 스타틴 적응증 <span class="expl" style="font-size:12.5px;font-weight:600;color:#bfe3ff;letter-spacing:0;text-transform:none;margin-left:4px">기본정보 입력 또는 CAC 점수 입력시 해당 항목이 활성화 됩니다</span><span class="expl" style="font-size:10.5px;font-weight:400;color:#cfe4ee;letter-spacing:0;text-transform:none"> (PREVENT 점수에 구속되지 않음)</span></span>
       <span id="absIndArrow" style="font-size:13.5px;color:#fff;transition:transform .2s;display:inline-block">▶</span>
     </div>
     <div id="absIndBody" style="display:none">
@@ -3437,6 +3465,18 @@ const SIMPLE_HIDDEN = [
   'cardLipidParam','cardNntRight','cardReference',
   'cardPreventCategory'
 ];
+function toggleCompactMode(on){
+  document.body.classList.toggle('compact-mode', on);
+  try{ localStorage.setItem('nnh_compact', on ? '1' : '0'); }catch(e){}
+}
+document.addEventListener('DOMContentLoaded', function(){
+  var saved = null;
+  try{ saved = localStorage.getItem('nnh_compact'); }catch(e){}
+  var on = saved === null ? false : (saved === '1');
+  var chk = document.getElementById('compactModeChk');
+  if(chk){ chk.checked = on; }
+  toggleCompactMode(on);
+});
 function setViewMode(mode){
   const simple = mode === 'simple';
   document.body.classList.toggle('mode-simple', simple);
@@ -5473,6 +5513,28 @@ function toggleSection(bodyId, arrowId){
   const open = body.style.display !== 'none';
   body.style.display = open ? 'none' : 'block';
   if(arrow) arrow.textContent = open ? '▶' : '▼';
+}
+// CKM 증후군 상세 설명 — 화면 중앙 모달로 열고 닫기
+function openCkmPanel(){
+  const body = g('ckmPanel'), arrow = g('ckmPanelArrow'), bd = g('ckmPanelBackdrop');
+  if(!body) return;
+  body.style.display = 'block';
+  body.classList.add('ckm-modal');
+  if(bd) bd.style.display = 'block';
+  if(arrow) arrow.textContent = '▼';
+}
+function closeCkmPanel(){
+  const body = g('ckmPanel'), arrow = g('ckmPanelArrow'), bd = g('ckmPanelBackdrop');
+  if(!body) return;
+  body.style.display = 'none';
+  body.classList.remove('ckm-modal');
+  if(bd) bd.style.display = 'none';
+  if(arrow) arrow.textContent = '▶';
+}
+function toggleCkmPanel(){
+  const body = g('ckmPanel');
+  if(!body) return;
+  if(body.style.display !== 'none') closeCkmPanel(); else openCkmPanel();
 }
 // ascvdHx 체크 시 vhrRow 즉시 표시 (upd() 조기 return과 무관하게)
 g('ascvdHx').addEventListener('change',function(){
