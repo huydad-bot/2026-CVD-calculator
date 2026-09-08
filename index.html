@@ -2139,7 +2139,7 @@ function switchRRTab(idx){
 
     <!-- ── Table 13 #1 ── -->
     <label class="ck">
-      <input type="checkbox" class="enh">
+      <input type="checkbox" class="enh" id="enhFamHx">
       <div><div style="font-weight:600;color:#1a1a18">조기 ASCVD 가족력</div>
       <div style="font-size:11.5px;color:#888780;margin-top:1px">남 &lt;55세, 여 &lt;65세 발병</div></div>
     </label>
@@ -2394,20 +2394,26 @@ function switchRRTab(idx){
     </label>
     <div id="cacPanel" style="display:none;margin-top:5px;padding:8px 10px;background:#f8f7f5;border:1px solid #e2e0db;border-radius:8px">
       <div style="font-size:11.5px;font-weight:700;color:#888780;letter-spacing:.05em;margin-bottom:7px">CAC 등급 선택 — 택 1</div>
+      <input type="checkbox" class="enh" id="cac0"     style="display:none">
       <input type="checkbox" class="enh" id="cac1to99" style="display:none">
       <input type="checkbox" class="enh" id="cacCheck" style="display:none">
       <input type="checkbox" class="enh" id="cac300"   style="display:none">
       <input type="checkbox" class="enh" id="cac1000"  style="display:none">
+      <div class="cac-opt" data-cac="cac0"
+        style="padding:7px 9px;border:1px solid #a8cf8a;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s;margin-bottom:5px">
+        <div style="font-size:13.5px;font-weight:700;color:#1a1a18">CAC = 0</div>
+        <div style="font-size:11.5px;color:#3b6d11;margin-top:2px;line-height:1.45">10년 스타틴 유예 합리적(COR 2a)</div>
+      </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px">
         <div class="cac-opt" data-cac="cac1to99"
           style="padding:7px 9px;border:1px solid #d0cec8;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s">
           <div style="font-size:13.5px;font-weight:700;color:#1a1a18">CAC 1–99</div>
-          <div style="font-size:11.5px;color:#888780;margin-top:2px;line-height:1.45">중등도 스타틴 합리적(COR 2a)<br>LDL 목표 &lt;100</div>
+          <div style="font-size:11.5px;color:#888780;margin-top:2px;line-height:1.45">중등도 스타틴 합리적(COR 2a)<br><span class="text-toggle-link" onclick="event.stopPropagation();openCacPercentileModal()" style="color:#185fa5;font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px">&lt;75 백분위</span> 조건부<br>LDL 목표 &lt;100</div>
         </div>
         <div class="cac-opt" data-cac="cacCheck"
           style="padding:7px 9px;border:1px solid #d0cec8;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s">
           <div style="font-size:13.5px;font-weight:700;color:#1a1a18">CAC 100–299</div>
-          <div style="font-size:11.5px;color:#888780;margin-top:2px;line-height:1.45">또는 <span class="text-toggle-link" onclick="event.stopPropagation();openCacPercentileModal()" style="color:#185fa5;font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px">≥75 백분위</span><br>스타틴 충분조건 · LDL &lt;70</div>
+          <div style="font-size:11.5px;color:#888780;margin-top:2px;line-height:1.45">또는 ≥75 백분위<br>스타틴 충분조건 · LDL &lt;70</div>
         </div>
         <div class="cac-opt" data-cac="cac300"
           style="padding:7px 9px;border:1px solid #d0cec8;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s">
@@ -2421,6 +2427,7 @@ function switchRRTab(idx){
         </div>
       </div>
     </div>
+    <div class="nb info" style="margin-top:5px;font-size:11.5px">※ CAC=0은 검사에서 석회화가 전혀 없다고 확인된 경우 선택 — 경계·중간위험에서 스타틴 시작을 유예할 근거가 됩니다(단, 조기 ASCVD 가족력이 강하면 이 유예의 신뢰도가 낮아짐). 고위험(≥10%)·당뇨·CKD·ASCVD 기왕력 등 다른 확정 적응증이 있으면 CAC=0으로도 치료가 면제되지 않습니다.</div>
     <div class="nb suc" style="margin-top:5px">※ CAC 검사 적응증: PREVENT 중간위험(5–&lt;10%) 또는 일부 경계위험(3–&lt;5%)일 때만 CAC 검사가 권고됨(저위험군은 검사 불필요).<br>CAC&gt;0 확인 시 치료 시작은 권고(COR 1). CAC 1–99·&lt;75백분위는 중등도 강도·LDL&lt;100이 합리적(COR 2a) — "그냥 참고 인자"가 아니라 검사 후에는 위험도와 무관하게 적용되는 전용 권고입니다. CAC=0이면 10년 유예가 합리적.</div>
     </div><!-- /subclinAscvdBody -->
   </div>
@@ -3432,7 +3439,7 @@ const g=id=>document.getElementById(id);
 // ── 간단/상세 보기 모드 토글 ──────────────────────────────────
 const SIMPLE_HIDDEN = [
   'cardCprBanner','cardCprSubtitle',
-  'cardPreventExtra','cardApobPrecision','cardRiskEnhancer','cardAbsInd',
+  'cardApobPrecision','cardRiskEnhancer','cardAbsInd','cardSubclinAscvd',
   'cardSpecialStatin','cardNntLeft','cardNnhLeft',
   'cardLipidParam','cardNntRight','cardReference',
   'cardPreventCategory'
@@ -4164,6 +4171,21 @@ function makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt
 
   // ── [특수2] 저위험/경계위험, 스타틴 불필요 ──
   if((acc.c==='lo'||acc.c==='no') && !anyAbs && !carotidOverride){
+    const riskPrefix0 = ageOutOfRange
+      ? ageRangeNote
+      : `PREVENT 2023 기준 10-year ASCVD risk는 ${prevAscvd.toFixed(1)}%로 ${riskLabel}에 해당`;
+    // CAC=0으로 인한 유예인 경우, 일반 저위험/경계위험 문구 대신 CAC=0 근거를 명시
+    if(acc.ind && acc.ind.indexOf('CAC = 0') === 0){
+      const ldlNoteCac0 = ldl >= (dispLdlTgt||130)
+        ? `치료 전 LDL-C ${ldl} mg/dL로 목표 <${dispLdlTgt||130} mg/dL 미달성 — 생활습관 교정 강화 권고`
+        : `치료 전 LDL-C ${ldl} mg/dL로 목표 <${dispLdlTgt||130} mg/dL 범위 내`;
+      return bl([
+        riskPrefix0,
+        acc.n,
+        ldlNoteCac0,
+        tgLine
+      ]);
+    }
     const riskNote = acc.c==='lo'
       ? '저위험(<3%)으로 스타틴 일상적 권고 대상이 아님 — 식이·운동·금연 등 생활습관 교정을 우선함'
       : '경계위험(3–<5%)으로 위험증강인자 부재 시 스타틴 선호도 낮음 — 생활습관 교정을 우선하며, 필요 시 CAC 점수로 스타틴 결정을 보조할 수 있음';
@@ -4528,7 +4550,7 @@ function upd(){
     const _egfr=parseFloat(g('egfr').value)||90;
     const _age=parseInt(ageRaw)||0;
     const _ckdEnh=(_egfr>=15&&_egfr<60&&_age>0&&_age<40);
-    const _cacIds=['cac1to99','cacCheck','cac300','cac1000'];
+    const _cacIds=['cac0','cac1to99','cacCheck','cac300','cac1000'];
     const nE=[...document.querySelectorAll('.enh:checked')].filter(el=>_cacIds.indexOf(el.id)<0).length+(_ckdEnh?1:0);
     if(g('enhCount')) g('enhCount').textContent=nE;
     if(g('ckdEnhDisplay')) g('ckdEnhDisplay').style.display=_ckdEnh?'flex':'none';
@@ -4631,7 +4653,7 @@ function upd(){
   //   나이 <40세 → 위험증강인자로만 반영 (ckdEnh, nE에 자동 가산)
   const ckdEnh=(egfr>=15&&egfr<60&&age<40);
 
-  const cacIds=['cac1to99','cacCheck','cac300','cac1000'];
+  const cacIds=['cac0','cac1to99','cacCheck','cac300','cac1000'];
   const nE=[...document.querySelectorAll('.enh:checked')].filter(el=>cacIds.indexOf(el.id)<0).length+(ckdEnh?1:0);
   g('enhCount').textContent=nE;
   // CKD <40세 위험증강인자 자동 표시
@@ -4801,6 +4823,7 @@ function upd(){
 
   // ── 절대 적응증 플래그 (배지 표시 전에 계산) ──
   const cacActive=g('cacCheck')&&g('cacCheck').checked;       // CAC 100–299 또는 ≥75 백분위
+  const cac0Active=g('cac0')&&g('cac0').checked;  // CAC = 0 — 10년 스타틴 유예 근거 (COR 2a)
   const cac1to99Active=g('cac1to99')&&g('cac1to99').checked;  // CAC 1–99 — 전용 override 있음 (COR 2a)
   const cac300Active=g('cac300')&&g('cac300').checked;        // CAC 300–999
   const cac1000Active=g('cac1000')&&g('cac1000').checked;     // CAC ≥1000
@@ -4972,13 +4995,23 @@ function upd(){
     // 치료 시작 자체는 CAC>0 시 COR 1(권고)이나, 이 특정 강도·목표는 COR 2a(합리적) 등급
     // CAC 검사가 이루어졌다는 것은 이미 PREVENT로 중간·일부 경계위험임을 확인한 뒤라는 전제이나,
     // 검사 후에는 CAC≥100 등과 동일하게 위험도(primRisk) 수치와 무관하게 이 기준을 적용
-    else if(cac1to99Active && (!acc.ldlTgt || acc.ldlTgt > 100)){
+    else if(cac1to99Active && (!acc.ldlTgt || acc.ldlTgt >= 100)){
       acc={c:'mo',l:'중등도 강도 (합리적)',ind:'CAC 1–99 & <75 백분위 — 중등도 강도 스타틴이 합리적 (COR 2a, LDL <100)',
            d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],
            n:'CAC 1–99: 2026 ACC/AHA Section 4.2.3.6에 따른 소견입니다. CAC&gt;0 확인 시 치료 시작 자체는 권고(COR 1)이며, 중등도 강도·LDL &lt;100 목표는 합리적(COR 2a) 수준입니다. Table 13의 일반 위험증강인자와는 별개로, 검사로 CAC가 확인된 이후에는 PREVENT 위험도 수치와 무관하게 이 기준이 적용됩니다.',
            nt:'info',ldlTgt:100,nhTgt:130};
     }
-
+    // CAC = 0: 2026 ACC/AHA COR 2a — 경계·중간위험에서 스타틴 유예 합리적
+    // 원문: "the absence of CAC may not be that reassuring in those with multiple first-degree relatives with premature ASCVD"
+    // → 조기 ASCVD 가족력이 있으면 이 유예 근거의 신뢰도가 낮아지므로 자동 다운그레이드하지 않음(경고만 표시)
+    // 고위험(≥10%)·당뇨·CKD·HIV 등 다른 위험도 무관 적응증이 이미 있으면 적용하지 않음
+    else if(cac0Active && primRisk < 10 && !dmAbs && !ckdAbs && !hivAbs && (acc.c==='mo' || acc.c==='no' || acc.c==='lo')){
+      const famHxNote = (g('enhFamHx')&&g('enhFamHx').checked) ? ' 다만 조기 ASCVD 가족력이 있어 CAC=0의 재확인(reassurance) 신뢰도가 낮을 수 있습니다 — 임상적 판단하에 결정하십시오.' : '';
+      acc={c:'no',l:'생활습관 교정 (CAC=0)',ind:'CAC = 0 — 경계·중간위험에서 스타틴 유예 합리적 (COR 2a)',
+           d:[],
+           n:'CAC=0: 2026 ACC/AHA Section 4.2.3.6에 따라 경계·중간위험군에서 10년간 스타틴 유예가 합리적입니다(COR 2a).'+famHxNote+' 향후 치료 결정이 바뀔 수 있으므로 일정 기간 후 CAC 재검사가 합리적입니다. LDL 목표보다는 생활습관 교정과 주기적 추적 관찰을 우선합니다.',
+           nt:'suc',ldlTgt:100,nhTgt:130};
+    }
     // 경동맥 plaque ≥1.5 mm: ESC/EAS 2025 Class IIa 위험수정인자 — 위험도 상향 재분류 근거
     // 2026 ACC/AHA(Circulation 2026;153:e1154)도 "LLT beneficial하나 specific LDL-C goal 근거 불충분"이라 명시 — CAC와 달리 위험도 무관 확정 적응증 아님
     // 저위험(<3%)에서는 스타틴 override 없음; 경계위험(3–5%) 이상에서만 스타틴 고려 강화
@@ -5040,21 +5073,25 @@ function upd(){
     },
     {
       key:'cac',
-      active:(cacActive||cac300Active||cac1000Active)&&!ascvd,
+      active:(cacActive||cac300Active||cac1000Active||cac1to99Active)&&!ascvd,
       label:cac1000Active
         ?'CAC ≥1000 — 초고위험 수준, 스타틴 충분조건 (LDL 목표 <55 mg/dL, 최대강도)'
         :cac300Active
           ?'CAC 300–999 — 무증상 죽상경화 광범위, 스타틴 충분조건 (LDL 목표 <70 mg/dL, 필요 시 <55 선택적 고려)'
-          :'CAC 100–299 (또는 ≥75 백분위) — 스타틴 충분조건 (LDL 목표 <70 mg/dL)',
-      detail:(cacActive||cac300Active||cac1000Active)
+          :cacActive
+            ?'CAC 100–299 (또는 ≥75 백분위) — 스타틴 충분조건 (LDL 목표 <70 mg/dL)'
+            :'CAC 1–99 (또는 <75 백분위) — 중등도 강도 스타틴이 합리적 (COR 2a, LDL 목표 <100 mg/dL)',
+      detail:(cacActive||cac300Active||cac1000Active||cac1to99Active)
         ?(cac1000Active
             ?'무증상 죽상경화 광범위(CAC ≥1000) — 고강도 스타틴, LDL 목표 &lt;55 mg/dL'
             :cac300Active
               ?'무증상 죽상경화 광범위(CAC 300–999) — 고강도 스타틴, LDL 목표 &lt;70 mg/dL. 가이드라인 저자: <55 mg/dL은 선택적 강화 고려'
-              :'무증상 죽상경화의 객관적 증거(CAC 100–299) — 고강도 스타틴, LDL 목표 &lt;70 mg/dL')
+              :cacActive
+                ?'무증상 죽상경화의 객관적 증거(CAC 100–299) — 고강도 스타틴, LDL 목표 &lt;70 mg/dL'
+                :'무증상 죽상경화 소견(CAC 1–99) — 중등도 강도 스타틴이 합리적(COR 2a), LDL 목표 &lt;100 mg/dL')
         :'해당 없음',
-      strength:cac1000Active||cac300Active?'고강도':'고강도 고려',
-      basis:'2026 ACC/AHA: PREVENT 위험도 무관 스타틴 시작의 충분조건 — 세부 LDL 목표는 위험증가 인자 박스 CAC 등급 참조'
+      strength:cac1000Active||cac300Active||cacActive?'고강도':'중등강도',
+      basis:'2026 ACC/AHA Section 4.2.3.6: CAC&gt;0 확인 시 치료 시작은 권고(COR 1); CAC 1–99는 중등도 강도가 합리적(COR 2a), CAC≥100은 고강도 충분조건. 세부 LDL 목표는 위험증가 인자 박스 CAC 등급 참조'
     },
     {
       key:'ckd',
@@ -5553,7 +5590,7 @@ g('cacMain').addEventListener('change', function(){
   const panel = g('cacPanel');
   panel.style.display = this.checked ? 'block' : 'none';
   if(!this.checked){
-    ['cac1to99','cacCheck','cac300','cac1000'].forEach(id=>{
+    ['cac0','cac1to99','cacCheck','cac300','cac1000'].forEach(id=>{
       if(g(id)){ g(id).checked=false; }
     });
     document.querySelectorAll('.cac-opt').forEach(el=>{
@@ -5579,7 +5616,7 @@ document.querySelectorAll('.cac-opt').forEach(btn=>{
     this.style.borderColor='#1a1a18';
     this.querySelectorAll('div').forEach(d=>d.style.color='#fff');
     // 숨김 체크박스 동기화 (택1)
-    ['cac1to99','cacCheck','cac300','cac1000'].forEach(id=>{
+    ['cac0','cac1to99','cacCheck','cac300','cac1000'].forEach(id=>{
       if(g(id)) g(id).checked = (id===targetId);
     });
     upd();
@@ -5681,7 +5718,7 @@ function updateNNT(prevAscvd, ascvd, vhr, acc){
     var reEls=document.querySelectorAll('input.enh:checked');
     var reCount=0;
     reEls.forEach(function(el){
-      if(['cac1to99','cacCheck','cac300','cac1000'].indexOf(el.id)<0) reCount++;
+      if(['cac0','cac1to99','cacCheck','cac300','cac1000'].indexOf(el.id)<0) reCount++;
     });
     if(reCount>=3)      { adjMult=1.4; adjLabel='위험증강인자 '+reCount+'개'; adjBasis='추정값'; }
     else if(reCount>=1) { adjMult=1.2; adjLabel='위험증강인자 '+reCount+'개'; adjBasis='추정값'; }
@@ -5816,7 +5853,7 @@ function clearAllInputs(){
   ['bpTx','smoker','dm','ascvdHx','veryHigh','onStatin',
    'prsCheck','enhCkm','enhInflam','enhHiv','enhLpa','enhHsCRP',
    'enhTg175','enhLdl160','abiCheck','carotidPlaque','cacMain',
-   'cac1to99','cacCheck','cac300','cac1000'].forEach(function(id){
+   'cac0','cac1to99','cacCheck','cac300','cac1000'].forEach(function(id){
     var el=document.getElementById(id);
     if(el && el.checked){ el.checked=false; el.dispatchEvent(new Event('change')); }
   });
