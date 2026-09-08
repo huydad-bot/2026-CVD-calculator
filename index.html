@@ -2297,7 +2297,7 @@ function switchRRTab(idx){
     <!-- ── Table 13 #6 ── -->
     <label class="ck">
       <input type="checkbox" class="enh" id="enhHsCRP">
-      <div><div style="font-weight:600;color:#1a1a18">hs-CRP ≥ 2.0 mg/L</div>
+      <div><div style="font-weight:600;color:#1a1a18">hs-CRP ≥ 2.0 mg/L (≥ 0.2mg/dL)</div>
       <div style="font-size:11.5px;color:#888780;margin-top:1px">2회 이상 측정에서 확인 시</div></div>
     </label>
     <!-- ── Table 13 #7 ── -->
@@ -2321,13 +2321,6 @@ function switchRRTab(idx){
       <div style="font-size:11.5px;color:#888780;margin-top:1px">조기 폐경 &lt;45세 · 자간전증 · 임신성 당뇨/고혈압 · 조산</div></div>
     </label>
 
-    <!-- ─────────────────────────────────────────────────────────── -->
-    <!-- Table 13 이외 — Subclinical ASCVD 지표 (하단 배치 유지)   -->
-    <!-- ─────────────────────────────────────────────────────────── -->
-    <div style="font-size:11.5px;font-weight:700;color:#888780;letter-spacing:.04em;margin:8px 0 4px;padding-top:6px;border-top:1px dashed #d0cec8">
-      ─ Subclinical ASCVD 지표 (Table 13 외 · CAC/ABI/경동맥) ─
-    </div>
-
     <!-- CKD 40세 미만: 위험증강인자 자동 반영 -->
     <div id="ckdEnhDisplay" style="display:none;align-items:flex-start;gap:6px;padding:3px 0 2px;font-size:13.5px;color:#1a1a18">
       <span style="display:inline-flex;align-items:center;justify-content:center;width:13px;height:13px;flex-shrink:0;margin-top:1px;background:#e24b4a;border-radius:3px">
@@ -2335,6 +2328,23 @@ function switchRRTab(idx){
       </span>
       <span>CKD (eGFR 15–59) <span style="color:#888780;font-size:11.5px">— 40세 미만: 위험증강인자 자동 반영 (eGFR 입력값 기준)</span></span>
     </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-top:8px;border-top:1px solid #e2e0db">
+      <span style="font-size:12.5px;color:#5f5e5a">선택된 위험증가 인자:
+        <span id="enhCount" style="font-weight:700;color:#1a1a18;background:#f0efe9;padding:1px 7px;border-radius:5px;margin-left:3px">0</span>개
+      </span>
+      <span style="font-size:11.5px;color:#888780">— 변경 시 즉시 반영됨</span>
+    </div>
+    </div><!-- /riskEnhancerBody -->
+  </div>
+
+  <!-- ══ Subclinical ASCVD 지표 (Table 13와 별개 — ABI·경동맥·CAC) ══ -->
+  <div class="card" id="cardSubclinAscvd" style="background:#eaf7fb">
+    <div class="sec sec-clickable" onclick="toggleSection('subclinAscvdBody','subclinAscvdArrow')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none">
+      <span>Subclinical ASCVD 지표 <span style="font-size:12.5px;font-weight:600;color:#bfe3ff;letter-spacing:0;text-transform:none;margin-left:4px">영상검사 기반 무증상 죽상경화 소견 — ABI·경동맥·CAC</span></span>
+      <span id="subclinAscvdArrow" style="font-size:13.5px;color:#fff;transition:transform .2s;display:inline-block">▶</span>
+    </div>
+    <div id="subclinAscvdBody" style="display:none">
+    <div style="font-size:11.5px;color:#888780;margin-bottom:6px;line-height:1.4">※ Table 13(위험증강인자) 목록과는 별개의 소견입니다. 해당 항목 체크 시 결과에 즉시 반영</div>
 
     <!-- ABI -->
     <label class="ck">
@@ -2368,7 +2378,11 @@ function switchRRTab(idx){
     </label>
     <div id="carotidDesc" style="display:none;font-size:11.5px;color:#888780;padding:1px 0 4px 19px;line-height:1.5">ESC/EAS 2025 Class IIa 위험수정인자 · 저~중간위험에서 위험도 상향 재분류 근거. 2026 ACC/AHA(Circulation 2026;153:e1154)도 "LLT는 유익하나 구체적 LDL-C 목표를 권고할 근거는 불충분"이라고 명시 — 위험도 무관 자동 처방 적응증이 아님. LDL 목표 &lt;100 mg/dL (재분류 후 기준 충족 시, 잠정)</div>
 
-    <!-- CAC -->
+    <!-- CAC — Table 13 위험증강인자와 별개, 2026 ACC/AHA Section 4.2.3.6 전용 권고 -->
+    <div style="font-size:11.5px;font-weight:700;color:#888780;letter-spacing:.04em;margin:10px 0 2px;padding-top:8px;border-top:1px dashed #d0cec8">
+      ─ 관상동맥 석회화 (CAC) — 2026 ACC/AHA Section 4.2.3.6 전용 권고 ─
+    </div>
+    <div style="font-size:11px;color:#a8a79f;margin-bottom:5px;line-height:1.5">※ Table 13 위험증강인자 목록에는 포함되지 않음 — 자체 COR 등급을 가진 전용 권고 절(Section 4.2.3.6)을 따로 따름</div>
     <label class="ck" style="margin-top:3px">
       <input type="checkbox" id="cacMain">
       <span>관상동맥 석회화 (CAC) 점수 입력</span>
@@ -2383,12 +2397,12 @@ function switchRRTab(idx){
         <div class="cac-opt" data-cac="cac1to99"
           style="padding:7px 9px;border:1px solid #d0cec8;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s">
           <div style="font-size:13.5px;font-weight:700;color:#1a1a18">CAC 1–99</div>
-          <div style="font-size:11.5px;color:#888780;margin-top:2px;line-height:1.45">위험증강인자<br>LDL 목표 &lt;100</div>
+          <div style="font-size:11.5px;color:#888780;margin-top:2px;line-height:1.45">중등도 스타틴 합리적(COR 2a)<br>LDL 목표 &lt;100</div>
         </div>
         <div class="cac-opt" data-cac="cacCheck"
           style="padding:7px 9px;border:1px solid #d0cec8;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s">
           <div style="font-size:13.5px;font-weight:700;color:#1a1a18">CAC 100–299</div>
-          <div style="font-size:11.5px;color:#888780;margin-top:2px;line-height:1.45">또는 ≥75 백분위<br>스타틴 충분조건 · LDL &lt;70</div>
+          <div style="font-size:11.5px;color:#888780;margin-top:2px;line-height:1.45">또는 <span class="text-toggle-link" onclick="event.stopPropagation();openCacPercentileModal()" style="color:#185fa5;font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px">≥75 백분위</span><br>스타틴 충분조건 · LDL &lt;70</div>
         </div>
         <div class="cac-opt" data-cac="cac300"
           style="padding:7px 9px;border:1px solid #d0cec8;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s">
@@ -2402,14 +2416,8 @@ function switchRRTab(idx){
         </div>
       </div>
     </div>
-    <div class="nb suc" style="margin-top:5px">※ CAC 1–99는 위험증강인자로 분류 (절대 적응증 아님) — 경계·중간위험에서 스타틴 시작을 지지하나, CAC=0이면 10년 유예 합리적.</div>
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-top:8px;border-top:1px solid #e2e0db">
-      <span style="font-size:12.5px;color:#5f5e5a">선택된 위험증가 인자:
-        <span id="enhCount" style="font-weight:700;color:#1a1a18;background:#f0efe9;padding:1px 7px;border-radius:5px;margin-left:3px">0</span>개
-      </span>
-      <span style="font-size:11.5px;color:#888780">— 변경 시 즉시 반영됨</span>
-    </div>
-    </div><!-- /riskEnhancerBody -->
+    <div class="nb suc" style="margin-top:5px">※ CAC 검사 적응증: PREVENT 중간위험(5–&lt;10%) 또는 일부 경계위험(3–&lt;5%)일 때만 CAC 검사가 권고됨(저위험군은 검사 불필요).<br>CAC&gt;0 확인 시 치료 시작은 권고(COR 1). CAC 1–99·&lt;75백분위는 중등도 강도·LDL&lt;100이 합리적(COR 2a) — "그냥 참고 인자"가 아니라 검사 후에는 위험도와 무관하게 적용되는 전용 권고입니다. CAC=0이면 10년 유예가 합리적.</div>
+    </div><!-- /subclinAscvdBody -->
   </div>
 
   <!-- ══ 위험도 무관 스타틴 절대 적응증 ══ -->
@@ -4515,7 +4523,8 @@ function upd(){
     const _egfr=parseFloat(g('egfr').value)||90;
     const _age=parseInt(ageRaw)||0;
     const _ckdEnh=(_egfr>=15&&_egfr<60&&_age>0&&_age<40);
-    const nE=document.querySelectorAll('.enh:checked').length+(_ckdEnh?1:0);
+    const _cacIds=['cac1to99','cacCheck','cac300','cac1000'];
+    const nE=[...document.querySelectorAll('.enh:checked')].filter(el=>_cacIds.indexOf(el.id)<0).length+(_ckdEnh?1:0);
     if(g('enhCount')) g('enhCount').textContent=nE;
     if(g('ckdEnhDisplay')) g('ckdEnhDisplay').style.display=_ckdEnh?'flex':'none';
 
@@ -4617,7 +4626,8 @@ function upd(){
   //   나이 <40세 → 위험증강인자로만 반영 (ckdEnh, nE에 자동 가산)
   const ckdEnh=(egfr>=15&&egfr<60&&age<40);
 
-  const nE=document.querySelectorAll('.enh:checked').length+(ckdEnh?1:0);
+  const cacIds=['cac1to99','cacCheck','cac300','cac1000'];
+  const nE=[...document.querySelectorAll('.enh:checked')].filter(el=>cacIds.indexOf(el.id)<0).length+(ckdEnh?1:0);
   g('enhCount').textContent=nE;
   // CKD <40세 위험증강인자 자동 표시
   if(g('ckdEnhDisplay')) g('ckdEnhDisplay').style.display=ckdEnh?'flex':'none';
@@ -4786,7 +4796,7 @@ function upd(){
 
   // ── 절대 적응증 플래그 (배지 표시 전에 계산) ──
   const cacActive=g('cacCheck')&&g('cacCheck').checked;       // CAC 100–299 또는 ≥75 백분위
-  const cac1to99Active=g('cac1to99')&&g('cac1to99').checked;  // CAC 1–99 (위험증강인자만)
+  const cac1to99Active=g('cac1to99')&&g('cac1to99').checked;  // CAC 1–99 — 전용 override 있음 (COR 2a)
   const cac300Active=g('cac300')&&g('cac300').checked;        // CAC 300–999
   const cac1000Active=g('cac1000')&&g('cac1000').checked;     // CAC ≥1000
   const anyCAC=cac1to99Active||cacActive||cac300Active||cac1000Active;
@@ -4805,6 +4815,7 @@ function upd(){
     if(cac1000Active&&!ascvd) notes.push('CAC ≥1000 — 초고위험 수준, LDL<55 목표');
     if(cac300Active&&!ascvd) notes.push('CAC 300–999 — LDL<70 목표 (선택적 <55 강화 고려)');
     if(cacActive&&!ascvd) notes.push('CAC 100–299 또는 ≥75 백분위 — 스타틴 충분조건, LDL<70 목표');
+    if(cac1to99Active&&!ascvd) notes.push('CAC 1–99 — 중등도 강도 스타틴이 합리적(COR 2a), LDL<100 목표');
     if(ckdAbs&&!ascvd) notes.push('CKD (eGFR 15–59) + 나이≥40세 — 위험도 무관 중등강도 스타틴');
     if(dmAbs&&!ascvd) notes.push(`당뇨병 — 위험도 무관 ${primRisk>=10?'고강도':'중등강도'} 스타틴`);
     if(dmEsrd&&!ascvd) notes.push('당뇨병 + 말기신질환(eGFR<15, 투석 수준) — 신규 스타틴 시작 이득 불명확, 개별 상담 필요 (당뇨병의 위험도 무관 원칙보다 우선)');
@@ -4952,7 +4963,16 @@ function upd(){
            n:'CAC 100–299: 2026 ACC/AHA — PREVENT 위험도 무관 스타틴 충분조건. LDL &lt;70 mg/dL 목표.',
            nt:'warn',ldlTgt:70,nhTgt:100};
     }
-    // CAC 1–99: 위험증강인자로만 작용 — accRec의 nE 계산에 이미 반영됨. 별도 override 없음.
+    // CAC 1–99 & <75 백분위: 2026 ACC/AHA COR 2a — 중등도 강도 스타틴이 합리적, LDL <100
+    // 치료 시작 자체는 CAC>0 시 COR 1(권고)이나, 이 특정 강도·목표는 COR 2a(합리적) 등급
+    // CAC 검사가 이루어졌다는 것은 이미 PREVENT로 중간·일부 경계위험임을 확인한 뒤라는 전제이나,
+    // 검사 후에는 CAC≥100 등과 동일하게 위험도(primRisk) 수치와 무관하게 이 기준을 적용
+    else if(cac1to99Active && (!acc.ldlTgt || acc.ldlTgt > 100)){
+      acc={c:'mo',l:'중등도 강도 (합리적)',ind:'CAC 1–99 & <75 백분위 — 중등도 강도 스타틴이 합리적 (COR 2a, LDL <100)',
+           d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],
+           n:'CAC 1–99: 2026 ACC/AHA Section 4.2.3.6에 따른 소견입니다. CAC&gt;0 확인 시 치료 시작 자체는 권고(COR 1)이며, 중등도 강도·LDL &lt;100 목표는 합리적(COR 2a) 수준입니다. Table 13의 일반 위험증강인자와는 별개로, 검사로 CAC가 확인된 이후에는 PREVENT 위험도 수치와 무관하게 이 기준이 적용됩니다.',
+           nt:'info',ldlTgt:100,nhTgt:130};
+    }
 
     // 경동맥 plaque ≥1.5 mm: ESC/EAS 2025 Class IIa 위험수정인자 — 위험도 상향 재분류 근거
     // 2026 ACC/AHA(Circulation 2026;153:e1154)도 "LLT beneficial하나 specific LDL-C goal 근거 불충분"이라 명시 — CAC와 달리 위험도 무관 확정 적응증 아님
