@@ -639,11 +639,36 @@ document.addEventListener('keydown', function(e){
         <ul style="margin:0;padding-left:18px;font-size:12.5px;color:#3a3a36;line-height:1.75">
           <li><b>Groups 1–4 are defined by "who the patient is"</b> (primary-prevention candidate, LDL≥190, diabetes, history of ASCVD), while <b>Groups 5–6 are defined by "what testing found"</b> (imaging findings, TG level). So one patient can fall into more than one group — e.g., a patient with diabetes (Group 3) who incidentally has a CAC score of 300 (Group 5) follows the stricter Group 5 goal (&lt;70).</li>
           <li><b>The PREVENT calculator (the risk tool used in Group 1) is not used at all for Groups 2 and 4.</b> An LDL of 190 or higher falls outside the calculator's range (70–189), and a patient who already has ASCVD doesn't need their "future risk" estimated — the answer is already known. Each of these two groups follows its own separate criteria.</li>
-          <li><b>Group 5 splits internally.</b> The CAC pathway is completely independent of PREVENT, just like Groups 2 and 4 (CAC itself is already a confirmed finding). The carotid ultrasound plaque pathway, however, is the opposite — it requires a PREVENT-derived risk category (intermediate or select borderline risk) as a precondition, so the calculator is required. In other words, within the same Group 5, CAC skips the calculator while carotid plaque requires it.</li>
+          <li><b>Group 5 splits internally.</b> The CAC pathway is not, strictly speaking, "completely independent of PREVENT" — it's a two-step structure: PREVENT decides whether testing happens, and once CAC is confirmed, the exact number is no longer used. CAC testing itself is only recommended at intermediate risk or select borderline risk (where the treatment decision is uncertain), so low-risk patients have no indication for CAC testing in the first place (except for incidental findings on CT done for other reasons, which apply regardless of risk category). The carotid ultrasound plaque pathway, by contrast, keeps the PREVENT-derived risk category (intermediate or select borderline risk) as an ongoing precondition, so the calculator remains necessary throughout.</li>
           <li><b>Groups 3 (diabetes) and 6 (hypertriglyceridemia) remain within the PREVENT calculation</b> — diabetes is an input to the calculator, and TG level isn't part of the calculator's eligibility criteria at all. These two groups follow the standard calculation, with extra rules layered on top regardless of the result.</li>
           <li><b>Secondary prevention (Group 4) is the only group where risk doesn't need to be re-assessed</b> — having already had an event is itself the answer, so a high-intensity statin is the default with no re-scoring.</li>
           <li><b>Within Group 5, CAC and carotid plaque differ in strength of evidence.</b> The "risk-independent, goal-established" character of Group 5 fully applies only to CAC. The 2026 ACC/AHA text itself states that for carotid plaque, "LLT is beneficial, but current evidence is insufficient to recommend a specific LDL goal," and the discussion is limited to intermediate/select borderline-risk populations — there is no basis for applying it to low-risk patients. Femoral artery plaque is not mentioned anywhere in this guideline.</li>
         </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ CAC Percentile-by-Age Calculator Info Modal (nested above groupsModal) ══════ -->
+<div id="cacPercentileModal" style="display:none;position:fixed;inset:0;z-index:10000;background:rgba(0,0,0,0.55);overflow-y:auto;padding:24px 14px" onclick="if(event.target===this)closeCacPercentileModal()">
+  <div style="max-width:420px;margin:0 auto;background:#fff;border-radius:12px;box-shadow:0 10px 50px rgba(0,0,0,0.35);overflow:hidden">
+    <div style="background:#2e5339;padding:12px 16px;display:flex;align-items:center;justify-content:space-between">
+      <span style="font-size:14px;font-weight:800;color:#fff">CAC Percentile-by-Age Calculators</span>
+      <button onclick="closeCacPercentileModal()" style="background:rgba(255,255,255,0.18);border:none;border-radius:6px;width:26px;height:26px;cursor:pointer;color:#fff;font-size:16px;line-height:1">×</button>
+    </div>
+    <div style="padding:16px;font-size:12.5px;color:#3a3a36;line-height:1.7">
+      <div style="margin-bottom:12px;padding:10px 12px;background:#f2f5ef;border-radius:8px;border-left:3px solid #2e5339">
+        <div style="font-weight:700;color:#2e5339;margin-bottom:3px">Ages 45–84</div>
+        Based on the MESA cohort (n=6,814; free of CVD and treated diabetes) — White, Black, Hispanic, Chinese<br>
+        <a href="https://tools.mesa-nhlbi.org/Calcium/input.aspx" target="_blank" rel="noopener" style="color:#185fa5;font-weight:700;text-decoration:underline">Open calculator ↗</a>
+      </div>
+      <div style="padding:10px 12px;background:#fffbee;border-radius:8px;border-left:3px solid #c07a00">
+        <div style="font-weight:700;color:#c07a00;margin-bottom:3px">Ages 30–45</div>
+        Based on the CARDIA · CAC Consortium · Walter Reed cohorts (n=19,725) — <b>White and Black only</b><br>
+        <a href="https://www.cac-tools.com/#calc" target="_blank" rel="noopener" style="color:#185fa5;font-weight:700;text-decoration:underline">Open calculator ↗</a>
+      </div>
+      <div style="margin-top:12px;font-size:11.5px;color:#888780">
+        ※ Neither calculator provides Asian-specific reference values. The 45–84 calculator has a "Chinese" option that can serve as an approximation for East Asian patients, but the 30–45 calculator's race options are limited to White and Black only.
       </div>
     </div>
   </div>
@@ -677,10 +702,10 @@ var GROUPS_DATA = [
     note:'• If goals aren\'t met with a statin: add in order — ezetimibe → PCSK9 inhibitor/inclisiran → bempedoic acid' },
   { n:5, name:'Subclinical Atherosclerosis', nameEn:'',
     def:'• CAC (coronary artery calcification) on imaging<br>• Carotid ultrasound plaque<br>• Incidentally found coronary calcification (non-gated CT)',
-    tool:'✗ Not part of PREVENT calculation (CAC pathway only)<br>• CAC score (cardiac CT) is the primary, established basis<br><br>✓ Part of PREVENT calculation (carotid plaque pathway)<br>• Carotid ultrasound plaque: "LLT beneficial but current evidence insufficient for a specific goal" — statin recommended in intermediate/select borderline risk (no basis for low risk)',
-    statin:'• CAC 1–99 & below the age-based 75th percentile: moderate-intensity statin recommended<br>• CAC ≥100 or ≥75th percentile: high-intensity statin recommended<br>• CAC ≥1000: high-intensity required<br>• Carotid plaque: LLT benefit accepted, but evidence is insufficient for a specific goal or a standalone indication — weigh together with calculated risk only<br>• Incidentally found coronary calcification (non-gated CT, visual/qualitative grading): mild → moderate-intensity statin / moderate–severe → high-intensity statin',
+    tool:'<b>CAC testing indication</b>: CAC testing is recommended only at PREVENT intermediate risk (5–&lt;10%) or select borderline risk (3–&lt;5%) — not needed in low risk<br>Once CAC&gt;0 is confirmed, the subsequent goal/intensity is determined by the CAC score itself, not the PREVENT risk number<br><br>✓ Part of PREVENT calculation (carotid plaque pathway)<br>• Carotid ultrasound plaque: "LLT beneficial but current evidence insufficient for a specific goal" — statin recommended in intermediate/select borderline risk (no basis for low risk)<br><br>⚡ Exception — incidentally found coronary calcification (non-gated CT): <b>no risk-category restriction</b> — even if found incidentally in a low-risk patient on a CT done for another purpose, it should be "considered" when discussing starting or intensifying treatment (COR 1). However, unlike formal CAC testing, no specific goal is defined.',
+    statin:'• CAC 1–99 & <span class="text-toggle-link" onclick="event.stopPropagation();openCacPercentileModal()" style="color:#185fa5;font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px">below the age-based 75th percentile</span>: moderate-intensity statin recommended<br>• CAC ≥100 or ≥75th percentile: high-intensity statin recommended<br>• CAC ≥1000: high-intensity required<br>• Carotid plaque: LLT benefit accepted, but evidence is insufficient for a specific goal or a standalone indication — weigh together with calculated risk only<br>• Incidentally found coronary calcification (non-gated CT, visual/qualitative grading): mild → moderate-intensity statin / moderate–severe → high-intensity statin',
     ldl:'• CAC 1–99: &lt;100<br>• CAC ≥100: &lt;70<br>• CAC ≥1000: &lt;55<br><br>• Carotid plaque alone: no formal goal (tentatively &lt;100 as a reference)<br><br>• Incidental calcification — mild: &lt;100 / moderate–severe: no specific number given in the guideline (practically &lt;70 is reasonable)',
-    note:'⚠ CAC 1–99 is a recommendation for moderate-intensity statin, not merely "consider"<br>• Carotid plaque evidence is weaker — weigh together with calculated risk only (femoral artery not mentioned in this guideline)<br>• Incidentally found coronary calcification (non-gated CT) is judged by visual grade, not a quantitative score' },
+    note:'⚠ CAC 1–99 is a recommendation for moderate-intensity statin, not merely "consider"<br>• "Not part of PREVENT calculation" refers to after CAC is confirmed — getting CAC tested in the first place typically starts from PREVENT (intermediate/select borderline risk). Low-risk patients have no indication for CAC testing, except incidental findings<br>• Carotid plaque evidence is weaker — weigh together with calculated risk only (femoral artery not mentioned)' },
   { n:6, name:'Hypertriglyceridemia', nameEn:'',
     def:'• Fasting triglycerides (TG) persistently elevated',
     tool:'✓ Still part of the PREVENT calculation (TG is not part of the calculator\'s eligibility criteria at all)<br>• Risk is calculated the same way as in Group 1<br>• Identify the cause of the elevated TG first (alcohol, uncontrolled diabetes, hypothyroidism, etc.)<br>• If TG ≥400, use directly measured LDL-C or non-HDL-C in place of calculated LDL-C',
@@ -715,8 +740,16 @@ function closeGroupsModal(){
   document.getElementById('groupsModal').style.display = 'none';
   document.body.style.overflow = '';
 }
+function openCacPercentileModal(){
+  document.getElementById('cacPercentileModal').style.display = 'block';
+}
+function closeCacPercentileModal(){
+  document.getElementById('cacPercentileModal').style.display = 'none';
+}
 document.addEventListener('keydown', function(e){
   if(e.key === 'Escape'){
+    var c = document.getElementById('cacPercentileModal');
+    if(c && c.style.display === 'block'){ closeCacPercentileModal(); return; }
     var m = document.getElementById('groupsModal');
     if(m && m.style.display === 'block') closeGroupsModal();
   }
@@ -2252,7 +2285,7 @@ function switchRRTab(idx){
     <!-- ── Table 13 #6 ── -->
     <label class="ck">
       <input type="checkbox" class="enh" id="enhHsCRP">
-      <div><div style="font-weight:600;color:#1a1a18">hs-CRP ≥ 2.0 mg/L</div>
+      <div><div style="font-weight:600;color:#1a1a18">hs-CRP ≥ 2.0 mg/L (≥ 0.2 mg/dL)</div>
       <div style="font-size:11.5px;color:#888780;margin-top:1px">Confirmed on ≥2 measurements</div></div>
     </label>
     <!-- ── Table 13 #7 ── -->
@@ -2276,13 +2309,6 @@ function switchRRTab(idx){
       <div style="font-size:11.5px;color:#888780;margin-top:1px">Premature menopause &lt;45 yr · pre-eclampsia · gestational diabetes/hypertension · preterm delivery</div></div>
     </label>
 
-    <!-- ─────────────────────────────────────────────────────────── -->
-    <!-- Beyond Table 13 — Subclinical ASCVD Markers (kept at bottom)   -->
-    <!-- ─────────────────────────────────────────────────────────── -->
-    <div style="font-size:11.5px;font-weight:700;color:#888780;letter-spacing:.04em;margin:8px 0 4px;padding-top:6px;border-top:1px dashed #d0cec8">
-      ─ Subclinical ASCVD Markers (beyond Table 13 · CAC/ABI/carotid) ─
-    </div>
-
     <!-- CKD under 40: automatically applied as a risk enhancer -->
     <div id="ckdEnhDisplay" style="display:none;align-items:flex-start;gap:6px;padding:3px 0 2px;font-size:13.5px;color:#1a1a18">
       <span style="display:inline-flex;align-items:center;justify-content:center;width:13px;height:13px;flex-shrink:0;margin-top:1px;background:#e24b4a;border-radius:3px">
@@ -2290,6 +2316,23 @@ function switchRRTab(idx){
       </span>
       <span>CKD (eGFR 15–59) <span style="color:#888780;font-size:11.5px">— under age 40: automatically applied as a risk enhancer (based on eGFR input)</span></span>
     </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-top:8px;border-top:1px solid #e2e0db">
+      <span style="font-size:12.5px;color:#5f5e5a">Risk enhancers selected:
+        <span id="enhCount" style="font-weight:700;color:#1a1a18;background:#f0efe9;padding:1px 7px;border-radius:5px;margin-left:3px">0</span>
+      </span>
+      <span style="font-size:11.5px;color:#888780">— applied immediately when changed</span>
+    </div>
+    </div><!-- /riskEnhancerBody -->
+  </div>
+
+  <!-- ══ Subclinical ASCVD Markers (separate from Table 13 — ABI · carotid · CAC) ══ -->
+  <div class="card" id="cardSubclinAscvd" style="background:#eaf7fb">
+    <div class="sec sec-clickable" onclick="toggleSection('subclinAscvdBody','subclinAscvdArrow')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none">
+      <span>Subclinical ASCVD Markers <span style="font-size:12.5px;font-weight:600;color:#bfe3ff;letter-spacing:0;text-transform:none;margin-left:4px">Imaging-based findings of subclinical atherosclerosis — ABI · carotid · CAC</span></span>
+      <span id="subclinAscvdArrow" style="font-size:13.5px;color:#fff;transition:transform .2s;display:inline-block">▶</span>
+    </div>
+    <div id="subclinAscvdBody" style="display:none">
+    <div style="font-size:11.5px;color:#888780;margin-bottom:6px;line-height:1.4">※ These are separate from the Table 13 (Risk Enhancers) list. Checking an item is reflected in the result immediately</div>
 
     <!-- ABI -->
     <label class="ck">
@@ -2297,7 +2340,9 @@ function switchRRTab(idx){
       <div><div style="font-weight:600;color:#1a1a18">ABI &lt; 0.9 (peripheral artery disease)</div>
       <div style="font-size:11.5px;color:#888780;margin-top:1px">Asymptomatic: risk enhancer / symptomatic or prior procedure: reclassify as established ASCVD</div></div>
     </label>
-    <div id="abiDesc" style="display:none;margin:2px 0 5px 19px;padding:8px 10px;background:#faeeda;border-radius:7px;border-left:3px solid #ef9f27;font-size:12.5px;line-height:1.7;color:#1a1a18">
+    <div id="abiDesc" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.55);overflow-y:auto;padding:24px 14px" onclick="if(event.target===this)toggleAbiDesc()">
+    <div style="max-width:480px;margin:0 auto;background:#faeeda;border-radius:10px;border-left:3px solid #ef9f27;box-shadow:0 10px 50px rgba(0,0,0,0.35);overflow:hidden">
+    <div style="max-height:80vh;overflow-y:auto;padding:8px 10px;font-size:12.5px;line-height:1.7;color:#1a1a18">
       <div style="font-weight:700;color:#854f0b;margin-bottom:4px">⚠ ABI &lt; 0.9 — Confirm Whether This Qualifies as ASCVD</div>
       <div style="margin-bottom:5px">
         <span style="font-weight:700;color:#a32d2d">▶ Reclassify as established ASCVD (secondary prevention)</span><br>
@@ -2313,6 +2358,9 @@ function switchRRTab(idx){
         → supports starting a statin as evidence of subclinical ASCVD (LDL target &lt;100 mg/dL)</span>
       </div>
       <div style="margin-top:5px;font-size:11.5px;color:#888780">※ ABI &gt; 1.40 usually reflects non-compressibility from vascular calcification (diabetes, CKD) — unreliable; toe-brachial index is recommended</div>
+      <div style="text-align:right;margin-top:6px"><span class="text-toggle-link" onclick="toggleAbiDesc()" style="font-size:11.5px;color:#c07a00;cursor:pointer;font-weight:600">Close ✕</span></div>
+    </div>
+    </div>
     </div>
 
     <!-- Carotid plaque -->
@@ -2323,7 +2371,11 @@ function switchRRTab(idx){
     </label>
     <div id="carotidDesc" style="display:none;font-size:11.5px;color:#888780;padding:1px 0 4px 19px;line-height:1.5">ESC/EAS 2025 Class IIa risk-modifying factor · supports upward risk reclassification in low-to-intermediate risk. 2026 ACC/AHA (Circulation 2026;153:e1154) also states "LLT is beneficial, but current evidence is insufficient to recommend a specific LDL-C goal" — not a risk-independent automatic treatment indication. LDL target &lt;100 mg/dL (once reclassification criteria are met, tentative)</div>
 
-    <!-- CAC -->
+    <!-- CAC — separate from the Table 13 risk enhancers, dedicated 2026 ACC/AHA Section 4.2.3.6 recommendation -->
+    <div style="font-size:11.5px;font-weight:700;color:#888780;letter-spacing:.04em;margin:10px 0 2px;padding-top:8px;border-top:1px dashed #d0cec8">
+      ─ Coronary Artery Calcium (CAC) — Dedicated 2026 ACC/AHA Section 4.2.3.6 Recommendation ─
+    </div>
+    <div style="font-size:11px;color:#a8a79f;margin-bottom:5px;line-height:1.5">※ Not included in the Table 13 risk-enhancer list — follows its own dedicated recommendation section (Section 4.2.3.6) with its own COR grading</div>
     <label class="ck" style="margin-top:3px">
       <input type="checkbox" id="cacMain">
       <span>Enter Coronary Artery Calcium (CAC) Score</span>
@@ -2338,12 +2390,12 @@ function switchRRTab(idx){
         <div class="cac-opt" data-cac="cac1to99"
           style="padding:7px 9px;border:1px solid #d0cec8;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s">
           <div style="font-size:13.5px;font-weight:700;color:#1a1a18">CAC 1–99</div>
-          <div style="font-size:11.5px;color:#888780;margin-top:2px;line-height:1.45">Risk enhancer<br>LDL target &lt;100</div>
+          <div style="font-size:11.5px;color:#888780;margin-top:2px;line-height:1.45">Moderate-intensity statin reasonable (COR 2a)<br>LDL target &lt;100</div>
         </div>
         <div class="cac-opt" data-cac="cacCheck"
           style="padding:7px 9px;border:1px solid #d0cec8;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s">
           <div style="font-size:13.5px;font-weight:700;color:#1a1a18">CAC 100–299</div>
-          <div style="font-size:11.5px;color:#888780;margin-top:2px;line-height:1.45">or ≥75th percentile<br>sufficient condition for statin · LDL &lt;70</div>
+          <div style="font-size:11.5px;color:#888780;margin-top:2px;line-height:1.45">or <span class="text-toggle-link" onclick="event.stopPropagation();openCacPercentileModal()" style="color:#185fa5;font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px">≥75th percentile</span><br>sufficient condition for statin · LDL &lt;70</div>
         </div>
         <div class="cac-opt" data-cac="cac300"
           style="padding:7px 9px;border:1px solid #d0cec8;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s">
@@ -2357,14 +2409,8 @@ function switchRRTab(idx){
         </div>
       </div>
     </div>
-    <div class="nb suc" style="margin-top:5px">※ CAC 1–99 is classified as a risk enhancer (not an absolute indication) — supports starting a statin in borderline/intermediate risk, but CAC=0 makes deferral for 10 years reasonable.</div>
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-top:8px;border-top:1px solid #e2e0db">
-      <span style="font-size:12.5px;color:#5f5e5a">Risk enhancers selected:
-        <span id="enhCount" style="font-weight:700;color:#1a1a18;background:#f0efe9;padding:1px 7px;border-radius:5px;margin-left:3px">0</span>
-      </span>
-      <span style="font-size:11.5px;color:#888780">— applied immediately when changed</span>
-    </div>
-    </div><!-- /riskEnhancerBody -->
+    <div class="nb suc" style="margin-top:5px">※ CAC testing indication: CAC testing is recommended only at PREVENT intermediate risk (5–&lt;10%) or select borderline risk (3–&lt;5%) — not needed in low risk.<br>Once CAC&gt;0 is confirmed, initiating treatment is recommended (COR 1). For CAC 1–99·&lt;75th percentile, moderate intensity·LDL&lt;100 is reasonable (COR 2a) — this is not "just a reference factor"; once tested, it is a dedicated recommendation applied regardless of risk category. If CAC=0, deferral for 10 years is reasonable.</div>
+    </div><!-- /subclinAscvdBody -->
   </div>
 
   <!-- ══ Statin Indications Independent of Risk Category ══ -->
@@ -4475,7 +4521,8 @@ function upd(){
     const _egfr=parseFloat(g('egfr').value)||90;
     const _age=parseInt(ageRaw)||0;
     const _ckdEnh=(_egfr>=15&&_egfr<60&&_age>0&&_age<40);
-    const nE=document.querySelectorAll('.enh:checked').length+(_ckdEnh?1:0);
+    const _cacIds=['cac1to99','cacCheck','cac300','cac1000'];
+    const nE=[...document.querySelectorAll('.enh:checked')].filter(el=>_cacIds.indexOf(el.id)<0).length+(_ckdEnh?1:0);
     if(g('enhCount')) g('enhCount').textContent=nE;
     if(g('ckdEnhDisplay')) g('ckdEnhDisplay').style.display=_ckdEnh?'flex':'none';
 
@@ -4577,7 +4624,8 @@ function upd(){
   //   age <40 → counted only as a risk enhancer (ckdEnh, auto-added to nE)
   const ckdEnh=(egfr>=15&&egfr<60&&age<40);
 
-  const nE=document.querySelectorAll('.enh:checked').length+(ckdEnh?1:0);
+  const cacIds=['cac1to99','cacCheck','cac300','cac1000'];
+  const nE=[...document.querySelectorAll('.enh:checked')].filter(el=>cacIds.indexOf(el.id)<0).length+(ckdEnh?1:0);
   g('enhCount').textContent=nE;
   // Auto-display the CKD-under-40 risk enhancer
   if(g('ckdEnhDisplay')) g('ckdEnhDisplay').style.display=ckdEnh?'flex':'none';
@@ -4746,7 +4794,7 @@ function upd(){
 
   // ── Absolute indication flags (calculated before badge display) ──
   const cacActive=g('cacCheck')&&g('cacCheck').checked;       // CAC 100–299 or ≥75th percentile
-  const cac1to99Active=g('cac1to99')&&g('cac1to99').checked;  // CAC 1–99 (risk enhancer only)
+  const cac1to99Active=g('cac1to99')&&g('cac1to99').checked;  // CAC 1–99 — has its own dedicated override (COR 2a)
   const cac300Active=g('cac300')&&g('cac300').checked;        // CAC 300–999
   const cac1000Active=g('cac1000')&&g('cac1000').checked;     // CAC ≥1000
   const anyCAC=cac1to99Active||cacActive||cac300Active||cac1000Active;
@@ -4765,6 +4813,7 @@ function upd(){
     if(cac1000Active&&!ascvd) notes.push('CAC ≥1000 — very-high-risk level, LDL<55 target');
     if(cac300Active&&!ascvd) notes.push('CAC 300–999 — LDL<70 target (optionally intensify to <55)');
     if(cacActive&&!ascvd) notes.push('CAC 100–299 or ≥75th percentile — sufficient condition for statin, LDL<70 target');
+    if(cac1to99Active&&!ascvd) notes.push('CAC 1–99 — moderate-intensity statin reasonable (COR 2a), LDL<100 target');
     if(ckdAbs&&!ascvd) notes.push('CKD (eGFR 15–59) + age≥40 — risk-independent moderate-intensity statin');
     if(dmAbs&&!ascvd) notes.push(`Diabetes — risk-independent ${primRisk>=10?'high-intensity':'moderate-intensity'} statin`);
     if(dmEsrd&&!ascvd) notes.push('Diabetes + end-stage renal disease (eGFR<15, dialysis level) — benefit of newly starting a statin is unclear, individualized consultation needed (takes precedence over diabetes\' risk-independent principle)');
@@ -4912,7 +4961,16 @@ function upd(){
            n:'CAC 100–299: 2026 ACC/AHA — a sufficient condition for statin regardless of PREVENT risk. LDL &lt;70 mg/dL target.',
            nt:'warn',ldlTgt:70,nhTgt:100};
     }
-    // CAC 1–99: functions only as a risk enhancer — already reflected in accRec's nE calculation. No separate override.
+    // CAC 1–99 & <75th percentile: 2026 ACC/AHA COR 2a — moderate-intensity statin is reasonable, LDL <100
+    // Initiating treatment itself is COR 1 (recommended) once CAC>0; this specific intensity/goal is COR 2a (reasonable)
+    // CAC testing having been done implies PREVENT already identified intermediate/select borderline risk,
+    // but once tested, this applies regardless of the PREVENT risk number — same convention as the other CAC tiers
+    else if(cac1to99Active && (!acc.ldlTgt || acc.ldlTgt > 100)){
+      acc={c:'mo',l:'Moderate intensity (reasonable)',ind:'CAC 1–99 & <75th percentile — moderate-intensity statin reasonable (COR 2a, LDL <100)',
+           d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],
+           n:'CAC 1–99: a finding under 2026 ACC/AHA Section 4.2.3.6. Once CAC&gt;0 is confirmed, initiating treatment itself is recommended (COR 1); moderate intensity with an LDL &lt;100 target is reasonable (COR 2a). Distinct from the generic Table 13 risk enhancers, once CAC is confirmed by testing this applies regardless of the PREVENT risk number.',
+           nt:'info',ldlTgt:100,nhTgt:130};
+    }
 
     // Carotid plaque ≥1.5 mm: ESC/EAS 2025 Class IIa risk-modifying factor — basis for upward risk reclassification
     // 2026 ACC/AHA (Circulation 2026;153:e1154) also states "LLT beneficial but evidence insufficient for a specific LDL-C goal" — unlike CAC, not a risk-independent confirmed indication
@@ -5411,9 +5469,22 @@ g('veryHigh').addEventListener('change',function(){
 g('carotidPlaque').addEventListener('change',function(){
   if(g('carotidDesc')) g('carotidDesc').style.display=this.checked?'block':'none';
 });
-// Show/hide description when ABI is checked
+// Show ABI description as a centered modal when checked
+function toggleAbiDesc(forceState){
+  var panel = g('abiDesc');
+  if(!panel) return;
+  var open = typeof forceState === 'boolean' ? forceState : panel.style.display === 'none';
+  panel.style.display = open ? 'block' : 'none';
+  document.body.style.overflow = open ? 'hidden' : '';
+}
 g('abiCheck').addEventListener('change',function(){
-  if(g('abiDesc')) g('abiDesc').style.display=this.checked?'block':'none';
+  toggleAbiDesc(this.checked);
+});
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape'){
+    var a = g('abiDesc');
+    if(a && a.style.display === 'block') toggleAbiDesc(false);
+  }
 });
 // Show panel when PRS is checked + behavior by grade
 if(g('prsCheck')){
