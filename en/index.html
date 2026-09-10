@@ -4837,7 +4837,7 @@ function upd(){
     else if(primRisk<10){bT='Baseline determination: intermediate risk  5–10% (PREVENT-ASCVD)';bC='#854f0b';bBg='#faeeda';}
     else{bT='Baseline determination: high risk  ≥ 10% (PREVENT-ASCVD)';bC='#a32d2d';bBg='#fcebeb';}
     const badgeExc=absExceptionNotes();
-    badge.innerHTML=bT+(badgeExc.length?` <span style="font-weight:400;font-size:11.5px;color:${bC};opacity:0.85">(meets a risk-independent indication: ${badgeExc.join('; ')})</span>`:'');
+    badge.innerHTML=bT+(badgeExc.length?` <span style="font-weight:400;font-size:inherit;color:${bC};opacity:0.85">(meets a risk-independent indication: ${badgeExc.join('; ')})</span>`:'');
     badge.style.color=bC;badge.style.background=bBg;
     badge.classList.remove('num-pop'); void badge.offsetWidth; badge.classList.add('num-pop');
     adjNote.textContent=treatmentStateNote(onStatin,hasPostRisk,hasPostLdl);
