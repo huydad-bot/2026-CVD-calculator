@@ -48,6 +48,12 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
 .rcell.dim{padding:9px 6px;background:#fbfaf8;border-radius:8px;border:1px solid #ece9e3;text-align:center}
 .rlabel{font-size:15px;font-weight:700;color:#888780;margin-bottom:2px;line-height:1.3}
 .rnum{font-size:24px;font-weight:800;line-height:1}
+@keyframes numPop{
+  0%{transform:scale(0.45);opacity:0}
+  60%{transform:scale(1.18);opacity:1}
+  100%{transform:scale(1);opacity:1}
+}
+.num-pop{display:inline-block;transform-origin:center;animation:numPop .55s cubic-bezier(.34,1.56,.64,1) both}
 .rsub{font-size:12.5px;color:#888780;margin-top:3px;line-height:1.4}
 .bw{height:5px;background:#e2e0db;border-radius:3px;overflow:hidden;margin:5px 0}
 .bar{height:100%;border-radius:3px;transition:width .4s,background .4s;width:0}
@@ -117,7 +123,7 @@ body.compact-mode #compactHint{display:block}
 .sw-result{font-size:12px;font-weight:600;margin-top:5px}
 
 /* Risk category badge */
-.kbadge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:6px;font-size:12px;font-weight:700}
+.kbadge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:6px;font-size:16px;font-weight:700}
 
 /* Print */
 .pbtn{display:flex;align-items:center;gap:6px;padding:7px 14px;background:#1a1a18;color:#fff;border:none;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0}
@@ -3258,7 +3264,7 @@ function switchRRTab(idx){
     <div class="rcmp">
       <div class="rcell hl">
         <div class="rlabel">ASCVD Risk</div>
-        <div class="rnum" id="prevAscvdNum">—</div>
+        <div class="rnum num-pop" id="prevAscvdNum">—</div>
         <div class="bw"><div class="bar" id="prevAscvdBar"></div></div>
         <div class="rsub">10년 · MI + 관상동맥질환 사망 + 뇌졸중</div>
         <div id="prevAscvd30Sub" style="font-size:12.5px;font-weight:600;color:#888780;margin-top:3px;letter-spacing:0">30년: —</div>
@@ -3279,7 +3285,7 @@ function switchRRTab(idx){
       </div>
     </div>
     <div style="margin-top:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-      <span class="badge" id="riskBadge" style="background:#f1efe8;color:#888780">—</span>
+      <span class="badge num-pop" id="riskBadge" style="background:#f1efe8;color:#888780;font-size:16px">—</span>
       <span style="font-size:11.5px;color:#888780" id="adjNote"></span>
     </div>
     <div id="onTxRiskBox" style="margin-top:9px"></div>
@@ -3323,9 +3329,6 @@ function switchRRTab(idx){
     <div class="sec">스타틴 처방 권고</div>
     <div style="font-size:11.5px;font-weight:700;color:#888780;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">ACC/AHA · PREVENT 기반 치료 제안</div>
     <div id="accRecOut"></div>
-    <div style="margin-top:10px;font-size:12.5px;color:#5f5e5a;line-height:1.6">
-      Clinical ASCVD, LDL-C ≥190 mg/dL, diabetes, PREVENT-ASCVD 위험도, risk-enhancing factors, TG 수치를 종합하여 권고 강도를 표시합니다.
-    </div>
   </div>
 
   <!-- 6. EMR Copy Summary -->
@@ -4786,6 +4789,7 @@ function upd(){
   } else {
     // ASCVD
     g('prevAscvdNum').textContent=prevAscvd.toFixed(1)+'%';
+    if(g('prevAscvdNum')){ const _pn=g('prevAscvdNum'); _pn.classList.remove('num-pop'); void _pn.offsetWidth; _pn.classList.add('num-pop'); }
     g('prevAscvdBar').style.width=Math.min(100,prevAscvd*4.2)+'%';
     colorBar(g('prevAscvdBar'),prevAscvd);
     if(g('prevAscvd30Sub')) g('prevAscvd30Sub').textContent=show30?`30년: ${prev30Ascvd.toFixed(1)}%`:'30년: (30–59세만 표시)';
@@ -4844,6 +4848,7 @@ function upd(){
     const badgeExc=absExceptionNotes();
     badge.innerHTML=bT+(badgeExc.length?` <span style="font-weight:400;font-size:11.5px;color:${bC};opacity:0.85">(위험도 무관 적응증 해당: ${badgeExc.join('; ')})</span>`:'');
     badge.style.color=bC;badge.style.background=bBg;
+    badge.classList.remove('num-pop'); void badge.offsetWidth; badge.classList.add('num-pop');
     adjNote.textContent=treatmentStateNote(onStatin,hasPostRisk,hasPostLdl);
   }
 
