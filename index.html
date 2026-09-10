@@ -1892,8 +1892,7 @@ function switchRRTab(idx){
 <!-- ══════ LEFT: INPUT PANEL ══════ -->
 <div class="no-print">
   <div class="card" style="background:#eaf7fb">
-    <div class="sec">기본 정보 &amp; 검사 입력
-      <span style="font-size:10.5px;font-weight:600;color:#a32d2d;background:#fcebeb;border:1px solid #e8b4b4;border-radius:4px;padding:2px 7px;margin-left:8px;letter-spacing:0;text-transform:none">입력 필수</span>
+    <div class="sec">기본 정보 &amp; 검사 입력 (입력 필수)
     </div>
 
     <!-- 나이·성별·병력 -->
@@ -1933,12 +1932,10 @@ function switchRRTab(idx){
         <div class="rg" style="width:130px"><label><input type="radio" name="sex" value="F"><span>여성</span></label><label><input type="radio" name="sex" value="M"><span>남성</span></label></div>
       </div>
     </div>
-    <span class="text-toggle-link expl" onclick="toggleAgeRangeInfo()" style="display:inline-block;margin-bottom:6px;font-size:11.5px;color:#185fa5;font-weight:600;cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px" title="범위 외 연령 안내 보기">30–79세: PREVENT 검증 범위</span>
-
-    <div class="divider"></div>
+    <span class="text-toggle-link expl" onclick="toggleAgeRangeInfo()" style="display:inline-block;margin-bottom:4px;font-size:11.5px;color:#185fa5;font-weight:600;cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px" title="범위 외 연령 안내 보기">30–79세: PREVENT 검증 범위</span>
 
     <!-- 치료 전 지질 -->
-    <div class="row2" style="margin-bottom:4px">
+    <div class="row2" style="margin-bottom:4px;margin-top:6px">
       <div class="field"><span class="fl"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 총 콜레스테롤 (TC)</span><input type="number" autocomplete="off" id="tc" min="100" max="450" placeholder="mg/dL"></div>
       <div class="field"><span class="fl"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> HDL-C</span><input type="number" autocomplete="off" id="hdl" min="15" max="120" placeholder="mg/dL"></div>
       <div class="field"><span class="fl"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> LDL-C</span><input type="number" autocomplete="off" id="ldl" min="30" max="400" placeholder="mg/dL"></div>
@@ -1946,10 +1943,8 @@ function switchRRTab(idx){
     </div>
     <div class="nb info" style="margin-top:-2px">ℹ PREVENT 위험도 점수는 TC·HDL(→non-HDL-C)만 사용하며, LDL-C·TG는 위험도 계산에 직접 반영되지 않습니다 (치료 목표·NNT 산출에는 사용됨).</div>
 
-    <div class="divider"></div>
-
     <!-- 혈압 및 임상 인자 -->
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:2px;flex-wrap:wrap">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:2px;margin-top:6px;flex-wrap:wrap">
       <span style="font-size:12.5px;color:#5f5e5a;white-space:nowrap"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 수축기 혈압</span>
       <input type="number" autocomplete="off" id="sbp" min="80" max="220" placeholder="mmHg" style="width:60px;padding:4px 6px;border:1px solid #d0cec8;border-radius:6px;font-size:13.5px">
       <span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;margin-left:6px;vertical-align:middle">●</span>
@@ -1978,10 +1973,8 @@ function switchRRTab(idx){
       </div>
     </div>
 
-    <div class="divider"></div>
-
     <!-- 스타틴 복용 중 -->
-    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px">
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;margin-top:6px">
       <label class="ck" style="display:inline-flex;margin-bottom:0"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:4px;vertical-align:middle">●</span><input type="checkbox" id="onStatin"> <b>현재 스타틴 복용 중</b></label>
       <span class="expl" style="font-size:12.5px;color:#185fa5;font-weight:600;line-height:1.5">치료 전 지질수치 값을 모를 때, 복용 중인 <span class="text-toggle-link" onclick="var b=document.getElementById('statinIntensityBox');var s=getComputedStyle(b).display==='none';b.style.display=s?'block':'none';document.body.style.overflow=s?'hidden':'';this.querySelector('.chev').textContent=s?' ▴':' ▾';" style="color:#0c447c;font-weight:800;text-decoration:underline;text-decoration-style:dotted;cursor:pointer">스타틴 강도<span class="chev" id="statinIntensityChev" style="font-size:10.5px"> ▾</span></span>를 선택하여 추정값을 계산, 입력할 수 있습니다.</span>
     </div>
@@ -2064,7 +2057,7 @@ function switchRRTab(idx){
   </div>
 
   <div class="card" id="cardPreventExtra" style="background:#eaf7fb">
-    <div class="sec">PREVENT 2023 추가 입력 (선택)</div>
+    <div class="sec">추가 입력 (선택)</div>
     <div class="row2">
       <div class="field">
         <span class="fl">UACR (mg/g)</span>
