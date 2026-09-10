@@ -2117,7 +2117,7 @@ function switchRRTab(idx){
 
   <div class="card" id="cardRiskEnhancer" style="background:#eaf7fb">
     <div class="sec sec-clickable" onclick="toggleSection('riskEnhancerBody','riskEnhancerArrow')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none">
-      <span>Risk Enhancers <span style="font-size:12.5px;font-weight:600;color:#bfe3ff;letter-spacing:0;text-transform:none;margin-left:4px">For precision prevention — click for details.</span></span>
+      <span>Risk Enhancers <span style="font-size:12.5px;font-weight:600;color:#bfe3ff;letter-spacing:0;text-transform:none;margin-left:4px">For precision prevention — to view details of each item, uncheck "Hide explanations" at the top of the screen</span></span>
       <span id="riskEnhancerArrow" style="font-size:13.5px;color:#fff;transition:transform .2s;display:inline-block">▶</span>
     </div>
     <div id="riskEnhancerBody" style="display:none">
@@ -2226,9 +2226,17 @@ function switchRRTab(idx){
             style="font-size:11.5px;color:#185fa5;cursor:pointer;margin-left:6px;font-weight:400">
             Details ▾<span id="inflamPanelArrow" style="display:none"></span>
           </span>
-          <span style="font-size:11.5px;color:#a32d2d;font-weight:400;margin-left:4px">※ If HIV applies, click Details and check the box below</span>
         </div>
         <div style="font-size:11.5px;color:#888780;margin-top:1px">RA · lupus · psoriasis · HIV · inflammatory bowel disease · ankylosing spondylitis · chronic hepatitis</div>
+      </div>
+    </label>
+
+    <!-- ── HIV (standalone item) ── -->
+    <label class="ck">
+      <input type="checkbox" class="enh" id="enhHiv">
+      <div>
+        <div style="font-weight:600;color:#1a1a18">HIV (on stable cART)</div>
+        <div class="expl" style="font-size:11.5px;color:#888780;margin-top:1px">Age 40–75: risk-independent absolute indication (Class I) · Under 40/over 75: counted only as a risk enhancer · Preferred agent: pitavastatin 4 mg</div>
       </div>
     </label>
     <!-- ══ Chronic Inflammatory Disease detail panel (modal, centered) ══ -->
@@ -2253,20 +2261,6 @@ function switchRRTab(idx){
       </div>
       <div style="font-size:11.5px;color:#888780;margin-top:6px">
         ※ REPRIEVE trial: pitavastatin 4 mg (age 40–75, on stable ART) → 35% MACE reduction (2026 ACC/AHA Class I)
-      </div>
-      <!-- HIV absolute-indication checkbox -->
-      <div style="margin-top:8px;padding:8px 10px;background:#fcebeb;border-radius:6px;border-left:3px solid #a32d2d">
-        <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;user-select:none">
-          <input type="checkbox" class="enh" id="enhHiv" style="margin-top:2px;flex-shrink:0">
-          <div>
-            <div style="font-weight:700;color:#a32d2d;font-size:12.5px">Check if HIV (on stable cART)</div>
-            <div style="font-size:11.5px;color:#5f5e5a;margin-top:2px;line-height:1.65">
-              · <b>Age 40–75</b>: risk-independent <b>absolute indication</b> (Class I) — automatically applied in the absolute-indications section below<br>
-              · <b>Under 40 · over 75</b>: counted only as a risk enhancer (RE)<br>
-              · Preferred agent: <b>pitavastatin 4 mg</b> (CYP3A4-independent → minimal PI interaction)
-            </div>
-          </div>
-        </label>
       </div>
       <div style="text-align:right;margin-top:6px"><span class="text-toggle-link" onclick="event.preventDefault();event.stopPropagation();toggleInflamDetail()" style="font-size:11.5px;color:#c9a02a;cursor:pointer;font-weight:600">Close ✕</span></div>
       </div><!-- /inflam scroll body -->
@@ -2367,7 +2361,7 @@ function switchRRTab(idx){
       <div><div style="font-weight:600;color:#1a1a18">Carotid ultrasound plaque ≥ 1.5 mm</div>
       <div style="font-size:11.5px;color:#888780;margin-top:1px">ESC/EAS 2025 Class IIa risk-modifying factor — 2026 ACC/AHA also states goal is not established (not an automatic treatment indication)</div></div>
     </label>
-    <div id="carotidDesc" style="display:none;font-size:11.5px;color:#888780;padding:1px 0 4px 19px;line-height:1.5">ESC/EAS 2025 Class IIa risk-modifying factor · supports upward risk reclassification in low-to-intermediate risk. 2026 ACC/AHA (Circulation 2026;153:e1154) also states "LLT is beneficial, but current evidence is insufficient to recommend a specific LDL-C goal" — not a risk-independent automatic treatment indication. LDL target &lt;100 mg/dL (once reclassification criteria are met, tentative)</div>
+    <div id="carotidDesc" class="expl" style="display:none;font-size:11.5px;color:#888780;padding:1px 0 4px 19px;line-height:1.5">ESC/EAS 2025 Class IIa risk-modifying factor · supports upward risk reclassification in low-to-intermediate risk. 2026 ACC/AHA (Circulation 2026;153:e1154) also states "LLT is beneficial, but current evidence is insufficient to recommend a specific LDL-C goal" — not a risk-independent automatic treatment indication. LDL target &lt;100 mg/dL (once reclassification criteria are met, tentative)</div>
 
     <!-- CAC — separate from the Table 13 risk enhancers, dedicated 2026 ACC/AHA Section 4.2.7 recommendation -->
     <div style="font-size:11.5px;font-weight:700;color:#888780;letter-spacing:.04em;margin:10px 0 2px;padding-top:8px;border-top:1px dashed #d0cec8">
@@ -5381,7 +5375,7 @@ function renderAbsIndsDefault(){
     {key:'cac',   label:'CAC ≥100 / ≥1000 — sufficient condition for statin therapy', sub:'2026 ACC/AHA Section 4.2.7: sufficient condition to initiate statin therapy regardless of PREVENT risk'},
     {key:'ckd',   label:'CKD (eGFR 15–59) + age ≥ 40', sub:'Traditional risk equations underestimate risk in CKD; dialysis patients require separate judgment'},
     {key:'dm',    label:'Diabetes (age 30–79)',                 sub:'Diabetes alone warrants at least moderate-intensity statin; initiate regardless of PREVENT score'},
-    {key:'hiv',   label:'HIV (stable on cART, age 40–75)',         sub:'REPRIEVE trial: pitavastatin 4 mg → 35% reduction in MACE — check under chronic inflammatory disease panel'},
+    {key:'hiv',   label:'HIV (stable on cART, age 40–75)',         sub:'REPRIEVE trial: pitavastatin 4 mg → 35% reduction in MACE'},
   ];
   let html='';
   items.forEach(item=>{
