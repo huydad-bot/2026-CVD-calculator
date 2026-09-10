@@ -1886,8 +1886,7 @@ function switchRRTab(idx){
 <!-- ══════ LEFT: INPUT PANEL ══════ -->
 <div class="no-print">
   <div class="card" style="background:#eaf7fb">
-    <div class="sec">Basic Info &amp; Labs
-      <span style="font-size:10.5px;font-weight:600;color:#a32d2d;background:#fcebeb;border:1px solid #e8b4b4;border-radius:4px;padding:2px 7px;margin-left:8px;letter-spacing:0;text-transform:none">Required</span>
+    <div class="sec">Basic Info &amp; Labs (Required)
     </div>
 
     <!-- Age · sex · history -->
@@ -1924,12 +1923,10 @@ function switchRRTab(idx){
         <div class="rg" style="width:130px"><label><input type="radio" name="sex" value="F"><span>Female</span></label><label><input type="radio" name="sex" value="M"><span>Male</span></label></div>
       </div>
     </div>
-    <span class="text-toggle-link expl" onclick="toggleAgeRangeInfo()" style="display:inline-block;margin-bottom:6px;font-size:11.5px;color:#185fa5;font-weight:600;cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px" title="View guidance for out-of-range ages">30–79 yr: PREVENT validated range</span>
-
-    <div class="divider"></div>
+    <span class="text-toggle-link expl" onclick="toggleAgeRangeInfo()" style="display:inline-block;margin-bottom:4px;font-size:11.5px;color:#185fa5;font-weight:600;cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px" title="View guidance for out-of-range ages">30–79 yr: PREVENT validated range</span>
 
     <!-- Pre-treatment lipids -->
-    <div class="row2" style="margin-bottom:4px">
+    <div class="row2" style="margin-bottom:4px;margin-top:6px">
       <div class="field"><span class="fl"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> Total Cholesterol (TC)</span><div style="display:flex;align-items:center;gap:6px"><input type="number" autocomplete="off" id="tc" min="100" max="450" style="width:80px;flex:none"><span style="font-size:12.5px;color:#888780;white-space:nowrap">mg/dL</span></div></div>
       <div class="field"><span class="fl"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> HDL-C</span><div style="display:flex;align-items:center;gap:6px"><input type="number" autocomplete="off" id="hdl" min="15" max="120" style="width:80px;flex:none"><span style="font-size:12.5px;color:#888780;white-space:nowrap">mg/dL</span></div></div>
       <div class="field"><span class="fl"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> LDL-C</span><div style="display:flex;align-items:center;gap:6px"><input type="number" autocomplete="off" id="ldl" min="30" max="400" style="width:80px;flex:none"><span style="font-size:12.5px;color:#888780;white-space:nowrap">mg/dL</span></div></div>
@@ -1937,10 +1934,8 @@ function switchRRTab(idx){
     </div>
     <div class="nb info" style="margin-top:-2px">ℹ The PREVENT risk score uses only TC and HDL (→ non-HDL-C); LDL-C and TG do not directly factor into the risk calculation (they are used for treatment targets and NNT calculations).</div>
 
-    <div class="divider"></div>
-
     <!-- Blood pressure and clinical factors -->
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:2px;flex-wrap:wrap">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:2px;margin-top:6px;flex-wrap:wrap">
       <span style="font-size:12.5px;color:#5f5e5a;white-space:nowrap"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> Systolic BP</span>
       <input type="number" autocomplete="off" id="sbp" min="80" max="220" placeholder="mmHg" style="width:60px;padding:4px 6px;border:1px solid #d0cec8;border-radius:6px;font-size:13.5px">
       <span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;margin-left:6px;vertical-align:middle">●</span>
@@ -1969,10 +1964,8 @@ function switchRRTab(idx){
       </div>
     </div>
 
-    <div class="divider"></div>
-
     <!-- Currently on a statin -->
-    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px">
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;margin-top:6px">
       <label class="ck" style="display:inline-flex;margin-bottom:0"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:4px;vertical-align:middle">●</span><input type="checkbox" id="onStatin"> <b>Currently on a statin</b></label>
       <span class="expl" style="font-size:12.5px;color:#185fa5;font-weight:600;line-height:1.5">If the pre-treatment lipid values are unknown, you can select the <span class="text-toggle-link" onclick="var b=document.getElementById('statinIntensityBox');var s=getComputedStyle(b).display==='none';b.style.display=s?'block':'none';document.body.style.overflow=s?'hidden':'';this.querySelector('.chev').textContent=s?' ▴':' ▾';" style="color:#0c447c;font-weight:800;text-decoration:underline;text-decoration-style:dotted;cursor:pointer">statin intensity<span class="chev" id="statinIntensityChev" style="font-size:10.5px"> ▾</span></span> currently used to calculate and enter an estimated baseline.</span>
     </div>
@@ -2055,7 +2048,7 @@ function switchRRTab(idx){
   </div>
 
   <div class="card" id="cardPreventExtra" style="background:#eaf7fb">
-    <div class="sec">Additional PREVENT 2023 Inputs (Optional)</div>
+    <div class="sec">Additional Inputs (Optional)</div>
     <div class="row2">
       <div class="field">
         <span class="fl">UACR (mg/g)</span>
