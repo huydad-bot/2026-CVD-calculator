@@ -19,8 +19,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Noto Sa
 .ph{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;gap:10px}
 .pt{font-size:21px;font-weight:800;color:#185fa5}
 .ps{font-size:13px;color:#73726c;margin-top:3px;line-height:1.6}
-.ps-always{font-size:13px;color:#73726c;margin-top:3px;line-height:1.6}
-.ps-always .note-italic{color:#a07a2a;font-style:italic}
 .mgrid{display:grid;grid-template-columns:330px 1fr;gap:14px;align-items:start}
 @media(max-width:760px){.mgrid{grid-template-columns:1fr}}
 .card{background:#fff;border:1px solid #e2e0db;border-radius:12px;padding:14px 16px;margin-bottom:13px}
@@ -46,14 +44,8 @@ input[type=range]{width:100%;accent-color:#1a1a18;cursor:pointer}
 .rcell{padding:9px 6px;background:#f8f7f5;border-radius:8px;border:1px solid #e2e0db;text-align:center}
 .rcell.hl{padding:9px 6px;background:#fffcee;border-radius:8px;border:2px solid #c9a02a;box-shadow:0 2px 8px rgba(201,160,42,0.15);text-align:center}
 .rcell.dim{padding:9px 6px;background:#fbfaf8;border-radius:8px;border:1px solid #ece9e3;text-align:center}
-.rlabel{font-size:15px;font-weight:700;color:#888780;margin-bottom:2px;line-height:1.3}
+.rlabel{font-size:10px;font-weight:700;color:#888780;margin-bottom:2px;line-height:1.3}
 .rnum{font-size:24px;font-weight:800;line-height:1}
-@keyframes numPop{
-  0%{transform:scale(0.45);opacity:0}
-  60%{transform:scale(1.18);opacity:1}
-  100%{transform:scale(1);opacity:1}
-}
-.num-pop{display:inline-block;transform-origin:center;animation:numPop .55s cubic-bezier(.34,1.56,.64,1) both}
 .rsub{font-size:12.5px;color:#888780;margin-top:3px;line-height:1.4}
 .bw{height:5px;background:#e2e0db;border-radius:3px;overflow:hidden;margin:5px 0}
 .bar{height:100%;border-radius:3px;transition:width .4s,background .4s;width:0}
@@ -123,7 +115,7 @@ body.compact-mode #compactHint{display:block}
 .sw-result{font-size:12px;font-weight:600;margin-top:5px}
 
 /* Risk category badge */
-.kbadge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:6px;font-size:16px;font-weight:700}
+.kbadge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:6px;font-size:12px;font-weight:700}
 
 /* Print */
 .pbtn{display:flex;align-items:center;gap:6px;padding:7px 14px;background:#1a1a18;color:#fff;border:none;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;flex-shrink:0}
@@ -238,10 +230,10 @@ body.mode-simple #cprIIbBox { display: none !important; }
 <div class="ph" style="align-items:flex-start">
   <div>
     <div class="pt">ACC/AHA PREVENT ASCVD 위험도 &amp; 지질치료 결정 도구</div>
-    <div class="ps-always">
+    <div class="ps">
       AHA PREVENT 2023 — 10년/30년 Total CVD · ASCVD · Heart Failure risk<br>
       2026 ACC/AHA/Multisociety Dyslipidemia Guideline · 2022 ACC Expert Consensus Pathway<br>
-      <span class="note-italic">This tool is not officially endorsed by ACC/AHA</span>
+      <span style="color:#a07a2a;font-style:italic">This tool is not officially endorsed by ACC/AHA</span>
     </div>
     <!-- 간단/상세 모드 라디오 + 약어 검색창 -->
     <div style="display:flex;align-items:stretch;gap:8px;margin-top:8px;flex-wrap:wrap" class="no-print">
@@ -1898,16 +1890,18 @@ function switchRRTab(idx){
 <!-- ══════ LEFT: INPUT PANEL ══════ -->
 <div class="no-print">
   <div class="card" style="background:#eaf7fb">
-    <div class="sec">기본 정보 &amp; 검사 입력 (입력 필수)
+    <div class="sec">기본 정보 &amp; 검사 입력
+      <span style="font-size:10.5px;font-weight:600;color:#a32d2d;background:#fcebeb;border:1px solid #e8b4b4;border-radius:4px;padding:2px 7px;margin-left:8px;letter-spacing:0;text-transform:none">입력 필수</span>
     </div>
 
     <!-- 나이·성별·병력 -->
-    <div style="display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap;margin-bottom:2px">
-      <div class="field" style="flex:0 0 auto">
+    <div style="display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap;margin-bottom:6px">
+      <div class="field" style="flex:0 0 auto;min-width:140px">
         <span class="fl"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 나이 (세)</span>
         <div style="display:flex;align-items:center;gap:6px">
           <input type="number" id="age" min="20" max="90" value="" autocomplete="off"
             style="width:68px;padding:5px 8px;border:1px solid #d0cec8;border-radius:7px;font-size:17.5px;font-weight:700;color:#1a1a18;text-align:center">
+          <span class="text-toggle-link" onclick="toggleAgeRangeInfo()" style="font-size:12.5px;color:#185fa5;font-weight:600;cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px" title="범위 외 연령 안내 보기">30–79세: PREVENT 검증 범위</span>
         </div>
         <div id="ageRangeInfo" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.55);overflow-y:auto;padding:24px 14px" onclick="if(event.target===this)toggleAgeRangeInfo()">
         <div style="max-width:480px;margin:0 auto;background:#eaf2fb;border-radius:10px;border-left:3px solid #185fa5;font-size:11.5px;color:#1a1a18;line-height:1.8;box-shadow:0 10px 50px rgba(0,0,0,0.35);overflow:hidden">
@@ -1935,13 +1929,15 @@ function switchRRTab(idx){
       </div>
       <div class="field" style="flex:0 0 auto">
         <span class="fl"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 성별</span>
-        <div class="rg" style="width:130px"><label><input type="radio" name="sex" value="F"><span>여성</span></label><label><input type="radio" name="sex" value="M"><span>남성</span></label></div>
+        <div class="rg"><label><input type="radio" name="sex" value="F"><span>여성</span></label><label><input type="radio" name="sex" value="M"><span>남성</span></label></div>
       </div>
+      
     </div>
-    <span class="text-toggle-link expl" onclick="toggleAgeRangeInfo()" style="display:inline-block;margin-bottom:4px;font-size:11.5px;color:#185fa5;font-weight:600;cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px" title="범위 외 연령 안내 보기">30–79세: PREVENT 검증 범위</span>
+
+    <div class="divider"></div>
 
     <!-- 치료 전 지질 -->
-    <div class="row2" style="margin-bottom:4px;margin-top:6px">
+    <div class="row2" style="margin-bottom:4px">
       <div class="field"><span class="fl"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 총 콜레스테롤 (TC)</span><input type="number" autocomplete="off" id="tc" min="100" max="450" placeholder="mg/dL"></div>
       <div class="field"><span class="fl"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> HDL-C</span><input type="number" autocomplete="off" id="hdl" min="15" max="120" placeholder="mg/dL"></div>
       <div class="field"><span class="fl"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> LDL-C</span><input type="number" autocomplete="off" id="ldl" min="30" max="400" placeholder="mg/dL"></div>
@@ -1949,21 +1945,27 @@ function switchRRTab(idx){
     </div>
     <div class="nb info" style="margin-top:-2px">ℹ PREVENT 위험도 점수는 TC·HDL(→non-HDL-C)만 사용하며, LDL-C·TG는 위험도 계산에 직접 반영되지 않습니다 (치료 목표·NNT 산출에는 사용됨).</div>
 
+    <div class="divider"></div>
+
     <!-- 혈압 및 임상 인자 -->
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:2px;margin-top:6px;flex-wrap:wrap">
-      <span style="font-size:12.5px;color:#5f5e5a;white-space:nowrap"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 수축기 혈압</span>
-      <input type="number" autocomplete="off" id="sbp" min="80" max="220" placeholder="mmHg" style="width:60px;padding:4px 6px;border:1px solid #d0cec8;border-radius:6px;font-size:13.5px">
-      <span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;margin-left:6px;vertical-align:middle">●</span>
-      <span style="font-size:12.5px;color:#5f5e5a;white-space:nowrap">eGFR</span>
-      <input type="number" autocomplete="off" id="egfr" min="5" max="130" placeholder="수치" style="width:55px;padding:4px 6px;border:1px solid #d0cec8;border-radius:6px;font-size:13.5px">
-      <span style="font-size:12.5px;color:#888780">mL/min/1.73m²</span>
+    <div style="margin-bottom:5px">
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+        <span style="font-size:12.5px;color:#5f5e5a;white-space:nowrap"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 수축기 혈압</span>
+        <input type="number" autocomplete="off" id="sbp" min="80" max="220" placeholder="mmHg" style="width:68px;padding:4px 6px;border:1px solid #d0cec8;border-radius:6px;font-size:13.5px">
+        <span style="font-size:12.5px;color:#888780">mmHg</span>
+      </div>
+      <div class="expl" style="font-size:11.5px;color:#888780;margin-top:2px">※ 혈압강하제 투약 중이면 복약 후 측정값 입력</div>
     </div>
     <div style="margin-bottom:6px">
-      <span class="expl" style="font-size:11.5px;color:#888780">※ 혈압강하제 투약 중이면 복약 후 측정값 입력 · 미입력 시 eGFR 90으로 자동계산</span>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+        <span style="font-size:12.5px;color:#5f5e5a;white-space:nowrap"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> eGFR</span>
+        <input type="number" autocomplete="off" id="egfr" min="5" max="130" placeholder="수치" style="width:62px;padding:4px 6px;border:1px solid #d0cec8;border-radius:6px;font-size:13.5px">
+      </div>
+      <div style="font-size:11.5px;color:#888780;margin-top:2px"><span class="expl" style="font-size:12.5px">mL/min/1.73m²</span><span class="expl"> · ※ 미입력 시 eGFR 90으로 자동계산</span></div>
     </div>
     <div style="font-size:12.5px;color:#185fa5;font-weight:600;margin-bottom:4px">해당사항이 있는 경우 체크하세요</div>
-    <div style="display:flex;gap:10px;flex-wrap:wrap">
-      <label class="ck"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 고혈압 치료중 <input type="checkbox" id="bpTx"></label>
+    <div style="display:flex;gap:14px;flex-wrap:wrap">
+      <label class="ck"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 항고혈압제 복용 중 <input type="checkbox" id="bpTx"></label>
       <label class="ck"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 흡연 <input type="checkbox" id="smoker"></label>
       <label class="ck"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 당뇨병 <input type="checkbox" id="dm"></label>
     </div>
@@ -1974,15 +1976,42 @@ function switchRRTab(idx){
         <span style="font-weight:700;color:#a32d2d">초고위험 해당 기준 (다음 중 하나):</span><br>
         ① <b>복수의 주요 ASCVD 사건</b> — MI · 허혈성 뇌졸중 · PAD 등 2개 이상<br>
         ② <b>단일 ASCVD 사건 + 고위험 조건 2개 이상</b><br>
-        <span style="padding-left:10px;display:block;color:#5f5e5a">당뇨병 · 고혈압 · CKD(eGFR&lt;60) · 흡연 지속 · LDL≥70(최대 스타틴 중) · 심부전</span>
+        <span style="padding-left:10px;display:block;color:#888780">당뇨병 · 고혈압 · CKD(eGFR&lt;60) · 흡연 지속 · LDL≥70(최대 스타틴 중) · 심부전</span>
         <span style="color:#a32d2d;font-weight:600">→ 해당 시 체크 — LDL-C 목표 &lt;55 mg/dL 적용</span>
+      </div>
+      <div id="vhrDesc" style="display:none;margin-top:6px;margin-left:6px;padding:10px 12px;background:#fcebeb;border-radius:8px;border-left:3px solid #a32d2d">
+        <div style="font-size:12.5px;font-weight:700;color:#a32d2d;margin-bottom:6px">▲ 초고위험 ASCVD (Very High Risk) — LDL-C 목표 &lt;55 mg/dL</div>
+        <div style="font-size:12.5px;color:#1a1a18;line-height:1.75">
+          <b style="color:#a32d2d">해당 조건 (다음 중 하나):</b><br>
+          ① 복수의 주요 ASCVD 사건<br>
+          <span style="color:#5f5e5a;padding-left:10px;display:block">MI, 허혈성 뇌졸중, PAD 등 2개 이상 발생</span>
+          ② 단일 ASCVD 사건 + 고위험 조건 2개 이상<br>
+          <span style="color:#5f5e5a;padding-left:10px;display:block">당뇨병 · 고혈압 · CKD(eGFR&lt;60) · 흡연 지속 · LDL≥70(최대 스타틴 중) · 심부전</span>
+        </div>
+        <div style="margin-top:8px;padding-top:7px;border-top:1px solid #e8b4b4">
+          <div style="font-size:12.5px;font-weight:700;color:#a32d2d;margin-bottom:4px">권고 치료 전략</div>
+          <div style="font-size:12.5px;color:#1a1a18;line-height:1.75">
+            ▸ <b>고강도 스타틴</b> (rosuvastatin 20–40 mg 또는 atorvastatin 40–80 mg)<br>
+            ▸ LDL-C 목표 <b>&lt;55 mg/dL</b>, 가능하면 <b>&lt;40 mg/dL</b> 지향<br>
+            ▸ 최대 내약 스타틴에도 LDL 미달성 시 → <b>Ezetimibe 추가</b><br>
+            ▸ 그래도 미달성 시 → <b>PCSK9 억제제</b> (evolocumab / alirocumab) 병용<br>
+            ▸ Lp(a) ≥50 mg/dL 동반 시 → PCSK9 억제제 우선 고려<br>
+            ▸ TG ≥175 mg/dL 잔여 위험 → Icosapent ethyl (EPA) 고려
+          </div>
+        </div>
+        <div style="margin-top:6px;font-size:11.5px;color:#a32d2d;line-height:1.6">
+          ※ 2026 ACC/AHA Dyslipidemia Guideline — Class I, LOE A<br>
+          ※ 2차 예방에서 LDL &lt;55 달성 시 추가 사건 위험 ~20% 추가 감소 (CTT meta-analysis)
+        </div>
       </div>
     </div>
 
+    <div class="divider"></div>
+
     <!-- 스타틴 복용 중 -->
-    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;margin-top:6px">
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px">
       <label class="ck" style="display:inline-flex;margin-bottom:0"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:4px;vertical-align:middle">●</span><input type="checkbox" id="onStatin"> <b>현재 스타틴 복용 중</b></label>
-      <span class="expl" style="font-size:12.5px;color:#185fa5;font-weight:600;line-height:1.5">치료 전 지질수치 값을 모를 때, 복용 중인 <span class="text-toggle-link" onclick="var b=document.getElementById('statinIntensityBox');var s=getComputedStyle(b).display==='none';b.style.display=s?'block':'none';document.body.style.overflow=s?'hidden':'';this.querySelector('.chev').textContent=s?' ▴':' ▾';" style="color:#0c447c;font-weight:800;text-decoration:underline;text-decoration-style:dotted;cursor:pointer">스타틴 강도<span class="chev" id="statinIntensityChev" style="font-size:10.5px"> ▾</span></span>를 선택하여 추정값을 계산, 입력할 수 있습니다.</span>
+      <span style="font-size:12.5px;color:#185fa5;font-weight:600;line-height:1.5">치료 전 지질수치 값을 모를 때, 복용 중인 <span class="text-toggle-link" onclick="var b=document.getElementById('statinIntensityBox');var s=getComputedStyle(b).display==='none';b.style.display=s?'block':'none';document.body.style.overflow=s?'hidden':'';this.querySelector('.chev').textContent=s?' ▴':' ▾';" style="color:#0c447c;font-weight:800;text-decoration:underline;text-decoration-style:dotted;cursor:pointer">스타틴 강도<span class="chev" id="statinIntensityChev" style="font-size:10.5px"> ▾</span></span>를 선택하여 추정값을 계산, 입력할 수 있습니다.</span>
     </div>
     <!-- 스타틴 강도 분류표 (클릭 시 펼침) -->
     <div id="statinIntensityBox" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.55);overflow-y:auto;padding:24px 14px" onclick="if(event.target===this){var b=document.getElementById('statinIntensityBox');b.style.display='none';document.body.style.overflow='';var c=document.getElementById('statinIntensityChev');if(c)c.textContent=' ▾';}">
@@ -2063,7 +2092,7 @@ function switchRRTab(idx){
   </div>
 
   <div class="card" id="cardPreventExtra" style="background:#eaf7fb">
-    <div class="sec">추가 입력 (선택)</div>
+    <div class="sec">PREVENT 2023 추가 입력 (선택)</div>
     <div class="row2">
       <div class="field">
         <span class="fl">UACR (mg/g)</span>
@@ -2132,7 +2161,7 @@ function switchRRTab(idx){
 
   <div class="card" id="cardRiskEnhancer" style="background:#eaf7fb">
     <div class="sec sec-clickable" onclick="toggleSection('riskEnhancerBody','riskEnhancerArrow')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none">
-      <span>위험 증가 인자 (Risk Enhancers) <span style="font-size:12.5px;font-weight:600;color:#bfe3ff;letter-spacing:0;text-transform:none;margin-left:4px">정밀 맞춤 예방목적이며, 각 항목의 자세한 내용을 보려면 화면 상단 설명감추기 체크 해제</span></span>
+      <span>위험 증가 인자 (Risk Enhancers) <span style="font-size:12.5px;font-weight:600;color:#bfe3ff;letter-spacing:0;text-transform:none;margin-left:4px">정밀 맞춤 예방 목적이며, 클릭 시 자세한 내용을 확인할 수 있습니다.</span></span>
       <span id="riskEnhancerArrow" style="font-size:13.5px;color:#fff;transition:transform .2s;display:inline-block">▶</span>
     </div>
     <div id="riskEnhancerBody" style="display:none">
@@ -2242,23 +2271,29 @@ function switchRRTab(idx){
             style="font-size:11.5px;color:#185fa5;cursor:pointer;margin-left:6px;font-weight:400">
             상세 ▾<span id="inflamPanelArrow" style="display:none"></span>
           </span>
+          <span style="font-size:11.5px;color:#a32d2d;font-weight:400;margin-left:4px">※ HIV 해당 시 상세 클릭 후 하단 박스 체크 요함</span>
         </div>
         <div class="expl" style="font-size:11.5px;color:#888780;margin-top:1px">RA · 루푸스 · 건선 · HIV · 염증성 장질환 · 강직성 척추염 · 만성 간염</div>
-      </div>
-    </label>
-
-    <!-- ── HIV (독립 항목) ── -->
-    <label class="ck">
-      <input type="checkbox" class="enh" id="enhHiv">
-      <div>
-        <div style="font-weight:600;color:#1a1a18">HIV (안정 cART 중)</div>
-        <div class="expl" style="font-size:11.5px;color:#888780;margin-top:1px">40–75세: 위험도 무관 절대 적응증 (Class I) · 40세 미만·75세 초과: 위험증강인자로만 반영 · 선호 약제: Pitavastatin 4 mg</div>
       </div>
     </label>
     <!-- ══ 만성 염증성 질환 상세 패널 (모달, 화면 중앙 확대) ══ -->
     <div id="inflamPanel" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.55);overflow-y:auto;padding:24px 14px" onclick="if(event.target===this)toggleInflamDetail()">
     <div style="max-width:560px;margin:0 auto;background:#faeeda;border-radius:10px;border-left:3px solid #c9a02a;font-size:12.5px;line-height:1.75;box-shadow:0 10px 50px rgba(0,0,0,0.35);overflow:hidden">
       <div style="max-height:80vh;overflow-y:auto;padding:14px 16px 12px">
+      <!-- HIV 절대 적응증 체크박스 -->
+      <div style="padding:8px 10px;background:#fcebeb;border-radius:6px;border-left:3px solid #a32d2d;margin-bottom:8px">
+        <label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;user-select:none">
+          <input type="checkbox" class="enh" id="enhHiv" style="margin-top:2px;flex-shrink:0">
+          <div>
+            <div style="font-weight:700;color:#a32d2d;font-size:12.5px">HIV (안정 cART 중) 해당 시 체크</div>
+            <div style="font-size:11.5px;color:#5f5e5a;margin-top:2px;line-height:1.65">
+              · <b>40–75세</b>: 위험도 무관 <b>절대 적응증</b> (Class I) — 아래 절대 적응증 섹션 자동 반영<br>
+              · <b>40세 미만 · 75세 초과</b>: 위험증강인자(RE)로만 반영<br>
+              · 선호 약제: <b>Pitavastatin 4 mg</b> (CYP3A4 비의존 → PI 상호작용 최소)
+            </div>
+          </div>
+        </label>
+      </div>
       <div style="font-weight:700;color:#854f0b;margin-bottom:6px">🔥 만성 염증과 ASCVD</div>
       <div style="color:#5f5e5a;margin-bottom:7px">
         지속적 전신 염증은 죽상경화 촉진·플라크 불안정화를 통해 ASCVD 위험을 독립적으로 증가시킨다.<br>
@@ -2377,7 +2412,7 @@ function switchRRTab(idx){
       <div><div style="font-weight:600;color:#1a1a18">경동맥 초음파 plaque ≥ 1.5 mm</div>
       <div class="expl" style="font-size:11.5px;color:#888780;margin-top:1px">ESC/EAS 2025 Class IIa 위험수정인자 — 2026 ACC/AHA도 목표치 미확정 명시 (자동 처방 적응증 아님)</div></div>
     </label>
-    <div id="carotidDesc" class="expl" style="display:none;font-size:11.5px;color:#888780;padding:1px 0 4px 19px;line-height:1.5">ESC/EAS 2025 Class IIa 위험수정인자 · 저~중간위험에서 위험도 상향 재분류 근거. 2026 ACC/AHA(Circulation 2026;153:e1154)도 "LLT는 유익하나 구체적 LDL-C 목표를 권고할 근거는 불충분"이라고 명시 — 위험도 무관 자동 처방 적응증이 아님. LDL 목표 &lt;100 mg/dL (재분류 후 기준 충족 시, 잠정)</div>
+    <div id="carotidDesc" style="display:none;font-size:11.5px;color:#888780;padding:1px 0 4px 19px;line-height:1.5">ESC/EAS 2025 Class IIa 위험수정인자 · 저~중간위험에서 위험도 상향 재분류 근거. 2026 ACC/AHA(Circulation 2026;153:e1154)도 "LLT는 유익하나 구체적 LDL-C 목표를 권고할 근거는 불충분"이라고 명시 — 위험도 무관 자동 처방 적응증이 아님. LDL 목표 &lt;100 mg/dL (재분류 후 기준 충족 시, 잠정)</div>
 
     <!-- CAC — Table 13 위험증강인자와 별개, 2026 ACC/AHA Section 4.2.7 전용 권고 -->
     <div style="font-size:11.5px;font-weight:700;color:#888780;letter-spacing:.04em;margin:10px 0 2px;padding-top:8px;border-top:1px dashed #d0cec8">
@@ -3263,32 +3298,43 @@ function switchRRTab(idx){
     <div class="sec">치료 전 baseline 위험도와 치료 중 위험도</div>
     <div class="rcmp">
       <div class="rcell hl">
-        <div class="rlabel">ASCVD Risk</div>
-        <div class="rnum num-pop" id="prevAscvdNum">—</div>
+        <div class="rlabel">PREVENT 2023<br>ASCVD Risk</div>
+        <div class="rnum" id="prevAscvdNum">—</div>
         <div class="bw"><div class="bar" id="prevAscvdBar"></div></div>
-        <div class="rsub">10년 · MI + 관상동맥질환 사망 + 뇌졸중</div>
-        <div id="prevAscvd30Sub" style="font-size:12.5px;font-weight:600;color:#5f5e5a;margin-top:3px;letter-spacing:0">30년: —</div>
+        <div class="rsub">10년 · MI + CHD death + Stroke</div>
+        <div id="prevAscvd30Sub" style="font-size:12.5px;font-weight:600;color:#888780;margin-top:3px;letter-spacing:0">30년: —</div>
       </div>
       <div class="rcell dim">
-        <div class="rlabel">Heart Failure Risk</div>
+        <div class="rlabel">PREVENT 2023<br>Heart Failure Risk</div>
         <div class="rnum" id="prevHfNum">—</div>
         <div class="bw"><div class="bar" id="prevHfBar"></div></div>
         <div class="rsub">10년 · 심부전 발생 위험</div>
-        <div id="prevHf30Sub" style="font-size:12.5px;font-weight:600;color:#5f5e5a;margin-top:3px;letter-spacing:0">30년: —</div>
+        <div id="prevHf30Sub" style="font-size:12.5px;font-weight:600;color:#888780;margin-top:3px;letter-spacing:0">30년: —</div>
       </div>
       <div class="rcell dim">
-        <div class="rlabel">Total CVD Risk</div>
+        <div class="rlabel">PREVENT 2023<br>Total CVD Risk</div>
         <div class="rnum" id="prevNum">—</div>
         <div class="bw"><div class="bar" id="prevBar"></div></div>
-        <div class="rsub">10년 · ASCVD + 심부전</div>
-        <div id="prevCvd30Sub" style="font-size:12.5px;font-weight:600;color:#5f5e5a;margin-top:3px;letter-spacing:0">30년: —</div>
+        <div class="rsub">10년 · ASCVD + HF</div>
+        <div id="prevCvd30Sub" style="font-size:12.5px;font-weight:600;color:#888780;margin-top:3px;letter-spacing:0">30년: —</div>
       </div>
     </div>
     <div style="margin-top:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-      <span class="badge num-pop" id="riskBadge" style="background:#f1efe8;color:#888780;font-size:16px">—</span>
+      <span class="badge" id="riskBadge" style="background:#f1efe8;color:#888780">—</span>
       <span style="font-size:11.5px;color:#888780" id="adjNote"></span>
     </div>
     <div id="onTxRiskBox" style="margin-top:9px"></div>
+    <div style="margin-top:7px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;font-size:11.5px">
+      <div style="padding:5px 7px;background:#fffcee;border-radius:6px;border:2px solid #c9a02a">
+        <span style="font-weight:700;color:#1a1a18">ASCVD</span><span style="color:#5f5e5a"> — MI + 관상동맥질환 사망 + 뇌졸중</span>
+      </div>
+      <div style="padding:5px 7px;background:#fbfaf8;border-radius:6px;border:1px solid #ece9e3">
+        <span style="font-weight:700;color:#5f5e5a">HF</span><span style="color:#888780"> — 새로운 심부전 발생. ASCVD와 독립적 CKM 위험</span>
+      </div>
+      <div style="padding:5px 7px;background:#fbfaf8;border-radius:6px;border:1px solid #ece9e3">
+        <span style="font-weight:700;color:#5f5e5a">Total CVD</span><span style="color:#888780"> — ASCVD + HF 통합 위험도</span>
+      </div>
+    </div>
     <div id="noResultHint" style="font-size:13.5px;color:#185fa5;font-weight:600;margin-top:5px">기본정보 입력란을 채우면 결과가 표시됩니다.</div>
     <div style="font-size:12.5px;color:#185fa5;margin-top:3px">30년 위험도는 30–59세에서만 표시됩니다 (PREVENT 2023 기준)</div>
     <div id="ascvdHxNotice" style="display:none;margin-top:8px;padding:8px 11px;background:#faeeda;border-radius:7px;border-left:3px solid #ef9f27">
@@ -3329,6 +3375,9 @@ function switchRRTab(idx){
     <div class="sec">스타틴 처방 권고</div>
     <div style="font-size:11.5px;font-weight:700;color:#888780;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">ACC/AHA · PREVENT 기반 치료 제안</div>
     <div id="accRecOut"></div>
+    <div style="margin-top:10px;font-size:12.5px;color:#5f5e5a;line-height:1.6">
+      Clinical ASCVD, LDL-C ≥190 mg/dL, diabetes, PREVENT-ASCVD 위험도, risk-enhancing factors, TG 수치를 종합하여 권고 강도를 표시합니다.
+    </div>
   </div>
 
   <!-- 6. EMR Copy Summary -->
@@ -3424,7 +3473,9 @@ function toggleCompactMode(on){
   try{ localStorage.setItem('nnh_compact', on ? '1' : '0'); }catch(e){}
 }
 document.addEventListener('DOMContentLoaded', function(){
-  var on = true; // 프로그램 시작 시 항상 '설명 감추기' 켜진 상태로 시작
+  var saved = null;
+  try{ saved = localStorage.getItem('nnh_compact'); }catch(e){}
+  var on = saved === null ? false : (saved === '1');
   var chk = document.getElementById('compactModeChk');
   if(chk){ chk.checked = on; }
   toggleCompactMode(on);
@@ -4789,7 +4840,6 @@ function upd(){
   } else {
     // ASCVD
     g('prevAscvdNum').textContent=prevAscvd.toFixed(1)+'%';
-    if(g('prevAscvdNum')){ const _pn=g('prevAscvdNum'); _pn.classList.remove('num-pop'); void _pn.offsetWidth; _pn.classList.add('num-pop'); }
     g('prevAscvdBar').style.width=Math.min(100,prevAscvd*4.2)+'%';
     colorBar(g('prevAscvdBar'),prevAscvd);
     if(g('prevAscvd30Sub')) g('prevAscvd30Sub').textContent=show30?`30년: ${prev30Ascvd.toFixed(1)}%`:'30년: (30–59세만 표시)';
@@ -4846,9 +4896,8 @@ function upd(){
     else if(primRisk<10){bT='기저 판정: 중간위험  5–10% (PREVENT-ASCVD)';bC='#854f0b';bBg='#faeeda';}
     else{bT='기저 판정: 고위험  ≥ 10% (PREVENT-ASCVD)';bC='#a32d2d';bBg='#fcebeb';}
     const badgeExc=absExceptionNotes();
-    badge.innerHTML=bT+(badgeExc.length?` <span style="font-weight:400;font-size:inherit;color:${bC};opacity:0.85">(위험도 무관 적응증 해당: ${badgeExc.join('; ')})</span>`:'');
+    badge.innerHTML=bT+(badgeExc.length?` <span style="font-weight:400;font-size:11.5px;color:${bC};opacity:0.85">(위험도 무관 적응증 해당: ${badgeExc.join('; ')})</span>`:'');
     badge.style.color=bC;badge.style.background=bBg;
-    badge.classList.remove('num-pop'); void badge.offsetWidth; badge.classList.add('num-pop');
     adjNote.textContent=treatmentStateNote(onStatin,hasPostRisk,hasPostLdl);
   }
 
@@ -4867,19 +4916,19 @@ function upd(){
           </div>
           <div class="rcmp">
             <div class="rcell hl">
-              <div class="rlabel">ASCVD Risk</div>
+              <div class="rlabel">PREVENT 2023<br>ASCVD Risk</div>
               <div class="rnum">${fmtRisk(txPrevAscvd)}</div>
               <div class="bw"><div class="bar" style="width:${barWidthPct(txPrevAscvd)}%;background:${txColorAsc}"></div></div>
               <div class="rsub">치료 중 · ${txCat}</div>
             </div>
             <div class="rcell dim">
-              <div class="rlabel">Heart Failure Risk</div>
+              <div class="rlabel">PREVENT 2023<br>Heart Failure Risk</div>
               <div class="rnum">${fmtRisk(txPrevHf)}</div>
               <div class="bw"><div class="bar" style="width:${barWidthPct(txPrevHf)}%;background:${riskColor(txPrevHf)}"></div></div>
               <div class="rsub">치료 중 · 심부전 위험</div>
             </div>
             <div class="rcell dim">
-              <div class="rlabel">Total CVD Risk</div>
+              <div class="rlabel">PREVENT 2023<br>Total CVD Risk</div>
               <div class="rnum">${fmtRisk(txPrev)}</div>
               <div class="bw"><div class="bar" style="width:${barWidthPct(txPrev)}%;background:${txColorTotal}"></div></div>
               <div class="rsub">치료 중 · ASCVD + HF</div>
@@ -5373,7 +5422,7 @@ function renderAbsIndsDefault(){
     {key:'cac',   label:'CAC ≥100 / ≥1000 — 스타틴 충분조건', sub:'2026 ACC/AHA Section 4.2.7: PREVENT 위험도 무관 스타틴 시작의 충분조건'},
     {key:'ckd',   label:'CKD (eGFR 15–59) + 나이 ≥ 40세', sub:'전통적 위험방정식이 CKD에서 위험을 과소평가; 투석 환자는 별도 판단'},
     {key:'dm',    label:'당뇨병 (30–79세)',                 sub:'당뇨 단독으로도 최소 중등강도 스타틴; PREVENT 점수에 관계없이 치료 시작'},
-    {key:'hiv',   label:'HIV (안정 cART, 40–75세)',         sub:'REPRIEVE trial: Pitavastatin 4 mg → MACE 35% 감소'},
+    {key:'hiv',   label:'HIV (안정 cART, 40–75세)',         sub:'REPRIEVE trial: Pitavastatin 4 mg → MACE 35% 감소 — 만성 염증성 질환 패널에서 체크'},
   ];
   let html='';
   items.forEach(item=>{
@@ -5498,7 +5547,11 @@ g('ascvdHx').addEventListener('change',function(){
   if(!this.checked && g('vhrDesc')) g('vhrDesc').style.display='none';
   if(g('ascvdHxNotice')) g('ascvdHxNotice').style.display=this.checked?'block':'none';
 });
-// veryHigh 체크 여부와 무관하게 vhrCriteria(기준 설명)는 계속 표시
+// veryHigh 체크 시 초고위험 설명 패널 즉시 표시, 기준 요약 숨김
+g('veryHigh').addEventListener('change',function(){
+  if(g('vhrDesc')) g('vhrDesc').style.display=this.checked?'block':'none';
+  if(g('vhrCriteria')) g('vhrCriteria').style.display=this.checked?'none':'block';
+});
 // 경동맥 초음파 체크 시 설명문 표시/숨김
 g('carotidPlaque').addEventListener('change',function(){
   if(g('carotidDesc')) g('carotidDesc').style.display=this.checked?'block':'none';
