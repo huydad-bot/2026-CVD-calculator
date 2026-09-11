@@ -215,10 +215,10 @@ body.mode-simple #cprIIbBox { display: none !important; }
 .gl-item{padding:9px 13px;cursor:pointer;border-bottom:1px solid #f1efe8;transition:background .1s}
 .gl-item:last-child{border-bottom:none}
 .gl-item:hover,.gl-item.gl-active{background:#f0f6fc}
-.gl-abbr{font-size:14px;font-weight:800;color:#185fa5;letter-spacing:.02em}
-.gl-full{font-size:10.5px;color:#888780;margin-top:1px;font-style:italic}
-.gl-ko{font-size:13px;color:#1a1a18;margin-top:2px;font-weight:600}
-.gl-desc{font-size:12px;color:#5f5e5a;margin-top:4px;line-height:1.6;padding:5px 8px;background:#f8f7f5;border-radius:5px;border-left:2px solid #185fa5}
+.gl-abbr{font-size:14px;font-weight:800;color:#185fa5;letter-spacing:.02em;cursor:text}
+.gl-full{font-size:10.5px;color:#888780;margin-top:1px;font-style:italic;cursor:text}
+.gl-ko{font-size:13px;color:#1a1a18;margin-top:2px;font-weight:600;cursor:text}
+.gl-desc{font-size:12px;color:#5f5e5a;margin-top:4px;line-height:1.6;padding:5px 8px;background:#f8f7f5;border-radius:5px;border-left:2px solid #185fa5;cursor:text}
 .gl-detail{display:none;padding:2px 0 4px}
 .gl-empty{padding:14px 13px;color:#888780;font-size:13px;text-align:center}
 @media(max-width:760px){#glossaryInputWrap{width:150px}}
@@ -708,7 +708,7 @@ document.addEventListener('keydown', function(e){
 <script>
 var GROUPS_DATA = [
   { n:1, name:'Primary Prevention', nameEn:'',
-    def:'• No prior heart attack or stroke<br>• No plaque ever confirmed on imaging<br>• LDL-C 70–189 mg/dL, age 30–79',
+    def:'• No prior heart attack or stroke<br>• No plaque ever confirmed on imaging<br>• LDL-C 70–189 mg/dL<br>• Age 30–79',
     tool:'PREVENT calculator estimates 10-year and 30-year risk',
     statin:'• <b style="color:#5f5e5a">Low risk (&lt;3%)</b>: lifestyle only<br>• <b style="color:#854f0b">Borderline (3–&lt;5%)</b>: consider moderate-intensity statin if risk enhancers present (conditional)<br>• <b style="color:#ef9f27">Intermediate (5–&lt;10%)</b>: moderate-intensity statin recommended (unconditional)<br>• <b style="color:#a32d2d">High (≥10%)</b>: high-intensity statin recommended',
     ldl:'• Borderline/Intermediate &lt;100<br>• High &lt;70',
@@ -898,7 +898,7 @@ var GLOSSARY=[
   {abbr:'REPRIEVE',full:'Randomized Trial to Prevent Vascular Events in HIV',ko:'REPRIEVE Trial',desc:'2023, NEJM. Pitavastatin 4 mg vs placebo in HIV-infected patients aged 40–75 with low-to-moderate risk by traditional factors. Major cardiovascular events reduced 35% over 5.1-year follow-up. Statins reduce residual risk driven by HIV-specific inflammation and immune activation. Established the statin indication for HIV patients on ART.'},
   {abbr:'CLEAR',full:'CLEAR Outcomes (Cholesterol Lowering via Bempedoic acid, an ACL-Inhibiting Regulator)',ko:'CLEAR Outcomes Trial',desc:'2023, NEJM. Bempedoic acid (Nexletol) 180 mg vs placebo in statin-intolerant patients. MACE reduced 13%. LDL reduced ~21%. Evidence for an alternative lipid-lowering agent in patients who discontinued statins due to muscle adverse effects. Recommended in the 2026 ACC/AHA guideline as a non-statin option for statin intolerance.'},
   {abbr:'FH',full:'Familial Hypercholesterolemia',ko:'Familial hypercholesterolemia',desc:'Marked LDL-C elevation from mutations in the LDL receptor, ApoB, or PCSK9 genes. Diagnosed via DLCN or Simon Broome criteria. Premature ASCVD risk. Requires high-intensity statin + ezetimibe ± PCSK9i.'},
-  {abbr:'LOE',full:'Level of Evidence',ko:'Level of evidence',desc:'A: multiple RCTs/meta-analyses. B-R: a single randomized trial. B-NR: non-randomized studies. C-LD: limited data. C-EO: expert opinion.'},
+  {abbr:'LOE',full:'Level of Evidence',ko:'Level of evidence',desc:'• A: multiple RCTs/meta-analyses<br>• B-R: a single randomized trial<br>• B-NR: non-randomized studies<br>• C-LD: limited data<br>• C-EO: expert opinion'},
   {abbr:'RCT',full:'Randomized Controlled Trial',ko:'Randomized controlled trial',desc:'The highest level of clinical evidence. LOE A = based on multiple RCTs or meta-analyses.'},
   {abbr:'EPA',full:'Eicosapentaenoic Acid',ko:'Eicosapentaenoic acid (omega-3)',desc:'High-purity EPA = icosapent ethyl (Vascepa). Reduced events 25% in statin-treated ASCVD-high-risk patients with TG ≥175 mg/dL (REDUCE-IT trial). Effect differs from mixed fish-oil preparations.'},
   {abbr:'VLDL',full:'Very Low-Density Lipoprotein',ko:'Very low-density lipoprotein',desc:'A triglyceride-rich lipoprotein that increases when TG is elevated. Included in non-HDL and remnant cholesterol.'},
@@ -942,7 +942,7 @@ var GLOSSARY=[
   {abbr:'STRENGTH',full:'Statin Residual Risk Reduction with EpaNova in High CV Risk PatienTs with Hypertriglyceridemia',ko:'STRENGTH Trial',desc:'2020, JAMA. Mixed EPA+DHA carboxylic acid (Epanova) 4 g/day vs corn-oil placebo in statin-treated high-risk patients with TG 180–499 mg/dL. Median follow-up 3.5 years. No significant MACE reduction (HR 0.99, p=0.90) — stopped early. Negative, in contrast to REDUCE-IT (pure EPA). Interpreted as evidence for the superiority of high-purity EPA monotherapy over mixed EPA+DHA fish oil. There has been debate over whether the corn-oil placebo\'s LDL-C-raising effect was a confounder.'},
   {abbr:'TIMI',full:'Thrombolysis In Myocardial Infarction',ko:'TIMI Study Group',desc:'A cardiovascular clinical-research consortium based at Brigham and Women\'s Hospital. Leads large RCTs in ACS and antithrombotic therapy. Conducted numerous landmark studies, including PROVE-IT TIMI 22 (intensive vs standard lipid-lowering) and the TIMI frame count (coronary flow grading). Trials with "TIMI" in the name are led or co-led by this group.'},
   {abbr:'DHA',full:'Docosahexaenoic Acid',ko:'Docosahexaenoic acid (omega-3)',desc:'A major omega-3 fatty acid alongside EPA. TG-lowering effect similar to EPA, but cardiovascular-event-reduction evidence is established only for pure EPA (icosapent ethyl). Mixed EPA+DHA fish oil failed to reduce MACE in the STRENGTH trial (HR 0.99). DHA may mildly raise LDL-C, potentially offsetting net benefit. For cardiovascular prevention, high-purity EPA monotherapy (REDUCE-IT evidence) is used; mixed EPA+DHA over-the-counter fish oil supplements are not recommended.'},
-  {abbr:'COR',full:'Class of Recommendation',ko:'Class of recommendation',desc:'The ACC/AHA guideline recommendation grading system. Class I: benefit &gt;&gt; risk, recommended (COR I). Class IIa: benefit &gt; risk, reasonable (COR 2a). Class IIb: benefit ≥ risk, may be considered. Class III: no benefit or harm. Paired with a Level of Evidence (LOE: A/B-R/B-NR/C-LD/C-EO). Example: COR I LOE A = a strong recommendation based on the highest-quality evidence.'},
+  {abbr:'COR',full:'Class of Recommendation',ko:'Class of recommendation',desc:'The ACC/AHA guideline recommendation grading system.<br>• Class I: benefit &gt;&gt; risk, recommended (COR I)<br>• Class IIa: benefit &gt; risk, reasonable (COR 2a)<br>• Class IIb: benefit ≥ risk, may be considered (COR 2b)<br>• Class III: no benefit or harm<br>• Paired with a Level of Evidence (LOE: A/B-R/B-NR/C-LD/C-EO). Example: COR I LOE A = a strong recommendation based on the highest-quality evidence.'},
   {abbr:'DM',full:'Diabetes Mellitus',ko:'Diabetes mellitus',desc:'Chronic hyperglycemia from insufficient insulin secretion or action. Broadly classified as type 1 (T1DM, autoimmune) or type 2 (T2DM, insulin resistance). A major ASCVD risk factor and risk-enhancing factor. HbA1c is a predictor variable in the PREVENT model. Statin-induced NODM risk is higher in prediabetes or latent diabetes and is interpreted as accelerating its unmasking.'},
   {abbr:'HIV',full:'Human Immunodeficiency Virus',ko:'Human immunodeficiency virus',desc:'The causative virus of AIDS. HIV-infected patients on stable ART have elevated ASCVD risk — mediated by HIV-specific chronic inflammation and immune activation (residual risk). The REPRIEVE trial (2023, NEJM) showed pitavastatin 4 mg reduced MACE 35%. 2026 ACC/AHA Class I recommendation for HIV patients aged 40–75 on ART.'},
   {abbr:'DDI',full:'Drug-Drug Interaction',ko:'Drug-drug interaction',desc:'Altered pharmacokinetics (absorption, distribution, metabolism, excretion) or pharmacodynamics when two drugs are co-administered. Particularly important lipid-therapy DDIs: CYP3A4 inhibitors (azole antifungals, calcium channel blockers, amiodarone) with simvastatin/lovastatin → markedly elevated statin levels → increased myotoxicity/rhabdomyolysis risk. Statin interactions with post-transplant immunosuppressants (cyclosporine, tacrolimus) are also clinically important.'},
@@ -1107,7 +1107,7 @@ function renderGlossary(){
              :isTrial?'<span style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:10.5px;font-weight:700;background:#e8f0fb;color:#1a4fa0;margin-left:5px;vertical-align:middle">🔬 Trial</span>'
              :isMech?'<span style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:10.5px;font-weight:700;background:#fdf3e3;color:#8a4800;margin-left:5px;vertical-align:middle">⚙️ Mechanism</span>'
              :'';
-    return '<div class="gl-item" data-idx="'+i+'" onmousedown="event.preventDefault()" onclick="expandGlItem('+i+',this)">'
+    return '<div class="gl-item" data-idx="'+i+'" onclick="expandGlItem('+i+',this)">'
       +'<div class="gl-abbr">'+d.abbr+badge+'</div>'
       +'<div class="gl-full">'+d.full+'</div>'
       +desc
@@ -1118,6 +1118,9 @@ function renderGlossary(){
 }
 
 function expandGlItem(idx,el){
+  // Skip toggling if the user is drag-selecting text (to copy)
+  var sel=window.getSelection?window.getSelection():null;
+  if(sel && String(sel).trim().length>0 && el.contains(sel.anchorNode)) return;
   var det=el.querySelector('.gl-detail');
   if(det){det.style.display=det.style.display==='block'?'none':'block';}
 }
