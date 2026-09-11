@@ -854,7 +854,7 @@ var GLOSSARY=[
   {abbr:'HDL-C',full:'HDL Cholesterol',ko:'HDL cholesterol',desc:'Mediates reverse cholesterol transport. Lower levels (men &lt;40, women &lt;50 mg/dL) increase ASCVD risk. Included as a variable in the PREVENT model.'},
   {abbr:'TC',full:'Total Cholesterol',ko:'Total cholesterol',desc:'TC = LDL-C + HDL-C + VLDL-C. Used in the Friedewald equation for calculating LDL-C.'},
   {abbr:'TG',full:'Triglycerides',ko:'Triglycerides',desc:'A risk-enhancing factor at non-fasting ≥175 mg/dL or fasting ≥150 mg/dL. Risk of acute pancreatitis at TG ≥500. Indication for icosapent ethyl.'},
-  {abbr:'ApoB',full:'Apolipoprotein B',ko:'Apolipoprotein B',desc:'The structural protein of all atherogenic lipoproteins (LDL, VLDL, IDL, Lp(a)) — directly reflects particle number. Targets: very high risk &lt;55 mg/dL, high risk &lt;70 mg/dL. Direct measurement recommended when LDL and non-HDL are discordant (2026 ACC/AHA Class IIa).'},
+  {abbr:'ApoB',full:'Apolipoprotein B',ko:'Apolipoprotein B',desc:'The structural protein of all atherogenic lipoproteins (LDL, VLDL, IDL, Lp(a)) — directly reflects particle number. Direct measurement recommended when LDL and non-HDL are discordant (2026 ACC/AHA Class IIa).<br>· Targets used in this tool: matches the LDL-C target number — very high risk &lt;55, high risk &lt;70, all others (intermediate/borderline risk, diabetes alone, low risk) &lt;100 mg/dL<br>· For reference — the actual ESC/EAS (2019/2025) guideline-specific ApoB targets: very high risk &lt;65, high risk &lt;80, moderate risk &lt;100 mg/dL (separate absolute values from the LDL-C target)'},
   {abbr:'Lp(a)',full:'Lipoprotein (a)',ko:'Lipoprotein(a)',desc:'A genetically determined, independent ASCVD risk factor. A risk-enhancing factor at ≥50 mg/dL (≥125 nmol/L). Reduced 15–30% by PCSK9 inhibitors. Novel targeted agents (e.g., muvalaplin) in clinical development.'},
   {abbr:'non-HDL',full:'non-HDL Cholesterol',ko:'non-HDL cholesterol',desc:'= TC − HDL-C. Includes VLDL, IDL, and Lp(a). A second-line marker when ApoB is unavailable. Targets: very high risk &lt;85, high risk &lt;100, moderate &lt;130 mg/dL.'},
   {abbr:'hs-CRP',full:'high-sensitivity C-Reactive Protein',ko:'high-sensitivity C-reactive protein',desc:'A marker of systemic inflammation. A risk-enhancing factor at ≥2.0 mg/L on ≥2 measurements. The JUPITER trial showed that statin-induced hs-CRP reduction was associated with fewer ASCVD events; rosuvastatin was particularly effective.'},
@@ -3816,7 +3816,7 @@ function preventClass(primRisk,ldl,ascvd,dm,egfr,age,sex,sbp,bpTx,smoker,hdl,nE,
     return fhHighRisk
       ? {cat:'Severe hypercholesterolemia + ASCVD risk factor',l:70,nh:100,ab:70,c:'#a32d2d',bg:'#fcebeb',
          basis:'LDL-C ≥190 mg/dL + a traditional risk factor (DM/PREVENT≥10%/TG≥175/smoking/HTN) present: high-intensity statin + LDL-C <70 mg/dL target',row:null}
-      : {cat:'Severe hypercholesterolemia',l:100,nh:130,ab:90,c:'#a32d2d',bg:'#fcebeb',
+      : {cat:'Severe hypercholesterolemia',l:100,nh:130,ab:100,c:'#a32d2d',bg:'#fcebeb',
          basis:'LDL-C ≥190 mg/dL alone: high-intensity statin + default LDL-C <100 mg/dL target. Intensifies to <70 if additional risk enhancers confirmed',row:null};
   }
   // End-stage renal disease (CKD stage 5 / dialysis level, eGFR<15) — takes precedence even in diabetes (4D/AURORA trials, 2026 guideline)
@@ -3826,18 +3826,18 @@ function preventClass(primRisk,ldl,ascvd,dm,egfr,age,sex,sbp,bpTx,smoker,hdl,nE,
   }
   if(dm){
     if(primRisk>=10) return{cat:'Diabetes + high PREVENT risk',l:70,nh:100,ab:70,c:'#a32d2d',bg:'#fcebeb',basis:`Diabetes + PREVENT-ASCVD ${primRisk.toFixed(1)}% ≥10%`,row:'pr-high'};
-    return{cat:'Diabetes',l:100,nh:130,ab:90,c:'#854f0b',bg:'#faeeda',basis:`Diabetes: at least moderate-intensity statin, PREVENT-ASCVD ${primRisk.toFixed(1)}%`,row:primRisk>=5?'pr-inter':primRisk>=3?'pr-border':'pr-low'};
+    return{cat:'Diabetes',l:100,nh:130,ab:100,c:'#854f0b',bg:'#faeeda',basis:`Diabetes: at least moderate-intensity statin, PREVENT-ASCVD ${primRisk.toFixed(1)}%`,row:primRisk>=5?'pr-inter':primRisk>=3?'pr-border':'pr-low'};
   }
   if(primRisk<3){
-    if(r30>=10&&age>=30&&age<=59) return{cat:'Low risk',l:130,nh:160,ab:90,c:'#185fa5',bg:'#eaf2fb',
+    if(r30>=10&&age>=30&&age<=59) return{cat:'Low risk',l:130,nh:160,ab:100,c:'#185fa5',bg:'#eaf2fb',
       basis:`PREVENT-ASCVD 10-yr ${primRisk.toFixed(1)}% (<3%) · (reference) 30-yr ${r30!=null?r30.toFixed(1):'—'}% — prioritize lifestyle modification, note the 30-year risk for reference`,row:'pr-low'};
-    return{cat:'Low risk',l:130,nh:160,ab:90,c:'#3b6d11',bg:'#eaf3de',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% <3%`,row:'pr-low'};
+    return{cat:'Low risk',l:130,nh:160,ab:100,c:'#3b6d11',bg:'#eaf3de',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% <3%`,row:'pr-low'};
   }
-  if(primRisk<5) return{cat:'Borderline risk',l:100,nh:130,ab:90,c:'#3b6d11',bg:'#eaf3de',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% 3–<5%. Consider statin if risk enhancer present`,row:'pr-border'};
+  if(primRisk<5) return{cat:'Borderline risk',l:100,nh:130,ab:100,c:'#3b6d11',bg:'#eaf3de',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% 3–<5%. Consider statin if risk enhancer present`,row:'pr-border'};
   if(primRisk<10){
     // 2026 ACC/AHA: intermediate risk + enhancer defaults to target <100; intensifies to <70 after CAC reclassification
-    if(nE>=2||tg>=175||ldl>=160) return{cat:'Intermediate risk + risk enhancer',l:100,nh:130,ab:90,c:'#854f0b',bg:'#faeeda',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% 5–<10% + risk enhancer: default target <100, intensifies to <70 if reclassified as high risk (e.g., CAC ≥100)`,row:'pr-inter'};
-    return{cat:'Intermediate risk',l:100,nh:130,ab:90,c:'#854f0b',bg:'#faeeda',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% 5–<10%`,row:'pr-inter'};
+    if(nE>=2||tg>=175||ldl>=160) return{cat:'Intermediate risk + risk enhancer',l:100,nh:130,ab:100,c:'#854f0b',bg:'#faeeda',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% 5–<10% + risk enhancer: default target <100, intensifies to <70 if reclassified as high risk (e.g., CAC ≥100)`,row:'pr-inter'};
+    return{cat:'Intermediate risk',l:100,nh:130,ab:100,c:'#854f0b',bg:'#faeeda',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% 5–<10%`,row:'pr-inter'};
   }
   return{cat:'High risk',l:70,nh:100,ab:70,c:'#a32d2d',bg:'#fcebeb',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% ≥10%`,row:'pr-high'};
 }
@@ -5189,7 +5189,7 @@ function upd(){
   }
 
   // ApoB target — kept consistent with the LDL target (2026 ACC/AHA: <55/<70/<90)
-  const dispAbTgt = dispLdlTgt==null ? null : (dispLdlTgt<=55 ? 55 : dispLdlTgt<=70 ? 70 : 90);
+  const dispAbTgt = dispLdlTgt==null ? null : (dispLdlTgt<=55 ? 55 : dispLdlTgt<=70 ? 70 : 100);
 
   const curLabel=onStatin?'On-treatment':'Current/pre-treatment';
   const showCur = onStatin; // Blank the current/on-treatment column if not on a statin
