@@ -108,6 +108,19 @@ body.compact-mode [style*="font-style:italic"]{display:none!important}
 #compactHint{display:none;font-size:11.5px;color:#888780;margin-top:3px}
 body.compact-mode #compactHint{display:block}
 
+/* 컴팩트 모드: '위험 증가 인자' 항목에 마우스를 올리면 해당 설명(.expl)을 말풍선으로 표시 */
+body.compact-mode #riskEnhancerBody label.ck{position:relative}
+body.compact-mode #riskEnhancerBody label.ck:hover .expl{
+  display:block!important;
+  position:absolute;left:19px;right:6px;top:100%;margin-top:1px!important;
+  z-index:50;padding:6px 10px;
+  background:#fff;color:#1a1a18!important;
+  border:1px solid #185fa5;border-radius:7px;
+  box-shadow:0 4px 14px rgba(0,0,0,.18);
+  font-size:12.5px!important;line-height:1.55;
+  pointer-events:none;
+}
+
 /* Stepwise vertical flow */
 .sw{margin:0}
 .sw-row{display:flex;gap:10px;align-items:stretch;margin-bottom:0}
@@ -542,7 +555,7 @@ var CPR_DATA = {
           <div style="font-size:12.5px;font-weight:700;color:#3b6d11;margin-bottom:5px">임상·가족력</div>\
           <div style="background:#f4f9f0;border-radius:7px;padding:9px 11px;font-size:12.5px;color:#1a1a18;line-height:1.85">\
             ▸ 조기 ASCVD 가족력 (부모·형제, 남 &lt;55세, 여 &lt;65세)<br>\
-            ▸ 고위험 민족 (남아시아계, 필리핀계)<br>\
+            ▸ 고위험 조상 (예: 남아시아계, 필리핀계)<br>\
             ▸ 높은 다유전자 위험점수 (PRS, 상위 10%)<br>\
             ▸ 만성 염증질환 (SLE·RA·건선·염증성 관절염)\
           </div>\
@@ -1470,7 +1483,7 @@ function switchCLTab(idx){
             <div style="font-size:11.5px;font-weight:700;color:#3b6d11;margin-bottom:4px">임상·가족력</div>
             <div style="background:#f4f9f0;border-radius:7px;padding:8px 10px;font-size:11.5px;color:#1a1a18;line-height:1.8">
               ▸ 조기 ASCVD 가족력 (부모·형제, 남 &lt;55세, 여 &lt;65세)<br>
-              ▸ 고위험 민족 (남아시아계, 필리핀계)<br>
+              ▸ 고위험 조상 (예: 남아시아계, 필리핀계)<br>
               ▸ 높은 다유전자 위험점수 (PRS, 상위 10%)<br>
               ▸ 만성 염증질환 (SLE · RA · 건선 · 염증성 관절염)
             </div>
@@ -2147,7 +2160,7 @@ function switchRRTab(idx){
 
   <div class="card" id="cardRiskEnhancer" style="background:#eaf7fb">
     <div class="sec sec-clickable" onclick="toggleSection('riskEnhancerBody','riskEnhancerArrow')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none">
-      <span>위험 증가 인자 (Risk Enhancers) <span style="font-size:12.5px;font-weight:600;color:#bfe3ff;letter-spacing:0;text-transform:none;margin-left:4px">정밀 맞춤 예방목적이며, 각 항목의 자세한 내용을 보려면 화면 상단 설명감추기 체크 해제</span></span>
+      <span>위험 증가 인자 (Risk Enhancers) <span style="font-size:12.5px;font-weight:600;color:#bfe3ff;letter-spacing:0;text-transform:none;margin-left:4px">정밀 맞춤 예방목적이며, 각 항목에 마우스를 올리면 설명이 표시됩니다 (항상 표시하려면 화면 상단 설명감추기 체크 해제)</span></span>
       <span id="riskEnhancerArrow" style="font-size:13.5px;color:#fff;transition:transform .2s;display:inline-block">▶</span>
     </div>
     <div id="riskEnhancerBody" style="display:none">
@@ -2164,7 +2177,7 @@ function switchRRTab(idx){
     <label class="ck">
       <input type="checkbox" class="enh">
       <div><div style="font-weight:600;color:#1a1a18">고위험 조상 (Higher risk ancestry)</div>
-      <div class="expl" style="font-size:11.5px;color:#888780;margin-top:1px">남아시아계·필리핀계 등 죽상경화 고위험 민족</div></div>
+      <div class="expl" style="font-size:11.5px;color:#888780;margin-top:1px">남아시아계 · 필리핀계</div></div>
     </label>
 
     <!-- ── Table 13 #3 ── -->
@@ -2258,7 +2271,7 @@ function switchRRTab(idx){
             상세 ▾<span id="inflamPanelArrow" style="display:none"></span>
           </span>
         </div>
-        <div class="expl" style="font-size:11.5px;color:#888780;margin-top:1px">RA · 루푸스 · 건선 · HIV · 염증성 장질환 · 강직성 척추염 · 만성 간염</div>
+        <div class="expl" style="font-size:11.5px;color:#888780;margin-top:1px">RA · 루푸스 · 건선 · 염증성 장질환 · 강직성 척추염 · 만성 간염</div>
       </div>
     </label>
 
@@ -2284,14 +2297,10 @@ function switchRRTab(idx){
           <span style="font-weight:600">류마티스 관절염 (RA)</span><span style="color:#a32d2d;font-weight:700">RR ~1.5×</span>
           <span style="font-weight:600">전신홍반루푸스 (SLE)</span><span style="color:#a32d2d;font-weight:700">RR ~2–3×</span>
           <span style="font-weight:600">건선 (중등도–중증)</span><span style="color:#a32d2d;font-weight:700">RR ~1.3–1.5×</span>
-          <span style="font-weight:600">HIV (안정 ART 중)</span><span style="color:#a32d2d;font-weight:700">RR ~1.5–2×</span>
           <span style="font-weight:600">염증성 장질환 (IBD)</span><span style="color:#854f0b;font-weight:700">RR ~1.2–1.4×</span>
           <span style="font-weight:600">강직성 척추염 (AS)</span><span style="color:#854f0b;font-weight:700">RR ~1.3–1.5×</span>
           <span style="font-weight:600">만성 간염 B/C</span><span style="color:#854f0b;font-weight:700">RR ~1.2–1.3×</span>
         </div>
-      </div>
-      <div style="font-size:11.5px;color:#888780;margin-top:6px">
-        ※ REPRIEVE trial: Pitavastatin 4 mg (40–75세, 안정 ART 중) → MACE 35% 감소 (2026 ACC/AHA Class I)
       </div>
       <div style="text-align:right;margin-top:6px"><span class="text-toggle-link" onclick="event.preventDefault();event.stopPropagation();toggleInflamDetail()" style="font-size:11.5px;color:#c9a02a;cursor:pointer;font-weight:600">닫기 ✕</span></div>
       </div><!-- /inflam scroll body -->
