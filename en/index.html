@@ -104,6 +104,20 @@ body.compact-mode [style*="font-style:italic"]{display:none!important}
 #compactHint{display:none;font-size:11.5px;color:#888780;margin-top:3px}
 body.compact-mode #compactHint{display:block}
 
+/* Compact mode: hovering over a Risk Enhancers item shows its explanation as a tooltip */
+body.compact-mode #riskEnhancerBody label.ck{position:relative}
+body.compact-mode #riskEnhancerBody label.ck:hover .expl,
+body.compact-mode #riskEnhancerBody label.ck:hover [style*="color:#888780"]{
+  display:block!important;
+  position:absolute;left:19px;right:6px;top:100%;margin-top:1px!important;
+  z-index:50;padding:6px 10px;
+  background:#fff;color:#1a1a18!important;
+  border:1px solid #185fa5;border-radius:7px;
+  box-shadow:0 4px 14px rgba(0,0,0,.18);
+  font-size:12.5px!important;line-height:1.55;
+  pointer-events:none;
+}
+
 /* Stepwise vertical flow */
 .sw{margin:0}
 .sw-row{display:flex;gap:10px;align-items:stretch;margin-bottom:0}
@@ -538,7 +552,7 @@ var CPR_DATA = {
           <div style="font-size:12.5px;font-weight:700;color:#3b6d11;margin-bottom:5px">Clinical &amp; Family History</div>\
           <div style="background:#f4f9f0;border-radius:7px;padding:9px 11px;font-size:12.5px;color:#1a1a18;line-height:1.85">\
             ▸ Premature ASCVD family history (parent/sibling, men &lt;55 yr, women &lt;65 yr)<br>\
-            ▸ High-risk ethnicity (South Asian, Filipino)<br>\
+            ▸ Higher-risk ancestry (e.g., South Asian, Filipino)<br>\
             ▸ High polygenic risk score (PRS, top 10%)<br>\
             ▸ Chronic inflammatory disease (SLE · RA · psoriasis · inflammatory arthritis)\
           </div>\
@@ -1464,7 +1478,7 @@ function switchCLTab(idx){
             <div style="font-size:11.5px;font-weight:700;color:#3b6d11;margin-bottom:4px">Clinical &amp; Family History</div>
             <div style="background:#f4f9f0;border-radius:7px;padding:8px 10px;font-size:11.5px;color:#1a1a18;line-height:1.8">
               ▸ Premature ASCVD family history (parent/sibling, men &lt;55 yr, women &lt;65 yr)<br>
-              ▸ High-risk ethnicity (South Asian, Filipino)<br>
+              ▸ Higher-risk ancestry (e.g., South Asian, Filipino)<br>
               ▸ High polygenic risk score (PRS, top 10%)<br>
               ▸ Chronic inflammatory disease (SLE · RA · psoriasis · inflammatory arthritis)
             </div>
@@ -2131,7 +2145,7 @@ function switchRRTab(idx){
 
   <div class="card" id="cardRiskEnhancer" style="background:#eaf7fb">
     <div class="sec sec-clickable" onclick="toggleSection('riskEnhancerBody','riskEnhancerArrow')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none">
-      <span>Risk Enhancers <span style="font-size:12.5px;font-weight:600;color:#bfe3ff;letter-spacing:0;text-transform:none;margin-left:4px">For precision prevention — to view details of each item, uncheck "Hide explanations" at the top of the screen</span></span>
+      <span>Risk Enhancers <span style="font-size:12.5px;font-weight:600;color:#bfe3ff;letter-spacing:0;text-transform:none;margin-left:4px">For precision prevention — hover over each item to see its explanation (to always show them, uncheck "Hide explanations" at the top of the screen)</span></span>
       <span id="riskEnhancerArrow" style="font-size:13.5px;color:#fff;transition:transform .2s;display:inline-block">▶</span>
     </div>
     <div id="riskEnhancerBody" style="display:none">
@@ -2148,7 +2162,7 @@ function switchRRTab(idx){
     <label class="ck">
       <input type="checkbox" class="enh">
       <div><div style="font-weight:600;color:#1a1a18">Higher risk ancestry</div>
-      <div style="font-size:11.5px;color:#888780;margin-top:1px">e.g., South Asian, Filipino — ethnicities with higher atherosclerosis risk</div></div>
+      <div style="font-size:11.5px;color:#888780;margin-top:1px">South Asian · Filipino</div></div>
     </label>
 
     <!-- ── Table 13 #3 ── -->
@@ -2241,7 +2255,7 @@ function switchRRTab(idx){
             Details ▾<span id="inflamPanelArrow" style="display:none"></span>
           </span>
         </div>
-        <div style="font-size:11.5px;color:#888780;margin-top:1px">RA · lupus · psoriasis · HIV · inflammatory bowel disease · ankylosing spondylitis · chronic hepatitis</div>
+        <div style="font-size:11.5px;color:#888780;margin-top:1px">RA · lupus · psoriasis · inflammatory bowel disease · ankylosing spondylitis · chronic hepatitis</div>
       </div>
     </label>
 
@@ -2267,14 +2281,10 @@ function switchRRTab(idx){
           <span style="font-weight:600">Rheumatoid arthritis (RA)</span><span style="color:#a32d2d;font-weight:700">RR ~1.5×</span>
           <span style="font-weight:600">Systemic lupus erythematosus (SLE)</span><span style="color:#a32d2d;font-weight:700">RR ~2–3×</span>
           <span style="font-weight:600">Psoriasis (moderate–severe)</span><span style="color:#a32d2d;font-weight:700">RR ~1.3–1.5×</span>
-          <span style="font-weight:600">HIV (on stable ART)</span><span style="color:#a32d2d;font-weight:700">RR ~1.5–2×</span>
           <span style="font-weight:600">Inflammatory bowel disease (IBD)</span><span style="color:#854f0b;font-weight:700">RR ~1.2–1.4×</span>
           <span style="font-weight:600">Ankylosing spondylitis (AS)</span><span style="color:#854f0b;font-weight:700">RR ~1.3–1.5×</span>
           <span style="font-weight:600">Chronic hepatitis B/C</span><span style="color:#854f0b;font-weight:700">RR ~1.2–1.3×</span>
         </div>
-      </div>
-      <div style="font-size:11.5px;color:#888780;margin-top:6px">
-        ※ REPRIEVE trial: pitavastatin 4 mg (age 40–75, on stable ART) → 35% MACE reduction (2026 ACC/AHA Class I)
       </div>
       <div style="text-align:right;margin-top:6px"><span class="text-toggle-link" onclick="event.preventDefault();event.stopPropagation();toggleInflamDetail()" style="font-size:11.5px;color:#c9a02a;cursor:pointer;font-weight:600">Close ✕</span></div>
       </div><!-- /inflam scroll body -->
