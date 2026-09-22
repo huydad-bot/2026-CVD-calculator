@@ -101,6 +101,7 @@ body.compact-mode #cardAbsInd,
 body.compact-mode #cardSpecialStatin,
 body.compact-mode #cardNntLeft,
 body.compact-mode #cardNnhLeft,
+body.compact-mode #cardFaq,
 body.compact-mode [style*="color:#888780"],
 body.compact-mode [style*="color:#a8a79f"],
 body.compact-mode [style*="font-style:italic"]{display:none!important}
@@ -3316,6 +3317,185 @@ function switchRRTab(idx){
   </div>
   <!-- ══ /NNH 독립 카드 ══ -->
 
+  <!-- ══ 다빈도 질문 답변 (FAQ) 카드 ══ -->
+  <div class="card" id="cardFaq" style="background:#eaf7fb">
+    <div class="sec sec-clickable" onclick="toggleSection('faqBody','faqArrow')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;background:#7b5ea7">
+      <span style="display:flex;align-items:center;gap:7px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 2-3 4"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        다빈도 질문 답변
+      </span>
+      <span id="faqArrow" style="font-size:13.5px;color:#fff;transition:transform .2s;display:inline-block">▶</span>
+    </div>
+    <div id="faqBody" style="display:none;margin-top:4px">
+
+      <!-- Q1: CoQ10 병용 필요성 -->
+      <div style="margin-bottom:10px;border:1px solid #d9cdee;border-radius:8px;overflow:hidden">
+        <div onclick=\"openFaqModal(this,'faqA1')\" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;background:#f3edfb;padding:8px 10px">
+          <span style="font-size:12.5px;font-weight:700;color:#4a3a70">Q1. 스타틴 투약 시 CoQ10 병용이 필요한가?</span>
+          <span id="faqArrow1" style="font-size:12px;color:#4a3a70;transition:transform .2s;flex-shrink:0;margin-left:8px">▶</span>
+        </div>
+        <div id="faqA1" style="display:none;padding:10px 12px;font-size:12.5px;color:#1a1a18;line-height:1.8;background:#fff">
+          스타틴은 mevalonate 경로를 억제하면서 콜레스테롤뿐 아니라 그 분지산물인 CoQ10(ubiquinone) 합성도 함께 줄이는데, 이것이 일부 스타틴 근병증(myopathy)의 기전 가설 중 하나로 제시된다. 그러나 가이드라인이 CoQ10 병용을 권고하지 않는 이유는 다음과 같다.<br><br>
+          <b>① 임상 근거 불일치</b> — RCT·메타분석들이 혼재된 결과를 보이며, 근육통 증상은 다소 완화된다는 보고가 있어도 <b>CK(근손상 지표) 개선 근거는 더 부족</b>하다. 대부분 소규모·단기·주관적 평가(VAS)에 의존해 위약효과를 배제하기 어렵다.<br>
+          <b>② 근병증 기전이 다원적</b> — CoQ10 결핍 외에도 SLCO1B1 다형성, 면역매개괴사성근병증(IMNM), ryanodine receptor 이상 등 경쟁 기전이 있어 단일 보충제로 표준화하기 어렵다.<br>
+          <b>③ Nocebo effect</b> — 이중맹검 RCT에서는 스타틴군·위약군 간 근육통 발생률 차이가 관찰연구보다 훨씬 작아, 실제 "치료가 필요한 진성 근병증"의 규모 자체가 작을 수 있다.<br>
+          <b>④ 대체 전략의 우선순위</b> — CK 확인, 스타틴 종류 변경, 용량 조절, 격일 투여, ezetimibe·PCSK9 억제제 대체 등 근거 수준이 더 확실한 접근이 우선 권고된다.<br><br>
+          정리: 기전은 그럴듯하나 RCT 근거의 질·일관성이 부족하고 규제 측면에서도 의약품이 아닌 건강기능식품이라 공식 권고 문턱을 넘지 못한다. 부작용 위험이 낮으므로 환자가 원할 경우 개별 임상 판단으로 시도해보는 것까지 막을 근거는 아니다.
+        </div>
+      </div>
+
+      <!-- Q2: 초저LDL 안전성 -->
+      <div style="border:1px solid #d9cdee;border-radius:8px;overflow:hidden">
+        <div onclick=\"openFaqModal(this,'faqA2')\" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;background:#f3edfb;padding:8px 10px">
+          <span style="font-size:12.5px;font-weight:700;color:#4a3a70">Q2. LDL이 너무 낮아도 괜찮다 — "필요한 세포에서 알아서 만든다"는 주장은 타당한가?</span>
+          <span id="faqArrow2" style="font-size:12px;color:#4a3a70;transition:transform .2s;flex-shrink:0;margin-left:8px">▶</span>
+        </div>
+        <div id="faqA2" style="display:none;padding:10px 12px;font-size:12.5px;color:#1a1a18;line-height:1.8;background:#fff">
+          <b>맞는 부분</b> — 거의 모든 유핵세포는 mevalonate 경로로 콜레스테롤을 자체 합성할 수 있고, 세포 내 콜레스테롤이 부족하면 SREBP-2가 활성화되어 합성효소·LDL 수용체 발현이 함께 증가하는 보상기전이 있다. PCSK9 loss-of-function 변이 보유자(LDL-C 10~15 mg/dL대)가 특별한 결핍 없이 정상 생활한다는 관찰이 이를 뒷받침하며, FOURIER·ODYSSEY OUTCOMES 등에서 LDL-C 20~30대까지도 뚜렷한 안전성 신호는 없었다.<br><br>
+          <b>보완이 필요한 부분</b><br>
+          ① 모든 조직이 동일하게 자급자족하지 않는다 — 뇌는 혈액뇌장벽으로 순환 LDL을 거의 쓰지 않고 성상교세포-ApoE 매개 국소 시스템을 따로 갖는 반면, 부신피질·성선 같은 스테로이드생성 조직은 LDL 수용체 매개 흡수를 선호한다(급성 합성 수요 시 에너지 효율적).<br>
+          ② "필요 없다"가 아니라 <b>에너지 비용의 분업</b> 문제다 — de novo 합성은 ATP·NADPH 소모가 크므로, 간이 모아 배분하는 LDL 시스템이 각 세포가 처음부터 합성하는 것보다 대사적으로 더 저렴하다.<br>
+          ③ 유전적 결핍과 약물적 초저LDL은 기전이 다르다 — abetalipoproteinemia(MTP 결손)의 지방변·비타민E 결핍·신경학적 합병증은 카일로마이크론 형성 자체가 안 돼 지용성 물질 흡수가 막히는 문제이지, 스타틴·PCSK9 억제제로 LDL 입자 청소율만 높인 경우와는 근본적으로 다르다.<br><br>
+          정리: "필요한 세포가 알아서 만든다"는 명제 자체는 생리학적으로 맞지만, 이것이 LDL의 운반 기능을 불필요하게 만드는 것은 아니다. 다만 초저LDL이 위험하다는 반박 근거도 약한 것이 사실이며, 현재 데이터는 대개 수년 단위 추적이라 초장기(10년 이상) 안전성까지 확정된 것은 아니라는 유보가 필요하다.
+        </div>
+      </div>
+
+      <!-- Q3: 복용 시간/공복 -->
+      <div style="margin-top:10px;border:1px solid #d9cdee;border-radius:8px;overflow:hidden">
+        <div onclick=\"openFaqModal(this,'faqA3')\" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;background:#f3edfb;padding:8px 10px">
+          <span style="font-size:12.5px;font-weight:700;color:#4a3a70">Q3. 스타틴은 아침·저녁 중 언제 먹어야 하나? 공복·식후 복용 차이가 있는가?</span>
+          <span id="faqArrow3" style="font-size:12px;color:#4a3a70;transition:transform .2s;flex-shrink:0;margin-left:8px">▶</span>
+        </div>
+        <div id="faqA3" style="display:none;padding:10px 12px;font-size:12.5px;color:#1a1a18;line-height:1.8;background:#fff">
+          <b>복용 시간</b> — 간의 콜레스테롤 합성(HMG-CoA reductase 활성)은 야간에 최고조에 달하므로, 반감기가 짧은 스타틴(simvastatin·lovastatin·fluvastatin IR, 반감기 2~3시간)은 <b>저녁 복용</b>이 LDL-C 저하 효과를 더 크게 만든다는 고전적 근거가 있다. 반면 반감기가 긴 스타틴(atorvastatin ~14h, rosuvastatin ~19h, pitavastatin)은 여러 RCT에서 아침·저녁 복용 간 LDL-C 저하 효과 차이가 없어 시간을 가리지 않아도 된다.<br>
+          <b>공복·식후</b> — atorvastatin·rosuvastatin·pitavastatin은 음식과 무관하게 복용 가능하나, lovastatin(IR 제형)은 흡수율이 식이지방에 의존해 식후 복용이 권장된다.<br>
+          정리: 장반감기 스타틴이 주력인 현재는 "저녁 복용 원칙"의 실익이 크지 않으며, 가이드라인도 <b>매일 같은 시간에 빠뜨리지 않고 복용하는 순응도(adherence)</b>를 가장 중요한 변수로 강조한다.
+        </div>
+      </div>
+
+      <!-- Q4: 격일/주2-3회 -->
+      <div style="margin-top:10px;border:1px solid #d9cdee;border-radius:8px;overflow:hidden">
+        <div onclick=\"openFaqModal(this,'faqA4')\" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;background:#f3edfb;padding:8px 10px">
+          <span style="font-size:12.5px;font-weight:700;color:#4a3a70">Q4. 매일 복용 대신 격일 또는 주 2~3회 투여해도 효과가 있는가?</span>
+          <span id="faqArrow4" style="font-size:12px;color:#4a3a70;transition:transform .2s;flex-shrink:0;margin-left:8px">▶</span>
+        </div>
+        <div id="faqA4" style="display:none;padding:10px 12px;font-size:12.5px;color:#1a1a18;line-height:1.8;background:#fff">
+          주로 근육증상으로 매일 복용이 어려운 <b>스타틴 불내성 환자</b>에서 활용되는 전략이다. 반감기가 길고 효력이 강한 rosuvastatin·atorvastatin은 격일 또는 주 2~3회 투여로도 소규모 연구에서 LDL-C 약 20~30% 저하가 보고되어, 매일 복용보다 효과 폭은 작지만 "전혀 복용하지 않는 것"보다는 임상적으로 의미가 있다.<br>
+          다만 이는 공식 가이드라인의 표준요법이 아니라 <b>불내성 환자에서의 차선책(salvage strategy)</b>이며, 근거 수준도 소규모 RCT·관찰연구(Level B~C)에 그치고 심혈관 outcome 데이터는 부족하다. 실제로는 격일 투여만으로 목표치 도달이 어려운 경우가 많아 ezetimibe·PCSK9 억제제·bempedoic acid 등 비스타틴 병용을 함께 고려하는 것이 일반적이다.
+        </div>
+      </div>
+
+      <!-- Q5: 자몽주스 -->
+      <div style="margin-top:10px;border:1px solid #d9cdee;border-radius:8px;overflow:hidden">
+        <div onclick=\"openFaqModal(this,'faqA5')\" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;background:#f3edfb;padding:8px 10px">
+          <span style="font-size:12.5px;font-weight:700;color:#4a3a70">Q5. 자몽주스(grapefruit juice)와 스타틴을 함께 먹으면 안 되는 이유는?</span>
+          <span id="faqArrow5" style="font-size:12px;color:#4a3a70;transition:transform .2s;flex-shrink:0;margin-left:8px">▶</span>
+        </div>
+        <div id="faqA5" style="display:none;padding:10px 12px;font-size:12.5px;color:#1a1a18;line-height:1.8;background:#fff">
+          자몽에 함유된 furanocoumarin류가 장관 CYP3A4를 비가역적으로 억제한다. CYP3A4로 대사되는 스타틴(<b>simvastatin, lovastatin</b>, atorvastatin 일부)은 이로 인해 혈중농도가 크게 상승하며, simvastatin은 자몽주스 다량 섭취 시 AUC가 최대 10배 이상 증가한 보고도 있어 근병증·횡문근융해증 위험이 커진다.<br>
+          반면 <b>rosuvastatin</b>(주로 CYP2C9, 최소 대사), <b>pravastatin</b>(비CYP 경로), <b>pitavastatin</b>(최소 CYP 대사)은 상호작용이 미미해 이 규칙에서 상대적으로 자유롭다.<br>
+          임상적 의미: 가끔 소량 섭취는 큰 문제가 되지 않으나, CYP3A4 대사 스타틴 복용 환자가 <b>매일 대량으로(하루 1L 이상)</b> 지속 섭취하는 경우는 피하도록 안내하는 것이 안전하다.
+        </div>
+      </div>
+
+      <!-- Q6 (원 8+10번 통합): 간효소 모니터링 및 중단 기준 -->
+      <div style="margin-top:10px;border:1px solid #d9cdee;border-radius:8px;overflow:hidden">
+        <div onclick=\"openFaqModal(this,'faqA6')\" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;background:#f3edfb;padding:8px 10px">
+          <span style="font-size:12.5px;font-weight:700;color:#4a3a70">Q6. 스타틴 복용 중 간효소(AST/ALT) 정기 모니터링이 필요한가, 몇 배 이상이면 중단해야 하는가?</span>
+          <span id="faqArrow6" style="font-size:12px;color:#4a3a70;transition:transform .2s;flex-shrink:0;margin-left:8px">▶</span>
+        </div>
+        <div id="faqA6" style="display:none;padding:10px 12px;font-size:12.5px;color:#1a1a18;line-height:1.8;background:#fff">
+          <b>정기 모니터링 여부</b> — 2000년대 초 가이드라인은 정기적 간기능검사를 권고했으나, 이후 대규모 데이터에서 스타틴에 의한 심각한 간독성(급성 간부전)이 100만 명당 연간 1명 미만 수준으로 극히 드물다는 것이 확인되었다. 2013 ACC/AHA 이후 현재까지는 <b>투약 전 baseline ALT 확인</b>은 권고하되, 특별한 증상(황달, 피로, 우상복부 통증)이나 위험인자가 없는 한 <b>정기적(routine) 반복 모니터링은 더 이상 권고하지 않는다.</b> 무증상 경도 ALT 상승(&lt;3×ULN)은 스타틴을 유지하며 재검으로 추적하는 것이 일반적이며, 상당수는 자연 정상화된다.<br><br>
+          <b>중단 기준</b> — 통상 <b>ALT &gt; 3×ULN이 지속되거나, 정도와 무관하게 황달·심한 피로·우상복부 통증 등 증상을 동반</b>할 때 중단을 고려한다. ALT 3×ULN 미만이면서 무증상이면 계속 유지하며 재검으로 추적하는 것이 일반적이다. 중증도 평가에는 Hy's law(ALT/AST &gt;3×ULN + 총빌리루빈 &gt;2×ULN, ALP 정상)가 참고된다.<br><br>
+          만성 간질환(대상성 간경변 포함) 자체는 절대금기가 아니며, 특히 지방간(NAFLD/MASLD) 환자는 심혈관 이득이 간 관련 위험을 상회한다는 근거로 오히려 스타틴 유지·시작이 권고되는 추세다(비대상성 간부전·급성 간부전은 금기).
+        </div>
+      </div>
+
+      <!-- Q7 (신규): CK 상승과 스타틴 중단 -->
+      <div style="margin-top:10px;border:1px solid #d9cdee;border-radius:8px;overflow:hidden">
+        <div onclick=\"openFaqModal(this,'faqA7')\" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;background:#f3edfb;padding:8px 10px">
+          <span style="font-size:12.5px;font-weight:700;color:#4a3a70">Q7. CK(크레아틴키나제)가 상승하면 스타틴을 언제 중단해야 하는가?</span>
+          <span id="faqArrow7" style="font-size:12px;color:#4a3a70;transition:transform .2s;flex-shrink:0;margin-left:8px">▶</span>
+        </div>
+        <div id="faqA7" style="display:none;padding:10px 12px;font-size:12.5px;color:#1a1a18;line-height:1.8;background:#fff">
+          <b>투약 전 baseline CK</b> — 모든 환자에서 일률적으로 측정할 필요는 없다. 고령(특히 75세 이상), 신기능저하, 조절되지 않는 갑상선기능저하증, 개인·가족력상 근육질환·스타틴 불내성, 과도한 음주, 상호작용 약물 병용(fibrate 특히 gemfibrozil, 특정 항생제·항진균제, amiodarone 등), 고강도 스타틴 시작 등 <b>위험인자가 있는 경우에만</b> baseline CK를 확인하는 것이 실용적 접근이다(2018 ACC/AHA·NLA 다학회 성명 기준).<br><br>
+          <b>무증상 CK 상승</b> — 근육 증상 없이 CK만 오른 경우는 그 자체로 스타틴 중단 사유가 아니다. 정기적(routine) CK 모니터링도 권고되지 않으며, 운동·외상 등 다른 원인 배제 후 증상 없이 경과관찰하는 것이 일반적이다.<br><br>
+          <b>근육 증상 동반 시 단계적 기준</b><br>
+          ① <b>CK &lt; 4×ULN</b>, 증상이 경미하고 견딜 만한 수준 — 스타틴을 유지하며 증상·CK를 추적 관찰한다.<br>
+          ② <b>CK 4~10×ULN</b>, 증상 동반 — 일시 중단 또는 저용량·타 스타틴 전환을 고려한다. 대개 2주 간격으로 CK를 재검하며, 정상화 후 저용량·격일 투여·타 계열 스타틴으로 재도전한다.<br>
+          ③ <b>CK &gt; 10×ULN</b> — 증상 유무와 무관하게 <b>즉시 중단</b>하고, 신기능(Cr, eGFR)·소변 myoglobin을 확인해 횡문근융해증 여부를 평가한다. 필요 시 수액공급(hydration)으로 신손상을 예방한다.<br>
+          ④ <b>횡문근융해증(rhabdomyolysis)</b> — 대개 CK &gt;10,000 U/L 또는 급성신손상·근육통·암갈색뇨(myoglobinuria)를 동반하는 경우로 정의되며, 응급 상황으로 간주해 즉시 중단·입원·적극적 수액치료가 필요하다. 매우 드물지만(NNH 약 8,000~12,500) 가장 심각한 형태의 부작용이다.<br><br>
+          <b>중단 후 접근</b> — CK가 정상화되면, 원인 감별(갑상선기능저하증, 비타민D 결핍, 격렬한 운동, 다른 근육질환 등)을 먼저 배제한 뒤 저용량·격일 투여·친수성 스타틴(rosuvastatin, pravastatin)·pitavastatin 등으로 재시도하는 것이 일반적 전략이며, 반복 실패 시 ezetimibe·PCSK9 억제제·bempedoic acid 등 비스타틴 요법으로 전환한다.
+        </div>
+      </div>
+
+      <!-- Q8 (원 20번): 스타틴 불내성 정의 -->
+      <div style="margin-top:10px;border:1px solid #d9cdee;border-radius:8px;overflow:hidden">
+        <div onclick=\"openFaqModal(this,'faqA8')\" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;background:#f3edfb;padding:8px 10px">
+          <span style="font-size:12.5px;font-weight:700;color:#4a3a70">Q8. "스타틴 불내성(statin intolerance)"의 정확한 정의와 진단 기준은?</span>
+          <span id="faqArrow8" style="font-size:12px;color:#4a3a70;transition:transform .2s;flex-shrink:0;margin-left:8px">▶</span>
+        </div>
+        <div id="faqA8" style="display:none;padding:10px 12px;font-size:12.5px;color:#1a1a18;line-height:1.8;background:#fff">
+          NLA(National Lipid Association) 2022 scientific statement 기준: 스타틴 치료와 관련된 1가지 이상의 부작용이 있어 <b>용량 감량이나 중단 시 호전되는 경우</b>로 정의하며, 모든 용량을 못 쓰는 <b>완전 불내성(complete)</b>과 치료목표 도달에 필요한 용량을 못 쓰는 <b>부분 불내성(partial)</b>으로 나눈다.<br>
+          진단을 위해서는 <b>최소 2종의 스타틴을 시도(그중 1종은 최저 승인용량)</b>해야 한다는 것이 원칙이며, "한 번 먹어보고 아팠다"만으로 불내성으로 단정하지 않는다.<br>
+          전체 스타틴 사용자의 5~30%가 어떤 형태로든 불내성을 보고하지만, 이중맹검 RCT에서 실제 약리적 인과관계가 확인되는 진성 불내성은 이보다 훨씬 적어 노세보 효과가 상당 부분을 차지하는 것으로 해석된다.
+        </div>
+      </div>
+
+      <!-- Q9 (원 21번): 스타틴 교차반응 -->
+      <div style="margin-top:10px;border:1px solid #d9cdee;border-radius:8px;overflow:hidden">
+        <div onclick=\"openFaqModal(this,'faqA9')\" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;background:#f3edfb;padding:8px 10px">
+          <span style="font-size:12.5px;font-weight:700;color:#4a3a70">Q9. 한 스타틴에서 근육통이 있으면 다른 스타틴으로 바꿔도 똑같이 생기는가?</span>
+          <span id="faqArrow9" style="font-size:12px;color:#4a3a70;transition:transform .2s;flex-shrink:0;margin-left:8px">▶</span>
+        </div>
+        <div id="faqA9" style="display:none;padding:10px 12px;font-size:12.5px;color:#1a1a18;line-height:1.8;background:#fff">
+          반드시 그런 것은 아니다. 스타틴마다 친유성/친수성, 대사경로, 근육조직 투과성이 달라 교차반응률이 100%가 아니다. 친유성 스타틴(simvastatin, atorvastatin, lovastatin)은 근세포막 투과가 쉬워 근육증상 빈도가 상대적으로 높다고 알려진 반면, 친수성 스타틴(rosuvastatin, pravastatin)은 상대적으로 낮은 경향을 보인다.<br>
+          실제 전략은 ① 같은 스타틴 저용량 재시도, ② 친수성 계열이나 대사경로가 다른 약(pitavastatin 등)으로 전환, ③ 매일→격일 투여 변경 순으로 시도하며, 상당수 환자가 이 중 한 방법으로 결국 스타틴 유지에 성공한다. 다만 일부는 진짜 계열효과(class effect)로 모든 스타틴에서 반복되어, 이 경우 ezetimibe·PCSK9 억제제·bempedoic acid 등 비스타틴 요법으로 전환한다.
+        </div>
+      </div>
+
+      <!-- Q10 (원 22번): 인지기능저하 -->
+      <div style="margin-top:10px;border:1px solid #d9cdee;border-radius:8px;overflow:hidden">
+        <div onclick=\"openFaqModal(this,'faqA10')\" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;background:#f3edfb;padding:8px 10px">
+          <span style="font-size:12.5px;font-weight:700;color:#4a3a70">Q10. 스타틴이 인지기능 저하·치매를 유발한다는 주장의 근거 수준은?</span>
+          <span id="faqArrow10" style="font-size:12px;color:#4a3a70;transition:transform .2s;flex-shrink:0;margin-left:8px">▶</span>
+        </div>
+        <div id="faqA10" style="display:none;padding:10px 12px;font-size:12.5px;color:#1a1a18;line-height:1.8;background:#fff">
+          2012년 FDA가 스타틴 라벨에 "기억상실·혼동" 가능성을 추가하며 논란이 커졌으나, 이는 시판 후 이상사례 보고(case report) 기반으로 인과관계를 입증한 데이터는 아니었다.<br>
+          이후 CTT 자료·JUPITER 하위분석 등 대규모 RCT 메타분석과 관찰연구들에서는 스타틴이 인지기능 저하나 치매 위험을 증가시킨다는 일관된 근거를 확인하지 못했고, 일부 관찰연구는 경도의 보호적 연관성도 보고했다(역인과관계 가능성 있어 해석 주의 필요). 2018년 이후 ACC/AHA 등 학회 성명들도 현재까지 근거로는 인과관계를 뒷받침하지 않는다는 입장을 유지하고 있다.<br>
+          임상적으로 보고되는 증상은 대개 가역적(중단 후 수 주 내 호전)이며, 장기적 퇴행성 변화를 일으킬 기전적 근거도 약한 것으로 평가된다.
+        </div>
+      </div>
+
+      <!-- Q11 (원 28번): LDL lower is better -->
+      <div style="margin-top:10px;border:1px solid #d9cdee;border-radius:8px;overflow:hidden">
+        <div onclick=\"openFaqModal(this,'faqA11')\" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;background:#f3edfb;padding:8px 10px">
+          <span style="font-size:12.5px;font-weight:700;color:#4a3a70">Q11. LDL-C는 "낮을수록 좋다(lower is better)"인가, 하한선이 있는가?</span>
+          <span id="faqArrow11" style="font-size:12px;color:#4a3a70;transition:transform .2s;flex-shrink:0;margin-left:8px">▶</span>
+        </div>
+        <div id="faqA11" style="display:none;padding:10px 12px;font-size:12.5px;color:#1a1a18;line-height:1.8;background:#fff">
+          대규모 RCT·Mendelian randomization 연구들에서 LDL-C를 20mg/dL대까지 낮춰도 심혈관 이득이 선형적으로 계속 비례해 증가하며, 뚜렷한 "이 수치 이하에서는 이득이 없다"는 역치는 확인되지 않았다 — 이것이 현재 "lower is better, and longer is better" 패러다임의 근거다. FOURIER·ODYSSEY OUTCOMES 등 PCSK9 억제제 RCT에서도 LDL-C 20~30mg/dL대까지 출혈성 뇌졸중·신경인지 등 유의한 안전성 신호는 확인되지 않았다.<br>
+          다만 완전한 "하한선 없음"으로 단정하기엔 유보할 점이 있다. ① 대부분 추적기간이 수년 단위라 초저LDL 장기(10년 이상) 데이터는 제한적이다. ② PCSK9 LOF 코호트는 평생 적응된 선천적 상태로, 약물로 급격히 낮춘 경우와 완전히 동일하다고 보기 어렵다. ③ 일부 관찰연구에서 매우 낮은 LDL-C와 출혈성 뇌졸중·특정 암의 연관성이 보고되었으나, 대부분 인과관계보다는 기저질환에 의한 LDL 저하(역인과관계)로 해석된다.<br>
+          현재 가이드라인(ESC/EAS 2019)은 위험군별로 LDL-C 목표치를 <b>초고위험군 &lt;55mg/dL</b>, <b>고위험군 &lt;70mg/dL</b>(각각 기저치 대비 ≥50% 감소 동반)로 차등 제시하지만, "이보다 낮으면 위험하다"는 명시적 하한선을 두지는 않는다.
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- ══ /다빈도 질문 답변 (FAQ) 카드 ══ -->
+
+  <!-- ══ FAQ 상세보기 모달 (화면 중앙) ══ -->
+  <div id="faqModalBackdrop" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.55);overflow-y:auto;padding:24px 14px" onclick="if(event.target===this)closeFaqModal()">
+    <div style="max-width:640px;margin:0 auto;border:1.5px solid #d9cdee;border-radius:10px;font-size:12.5px;color:#1a1a18;overflow:hidden;box-shadow:0 10px 50px rgba(0,0,0,0.35)">
+      <div style="padding:10px 16px 9px;background:#7b5ea7;border-bottom:1px solid #6b4f97;border-radius:10px 10px 0 0;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:2">
+        <span id="faqModalTitle" style="font-size:13.5px;font-weight:700;color:#fff;padding-right:10px"></span>
+        <span onclick="closeFaqModal()" style="cursor:pointer;font-size:20px;color:#fff;line-height:1;padding:2px 6px;flex-shrink:0" title="닫기">&times;</span>
+      </div>
+      <div id="faqModalContent" style="padding:14px 16px;line-height:1.8;background:#fff"></div>
+    </div>
+  </div>
+  <!-- ══ /FAQ 상세보기 모달 ══ -->
+
 
 </div>
 
@@ -3482,7 +3662,7 @@ const g=id=>document.getElementById(id);
 const SIMPLE_HIDDEN = [
   'cardCprBanner','cardCprSubtitle',
   'cardApobPrecision','cardRiskEnhancer','cardAbsInd','cardSubclinAscvd',
-  'cardSpecialStatin','cardNntLeft','cardNnhLeft',
+  'cardSpecialStatin','cardNntLeft','cardNnhLeft','cardFaq',
   'cardLipidParam','cardNntRight','cardReference',
   'cardPreventCategory'
 ];
@@ -5535,6 +5715,30 @@ function toggleSection(bodyId, arrowId){
   body.style.display = open ? 'none' : 'block';
   if(arrow) arrow.textContent = open ? '▶' : '▼';
 }
+// FAQ 항목 — 클릭 시 화면 중앙 모달로 확대 표시
+function openFaqModal(headerEl, contentId){
+  const src = g(contentId);
+  const modalContent = g('faqModalContent');
+  const modalTitle = g('faqModalTitle');
+  const backdrop = g('faqModalBackdrop');
+  if(!src || !modalContent || !backdrop) return;
+  const qSpan = headerEl.querySelector('span');
+  modalTitle.textContent = qSpan ? qSpan.textContent : '';
+  modalContent.innerHTML = src.innerHTML;
+  backdrop.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+function closeFaqModal(){
+  const backdrop = g('faqModalBackdrop');
+  if(backdrop) backdrop.style.display = 'none';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape'){
+    const backdrop = g('faqModalBackdrop');
+    if(backdrop && backdrop.style.display !== 'none') closeFaqModal();
+  }
+});
 // CKM 증후군 상세 설명 — 화면 중앙 모달로 열고 닫기
 function openCkmPanel(){
   const body = g('ckmPanel'), arrow = g('ckmPanelArrow'), bd = g('ckmPanelBackdrop');
