@@ -97,6 +97,7 @@ body.compact-mode #cardAbsInd,
 body.compact-mode #cardSpecialStatin,
 body.compact-mode #cardNntLeft,
 body.compact-mode #cardNnhLeft,
+body.compact-mode #cardFaq,
 body.compact-mode [style*="color:#888780"],
 body.compact-mode [style*="color:#a8a79f"],
 body.compact-mode [style*="font-style:italic"]{display:none!important}
@@ -3306,6 +3307,185 @@ function switchRRTab(idx){
   </div>
   <!-- ══ /Standalone NNH Card ══ -->
 
+  <!-- ══ Frequently Asked Questions (FAQ) Card ══ -->
+  <div class="card" id="cardFaq" style="background:#eaf7fb">
+    <div class="sec sec-clickable" onclick="toggleSection('faqBody','faqArrow')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;background:#7b5ea7">
+      <span style="display:flex;align-items:center;gap:7px">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 2-3 4"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        Frequently Asked Questions
+      </span>
+      <span id="faqArrow" style="font-size:13.5px;color:#fff;transition:transform .2s;display:inline-block">▶</span>
+    </div>
+    <div id="faqBody" style="display:none;margin-top:4px">
+
+      <!-- Q1: Need for CoQ10 co-administration -->
+      <div style="margin-bottom:10px;border:1px solid #d9cdee;border-radius:8px;overflow:hidden">
+        <div onclick=\"openFaqModal(this,'faqA1')\" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;background:#f3edfb;padding:8px 10px">
+          <span style="font-size:12.5px;font-weight:700;color:#4a3a70">Q1. Is CoQ10 co-supplementation needed with statin therapy?</span>
+          <span id="faqArrow1" style="font-size:12px;color:#4a3a70;transition:transform .2s;flex-shrink:0;margin-left:8px">▶</span>
+        </div>
+        <div id="faqA1" style="display:none;padding:10px 12px;font-size:12.5px;color:#1a1a18;line-height:1.8;background:#fff">
+          Statins inhibit the mevalonate pathway, which reduces not only cholesterol but also its branch product CoQ10 (ubiquinone) — one proposed mechanism for statin-associated myopathy. However, guidelines do not recommend routine CoQ10 co-administration for several reasons.<br><br>
+          <b>① Inconsistent clinical evidence</b> — RCTs and meta-analyses show mixed results; even where myalgia symptoms are somewhat improved, <b>evidence for improvement in CK (a marker of muscle injury) is even weaker</b>. Most studies are small, short-term, and rely on subjective assessment (VAS), making it hard to exclude a placebo effect.<br>
+          <b>② The mechanism of myopathy is multifactorial</b> — besides CoQ10 depletion, competing mechanisms include SLCO1B1 polymorphisms, immune-mediated necrotizing myopathy (IMNM), and ryanodine receptor abnormalities, making standardization around a single supplement difficult.<br>
+          <b>③ Nocebo effect</b> — in double-blind RCTs, the difference in myalgia rates between statin and placebo groups is much smaller than in observational studies, suggesting the true scale of "genuine myopathy requiring treatment" may be small.<br>
+          <b>④ Priority of alternative strategies</b> — checking CK, switching statins, dose adjustment, alternate-day dosing, and substitution with ezetimibe/PCSK9 inhibitors are more firmly evidence-based approaches recommended first.<br><br>
+          Bottom line: the mechanism is plausible, but the quality and consistency of RCT evidence are insufficient, and as a supplement rather than a drug it does not clear the bar for an official recommendation. Given its low risk, this does not preclude individualized clinical use if a patient wishes to try it.
+        </div>
+      </div>
+
+      <!-- Q2: Safety of very low LDL -->
+      <div style="margin-top:10px;border:1px solid #d9cdee;border-radius:8px;overflow:hidden">
+        <div onclick=\"openFaqModal(this,'faqA2')\" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;background:#f3edfb;padding:8px 10px">
+          <span style="font-size:12.5px;font-weight:700;color:#4a3a70">Q2. "Very low LDL is fine — the cells that need cholesterol just make it themselves." Is this claim valid?</span>
+          <span id="faqArrow2" style="font-size:12px;color:#4a3a70;transition:transform .2s;flex-shrink:0;margin-left:8px">▶</span>
+        </div>
+        <div id="faqA2" style="display:none;padding:10px 12px;font-size:12.5px;color:#1a1a18;line-height:1.8;background:#fff">
+          <b>What's correct</b> — nearly all nucleated cells can synthesize cholesterol de novo via the mevalonate pathway, and a compensatory mechanism exists in which intracellular cholesterol depletion activates SREBP-2, upregulating both synthetic enzymes and LDL receptor expression. Carriers of PCSK9 loss-of-function variants (LDL-C in the 10–15 mg/dL range) living normally without specific deficiency states support this, and trials such as FOURIER and ODYSSEY OUTCOMES showed no clear safety signal even down to LDL-C 20–30 mg/dL.<br><br>
+          <b>What needs qualification</b><br>
+          ① Not all tissues are equally self-sufficient — the brain, protected by the blood-brain barrier, barely uses circulating LDL and instead runs its own astrocyte-ApoE-mediated local system, while steroidogenic tissues such as the adrenal cortex and gonads preferentially use LDL-receptor-mediated uptake (more energy-efficient during acute synthesis demand).<br>
+          ② It's not that LDL is "unnecessary," but rather a matter of <b>division of energy cost</b> — de novo synthesis consumes substantial ATP and NADPH, so the liver-collected, LDL-distributed system is metabolically cheaper than every cell synthesizing cholesterol from scratch.<br>
+          ③ Genetic deficiency and drug-induced very low LDL operate through different mechanisms — the steatorrhea, vitamin E deficiency, and neurological complications of abetalipoproteinemia (MTP deficiency) stem from failure of chylomicron formation itself, blocking absorption of fat-soluble substances altogether — fundamentally different from statins/PCSK9 inhibitors, which merely increase LDL particle clearance.<br><br>
+          Bottom line: the premise that "cells that need it just make it" is physiologically correct, but this does not make LDL's transport function unnecessary. That said, the counter-argument that very low LDL is dangerous is also weakly supported, and since most data reflect only several years of follow-up, very-long-term (10+ years) safety has not been firmly established.
+        </div>
+      </div>
+
+      <!-- Q3: Dosing time / fasting -->
+      <div style="margin-top:10px;border:1px solid #d9cdee;border-radius:8px;overflow:hidden">
+        <div onclick=\"openFaqModal(this,'faqA3')\" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;background:#f3edfb;padding:8px 10px">
+          <span style="font-size:12.5px;font-weight:700;color:#4a3a70">Q3. Should statins be taken morning or evening? Does fasting vs. after-meal dosing matter?</span>
+          <span id="faqArrow3" style="font-size:12px;color:#4a3a70;transition:transform .2s;flex-shrink:0;margin-left:8px">▶</span>
+        </div>
+        <div id="faqA3" style="display:none;padding:10px 12px;font-size:12.5px;color:#1a1a18;line-height:1.8;background:#fff">
+          <b>Timing</b> — hepatic cholesterol synthesis (HMG-CoA reductase activity) peaks overnight, so classic evidence holds that short half-life statins (simvastatin, lovastatin, immediate-release fluvastatin; half-life 2–3h) produce a greater LDL-C reduction when taken <b>in the evening</b>. Long half-life statins (atorvastatin ~14h, rosuvastatin ~19h, pitavastatin), however, show no difference in LDL-C lowering between morning and evening dosing across multiple RCTs, so timing is flexible.<br>
+          <b>Fasting vs. after meals</b> — atorvastatin, rosuvastatin, and pitavastatin can be taken regardless of food, whereas immediate-release lovastatin's absorption depends on dietary fat, so it is recommended to be taken with food.<br>
+          Bottom line: with long half-life statins now dominant, the practical benefit of the "take it at night" rule is much smaller, and guidelines instead emphasize <b>adherence — taking it at the same time every day without missing doses</b> — as the most important variable.
+        </div>
+      </div>
+
+      <!-- Q4: Alternate-day / 2-3x weekly dosing -->
+      <div style="margin-top:10px;border:1px solid #d9cdee;border-radius:8px;overflow:hidden">
+        <div onclick=\"openFaqModal(this,'faqA4')\" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;background:#f3edfb;padding:8px 10px">
+          <span style="font-size:12.5px;font-weight:700;color:#4a3a70">Q4. Is alternate-day or 2–3x-weekly dosing effective instead of daily dosing?</span>
+          <span id="faqArrow4" style="font-size:12px;color:#4a3a70;transition:transform .2s;flex-shrink:0;margin-left:8px">▶</span>
+        </div>
+        <div id="faqA4" style="display:none;padding:10px 12px;font-size:12.5px;color:#1a1a18;line-height:1.8;background:#fff">
+          This is a strategy used mainly in <b>statin-intolerant patients</b> who cannot tolerate daily dosing due to muscle symptoms. Long half-life, potent statins such as rosuvastatin and atorvastatin have shown LDL-C reductions of roughly 20–30% with alternate-day or 2–3x-weekly dosing in small studies — a smaller effect than daily dosing, but clinically meaningful compared with taking nothing at all.<br>
+          However, this is not a standard regimen in official guidelines but a <b>salvage strategy for intolerant patients</b>, with evidence limited to small RCTs/observational studies (Level B–C) and little cardiovascular outcome data. In practice, alternate-day dosing alone often fails to reach target, so combining with non-statin agents (ezetimibe, PCSK9 inhibitors, bempedoic acid) is commonly considered.
+        </div>
+      </div>
+
+      <!-- Q5: Grapefruit juice -->
+      <div style="margin-top:10px;border:1px solid #d9cdee;border-radius:8px;overflow:hidden">
+        <div onclick=\"openFaqModal(this,'faqA5')\" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;background:#f3edfb;padding:8px 10px">
+          <span style="font-size:12.5px;font-weight:700;color:#4a3a70">Q5. Why shouldn't grapefruit juice be taken together with statins?</span>
+          <span id="faqArrow5" style="font-size:12px;color:#4a3a70;transition:transform .2s;flex-shrink:0;margin-left:8px">▶</span>
+        </div>
+        <div id="faqA5" style="display:none;padding:10px 12px;font-size:12.5px;color:#1a1a18;line-height:1.8;background:#fff">
+          Furanocoumarins in grapefruit irreversibly inhibit intestinal CYP3A4. Statins metabolized by CYP3A4 (<b>simvastatin, lovastatin</b>, and to some extent atorvastatin) can therefore reach markedly higher blood concentrations — simvastatin AUC has been reported to increase more than 10-fold with heavy grapefruit juice intake, raising the risk of myopathy and rhabdomyolysis.<br>
+          In contrast, <b>rosuvastatin</b> (mainly CYP2C9, minimal metabolism), <b>pravastatin</b> (non-CYP pathway), and <b>pitavastatin</b> (minimal CYP metabolism) are relatively free of this interaction.<br>
+          Clinical significance: occasional small amounts are not a major concern, but patients on CYP3A4-metabolized statins should be advised to avoid <b>habitual, large-volume intake (roughly ≥1 L/day)</b>.
+        </div>
+      </div>
+
+      <!-- Q6 (merged: liver enzyme monitoring + discontinuation threshold) -->
+      <div style="margin-top:10px;border:1px solid #d9cdee;border-radius:8px;overflow:hidden">
+        <div onclick=\"openFaqModal(this,'faqA6')\" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;background:#f3edfb;padding:8px 10px">
+          <span style="font-size:12.5px;font-weight:700;color:#4a3a70">Q6. Is routine monitoring of liver enzymes (AST/ALT) needed during statin therapy, and at what threshold should statins be stopped?</span>
+          <span id="faqArrow6" style="font-size:12px;color:#4a3a70;transition:transform .2s;flex-shrink:0;margin-left:8px">▶</span>
+        </div>
+        <div id="faqA6" style="display:none;padding:10px 12px;font-size:12.5px;color:#1a1a18;line-height:1.8;background:#fff">
+          <b>Routine monitoring</b> — early-2000s guidelines recommended periodic liver function tests, but subsequent large-scale data confirmed that serious statin-induced hepatotoxicity (acute liver failure) is extremely rare, occurring in fewer than 1 per million patient-years. Since the 2013 ACC/AHA update, <b>baseline ALT before starting therapy</b> is recommended, but <b>routine repeat monitoring is no longer recommended</b> absent specific symptoms (jaundice, fatigue, right-upper-quadrant pain) or risk factors. Mild, asymptomatic ALT elevation (&lt;3×ULN) is typically managed by continuing the statin and repeating labs, as it often normalizes spontaneously.<br><br>
+          <b>Discontinuation threshold</b> — discontinuation is generally considered when <b>ALT persists &gt;3×ULN, or when symptoms such as jaundice, severe fatigue, or right-upper-quadrant pain occur regardless of magnitude</b>. Below 3×ULN and asymptomatic, statins are usually continued with repeat testing. Hy's law (ALT/AST &gt;3×ULN plus total bilirubin &gt;2×ULN, with normal ALP) is used to assess severity.<br><br>
+          Chronic liver disease (including compensated cirrhosis) is not an absolute contraindication; in patients with fatty liver disease (NAFLD/MASLD) in particular, the cardiovascular benefit is generally considered to outweigh hepatic risk, and current practice trends toward continuing or initiating statins (decompensated or acute liver failure remain contraindications).
+        </div>
+      </div>
+
+      <!-- Q7 (new): CK elevation and statin discontinuation -->
+      <div style="margin-top:10px;border:1px solid #d9cdee;border-radius:8px;overflow:hidden">
+        <div onclick=\"openFaqModal(this,'faqA7')\" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;background:#f3edfb;padding:8px 10px">
+          <span style="font-size:12.5px;font-weight:700;color:#4a3a70">Q7. When should statins be discontinued if CK (creatine kinase) rises?</span>
+          <span id="faqArrow7" style="font-size:12px;color:#4a3a70;transition:transform .2s;flex-shrink:0;margin-left:8px">▶</span>
+        </div>
+        <div id="faqA7" style="display:none;padding:10px 12px;font-size:12.5px;color:#1a1a18;line-height:1.8;background:#fff">
+          <b>Baseline CK before starting</b> — routine measurement in every patient is not necessary. A practical approach (per the 2018 ACC/AHA/NLA multisociety statement) is to check baseline CK only in patients with <b>risk factors</b>: advanced age (especially ≥75), renal impairment, uncontrolled hypothyroidism, personal or family history of muscle disease or statin intolerance, heavy alcohol use, interacting drugs (fibrates — especially gemfibrozil, certain antibiotics/antifungals, amiodarone), or initiation of high-intensity statin therapy.<br><br>
+          <b>Asymptomatic CK elevation</b> — an isolated CK rise without muscle symptoms is not by itself a reason to stop the statin. Routine periodic CK monitoring is not recommended; the usual approach is to exclude other causes (exercise, trauma) and observe without symptoms.<br><br>
+          <b>Stepwise approach when muscle symptoms are present</b><br>
+          ① <b>CK &lt; 4×ULN</b>, mild and tolerable symptoms — continue the statin with symptom and CK follow-up.<br>
+          ② <b>CK 4–10×ULN</b> with symptoms — consider temporary discontinuation or switching to a lower dose/different statin. CK is typically rechecked at roughly 2-week intervals, and once normalized, rechallenge is attempted with a lower dose, alternate-day dosing, or a different statin.<br>
+          ③ <b>CK &gt; 10×ULN</b> — discontinue <b>immediately</b> regardless of symptoms, and check renal function (Cr, eGFR) and urine myoglobin to evaluate for rhabdomyolysis; hydration is given as needed to prevent renal injury.<br>
+          ④ <b>Rhabdomyolysis</b> — generally defined as CK &gt;10,000 U/L, or acute kidney injury/muscle pain/myoglobinuria (tea-colored urine), and is treated as an emergency requiring immediate discontinuation, hospitalization, and aggressive IV hydration. Though very rare (NNH roughly 8,000–12,500), it is the most severe form of this adverse effect.<br><br>
+          <b>After discontinuation</b> — once CK normalizes, the usual strategy is to first rule out other causes (hypothyroidism, vitamin D deficiency, strenuous exercise, other myopathies), then rechallenge with a lower dose, alternate-day dosing, a hydrophilic statin (rosuvastatin, pravastatin), or pitavastatin; if this repeatedly fails, switch to non-statin therapy such as ezetimibe, a PCSK9 inhibitor, or bempedoic acid.
+        </div>
+      </div>
+
+      <!-- Q8: Definition of statin intolerance -->
+      <div style="margin-top:10px;border:1px solid #d9cdee;border-radius:8px;overflow:hidden">
+        <div onclick=\"openFaqModal(this,'faqA8')\" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;background:#f3edfb;padding:8px 10px">
+          <span style="font-size:12.5px;font-weight:700;color:#4a3a70">Q8. What is the precise definition and diagnostic criteria for "statin intolerance"?</span>
+          <span id="faqArrow8" style="font-size:12px;color:#4a3a70;transition:transform .2s;flex-shrink:0;margin-left:8px">▶</span>
+        </div>
+        <div id="faqA8" style="display:none;padding:10px 12px;font-size:12.5px;color:#1a1a18;line-height:1.8;background:#fff">
+          Per the National Lipid Association's 2022 scientific statement, statin intolerance is defined as one or more adverse effects associated with statin therapy that <b>resolve or improve with dose reduction or discontinuation</b>, classified as <b>complete intolerance</b> (unable to tolerate any dose) or <b>partial intolerance</b> (unable to tolerate the dose needed to reach the therapeutic goal).<br>
+          Diagnosis requires that <b>at least two statins have been tried, including at least one at the lowest approved dose</b> — a single instance of symptoms on one statin does not by itself confirm intolerance.<br>
+          While 5–30% of statin users report some form of intolerance, the proportion with genuine, pharmacologically confirmed intolerance on double-blind RCT testing is far lower, indicating that a substantial share reflects a nocebo effect.
+        </div>
+      </div>
+
+      <!-- Q9: Cross-reactivity between statins -->
+      <div style="margin-top:10px;border:1px solid #d9cdee;border-radius:8px;overflow:hidden">
+        <div onclick=\"openFaqModal(this,'faqA9')\" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;background:#f3edfb;padding:8px 10px">
+          <span style="font-size:12.5px;font-weight:700;color:#4a3a70">Q9. If a patient develops myalgia on one statin, will switching to another statin cause the same problem?</span>
+          <span id="faqArrow9" style="font-size:12px;color:#4a3a70;transition:transform .2s;flex-shrink:0;margin-left:8px">▶</span>
+        </div>
+        <div id="faqA9" style="display:none;padding:10px 12px;font-size:12.5px;color:#1a1a18;line-height:1.8;background:#fff">
+          Not necessarily. Statins differ in lipophilicity/hydrophilicity, metabolic pathway, and muscle tissue penetration, so cross-reactivity is not 100%. Lipophilic statins (simvastatin, atorvastatin, lovastatin) penetrate the muscle cell membrane more readily and are reported to have relatively higher rates of muscle symptoms, while hydrophilic statins (rosuvastatin, pravastatin) tend to have lower rates.<br>
+          The typical clinical approach is, in order: ① rechallenge with a lower dose of the same statin, ② switch to a hydrophilic statin or one with a different metabolic pathway (e.g., pitavastatin), ③ change from daily to alternate-day dosing — and many patients succeed in tolerating a statin through one of these methods. In a subset, however, a true class effect recurs with every statin, in which case non-statin therapy (ezetimibe, PCSK9 inhibitors, bempedoic acid) is substituted.
+        </div>
+      </div>
+
+      <!-- Q10: Cognitive decline -->
+      <div style="margin-top:10px;border:1px solid #d9cdee;border-radius:8px;overflow:hidden">
+        <div onclick=\"openFaqModal(this,'faqA10')\" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;background:#f3edfb;padding:8px 10px">
+          <span style="font-size:12.5px;font-weight:700;color:#4a3a70">Q10. What is the evidence level behind the claim that statins cause cognitive decline or dementia?</span>
+          <span id="faqArrow10" style="font-size:12px;color:#4a3a70;transition:transform .2s;flex-shrink:0;margin-left:8px">▶</span>
+        </div>
+        <div id="faqA10" style="display:none;padding:10px 12px;font-size:12.5px;color:#1a1a18;line-height:1.8;background:#fff">
+          Controversy grew after the FDA added "memory loss/confusion" to statin labeling in 2012, but this was based on post-marketing case reports, not data establishing causation.<br>
+          Subsequent large RCT meta-analyses (CTT data, JUPITER subgroup analyses, etc.) and observational studies have not found consistent evidence that statins increase cognitive decline or dementia risk; some observational studies even reported a mild protective association (interpretation requires caution given possible reverse causation). Society statements since 2018 (ACC/AHA and others) maintain that current evidence does not support a causal relationship.<br>
+          Symptoms reported in clinical practice are generally reversible (improving within a few weeks of discontinuation), and the mechanistic rationale for a long-term degenerative effect is considered weak.
+        </div>
+      </div>
+
+      <!-- Q11: LDL "lower is better" -->
+      <div style="margin-top:10px;border:1px solid #d9cdee;border-radius:8px;overflow:hidden">
+        <div onclick=\"openFaqModal(this,'faqA11')\" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;background:#f3edfb;padding:8px 10px">
+          <span style="font-size:12.5px;font-weight:700;color:#4a3a70">Q11. Is LDL-C "the lower, the better," or is there a floor below which it becomes harmful?</span>
+          <span id="faqArrow11" style="font-size:12px;color:#4a3a70;transition:transform .2s;flex-shrink:0;margin-left:8px">▶</span>
+        </div>
+        <div id="faqA11" style="display:none;padding:10px 12px;font-size:12.5px;color:#1a1a18;line-height:1.8;background:#fff">
+          Large RCTs and Mendelian randomization studies show that cardiovascular benefit continues to increase linearly even as LDL-C is lowered into the 20s (mg/dL), with no clear threshold below which benefit disappears — the basis for the current "lower is better, and longer is better" paradigm. PCSK9 inhibitor RCTs such as FOURIER and ODYSSEY OUTCOMES likewise showed no significant safety signal (hemorrhagic stroke, neurocognitive effects) down to LDL-C 20–30 mg/dL.<br>
+          Some caveats remain against concluding there is "no floor at all," however. ① Most follow-up periods are only several years, so very-long-term (10+ year) data on extremely low LDL are limited. ② PCSK9 loss-of-function cohorts represent a lifelong, congenitally adapted state, which may not be fully equivalent to a rapid pharmacologic reduction. ③ Some observational studies have reported associations between very low LDL-C and hemorrhagic stroke or certain cancers, but these are mostly interpreted as reverse causation (LDL lowered by an underlying illness) rather than a causal effect of low LDL itself.<br>
+          Current guidelines (ESC/EAS 2019) set differentiated LDL-C targets by risk category — <b>&lt;55 mg/dL for very-high-risk</b> and <b>&lt;70 mg/dL for high-risk</b> patients (each with a required ≥50% reduction from baseline) — but do not set an explicit floor below which lower LDL-C is considered harmful.
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- ══ /Frequently Asked Questions (FAQ) Card ══ -->
+
+  <!-- ══ FAQ Detail Modal (screen center) ══ -->
+  <div id="faqModalBackdrop" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.55);overflow-y:auto;padding:24px 14px" onclick="if(event.target===this)closeFaqModal()">
+    <div style="max-width:640px;margin:0 auto;border:1.5px solid #d9cdee;border-radius:10px;font-size:12.5px;color:#1a1a18;overflow:hidden;box-shadow:0 10px 50px rgba(0,0,0,0.35)">
+      <div style="padding:10px 16px 9px;background:#7b5ea7;border-bottom:1px solid #6b4f97;border-radius:10px 10px 0 0;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:2">
+        <span id="faqModalTitle" style="font-size:13.5px;font-weight:700;color:#fff;padding-right:10px"></span>
+        <span onclick="closeFaqModal()" style="cursor:pointer;font-size:20px;color:#fff;line-height:1;padding:2px 6px;flex-shrink:0" title="Close">&times;</span>
+      </div>
+      <div id="faqModalContent" style="padding:14px 16px;line-height:1.8;background:#fff"></div>
+    </div>
+  </div>
+  <!-- ══ /FAQ Detail Modal ══ -->
+
 
 </div>
 
@@ -3476,7 +3656,7 @@ const g=id=>document.getElementById(id);
 const SIMPLE_HIDDEN = [
   'cardCprBanner','cardCprSubtitle',
   'cardRiskEnhancer','cardAbsInd','cardSubclinAscvd',
-  'cardSpecialStatin','cardNntLeft','cardNnhLeft',
+  'cardSpecialStatin','cardNntLeft','cardNnhLeft','cardFaq',
   'cardLipidParam','cardNntRight','cardReference',
   'cardPreventCategory'
 ];
@@ -5531,6 +5711,30 @@ function toggleSection(bodyId, arrowId){
   body.style.display = open ? 'none' : 'block';
   if(arrow) arrow.textContent = open ? '▶' : '▼';
 }
+// FAQ items — clicking opens a centered modal with the enlarged content
+function openFaqModal(headerEl, contentId){
+  const src = g(contentId);
+  const modalContent = g('faqModalContent');
+  const modalTitle = g('faqModalTitle');
+  const backdrop = g('faqModalBackdrop');
+  if(!src || !modalContent || !backdrop) return;
+  const qSpan = headerEl.querySelector('span');
+  modalTitle.textContent = qSpan ? qSpan.textContent : '';
+  modalContent.innerHTML = src.innerHTML;
+  backdrop.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+function closeFaqModal(){
+  const backdrop = g('faqModalBackdrop');
+  if(backdrop) backdrop.style.display = 'none';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape'){
+    const backdrop = g('faqModalBackdrop');
+    if(backdrop && backdrop.style.display !== 'none') closeFaqModal();
+  }
+});
 // Show vhrRow immediately when ascvdHx is checked (independent of upd()'s early return)
 g('ascvdHx').addEventListener('change',function(){
   if(g('vhrRow')) g('vhrRow').style.display=this.checked?'flex':'none';
