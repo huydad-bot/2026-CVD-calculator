@@ -2380,7 +2380,7 @@ function switchRRTab(idx){
     <!-- ══ 당뇨병 특이 위험증강인자 (당뇨병 있는 경우) ══ -->
     <div id="dmEnhBlock" style="margin-top:10px;padding-top:9px;border-top:2px solid #185fa5">
       <div style="font-size:13.5px;font-weight:700;color:#185fa5;margin-bottom:2px">당뇨병이 있는 경우 체크</div>
-      <div class="expl" style="font-size:11.5px;color:#5f5e5a;margin-bottom:5px;line-height:1.5">당뇨병 특이 위험증강인자 (2026 ACC/AHA Table 17) — 20–39세 당뇨병 스타틴 판단(COR 2b)에 사용. 위 일반 위험증강인자 개수에는 포함되지 않음.</div>
+      <div class="expl" style="font-size:11.5px;color:#5f5e5a;margin-bottom:5px;line-height:1.5">당뇨병 특이 위험증강인자 (2026 ACC/AHA Table 17) — 20–39세 당뇨병: 1개 이상 → 중등강도 스타틴 고려(COR 2b). 40–75세 판단에는 사용되지 않음. 위 일반 위험증강인자 개수에는 포함되지 않음.</div>
       <label class="ck"><input type="checkbox" class="dmEnh" id="dmEnhDur"><div><div style="font-weight:600;color:#1a1a18">당뇨병 유병기간: 제2형 ≥10년 또는 제1형 ≥20년</div></div></label>
       <label class="ck"><input type="checkbox" class="dmEnh" id="dmEnhAlb"><div><div style="font-weight:600;color:#1a1a18">알부민뇨 ≥30 μg/mg creatinine <span class="expl" style="font-size:11.5px;font-weight:400;color:#5f5e5a">— UACR 입력 시 자동 체크</span></div></div></label>
       <label class="ck"><input type="checkbox" class="dmEnh" id="dmEnhEgfr"><div><div style="font-weight:600;color:#1a1a18">eGFR &lt;60 mL/min/1.73m² <span class="expl" style="font-size:11.5px;font-weight:400;color:#5f5e5a">— eGFR 입력 시 자동 체크</span></div></div></label>
@@ -2388,8 +2388,7 @@ function switchRRTab(idx){
       <label class="ck"><input type="checkbox" class="dmEnh" id="dmEnhNeu"><div><div style="font-weight:600;color:#1a1a18">신경병증</div></div></label>
       <label class="ck"><input type="checkbox" class="dmEnh" id="dmEnhAbi"><div><div style="font-weight:600;color:#1a1a18">ABI &lt;0.9 <span class="expl" style="font-size:11.5px;font-weight:400;color:#5f5e5a">— Subclinical ASCVD의 ABI 체크와 연동</span></div></div></label>
       <div style="margin-top:6px;padding-top:6px;border-top:1px dashed #d0cec8">
-        <label class="ck"><input type="checkbox" id="dmMultiRF"><div><div style="font-weight:600;color:#1a1a18">다수의 ASCVD 위험인자 (의사 판단)</div>
-        <div class="expl" style="font-size:11.5px;color:#5f5e5a;margin-top:1px">40–75세 당뇨병: PREVENT ≥10% <b>또는</b> 다수 위험인자 → 고강도 스타틴(COR 2a). 원문은 개수·항목을 정의하지 않으므로 임상 판단으로 체크.</div></div></label>
+        <div class="expl" style="font-size:11.5px;color:#5f5e5a;margin-top:1px">40–75세 당뇨병: PREVENT ≥10% <b>또는</b> 다수 위험인자 → 고강도 스타틴(COR 2a). 원문은 다수 위험인자의 개수·항목을 정의하지 않으므로, 본 도구는 <b>일반 위험증가 인자(위 "선택된 위험증가 인자" 개수) 2개 이상</b>을 다수 위험인자로 간주하여 권고 강도를 상향함.</div>
       </div>
     </div>
 
@@ -4010,7 +4009,7 @@ function accRec(age,risk,ldl,dm,ascvd,vhr,nE,tg,smoker,bpTx,r30,egfr){
   // LDL-C 수치와 무관하게 적용 (40–75세 COR 1). eGFR<15(투석 수준)는 위에서 먼저 처리됨.
   if(dm && age>=20){
     const dmEnhN = document.querySelectorAll('.dmEnh:checked').length;
-    const multiRF = !!document.getElementById('dmMultiRF')?.checked;
+    const multiRF = nE>=2; // 일반 위험증가 인자 ≥2개 = 다수 ASCVD 위험인자로 간주 (본 도구의 운영 기준). 당뇨 특이 인자는 20–39세에만 사용
     const r30ok = r30!=null && Number.isFinite(r30) && age>=30 && age<=59;
     const hiTail='<br>▸ 목표 미달 시 에제티미브 <b>또는</b> PCSK9 mAb 추가(동등 선택지, COR 2b) — 목표 ≥50% 감소, LDL-C &lt;70, non-HDL-C &lt;100, 선택적 apoB &lt;70.';
     const ipeOn = tg>=150 && tg<=500;
@@ -4032,13 +4031,13 @@ function accRec(age,risk,ldl,dm,ascvd,vhr,nE,tg,smoker,bpTx,r30,egfr){
     }
     // 40–75세: LDL-C 수치와 무관하게 중등강도 시작(COR 1) → PREVENT ≥10% 또는 다수 위험인자 시 고강도(COR 2a)
     if(risk>=10 || multiRF){
-      const why=[risk>=10?'PREVENT-ASCVD ≥10%':null, multiRF?'다수 ASCVD 위험인자':null].filter(Boolean).join(' · ');
+      const why=[risk>=10?'PREVENT-ASCVD ≥10%':null, multiRF?'위험증가 인자 '+nE+'개(≥2)':null].filter(Boolean).join(' · ');
       return{c:'hi',l:'고강도',ind:'당뇨 40–75세 + '+why+' (COR 2a)',d:['Atorvastatin 40–80 mg','Rosuvastatin 20–40 mg'],
         n:'당뇨병 40–75세: LDL-C 수치와 무관하게 스타틴 시작(COR 1), '+why+' → 고강도로 상향(COR 2a). 목표: LDL-C ≥50% 감소, LDL-C &lt;70 mg/dL, non-HDL-C &lt;100 mg/dL, 선택적 apoB &lt;70 mg/dL.'+hiTail+ipeTail,
         nt:'warn',ldlTgt:70,nhTgt:100,abTgt:70,pct:'50',dmPath:true,ipe:ipeOn};
     }
     return{c:'mo',l:'중등강도',ind:'당뇨 40–75세 (COR 1)',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg','Pitavastatin 2–4 mg'],
-      n:'당뇨병 40–75세: LDL-C 수치와 무관하게 중등강도 스타틴 시작(COR 1). 목표: LDL-C ≥30–49% 감소, LDL-C &lt;100 mg/dL, non-HDL-C &lt;130 mg/dL, 선택적 apoB &lt;90 mg/dL. PREVENT &lt;10%이고 다수 위험인자 없으면 중등강도 유지(COR 1).',
+      n:'당뇨병 40–75세: LDL-C 수치와 무관하게 중등강도 스타틴 시작(COR 1). 목표: LDL-C ≥30–49% 감소, LDL-C &lt;100 mg/dL, non-HDL-C &lt;130 mg/dL, 선택적 apoB &lt;90 mg/dL. PREVENT &lt;10%이고 위험증가 인자 &lt;2개이면 중등강도 유지(COR 1).',
       nt:'info',ldlTgt:100,nhTgt:130,abTgt:90,pct:'30–49',dmPath:true};
   }
   if(age<30){
@@ -4102,8 +4101,8 @@ function preventClass(primRisk,ldl,ascvd,dm,egfr,age,sex,sbp,bpTx,smoker,hdl,nE,
       basis:`eGFR ${egfr} (CKD 5기·투석 수준): 스타틴 신규 시작의 심혈관 이득 불명확(4D·AURORA 연구, 2026 가이드라인). ${dm?'당뇨병이 있어도 이 근거가 우선 적용됨. ':''}기존 복용 중이면 유지 권고. 신장내과 개별 상담 필요. LDL-C 목표치를 낮추는 것의 이득이 확인되지 않아 확립된 목표치 없음 (참고) PREVENT-ASCVD ${primRisk.toFixed(1)}%`,row:null};
   }
   if(dm && age>=40 && age<=75){
-    const _mrf=!!document.getElementById('dmMultiRF')?.checked;
-    if(primRisk>=10||_mrf) return{cat:primRisk>=10?'당뇨병 + PREVENT 고위험':'당뇨병 + 다수 위험인자',l:70,nh:100,ab:70,c:'#a32d2d',bg:'#fcebeb',basis:`당뇨병 + ${primRisk>=10?`PREVENT-ASCVD ${primRisk.toFixed(1)}% ≥10%`:'다수 ASCVD 위험인자'}: 고강도 스타틴(COR 2a), LDL-C <70 · non-HDL-C <100 · apoB <70`,row:'pr-high'};
+    const _mrf=nE>=2;
+    if(primRisk>=10||_mrf) return{cat:primRisk>=10?'당뇨병 + PREVENT 고위험':'당뇨병 + 위험증가 인자 ≥2',l:70,nh:100,ab:70,c:'#a32d2d',bg:'#fcebeb',basis:`당뇨병 + ${primRisk>=10?`PREVENT-ASCVD ${primRisk.toFixed(1)}% ≥10%`:'위험증가 인자 ≥2개'}: 고강도 스타틴(COR 2a), LDL-C <70 · non-HDL-C <100 · apoB <70`,row:'pr-high'};
     return{cat:'당뇨병',l:100,nh:130,ab:90,c:'#854f0b',bg:'#faeeda',basis:`당뇨병 40–75세: 중등강도 statin(COR 1), LDL-C <100 · non-HDL-C <130 · apoB <90, PREVENT-ASCVD ${primRisk.toFixed(1)}%`,row:primRisk>=5?'pr-inter':primRisk>=3?'pr-border':'pr-low'};
   }
   if(dm && age>75) return{cat:'당뇨병 (>75세)',l:100,nh:130,ab:100,c:'#854f0b',bg:'#faeeda',basis:`당뇨병 >75세: 이득-위해 논의 후 중등강도 statin(COR 2b), PREVENT-ASCVD ${primRisk.toFixed(1)}%`,row:null};
@@ -4364,11 +4363,18 @@ function addonSentence(currentLdl, target, acc, onStatin){
   }
   if(acc && (acc.c==='hi' || acc.c==='mo')){
     const start = onStatin ? '목표 미달성 시 최대내약 스타틴으로 강화/확인 후' : '목표 미달성 시 스타틴 시작 또는 최대내약 용량으로 조정 후';
+    if(acc.dmPath && acc.c==='hi') return `${start} ezetimibe 또는 PCSK9 mAb 추가를 고려(동등 선택지, COR 2b)`;
     if(target<=55) return `${start} ezetimibe 추가, 이후 PCSK9 inhibitor 또는 inclisiran 추가를 고려`;
     if(target<=70) return `${start} ezetimibe 추가, 필요 시 PCSK9 inhibitor 또는 inclisiran 추가를 고려`;
     return `${start} ezetimibe 추가를 고려`;
   }
   return '목표 미달성 시 생활습관 교정 강화와 statin 적응증 재평가를 고려';
+}
+function dmEnhCheckedLabels(){
+  return [...document.querySelectorAll('.dmEnh:checked')].map(el=>{
+    const b=el.closest('label')?.querySelector('div > div');
+    return b ? b.childNodes[0].textContent.trim() : '';
+  }).filter(Boolean);
 }
 function makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt, acc, onStatin, currentTg, absInds, anyAbs, carotidOverride, activeEnhLabels, ckdActive, egfr, ascvd, vhr}){
   const riskLabel = preventCat && preventCat.cat ? preventCat.cat : riskBandText(prevAscvd);
@@ -4490,7 +4496,7 @@ function makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt
 
   // 위험증강인자 목록 문장 (불릿 1줄)
   const enhLine = (activeEnhLabels && activeEnhLabels.length > 0 && (acc.c==='mo'||acc.c==='hi') && !anyAbs && !carotidOverride)
-    ? `확인된 위험증강인자 (${activeEnhLabels.length}개): ${activeEnhLabels.join('; ')}${acc.dmPath?' (당뇨병 경로 판단에는 미반영)':''}`
+    ? `확인된 위험증강인자 (${activeEnhLabels.length}개): ${activeEnhLabels.join('; ')}${(acc.dmPath && (age<40||age>75))?' (당뇨병 경로 판단에는 미반영)':''}`
     : '';
 
   if(anyAbs && absInds){
@@ -4515,12 +4521,30 @@ function makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt
     const prevPrefix = ageOutOfRange
       ? `위험도 분류 무관 스타틴 적응증에 해당하여 치료를 권고함 ${ageRangeNote}`
       : `${preventLine}이나, 아래 위험도 분류 무관 스타틴 적응증에 해당하여 PREVENT 점수와 무관하게 치료를 권고함`;
+    // 당뇨병 40–75세: 일반 위험증가 인자 표시 및 권고 강도 상향 여부 (당뇨 특이 인자는 판단에 미반영)
+    let dmAbsEnhLine='', dmAbsSpecLine='';
+    if(activeInds.some(i=>i.key==='dm')){
+      const labs=activeEnhLabels||[];
+      if(labs.length){
+        const head=`확인된 위험증가 인자 (${labs.length}개): ${labs.join('; ')}`;
+        if(labs.length>=2 && prevAscvd<10)
+          dmAbsEnhLine=`${head} — 다수 위험인자로 간주하여 권고 강도가 중등강도에서 고강도 스타틴(COR 2a)으로 상향됨 (LDL-C 목표 <70, non-HDL-C <100, apoB <70)`;
+        else if(labs.length>=2)
+          dmAbsEnhLine=`${head} — PREVENT ≥10%로 이미 고강도 스타틴 대상이며, 다수 위험인자 조건도 충족함`;
+        else
+          dmAbsEnhLine=`${head} — 1개로 권고 강도 변경 없음 (2개 이상 시 고강도로 상향)`;
+      }
+      const spec=dmEnhCheckedLabels();
+      if(spec.length) dmAbsSpecLine=`당뇨병 특이 위험증가 인자(Table 17) ${spec.length}개: ${spec.join('; ')} (40–75세 경로 판단에는 미반영)`;
+    }
     const hivPrefLine = (activeInds.some(i=>i.key==='hiv') && strengthText==='중등강도')
       ? `선호 약제: Pitavastatin 4 mg (CYP3A4 비의존 → protease inhibitor 상호작용 최소, REPRIEVE trial)`
       : '';
     return bl([
       prevPrefix,
       `적응증: ${indNames}`,
+      dmAbsEnhLine,
+      dmAbsSpecLine,
       `치료 전 LDL-C는 ${ldl} mg/dL이며, ${txState}LDL-C 목표는 <${dispLdlTgt} mg/dL`,
       `${strengthText} 스타틴 치료를 권고하며, ${addonText}`,
       hivPrefLine,
@@ -4567,10 +4591,7 @@ function makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt
   // 당뇨병 20–39세: 당뇨 특이 위험증가 인자(Table 17)로 권고가 바뀐 경우
   let dmEnhLine='';
   if(acc.dmPath && age<40 && acc.c==='mo' && /특이 위험증강인자/.test(acc.ind||'')){
-    const dmLabs=[...document.querySelectorAll('.dmEnh:checked')].map(el=>{
-      const b=el.closest('label')?.querySelector('div > div'); 
-      return b ? b.childNodes[0].textContent.trim() : '';
-    }).filter(Boolean);
+    const dmLabs=dmEnhCheckedLabels();
     dmEnhLine=`당뇨병 특이 위험증가 인자(2026 ACC/AHA Table 17) ${dmLabs.length}개 확인: ${dmLabs.join('; ')} — 당뇨병 20–39세에서 이 인자로 인해 권고가 건강행동 상담에서 중등강도 스타틴 고려(COR 2b)로 변경됨`;
   }
   const statinText = statinSentence(acc);
@@ -5137,7 +5158,7 @@ function upd(){
   const anyCAC=cac1to99Active||cacActive||cac1000Active;
   const ckdAbs=(egfr>=15&&egfr<60&&age>=40);
   const dmEsrd=dm&&egfr>0&&egfr<15; // 말기신질환(투석 수준) — DM의 '위험도 무관' 원칙보다 이 근거가 우선
-  const dmMrf=!!g('dmMultiRF')?.checked;
+  const dmMrf=nE>=2;
   const dmAbs=dm&&age>=40&&age<=75&&!dmEsrd;
   const hivChecked=g('enhHiv')?.checked??false;
   const hivAbs=hivChecked&&age>=40&&age<=75;
@@ -5401,7 +5422,7 @@ function upd(){
       key:'dm',
       active:dmAbs,
       label:`당뇨병 (40–75세)`,
-      detail:dmAbs?`${age}세 당뇨병 — ${primRisk>=10?'PREVENT ≥10%: 고강도(COR 2a)':dmMrf?'다수 위험인자: 고강도(COR 2a)':'중등강도(COR 1)'} 스타틴 권고`:(dmEsrd?`당뇨병 있으나 eGFR ${egfr}(말기신질환/투석 수준) — 신규 스타틴 시작 이득 불명확, 개별 상담 필요`:(dm?`당뇨병 있으나 나이 ${age}세 (40–75세 범위 외 — 20–39세·>75세는 별도 경로)`:'해당 없음')),
+      detail:dmAbs?`${age}세 당뇨병 — ${primRisk>=10?'PREVENT ≥10%: 고강도(COR 2a)':dmMrf?'위험증가 인자 ≥2개: 고강도(COR 2a)':'중등강도(COR 1)'} 스타틴 권고`:(dmEsrd?`당뇨병 있으나 eGFR ${egfr}(말기신질환/투석 수준) — 신규 스타틴 시작 이득 불명확, 개별 상담 필요`:(dm?`당뇨병 있으나 나이 ${age}세 (40–75세 범위 외 — 20–39세·>75세는 별도 경로)`:'해당 없음')),
       strength:dm&&(primRisk>=10||dmMrf)?'고강도':'중등강도',
       basis:'당뇨병 40–75세: LDL-C·PREVENT와 무관하게 중등강도 스타틴 시작(COR 1). 단, 말기신질환(투석 수준)에서는 신규 시작 근거 불명확(4D·AURORA 연구)'
     },
@@ -5637,7 +5658,7 @@ function upd(){
     const carotidOverride = g('carotidPlaque')?.checked && !ascvd && !anyAbs && primRisk >= 3 && primRisk < 5;
     const activeEnhLabels = [...document.querySelectorAll('.enh:checked')].map(el=>{
       const label = el.closest('label');
-      return label ? label.textContent.trim().replace(/\s+/g,' ') : '';
+      return label ? label.textContent.replace(/상세\s*▾/g,'').trim().replace(/\s+/g,' ') : '';
     }).filter(Boolean);
     if(ckdEnh) activeEnhLabels.push('CKD (eGFR 15–59, 40세 미만 — 위험증강인자)');
     g('emrSummary').value=makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt, acc, onStatin, currentTg, absInds, anyAbs, carotidOverride, activeEnhLabels, ckdActive:(ckdAbs||ckdEnh), egfr, ascvd, vhr});
