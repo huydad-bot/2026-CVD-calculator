@@ -1976,7 +1976,7 @@ function switchRRTab(idx){
       <div class="field"><span class="fl"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 중성지방 (TG)</span><input type="number" autocomplete="off" id="tg" min="0" max="2000" placeholder="mg/dL"></div>
     </div>
     <div style="display:flex;flex-wrap:wrap;align-items:center;gap:2px 10px;margin:2px 0 4px">
-      <label class="ck" style="margin-bottom:0"><input type="checkbox" id="tgNonfasting"> <span style="font-size:12.5px;font-weight:600">비공복(식후) 채혈</span></label>
+      <label class="ck" style="margin-bottom:0"><span style="font-size:12.5px;font-weight:600">비공복(식후) 채혈</span> <input type="checkbox" id="tgNonfasting"></label>
       <span class="expl" style="font-size:11.5px;color:#5f5e5a">기본값은 공복 채혈. 식후 채혈이면 체크 — TG 기준이 공복 ≥150에서 비공복 ≥175 mg/dL로 바뀌고, 지속적 고중성지방혈증·FCS 판정에는 공복 재검이 필요함 (LDL-C는 직접 측정값 사용)</span>
     </div>
     <div id="htgInputs" style="display:none;margin:0 0 6px;padding:6px 10px;background:#fbf7ee;border:1px solid #ecd9b0;border-radius:8px">
@@ -2023,12 +2023,12 @@ function switchRRTab(idx){
 
     <!-- 스타틴 복용 중 -->
     <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;margin-top:6px">
-      <label class="ck" style="display:inline-flex;margin-bottom:0"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:4px;vertical-align:middle">●</span><input type="checkbox" id="onStatin"> <b>현재 스타틴 복용 중</b></label>
+      <label class="ck" style="display:inline-flex;margin-bottom:0"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:4px;vertical-align:middle">●</span> 현재 스타틴 복용 중 <input type="checkbox" id="onStatin"></label>
       <span class="expl" style="font-size:12.5px;color:#185fa5;font-weight:600;line-height:1.5">치료 전 지질수치 값을 모를 때, 복용 중인 <span class="text-toggle-link" onclick="var b=document.getElementById('statinIntensityBox');var s=getComputedStyle(b).display==='none';b.style.display=s?'block':'none';document.body.style.overflow=s?'hidden':'';this.querySelector('.chev').textContent=s?' ▴':' ▾';" style="color:#0c447c;font-weight:800;text-decoration:underline;text-decoration-style:dotted;cursor:pointer">스타틴 강도<span class="chev" id="statinIntensityChev" style="font-size:10.5px"> ▾</span></span>를 선택하여 추정값을 계산, 입력할 수 있습니다.</span>
     </div>
     <!-- 스타틴 불내성 (2026 Figure 18) -->
     <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px">
-      <label class="ck" style="display:inline-flex;margin-bottom:0"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:4px;vertical-align:middle">●</span><input type="checkbox" id="statinIntol"> <b>스타틴 불내성</b></label>
+      <label class="ck" style="display:inline-flex;margin-bottom:0"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:4px;vertical-align:middle">●</span> 스타틴 불내성 <input type="checkbox" id="statinIntol"></label>
       <span class="expl" style="font-size:12px;color:#5f5e5a;line-height:1.5">2종 이상 스타틴에서 근육 증상, 그중 1종은 최저 승인용량 (2026 Figure 18, 2차 원인 배제) · <span class="text-toggle-link" onclick="toggleSamsDetail()" style="color:#185fa5;font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px">SAMS 상세</span></span>
     </div>
     <!-- 스타틴 강도 분류표 (클릭 시 펼침) -->
