@@ -93,7 +93,6 @@ body.compact-mode .rind,
 body.compact-mode .expl,
 body.compact-mode #cardCprBanner,
 body.compact-mode #cardCprSubtitle,
-body.compact-mode #cardAbsInd,
 body.compact-mode #cardSpecialStatin,
 body.compact-mode #cardNntLeft,
 body.compact-mode #cardNnhLeft,
@@ -564,7 +563,7 @@ var CPR_DATA = {
             ▸ Lp(a) ≥125 nmol/L (≥50 mg/dL)<br>\
             ▸ hsCRP ≥2 mg/L (on ≥2 occasions)<br>\
             ▸ TG ≥175 mg/dL (non-fasting) / ≥150 mg/dL (fasting)<br>\
-            ▸ Persistent LDL-C 160–189 mg/dL, non-HDL ≥190 mg/dL, <b>ApoB ≥120 mg/dL</b>\
+            ▸ Persistent LDL-C 160–189 mg/dL, non-HDL-C ≥190–219 mg/dL, <b>ApoB ≥120 mg/dL</b>\
           </div>\
         </div>\
       </div>\
@@ -988,7 +987,7 @@ var GLOSSARY=[
   {abbr:'Q2W',full:'Every 2 Weeks',ko:'Every 2 weeks',desc:'Dosing frequency notation. Example: evolocumab 140 mg SC Q2W.'},
   {abbr:'QM',full:'Every Month (Monthly)',ko:'Monthly',desc:'Dosing frequency notation. Example: evolocumab 420 mg SC QM.'},
   {abbr:'T1DM',full:'Type 1 Diabetes Mellitus',ko:'Type 1 diabetes mellitus',desc:'Autoimmune insulin-deficient diabetes. An ASCVD risk factor. Statin-induced NODM discussion primarily applies to the T2DM/prediabetes context.'},
-  {abbr:'IBD',full:'Inflammatory Bowel Disease',ko:'Inflammatory bowel disease',desc:'A chronic inflammatory disease including Crohn\'s disease and ulcerative colitis. A risk-enhancing factor for ASCVD via systemic inflammation.'},
+  {abbr:'IBD',full:'Inflammatory Bowel Disease',ko:'Inflammatory bowel disease',desc:'A chronic inflammatory disease including Crohn\'s disease and ulcerative colitis. Increased ASCVD risk via systemic inflammation has been reported, but it is not among the 2026 ACC/AHA Table 13 risk-enhancer examples.'},
   {abbr:'NLA',full:'National Lipid Association',ko:'National Lipid Association',desc:'A professional society in lipidology and atherosclerosis. Issues recommendations on FH diagnosis/management and lipid measurement.'},
   {abbr:'SDM',full:'Shared Decision Making',ko:'Shared decision making',desc:'A process of jointly discussing risk, benefit, and patient values to reach a decision. Central to the CPR Framework, especially for the decision to start statin therapy in intermediate-risk patients.'},
   {abbr:'FDA',full:'U.S. Food and Drug Administration',ko:'U.S. Food and Drug Administration',desc:'The U.S. drug and device regulatory agency. Example: withdrew its recommendation for routine statin liver-function monitoring in 2012.'},
@@ -1492,7 +1491,7 @@ function switchCLTab(idx){
               ▸ Lp(a) ≥125 nmol/L (≥50 mg/dL)<br>
               ▸ hsCRP ≥2 mg/L (on ≥2 occasions)<br>
               ▸ TG ≥175 mg/dL (non-fasting) / ≥150 mg/dL (fasting)<br>
-              ▸ Persistent LDL-C 160–189 mg/dL, non-HDL ≥190 mg/dL, <b>ApoB ≥120 mg/dL</b>
+              ▸ Persistent LDL-C 160–189 mg/dL, non-HDL-C ≥190–219 mg/dL, <b>ApoB ≥120 mg/dL</b>
             </div>
           </div>
         </div>
@@ -1988,6 +1987,7 @@ function switchRRTab(idx){
       <label class="ck"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> On BP treatment <input type="checkbox" id="bpTx"></label>
       <label class="ck"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> Smoker <input type="checkbox" id="smoker"></label>
       <label class="ck"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> Diabetes <input type="checkbox" id="dm"></label>
+      <label class="ck"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> HIV (on stable cART) <input type="checkbox" id="enhHiv"></label>
     </div>
     <div style="margin-top:6px">
       <label class="ck"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> Established ASCVD (secondary prevention) <input type="checkbox" id="ascvdHx"></label>
@@ -2260,18 +2260,10 @@ function switchRRTab(idx){
             Details ▾<span id="inflamPanelArrow" style="display:none"></span>
           </span>
         </div>
-        <div style="font-size:11.5px;color:#888780;margin-top:1px">RA · lupus · psoriasis · inflammatory bowel disease · ankylosing spondylitis · chronic hepatitis</div>
+        <div style="font-size:11.5px;color:#888780;margin-top:1px">Systemic lupus erythematosus · rheumatoid arthritis · advanced psoriasis · inflammatory arthritis</div>
       </div>
     </label>
 
-    <!-- ── HIV (standalone item) ── -->
-    <label class="ck">
-      <input type="checkbox" class="enh" id="enhHiv">
-      <div>
-        <div style="font-weight:600;color:#1a1a18">HIV (on stable cART)</div>
-        <div class="expl" style="font-size:11.5px;color:#888780;margin-top:1px">Age 40–75: risk-independent absolute indication (Class I) · Under 40/over 75: counted only as a risk enhancer · Preferred agent: pitavastatin 4 mg</div>
-      </div>
-    </label>
     <!-- ══ Chronic Inflammatory Disease detail panel (modal, centered) ══ -->
     <div id="inflamPanel" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.55);align-items:center;justify-content:center;padding:14px" onclick="if(event.target===this)toggleInflamDetail()">
     <div style="width:100%;max-width:560px;background:#faeeda;border-radius:10px;border-left:3px solid #c9a02a;font-size:12.5px;line-height:1.75;box-shadow:0 10px 50px rgba(0,0,0,0.35);overflow:hidden">
@@ -2279,16 +2271,15 @@ function switchRRTab(idx){
       <div style="font-weight:700;color:#854f0b;margin-bottom:6px">🔥 Chronic Inflammation and ASCVD</div>
       <div style="color:#5f5e5a;margin-bottom:7px">
         Persistent systemic inflammation independently increases ASCVD risk by promoting atherosclerosis and plaque instability.<br>
-        Not included in the PREVENT equation, so it is captured separately as a risk enhancer.
+        Not included in the PREVENT equation, so it is captured separately as a risk enhancer.<br>
+        ※ List follows the 2026 ACC/AHA Table 13 examples (SLE, RA, advanced psoriasis, inflammatory arthritis).
       </div>
       <div style="background:#fff;border-radius:5px;padding:6px 8px;font-size:11.5px;line-height:1.9">
         <div style="display:grid;grid-template-columns:1fr auto;gap:1px 12px">
           <span style="font-weight:600">Rheumatoid arthritis (RA)</span><span style="color:#a32d2d;font-weight:700">RR ~1.5×</span>
           <span style="font-weight:600">Systemic lupus erythematosus (SLE)</span><span style="color:#a32d2d;font-weight:700">RR ~2–3×</span>
-          <span style="font-weight:600">Psoriasis (moderate–severe)</span><span style="color:#a32d2d;font-weight:700">RR ~1.3–1.5×</span>
-          <span style="font-weight:600">Inflammatory bowel disease (IBD)</span><span style="color:#854f0b;font-weight:700">RR ~1.2–1.4×</span>
-          <span style="font-weight:600">Ankylosing spondylitis (AS)</span><span style="color:#854f0b;font-weight:700">RR ~1.3–1.5×</span>
-          <span style="font-weight:600">Chronic hepatitis B/C</span><span style="color:#854f0b;font-weight:700">RR ~1.2–1.3×</span>
+          <span style="font-weight:600">Advanced psoriasis</span><span style="color:#a32d2d;font-weight:700">RR ~1.3–1.5×</span>
+          <span style="font-weight:600">Inflammatory arthritis (e.g., psoriatic arthritis, ankylosing spondylitis)</span><span style="color:#854f0b;font-weight:700">RR ~1.3–1.5×</span>
         </div>
       </div>
       <div style="text-align:right;margin-top:6px"><span class="text-toggle-link" onclick="event.preventDefault();event.stopPropagation();toggleInflamDetail()" style="font-size:11.5px;color:#c9a02a;cursor:pointer;font-weight:600">Close ✕</span></div>
@@ -2362,8 +2353,8 @@ function switchRRTab(idx){
     <!-- ── Table 13 #9 ── -->
     <label class="ck">
       <input type="checkbox" class="enh" id="enhLdl160">
-      <div><div style="font-weight:600;color:#1a1a18">LDL-C ≥160–189 mg/dL</div>
-      <div style="font-size:11.5px;color:#888780;margin-top:1px">or non-HDL ≥190 mg/dL / ApoB ≥120 mg/dL</div></div>
+      <div><div style="font-weight:600;color:#1a1a18">LDL-C persistently ≥160–189 mg/dL</div>
+      <div style="font-size:11.5px;color:#888780;margin-top:1px">or non-HDL-C ≥190–219 mg/dL / ApoB ≥120 mg/dL</div></div>
     </label>
 
     <!-- ── Table 13 #10 ── -->
@@ -2372,6 +2363,21 @@ function switchRRTab(idx){
       <div><div style="font-weight:600;color:#1a1a18">Reproductive Risk Markers</div>
       <div style="font-size:11.5px;color:#888780;margin-top:1px">Premature menopause &lt;45 yr · pre-eclampsia · gestational diabetes/hypertension · preterm delivery</div></div>
     </label>
+
+    <!-- ══ Diabetes-specific risk enhancers (if diabetes present) ══ -->
+    <div id="dmEnhBlock" style="margin-top:10px;padding-top:9px;border-top:2px solid #185fa5">
+      <div style="font-size:13.5px;font-weight:700;color:#185fa5;margin-bottom:2px">Check if diabetes is present</div>
+      <div class="expl" style="font-size:11.5px;color:#5f5e5a;margin-bottom:5px;line-height:1.5">Diabetes-specific risk enhancers (2026 ACC/AHA Table 17) — diabetes age 20–39: ≥1 → consider a moderate-intensity statin (COR 2b). Not used for the age 40–75 decision. Not included in the general risk-enhancer count above.</div>
+      <label class="ck"><input type="checkbox" class="dmEnh" id="dmEnhDur"><div><div style="font-weight:600;color:#1a1a18">Long duration: ≥10 y type 2 or ≥20 y type 1 diabetes</div></div></label>
+      <label class="ck"><input type="checkbox" class="dmEnh" id="dmEnhAlb"><div><div style="font-weight:600;color:#1a1a18">Albuminuria ≥30 μg/mg creatinine <span class="expl" style="font-size:11.5px;font-weight:400;color:#5f5e5a">— auto-checked from UACR input</span></div></div></label>
+      <label class="ck"><input type="checkbox" class="dmEnh" id="dmEnhEgfr"><div><div style="font-weight:600;color:#1a1a18">eGFR &lt;60 mL/min/1.73m² <span class="expl" style="font-size:11.5px;font-weight:400;color:#5f5e5a">— auto-checked from eGFR input</span></div></div></label>
+      <label class="ck"><input type="checkbox" class="dmEnh" id="dmEnhRet"><div><div style="font-weight:600;color:#1a1a18">Retinopathy</div></div></label>
+      <label class="ck"><input type="checkbox" class="dmEnh" id="dmEnhNeu"><div><div style="font-weight:600;color:#1a1a18">Neuropathy</div></div></label>
+      <label class="ck"><input type="checkbox" class="dmEnh" id="dmEnhAbi"><div><div style="font-weight:600;color:#1a1a18">ABI &lt;0.9 <span class="expl" style="font-size:11.5px;font-weight:400;color:#5f5e5a">— linked to the ABI check under Subclinical ASCVD</span></div></div></label>
+      <div style="margin-top:6px;padding-top:6px;border-top:1px dashed #d0cec8">
+        <div class="expl" style="font-size:11.5px;color:#5f5e5a;margin-top:1px">Diabetes age 40–75: PREVENT ≥10% <b>or</b> multiple risk factors → high-intensity statin (COR 2a). The guideline does not define the number or type of risk factors, so this tool treats <b>≥2 general risk enhancers (the "Selected risk enhancers" count above)</b> as multiple risk factors and escalates the intensity.</div>
+      </div>
+    </div>
 
     <!-- CKD under 40: automatically applied as a risk enhancer -->
     <div id="ckdEnhDisplay" style="display:none;align-items:flex-start;gap:6px;padding:3px 0 2px;font-size:13.5px;color:#1a1a18">
@@ -3984,12 +3990,6 @@ function accRec(age,risk,ldl,dm,ascvd,vhr,nE,tg,smoker,bpTx,r30,egfr){
       ldlTgt: fhHighRisk ? 70 : 100,
       nhTgt: fhHighRisk ? 100 : 130};
   }
-  if(age<30){
-    if(ldl>=160||nE>=1)return{c:'mo',l:'Moderate intensity',ind:'Under age 30 — FH or high-risk features',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],n:'New in 2026: for FH or LDL ≥160 under age 30 — early treatment reduces cumulative risk',nt:'info',ldlTgt:100,nhTgt:130};
-    return{c:'no',l:'Lifestyle modification',ind:'Under age 30',d:[],n:'Without LDL ≥160 or premature family history, prioritize lifestyle modification. 30-year risk assessment available.',nt:'info',ldlTgt:130,nhTgt:160};
-  }
-  if(age>79)return{c:'mo',l:'Moderate intensity (individualized)',ind:'Over age 79',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],n:'Consider polypharmacy, myopathy risk, and fall risk. Reasonable to continue an existing statin. Individualize clinically.',nt:'info',ldlTgt:100,nhTgt:130};
-  if(ldl<70)return{c:'no',l:'Individualized judgment',ind:'LDL < 70 mg/dL',d:[],n:'LDL is already low. Check for secondary causes and underlying conditions.',nt:'info',ldlTgt:null,nhTgt:null};
   // ── End-stage renal disease (CKD stage 5 / dialysis level, eGFR<15) ──
   // Takes precedence even in diabetes over the "risk-independent statin" principle: the 4D trial (diabetic dialysis
   // patients) and AURORA trial found statins significantly lowered LDL but did not confirm a reduction in major
@@ -4000,45 +4000,78 @@ function accRec(age,risk,ldl,dm,ascvd,vhr,nE,tg,smoker,bpTx,r30,egfr){
       n:'eGFR '+egfr+' (end-stage renal disease/dialysis level): the cardiovascular benefit of newly starting a statin is not established (2026 guideline, based on the 4D and AURORA trials).'+dmPart+' If already on a statin, continuing may be reasonable. Individualized consultation with nephrology is needed. Because this evidence base does not show a benefit from lowering LDL-C to any specific value, there is no established LDL-C target.',
       nt:'warn',ldlTgt:null,nhTgt:null,noTargetReason:'esrd'};
   }
-  if(dm){
-    if(risk>=10){
-      if(ldl<70)return{c:'no',l:'LDL target already met (pre-treatment)',ind:'Diabetes + PREVENT-ASCVD ≥10% — pre-treatment LDL already at target',d:[],
-        n:'Pre-treatment LDL-C is already at or below the &lt;70 mg/dL target.<br>The 2026 ACC/AHA "regardless of LDL-C level" principle means statin therapy should be considered irrespective of the LDL value, but the guideline does not explicitly require starting a statin <b>when the target is already met before treatment</b>. Lifestyle modification and periodic follow-up are recommended.',
-        nt:'suc',ldlTgt:70,nhTgt:100};
-      return{c:'hi',l:'High intensity',ind:'Diabetes + PREVENT-ASCVD ≥10%',d:['Atorvastatin 40–80 mg','Rosuvastatin 20–40 mg'],n:'High-intensity statin. LDL target &lt;70 mg/dL.',nt:'warn',ldlTgt:70,nhTgt:100};
+  // ══ Diabetes (no ASCVD) — 2026 ACC/AHA "Adults With Diabetes and Without ASCVD" algorithm ══
+  // Applies regardless of LDL-C level (age 40–75, COR 1). eGFR<15 (dialysis level) is handled above.
+  if(dm && age>=20){
+    const dmEnhN = document.querySelectorAll('.dmEnh:checked').length;
+    const multiRF = nE>=2; // ≥2 general risk enhancers = multiple ASCVD risk factors (this tool's operational rule). Diabetes-specific enhancers are used only at age 20–39
+    const r30ok = r30!=null && Number.isFinite(r30) && age>=30 && age<=59;
+    const hiTail='<br>▸ If goals not met, add ezetimibe <b>or</b> a PCSK9 mAb (equivalent options, COR 2b) — goal ≥50% reduction, LDL-C &lt;70, non-HDL-C &lt;100, optional apoB &lt;70.';
+    const ipeOn = tg>=150 && tg<=500;
+    const ipeTail = ipeOn ? '<br>▸ <b>TG '+tg+' mg/dL (150–500)</b>: if TG remains elevated after LDL-C &lt;100 is reached, add IPE (icosapent ethyl 2 g bid) (COR 2b). If LDL-C &lt;100 is not reached, first intensify LDL-C-lowering therapy (COR 1).' : '';
+    // Age 20–39
+    if(age<40){
+      const c30 = age>=30 && (risk>=3 || (r30ok && r30>=10));
+      if(c30) return{c:'mo',l:'Moderate intensity',ind:'Diabetes age 30–39 + '+(risk>=3?'PREVENT 10-yr ≥3%':'30-yr ≥10%')+' (COR 2a)',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],
+        n:'Diabetes age 30–39 with PREVENT-ASCVD 10-yr ≥3% or 30-yr ≥10% → starting a moderate-intensity statin is reasonable (COR 2a).',nt:'info',ldlTgt:100,nhTgt:130,dmPath:true};
+      if(dmEnhN>=1) return{c:'mo',l:'Consider moderate intensity',ind:'Diabetes age 20–39 + '+dmEnhN+' diabetes-specific risk enhancer(s) (COR 2b)',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],
+        n:'Diabetes-specific risk enhancer(s) present (duration, albuminuria, eGFR&lt;60, retinopathy, neuropathy, ABI&lt;0.9) → a moderate-intensity statin may be considered (COR 2b).',nt:'info',ldlTgt:100,nhTgt:130,dmPath:true};
+      return{c:'lo',l:'Lifestyle modification',ind:'Diabetes age 20–39 — no statin criteria met',d:[],
+        n:'Healthy behavior counseling (COR 1). '+(age>=30?'PREVENT 10-yr &lt;3% and 30-yr &lt;10%, and ':'')+'no diabetes-specific risk enhancers → statin not indicated (displayed LDL target is for reference only).',nt:'info',ldlTgt:130,nhTgt:160,dmPath:true};
     }
-    if(risk>=5){
-      if(ldl<100)return{c:'no',l:'LDL target already met (pre-treatment)',ind:'Diabetes + PREVENT-ASCVD 5–10% — pre-treatment LDL already at target',d:[],
-        n:'Pre-treatment LDL-C is already at or below the &lt;100 mg/dL target.<br>The 2026 ACC/AHA "regardless of LDL-C level" principle means statin therapy should be considered irrespective of the LDL value, but the guideline does not explicitly require starting a statin <b>when the target is already met before treatment</b>. Lifestyle modification and periodic follow-up are recommended.',
-        nt:'suc',ldlTgt:100,nhTgt:130};
-      return{c:'mo',l:'Moderate intensity',ind:'Diabetes + PREVENT-ASCVD 5–10%',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg','Pitavastatin 2–4 mg'],n:'Moderate-intensity statin recommended. LDL target &lt;100 mg/dL.',nt:'info',ldlTgt:100,nhTgt:130};
+    // Age >75
+    if(age>75){
+      return{c:'mo',l:'Consider moderate intensity',ind:'Diabetes age >75 — moderate-intensity statin after benefit-risk discussion (COR 1 → COR 2b)',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],
+        n:'Diabetes over age 75: first engage in a benefit-risk discussion (COR 1), then starting a moderate-intensity statin may be considered (COR 2b). Consider polypharmacy, myopathy, falls and life expectancy. Continuing an existing statin is reasonable.',nt:'info',ldlTgt:100,nhTgt:130,dmPath:true};
     }
-    // risk < 5% — low-risk diabetes (the case in question)
-    if(ldl<100)return{c:'no',l:'LDL target already met (pre-treatment)',ind:'Diabetes (age 30–79, PREVENT-ASCVD &lt;5%) — pre-treatment LDL already at target',d:[],
-      n:'Pre-treatment LDL-C is already at or below the &lt;100 mg/dL target.<br>The 2026 ACC/AHA "regardless of LDL-C level" principle means statin therapy should be considered in diabetes even at low LDL, but the guideline does not explicitly require starting a statin <b>when the target is already met before treatment</b>. Lifestyle modification and periodic follow-up are recommended.',
-      nt:'suc',ldlTgt:100,nhTgt:130};
-    return{c:'mo',l:'Moderate intensity',ind:'Diabetes (age 30–79, PREVENT-ASCVD < 5%)',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],n:'Diabetes alone, low risk: moderate intensity recommended. LDL target &lt;100.',nt:'info',ldlTgt:100,nhTgt:130};
+    // Age 40–75: moderate intensity regardless of LDL-C (COR 1) → high intensity if PREVENT ≥10% or multiple risk factors (COR 2a)
+    if(risk>=10 || multiRF){
+      const why=[risk>=10?'PREVENT-ASCVD ≥10%':null, multiRF?nE+' risk enhancers (≥2)':null].filter(Boolean).join(' · ');
+      return{c:'hi',l:'High intensity',ind:'Diabetes age 40–75 + '+why+' (COR 2a)',d:['Atorvastatin 40–80 mg','Rosuvastatin 20–40 mg'],
+        n:'Diabetes age 40–75: start a statin regardless of LDL-C (COR 1); '+why+' → increase to high intensity (COR 2a). Goals: ≥50% LDL-C reduction, LDL-C &lt;70 mg/dL, non-HDL-C &lt;100 mg/dL, optional apoB &lt;70 mg/dL.'+hiTail+ipeTail,
+        nt:'warn',ldlTgt:70,nhTgt:100,abTgt:70,pct:'50',dmPath:true,ipe:ipeOn};
+    }
+    return{c:'mo',l:'Moderate intensity',ind:'Diabetes age 40–75 (COR 1)',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg','Pitavastatin 2–4 mg'],
+      n:'Diabetes age 40–75: start a moderate-intensity statin regardless of LDL-C (COR 1). Goals: ≥30–49% LDL-C reduction, LDL-C &lt;100 mg/dL, non-HDL-C &lt;130 mg/dL, optional apoB &lt;90 mg/dL. Continue moderate intensity if PREVENT &lt;10% and &lt;2 risk enhancers (COR 1).',
+      nt:'info',ldlTgt:100,nhTgt:130,abTgt:90,pct:'30–49',dmPath:true};
   }
+  if(age<30){
+    if(ldl>=160||nE>=1)return{c:'mo',l:'Moderate intensity',ind:'Under age 30 — FH or high-risk features',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],n:'New in 2026: for FH or LDL ≥160 under age 30 — early treatment reduces cumulative risk',nt:'info',ldlTgt:100,nhTgt:130};
+    return{c:'no',l:'Lifestyle modification',ind:'Under age 30',d:[],n:'Without LDL ≥160 or premature family history, prioritize lifestyle modification. 30-year risk assessment available.',nt:'info',ldlTgt:130,nhTgt:160};
+  }
+  if(age>79)return{c:'mo',l:'Moderate intensity (individualized)',ind:'Over age 79',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],n:'Consider polypharmacy, myopathy risk, and fall risk. Reasonable to continue an existing statin. Individualize clinically.',nt:'info',ldlTgt:100,nhTgt:130};
+  if(ldl<70)return{c:'no',l:'Individualized judgment',ind:'LDL < 70 mg/dL',d:[],n:'LDL is already low. Check for secondary causes and underlying conditions.',nt:'info',ldlTgt:null,nhTgt:null};
   /* Primary prevention — PREVENT-ASCVD thresholds (2026) */
   if(risk<3){
-    // 30-year ASCVD ≥10%: does not change the prescription — shown as reference only (note30yr flag)
-    // Rationale: NNT 300+ has limited clinical meaning. 2026 Class IIb = "may be considered" level.
-    // Prescribing stays based on 10-year risk; lifestyle modification is emphasized + shared decision-making reference is offered.
-    const has30note = r30>=10&&age>=30&&age<=59;
+    // 2026 ACC/AHA primary-prevention algorithm: even at low risk (<3%), LDL-C 160–189 or 30-yr ASCVD ≥10%
+    // → moderate-intensity statin (COR 2a) — goal ≥30% reduction, LDL-C <100, non-HDL-C <130
+    const r30hi = r30!=null && Number.isFinite(r30) && r30>=10 && age>=30 && age<=59; // PREVENT 30-yr risk valid only at age 30–59
+    if(ldl>=160 || r30hi){
+      const why = [ldl>=160?'LDL-C 160–189 mg/dL':null, r30hi?'30-yr ASCVD ≥10%':null].filter(Boolean).join(' · ');
+      return{c:'mo',l:'Moderate intensity',ind:'Low risk < 3% + '+why+' (COR 2a)',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],
+        n:'2026 ACC/AHA primary-prevention algorithm: 10-yr risk &lt;3% but '+why+' → starting a moderate-intensity statin is reasonable (COR 2a). Goals: ≥30% LDL-C reduction, LDL-C &lt;100 mg/dL, non-HDL-C &lt;130 mg/dL.',
+        nt:'info',ldlTgt:100,nhTgt:130,pct:'30'};
+    }
     return{c:'lo',l:'Lifestyle modification',ind:'Low risk < 3% (PREVENT-ASCVD)',d:[],
-      n:'Routine statin not needed. Diet, exercise, smoking cessation. LDL target &lt;130 mg/dL.',
-      nt:'info',ldlTgt:130,nhTgt:160,note30yr:has30note,r30val:r30};
+      n:'Healthy behavior counseling (COR 1). Statin not indicated — the algorithm sets no separate LDL-C target (the displayed &lt;130 is for reference only).',
+      nt:'info',ldlTgt:130,nhTgt:160};
   }
   if(risk<5){
-    if(nE>=1||ldl>=160)return{c:'mo',l:'Consider moderate intensity',ind:'Borderline risk (3–5%) + risk-enhancing factor',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],n:'Shared decision between clinician and patient. LDL target &lt;100 mg/dL. If CAC=0, reasonable to defer for 10 years.',nt:'info',ldlTgt:100,nhTgt:130};
-    return{c:'no',l:'Lifestyle modification',ind:'Borderline risk (3–5%)',d:[],n:'Low preference for statin. If no risk enhancers on re-review, a CAC score can help guide the decision. LDL target &lt;100.',nt:'info',ldlTgt:100,nhTgt:130};
+    // 2026 algorithm: "Decide to start LLT?" (shared decision) → YES: moderate-intensity statin (COR 2a) / NO: CAC assessment (COR 1)
+    // Risk enhancers inform the decision only (not an automatic criterion)
+    const bdTail='<br>▸ <b>If LLT is started</b>: moderate-intensity statin (COR 2a), goals ≥30% LDL-C reduction · &lt;100 mg/dL · non-HDL-C &lt;130 mg/dL<br>▸ <b>If LLT is not started</b>: CAC assessment (COR 1) — CAC &gt;0 → start statin (COR 1); CAC 0 → healthy behavior counseling and repeat CAC in 3–7 years';
+    if(nE>=1||ldl>=160)return{c:'mo',l:'Consider moderate intensity',ind:'Borderline risk (3–<5%) — shared decision (risk enhancer present)',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],n:'Risk enhancer(s) present, supporting a shared decision toward starting a statin.'+bdTail,nt:'info',ldlTgt:100,nhTgt:130,pct:'30'};
+    return{c:'no',l:'Shared decision',ind:'Borderline risk (3–<5%) — start statin or assess CAC',d:[],n:'Decide with the patient whether to start LLT.'+bdTail,nt:'info',ldlTgt:100,nhTgt:130,pct:'30'};
   }
   if(risk<10){
-    // 2026 ACC/AHA: intermediate risk + enhancer still defaults to moderate intensity/<100; CAC reclassification intensifies to high intensity/<70
-    if(nE>=2||tg>=175)return{c:'mo',l:'Moderate intensity, consider intensifying if needed',ind:'Intermediate risk (5–<10%) + multiple risk-enhancing factors',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg','Pitavastatin 2–4 mg'],n:'Moderate-intensity statin recommended. Default LDL target &lt;100 mg/dL. With multiple risk enhancers, consider stepping up to high intensity or reclassifying with CAC — LDL target &lt;70 mg/dL if CAC ≥100 is confirmed.',nt:'warn',ldlTgt:100,nhTgt:130};
-    return{c:'mo',l:'Moderate intensity',ind:'Intermediate risk (5–<10%)',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg','Pitavastatin 2–4 mg','Pravastatin 40–80 mg'],n:'Moderate-intensity statin recommended. LDL target &lt;100 mg/dL. Deferral reasonable if CAC=0.',nt:'info',ldlTgt:100,nhTgt:130};
+    // 2026 algorithm: start moderate- to high-intensity statin (COR 1) + goals ≥30–50% reduction, LDL-C <100, non-HDL-C <130 (COR 2a)
+    // If the decision is uncertain → CAC (COR 1): CAC >0 statin, CAC 0 counseling + repeat in 3–7 y
+    const imTail='Goals: ≥30–50% LDL-C reduction, LDL-C &lt;100 mg/dL, non-HDL-C &lt;130 mg/dL (COR 2a).<br>▸ If the decision to start is uncertain, assess CAC (COR 1): CAC &gt;0 → start statin; CAC 0 → healthy behavior counseling and repeat CAC in 3–7 years.';
+    const imDrugs=['Atorvastatin 10–20 mg (moderate)','Rosuvastatin 5–10 mg (moderate)','Atorvastatin 40–80 mg (high)','Rosuvastatin 20–40 mg (high)'];
+    if(nE>=2||tg>=175)return{c:'mo',l:'Moderate-to-high intensity',ind:'Intermediate risk (5–<10%) + multiple risk-enhancing factors',d:imDrugs,n:'Start a moderate- to high-intensity statin (COR 1). With multiple risk enhancers, lean toward high intensity. '+imTail,nt:'warn',ldlTgt:100,nhTgt:130,pct:'30–50'};
+    return{c:'mo',l:'Moderate-to-high intensity',ind:'Intermediate risk (5–<10%)',d:imDrugs,n:'Start a moderate- to high-intensity statin (COR 1). '+imTail,nt:'info',ldlTgt:100,nhTgt:130,pct:'30–50'};
   }
-  return{c:'hi',l:'High intensity',ind:'High risk ≥ 10% (PREVENT-ASCVD)',d:['Atorvastatin 40–80 mg','Rosuvastatin 20–40 mg'],n:'High-intensity statin recommended. LDL target &lt;70 mg/dL.',nt:'warn',ldlTgt:70,nhTgt:100};
+  return{c:'hi',l:'High intensity',ind:'High risk ≥ 10% (PREVENT-ASCVD)',d:['Atorvastatin 40–80 mg','Rosuvastatin 20–40 mg'],n:'Start a high-intensity statin (COR 1). Goals: ≥50% LDL-C reduction, LDL-C &lt;70 mg/dL, non-HDL-C &lt;100 mg/dL (COR 2a).<br>▸ If not met, add ezetimibe (COR 2a) → if still not met, add a PCSK9 mAb or bempedoic acid (COR 2b).',nt:'warn',ldlTgt:70,nhTgt:100,pct:'50'};
 }
 
 /* ── ACC/AHA PREVENT Risk Classification ── */
@@ -4061,19 +4094,22 @@ function preventClass(primRisk,ldl,ascvd,dm,egfr,age,sex,sbp,bpTx,smoker,hdl,nE,
     return{cat:dm?'Diabetes + end-stage renal disease (dialysis level)':'End-stage renal disease (CKD stage 5 / dialysis level)',l:null,nh:null,ab:null,c:'#854f0b',bg:'#faeeda',
       basis:`eGFR ${egfr} (CKD stage 5 / dialysis level): cardiovascular benefit of newly starting a statin is not established (4D/AURORA trials, 2026 guideline). ${dm?'This takes precedence even with diabetes present. ':''}Continuing is recommended if already on a statin. Individualized consultation with nephrology is needed. No established target, since this evidence base does not show benefit from lowering LDL-C to any specific value (reference) PREVENT-ASCVD ${primRisk.toFixed(1)}%`,row:null};
   }
-  if(dm){
-    if(primRisk>=10) return{cat:'Diabetes + high PREVENT risk',l:70,nh:100,ab:70,c:'#a32d2d',bg:'#fcebeb',basis:`Diabetes + PREVENT-ASCVD ${primRisk.toFixed(1)}% ≥10%`,row:'pr-high'};
-    return{cat:'Diabetes',l:100,nh:130,ab:100,c:'#854f0b',bg:'#faeeda',basis:`Diabetes: at least moderate-intensity statin, PREVENT-ASCVD ${primRisk.toFixed(1)}%`,row:primRisk>=5?'pr-inter':primRisk>=3?'pr-border':'pr-low'};
+  if(dm && age>=40 && age<=75){
+    const _mrf=nE>=2;
+    if(primRisk>=10||_mrf) return{cat:primRisk>=10?'Diabetes + high PREVENT risk':'Diabetes + ≥2 risk enhancers',l:70,nh:100,ab:70,c:'#a32d2d',bg:'#fcebeb',basis:`Diabetes + ${primRisk>=10?`PREVENT-ASCVD ${primRisk.toFixed(1)}% ≥10%`:'≥2 risk enhancers'}: high-intensity statin (COR 2a), LDL-C <70 · non-HDL-C <100 · apoB <70`,row:'pr-high'};
+    return{cat:'Diabetes',l:100,nh:130,ab:90,c:'#854f0b',bg:'#faeeda',basis:`Diabetes age 40–75: moderate-intensity statin (COR 1), LDL-C <100 · non-HDL-C <130 · apoB <90, PREVENT-ASCVD ${primRisk.toFixed(1)}%`,row:primRisk>=5?'pr-inter':primRisk>=3?'pr-border':'pr-low'};
   }
+  if(dm && age>75) return{cat:'Diabetes (age >75)',l:100,nh:130,ab:100,c:'#854f0b',bg:'#faeeda',basis:`Diabetes age >75: moderate-intensity statin after benefit-risk discussion (COR 2b), PREVENT-ASCVD ${primRisk.toFixed(1)}%`,row:null};
   if(primRisk<3){
-    if(r30>=10&&age>=30&&age<=59) return{cat:'Low risk',l:130,nh:160,ab:100,c:'#185fa5',bg:'#eaf2fb',
-      basis:`PREVENT-ASCVD 10-yr ${primRisk.toFixed(1)}% (<3%) · (reference) 30-yr ${r30!=null?r30.toFixed(1):'—'}% — prioritize lifestyle modification, note the 30-year risk for reference`,row:'pr-low'};
+    const r30hiC=(r30!=null&&r30>=10&&age>=30&&age<=59);
+    if(r30hiC||ldl>=160) return{cat:'Low risk + statin criteria',l:100,nh:130,ab:100,c:'#185fa5',bg:'#eaf2fb',
+      basis:`PREVENT-ASCVD 10-yr ${primRisk.toFixed(1)}% (<3%)${ldl>=160?' · LDL-C 160–189':''}${r30hiC?` · 30-yr ${r30.toFixed(1)}% ≥10%`:''} — moderate-intensity statin (COR 2a), LDL-C <100 / non-HDL-C <130`,row:'pr-low'};
     return{cat:'Low risk',l:130,nh:160,ab:100,c:'#3b6d11',bg:'#eaf3de',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% <3%`,row:'pr-low'};
   }
   if(primRisk<5) return{cat:'Borderline risk',l:100,nh:130,ab:100,c:'#3b6d11',bg:'#eaf3de',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% 3–<5%. Consider statin if risk enhancer present`,row:'pr-border'};
   if(primRisk<10){
     // 2026 ACC/AHA: intermediate risk + enhancer defaults to target <100; intensifies to <70 after CAC reclassification
-    if(nE>=2||tg>=175||ldl>=160) return{cat:'Intermediate risk + risk enhancer',l:100,nh:130,ab:100,c:'#854f0b',bg:'#faeeda',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% 5–<10% + risk enhancer: default target <100, intensifies to <70 if reclassified as high risk (e.g., CAC ≥100)`,row:'pr-inter'};
+    if(nE>=2||tg>=175||ldl>=160) return{cat:'Intermediate risk + risk enhancer',l:100,nh:130,ab:100,c:'#854f0b',bg:'#faeeda',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% 5–<10% + risk enhancer: moderate- to high-intensity statin, target <100, intensifies to <70 if reclassified as high risk (e.g., CAC ≥100)`,row:'pr-inter'};
     return{cat:'Intermediate risk',l:100,nh:130,ab:100,c:'#854f0b',bg:'#faeeda',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% 5–<10%`,row:'pr-inter'};
   }
   return{cat:'High risk',l:70,nh:100,ab:70,c:'#a32d2d',bg:'#fcebeb',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% ≥10%`,row:'pr-high'};
@@ -4155,7 +4191,7 @@ function makeFlow(acc,preventCat,ldl,ascvd,vhr,onStatin=false,baselineLdl=null,t
   }
 
   // ── [Bug D] Distinguish "consider high intensity" vs "maximally tolerated high intensity" ──
-  const isHiConsider = acc.c==='hi' && acc.l && acc.l.includes('consider');
+  const isHiConsider = acc.c==='hi' && acc.l && /consider/i.test(acc.l);
   const s1name = onStatin
     ? 'Current statin therapy status'
     : acc.c==='hi'
@@ -4178,7 +4214,7 @@ function makeFlow(acc,preventCat,ldl,ascvd,vhr,onStatin=false,baselineLdl=null,t
     : '';
 
   let html=`<div style="font-size:12.5px;color:#888780;margin-bottom:10px">
-    <b style="color:#1a1a18">LDL target: &lt;${tgt} mg/dL</b> &nbsp;·&nbsp; ${onStatin?'Current':'Pre-treatment'} LDL: <b>${ldl} mg/dL</b>
+    <b style="color:#1a1a18">LDL target: &lt;${tgt} mg/dL</b>${acc.pct?` &nbsp;·&nbsp; <b style="color:#1a1a18">Reduction goal: ≥${acc.pct}%</b>`:''} &nbsp;·&nbsp; ${onStatin?'Current':'Pre-treatment'} LDL: <b>${ldl} mg/dL</b>
     ${onStatin&&baselineLdl!==null?`&nbsp;·&nbsp; Pre-treatment LDL: <b>${baselineLdl} mg/dL</b>`:''}
     &nbsp;·&nbsp; Additional reduction needed: <b style="color:${ldl>tgt?'#a32d2d':'#3b6d11'}">${Math.max(0,ldl-tgt)} mg/dL</b>
   </div><div class="sw">`;
@@ -4187,7 +4223,7 @@ function makeFlow(acc,preventCat,ldl,ascvd,vhr,onStatin=false,baselineLdl=null,t
 
   // ── [Bug E] Primary-prevention PCSK9 note ──
   const pcsk9Note = isPrimaryPrev
-    ? `PCSK9 mAb expected LDL: ~${afterPCSK9} mg/dL · Bempedoic acid expected LDL: ~${afterBemp} mg/dL<br>⚠ PCSK9 inhibitors do not meet domestic insurance-coverage criteria for primary prevention — an out-of-pocket prescription, or re-confirming FH/ASCVD status, may be needed. Bempedoic acid can be selectively considered for statin intolerance.`
+    ? `PCSK9 mAb expected LDL: ~${afterPCSK9} mg/dL · Bempedoic acid expected LDL: ~${afterBemp} mg/dL<br>2026 ACC/AHA primary prevention: if goals are not met after ezetimibe, add a PCSK9 mAb <b>or</b> bempedoic acid (equivalent options, COR 2b).<br>⚠ PCSK9 inhibitors do not meet domestic insurance-coverage criteria for primary prevention — an out-of-pocket prescription, or re-confirming FH/ASCVD status, may be needed.`
     : `PCSK9 mAb expected LDL: ~${afterPCSK9} mg/dL · Bempedoic acid expected LDL: ~${afterBemp} mg/dL<br>New in 2026: based on CLEAR OUTCOMES evidence. Bempedoic acid use in statin-intolerant patients (Class 2a). Insurance criteria: FH or ASCVD + LDL ≥70 despite maximally tolerated statin + ezetimibe.`;
 
   if(isLifestyle){
@@ -4203,8 +4239,19 @@ function makeFlow(acc,preventCat,ldl,ascvd,vhr,onStatin=false,baselineLdl=null,t
       afterEze,needEze,!needEze,'');
     const needPCSK9=afterEze>tgt;
     html+=rboxtop(4,'PCSK9 inhibitor or bempedoic acid',
-      `<b>PCSK9 mAb</b> (~55% additional LDL reduction): evolocumab (Repatha®) / alirocumab (Praluent®)<br><b>Bempedoic acid</b> (~20% additional LDL reduction, alternative for statin intolerance): 180 mg/day ± combination with ezetimibe`,
+      `<b>PCSK9 mAb</b> (~55% additional LDL reduction): evolocumab (Repatha®) / alirocumab (Praluent®)<br><b>Bempedoic acid</b> (~20% additional LDL reduction${isPrimaryPrev?', equivalent option to a PCSK9 mAb':', alternative for statin intolerance'}): 180 mg/day ± combination with ezetimibe`,
       afterPCSK9,needPCSK9,!needPCSK9,pcsk9Note);
+  } else if(acc.dmPath){
+    // Diabetes algorithm: if not at goal on statin, add ezetimibe or a PCSK9 mAb (equivalent options, COR 2b)
+    const needAdd=s1ldl>tgt;
+    const afterP=Math.round(startLdl*0.45);
+    html+=rbox(2,'Add ezetimibe or a PCSK9 mAb <span style="font-size:11.5px;font-weight:400;color:#854f0b">(equivalent options, COR 2b)</span>',
+      `<b>Ezetimibe</b> 10 mg/day (additional ~15–20% LDL reduction, expected ~${afterEze} mg/dL)<br><b>PCSK9 mAb</b> evolocumab 140 mg Q2W / alirocumab 75–150 mg Q2W (additional ~55% LDL reduction, expected ~${afterP} mg/dL)`,
+      afterEze,needAdd,!needAdd,
+      'Goals: ≥50% LDL-C reduction, &lt;70 mg/dL, non-HDL-C &lt;100, optional apoB &lt;70 (diabetes algorithm).<br>⚠ PCSK9 inhibitors do not meet domestic insurance-coverage criteria for primary prevention — out-of-pocket prescription needed.');
+    if(acc.ipe){
+      html+=`<div class="nb info" style="margin-top:6px;font-size:12px">▸ <b>Consider adding IPE (icosapent ethyl 2 g bid) (COR 2b)</b> — if TG 150–500 mg/dL persists after LDL-C &lt;100 mg/dL is reached. If LDL-C &lt;100 is not reached, first intensify LDL-C-lowering therapy (COR 1).</div>`;
+    }
   } else {
     // Moderate/high-intensity statin is Step 1 (or already on a statin)
     const needEze=s1ldl>tgt;
@@ -4215,7 +4262,7 @@ function makeFlow(acc,preventCat,ldl,ascvd,vhr,onStatin=false,baselineLdl=null,t
     // Inclisiran: show Step 4 for ASCVD, VHR, or FH (LDL≥190) cases
     const showInclisiran = ascvd || vhr || isFH;
     html+=rbox(3,'PCSK9 inhibitor or bempedoic acid',
-      `<b>PCSK9 mAb</b> (~55% additional LDL reduction): evolocumab (Repatha®) 140 mg SC Q2W / 420 mg QM &nbsp;|&nbsp; alirocumab (Praluent®) 75–150 mg SC Q2W<br><b>Bempedoic acid</b> (~20% additional LDL reduction, alternative for statin intolerance): 180 mg/day ± combination with ezetimibe`,
+      `<b>PCSK9 mAb</b> (~55% additional LDL reduction): evolocumab (Repatha®) 140 mg SC Q2W / 420 mg QM &nbsp;|&nbsp; alirocumab (Praluent®) 75–150 mg SC Q2W<br><b>Bempedoic acid</b> (~20% additional LDL reduction${isPrimaryPrev?', equivalent option to a PCSK9 mAb':', alternative for statin intolerance'}): 180 mg/day ± combination with ezetimibe`,
       afterPCSK9,needPCSK9,!needPCSK9,pcsk9Note);
     if(showInclisiran){
       const needIncl=afterEze>tgt;
@@ -4241,7 +4288,7 @@ function recHTML(r,src){
     return h;
   }
   // Moderate/high-intensity statin: keep the existing layout
-  let h=`<div class="rb ${r.c}"><div class="rsrc">${src}</div><div class="ri">${r.l} statin</div><div class="rind">${r.ind||''}</div>`;
+  let h=`<div class="rb ${r.c}"><div class="rsrc">${src}</div><div class="ri">${/^Consider /.test(r.l)?'Consider '+r.l.replace(/^Consider /,'')+' statin':r.l+' statin'}</div><div class="rind">${r.ind||''}</div>`;
   if(r.d.length)h+=`<ul class="rdrugs">${r.d.map(d=>`<li>${d}</li>`).join('')}</ul>`;
   h+=`</div>`;
   if(r.n)h+=`<div class="nb ${r.nt}">${r.n}</div>`;
@@ -4289,13 +4336,15 @@ function treatmentStateNote(onStatin, hasPostRisk, hasPostLdl){
 }
 function recommendationVerb(acc){
   if(!acc || !acc.l) return 'recommended';
-  if(acc.l.includes('consider') || acc.l.includes('individualized') || acc.c==='no' || acc.c==='lo') return 'considered';
+  if(/consider/i.test(acc.l) || /individualized/i.test(acc.l) || acc.c==='no' || acc.c==='lo') return 'considered';
   return 'recommended';
 }
 function statinSentence(acc){
   if(!acc) return 'statin therapy is judged individually';
-  if(acc.c==='hi') return acc.l.includes('consider') ? 'high-intensity statin therapy is considered' : 'high-intensity statin therapy is recommended';
-  if(acc.c==='mo') return acc.l.includes('consider') ? 'moderate-intensity statin therapy is considered' : 'moderate-intensity statin therapy is recommended';
+  if(acc.c==='hi') return /consider/i.test(acc.l) ? 'high-intensity statin therapy is considered' : 'high-intensity statin therapy is recommended';
+  if(acc.c==='mo' && /moderate-to-high/i.test(acc.l)) return 'moderate- to high-intensity statin therapy is recommended';
+  if(acc.c==='mo') return /consider/i.test(acc.l) ? 'moderate-intensity statin therapy is considered' : 'moderate-intensity statin therapy is recommended';
+  if(acc.c==='no' && acc.l==='Shared decision') return 'a shared decision is made between starting a statin and CAC assessment';
   if(acc.c==='lo' || acc.c==='no') return 'lifestyle modification is prioritized, with statin therapy considered on an individual basis';
   return `${acc.l} statin therapy is ${recommendationVerb(acc)}`;
 }
@@ -4308,11 +4357,18 @@ function addonSentence(currentLdl, target, acc, onStatin){
   }
   if(acc && (acc.c==='hi' || acc.c==='mo')){
     const start = onStatin ? 'if the target is not met, after intensifying to / confirming a maximally tolerated statin' : 'if the target is not met, after starting a statin or adjusting to the maximally tolerated dose';
+    if(acc.dmPath && acc.c==='hi') return `${start}, considering adding ezetimibe or a PCSK9 mAb (equivalent options, COR 2b)`;
     if(target<=55) return `${start}, adding ezetimibe, then considering adding a PCSK9 inhibitor or inclisiran`;
     if(target<=70) return `${start}, adding ezetimibe, and considering a PCSK9 inhibitor or inclisiran if needed`;
     return `${start}, considering adding ezetimibe`;
   }
   return 'if the target is not met, intensifying lifestyle modification and reassessing statin indications should be considered';
+}
+function dmEnhCheckedLabels(){
+  return [...document.querySelectorAll('.dmEnh:checked')].map(el=>{
+    const b=el.closest('label')?.querySelector('div > div');
+    return b ? b.childNodes[0].textContent.trim() : '';
+  }).filter(Boolean);
 }
 function makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt, acc, onStatin, currentTg, absInds, anyAbs, carotidOverride, activeEnhLabels, ckdActive, egfr, ascvd, vhr}){
   const riskLabel = preventCat && preventCat.cat ? preventCat.cat : riskBandText(prevAscvd);
@@ -4434,7 +4490,7 @@ function makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt
 
   // Risk-enhancer list sentence (1 bullet line)
   const enhLine = (activeEnhLabels && activeEnhLabels.length > 0 && (acc.c==='mo'||acc.c==='hi') && !anyAbs && !carotidOverride)
-    ? `Confirmed risk enhancers (${activeEnhLabels.length}): ${activeEnhLabels.join('; ')}`
+    ? `Confirmed risk enhancers (${activeEnhLabels.length}): ${activeEnhLabels.join('; ')}${(acc.dmPath && (age<40||age>75))?' (not used in the diabetes-pathway decision)':''}`
     : '';
 
   if(anyAbs && absInds){
@@ -4459,12 +4515,30 @@ function makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt
     const prevPrefix = ageOutOfRange
       ? `Meets a risk-category-independent statin indication, so treatment is recommended ${ageRangeNote}`
       : `${preventLine}, but meets a risk-category-independent statin indication below, so treatment is recommended regardless of the PREVENT score`;
+    // Diabetes age 40–75: show general risk enhancers and whether they escalated intensity (diabetes-specific enhancers not used)
+    let dmAbsEnhLine='', dmAbsSpecLine='';
+    if(activeInds.some(i=>i.key==='dm')){
+      const labs=activeEnhLabels||[];
+      if(labs.length){
+        const head=`Confirmed risk enhancers (${labs.length}): ${labs.join('; ')}`;
+        if(labs.length>=2 && prevAscvd<10)
+          dmAbsEnhLine=`${head} — treated as multiple risk factors, escalating the recommendation from moderate- to high-intensity statin (COR 2a) (LDL-C goal <70, non-HDL-C <100, apoB <70)`;
+        else if(labs.length>=2)
+          dmAbsEnhLine=`${head} — already a high-intensity candidate given PREVENT ≥10%; the multiple-risk-factor criterion is also met`;
+        else
+          dmAbsEnhLine=`${head} — one enhancer does not change the intensity (≥2 escalates to high intensity)`;
+      }
+      const spec=dmEnhCheckedLabels();
+      if(spec.length) dmAbsSpecLine=`Diabetes-specific risk enhancers (Table 17) (${spec.length}): ${spec.join('; ')} (not used in the age 40–75 decision)`;
+    }
     const hivPrefLine = (activeInds.some(i=>i.key==='hiv') && strengthText==='moderate-intensity')
       ? `Preferred agent: pitavastatin 4 mg (CYP3A4-independent → minimal protease-inhibitor interaction, REPRIEVE trial)`
       : '';
     return bl([
       prevPrefix,
       `Indication: ${indNames}`,
+      dmAbsEnhLine,
+      dmAbsSpecLine,
       `Pre-treatment LDL-C is ${ldl} mg/dL, and ${txState}the LDL-C target is <${dispLdlTgt} mg/dL`,
       `${strengthText} statin therapy is recommended, and ${addonText}`,
       hivPrefLine,
@@ -4508,6 +4582,12 @@ function makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt
     ]);
   }
 
+  // Diabetes age 20–39: recommendation changed by diabetes-specific risk enhancers (Table 17)
+  let dmEnhLine='';
+  if(acc.dmPath && age<40 && acc.c==='mo' && /diabetes-specific risk enhancer/.test(acc.ind||'')){
+    const dmLabs=dmEnhCheckedLabels();
+    dmEnhLine=`Diabetes-specific risk enhancer(s) (2026 ACC/AHA Table 17) confirmed (${dmLabs.length}): ${dmLabs.join('; ')} — in diabetes age 20–39, this changed the recommendation from healthy behavior counseling to considering a moderate-intensity statin (COR 2b)`;
+  }
   const statinText = statinSentence(acc);
   const riskPrefix = ageOutOfRange
     ? ageRangeNote
@@ -4515,6 +4595,7 @@ function makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt
   return bl([
     riskPrefix,
     enhLine,
+    dmEnhLine,
     `Pre-treatment LDL-C is ${ldl} mg/dL, and ${txState}the current LDL-C target is judged to be <${dispLdlTgt} mg/dL`,
     `Accordingly, ${statinText}, and ${addonText}`,
     ckdLine,
@@ -4757,6 +4838,19 @@ function upd(){
     }
   }
 
+  // Auto-check diabetes-specific risk enhancers (UACR ≥30, eGFR <60, ABI <0.9)
+  (function(){
+    function auto(id,cond){
+      const el=g(id); if(!el) return;
+      if(cond){ el.checked=true; el.dataset.autoChecked='true'; }
+      else if(el.dataset.autoChecked==='true'){ el.checked=false; el.dataset.autoChecked='false'; }
+    }
+    const _u=parseFloat(g('uacr')?.value), _e=parseFloat(g('egfr')?.value);
+    auto('dmEnhAlb', !isNaN(_u) && _u>=30);
+    auto('dmEnhEgfr', !isNaN(_e) && _e>0 && _e<60);
+    auto('dmEnhAbi', !!g('abiCheck')?.checked);
+  })();
+
   // Auto-check LDL — reflect immediately from LDL alone even if other required fields are missing
   if(g('enhLdl160')){
     const _ldl=parseFloat(ldlRaw);
@@ -4798,7 +4892,7 @@ function upd(){
           {key:'ldl190',label:'LDL-C ≥ 190 mg/dL (severe hypercholesterolemia / suspected FH)',sub:'Excessive cumulative LDL exposure; rule out familial hypercholesterolemia',active:_ldl190,strength:'High intensity'},
           {key:'cac',label:'CAC ≥100 / ≥1000 — sufficient condition for statin',sub:'2026 ACC/AHA Section 4.2.7: a sufficient condition for starting a statin regardless of PREVENT risk',active:false},
           {key:'ckd',label:'CKD (eGFR 15–59) + age ≥ 40',sub:'Traditional risk equations underestimate risk in CKD',active:false},
-          {key:'dm',label:'Diabetes (age 30–79)',sub:'Diabetes alone warrants at least moderate-intensity statin',active:false},
+          {key:'dm',label:'Diabetes (age 40–75)',sub:'Moderate-intensity statin regardless of LDL-C level (COR 1)',active:false},
           {key:'hiv',label:'HIV (stable cART, age 40–75)',sub:'REPRIEVE trial: pitavastatin 4 mg → 35% MACE reduction',active:false},
         ];
         let html='';
@@ -4849,7 +4943,7 @@ function upd(){
     const nonHdl = (tc && hdl) ? (tc - hdl) : null;
     const apobMeasEarly = parseFloat(g('apob')?.value) || null;
     const ldlTrigger  = ldl >= 160 && ldl < 190;
-    const nonHdlTrigger = nonHdl !== null && nonHdl >= 190 && ldl < 190;
+    const nonHdlTrigger = nonHdl !== null && nonHdl >= 190 && nonHdl < 220 && ldl < 190;
     const apobTrigger = apobMeasEarly !== null && apobMeasEarly >= 120 && ldl < 190;
     const shouldAutoCheck = ldlTrigger || nonHdlTrigger || apobTrigger;
 
@@ -5058,7 +5152,8 @@ function upd(){
   const anyCAC=cac1to99Active||cacActive||cac1000Active;
   const ckdAbs=(egfr>=15&&egfr<60&&age>=40);
   const dmEsrd=dm&&egfr>0&&egfr<15; // End-stage renal disease (dialysis level) — takes precedence over diabetes' "risk-independent" principle
-  const dmAbs=dm&&age>=30&&age<=79&&!dmEsrd;
+  const dmMrf=nE>=2;
+  const dmAbs=dm&&age>=40&&age<=75&&!dmEsrd;
   const hivChecked=g('enhHiv')?.checked??false;
   const hivAbs=hivChecked&&age>=40&&age<=75;
   const ldl190Abs=ldl>=190;
@@ -5072,7 +5167,7 @@ function upd(){
     if(cacActive&&!ascvd) notes.push('CAC ≥100 or ≥75th percentile — sufficient condition for statin, LDL<70 target');
     if(cac1to99Active&&!ascvd) notes.push('CAC 1–99 — moderate-intensity statin reasonable (COR 2a), LDL<100 target');
     if(ckdAbs&&!ascvd) notes.push('CKD (eGFR 15–59) + age≥40 — risk-independent moderate-intensity statin');
-    if(dmAbs&&!ascvd) notes.push(`Diabetes — risk-independent ${primRisk>=10?'high-intensity':'moderate-intensity'} statin`);
+    if(dmAbs&&!ascvd) notes.push(`Diabetes age 40–75 — ${(primRisk>=10||dmMrf)?'high-intensity':'moderate-intensity'} statin regardless of LDL level and risk`);
     if(dmEsrd&&!ascvd) notes.push('Diabetes + end-stage renal disease (eGFR<15, dialysis level) — benefit of newly starting a statin is unclear, individualized consultation needed (takes precedence over diabetes\' risk-independent principle)');
     if(hivAbs&&!ascvd) notes.push('HIV (stable cART, age 40–75) — risk-independent moderate-intensity statin (Class I)');
     return notes;
@@ -5209,7 +5304,7 @@ function upd(){
       acc={c:'hi',l:'High intensity',ind:'CAC ≥100 or ≥75th percentile — sufficient condition for statin (LDL <70)',
            d:['Atorvastatin 40–80 mg','Rosuvastatin 20–40 mg'],
            n:'CAC ≥100: 2026 ACC/AHA Section 4.2.7 — a sufficient condition for statin regardless of PREVENT risk (COR 1, LOE B-R). LDL &lt;70 mg/dL, non-HDL-C &lt;100 mg/dL target. CAC 100–299 and 300–999 are separately numbered formal recommendations in the guideline, but share the same numeric target, so they are merged into one here.',
-           nt:'warn',ldlTgt:70,nhTgt:100};
+           nt:'warn',ldlTgt:70,nhTgt:100,pct:'50'};
     }
     // CAC 1–99 & <75th percentile: 2026 ACC/AHA COR 2a — moderate-intensity statin is reasonable, LDL <100
     // Initiating treatment itself is COR 1 (recommended) once CAC>0; this specific intensity/goal is COR 2a (reasonable)
@@ -5219,7 +5314,7 @@ function upd(){
       acc={c:'mo',l:'Moderate intensity (reasonable)',ind:'CAC 1–99 & <75th percentile — moderate-intensity statin reasonable (COR 2a, LDL <100)',
            d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],
            n:'CAC 1–99: a finding under 2026 ACC/AHA Section 4.2.7 (Recommendation 4, COR 2a, LOE B-R). Once CAC&gt;0 is confirmed, initiating treatment itself is recommended (COR 1, Section 4.2.3.6); moderate intensity with an LDL &lt;100 target is reasonable (COR 2a). Distinct from the generic Table 13 risk enhancers, once CAC is confirmed by testing this applies regardless of the PREVENT risk number.',
-           nt:'info',ldlTgt:100,nhTgt:130};
+           nt:'info',ldlTgt:100,nhTgt:130,pct:'30'};
     }
     // CAC = 0: 2026 ACC/AHA COR 2a — reasonable to defer a statin in borderline/intermediate risk
     // Guideline text: "the absence of CAC may not be that reassuring in those with multiple first-degree relatives with premature ASCVD"
@@ -5321,10 +5416,10 @@ function upd(){
     {
       key:'dm',
       active:dmAbs,
-      label:`Diabetes (age 30–79)`,
-      detail:dmAbs?`Age ${age}, diabetes — ${primRisk>=10?'PREVENT ≥10%: high-intensity':'PREVENT &lt;10%: moderate-intensity'} statin recommended`:(dmEsrd?`Diabetes present but eGFR ${egfr} (end-stage renal disease/dialysis level) — benefit of newly starting a statin is unclear, individualized consultation needed`:(dm?`Diabetes present but age ${age} (outside the applicable 30–79 range)`:'Not applicable')),
-      strength:dm&&primRisk>=10?'High intensity':'Moderate intensity',
-      basis:'Diabetes alone warrants at least moderate-intensity statin; treatment starts regardless of the PREVENT score. However, in end-stage renal disease (dialysis level), evidence for new initiation is unclear (4D/AURORA trials)'
+      label:`Diabetes (age 40–75)`,
+      detail:dmAbs?`Age ${age}, diabetes — ${primRisk>=10?'PREVENT ≥10%: high-intensity (COR 2a)':dmMrf?'≥2 risk enhancers: high-intensity (COR 2a)':'moderate-intensity (COR 1)'} statin recommended`:(dmEsrd?`Diabetes present but eGFR ${egfr} (end-stage renal disease/dialysis level) — benefit of newly starting a statin is unclear, individualized consultation needed`:(dm?`Diabetes present but age ${age} (outside 40–75 — ages 20–39 and >75 follow separate pathways)`:'Not applicable')),
+      strength:dm&&(primRisk>=10||dmMrf)?'High intensity':'Moderate intensity',
+      basis:'Diabetes age 40–75: start a moderate-intensity statin regardless of LDL-C and PREVENT (COR 1). However, in end-stage renal disease (dialysis level), evidence for new initiation is unclear (4D/AURORA trials)'
     },
     {
       key:'hiv',
@@ -5332,7 +5427,7 @@ function upd(){
       label:`HIV (stable cART, age 40–75)`,
       detail:hivAbs
         ?`Age ${age}, HIV + stable cART — moderate-intensity statin recommended. Preferred: pitavastatin 4 mg (CYP3A4-independent, minimal PI interaction)`
-        :(hivChecked?`HIV checked — age ${age} (outside the 40–75 range: counted only as a risk enhancer)`:'Not applicable'),
+        :(hivChecked?`HIV checked — age ${age} (outside the 40–75 range: not covered by this recommendation)`:'Not applicable'),
       strength:'Moderate intensity',
       basis:'REPRIEVE trial: pitavastatin 4 mg → 35% MACE reduction (2026 ACC/AHA Class I, NEJM 2023)'
     }
@@ -5426,7 +5521,9 @@ function upd(){
   }
 
   // ApoB target — kept consistent with the LDL target (2026 ACC/AHA: <55/<70/<90)
-  const dispAbTgt = dispLdlTgt==null ? null : (dispLdlTgt<=55 ? 55 : dispLdlTgt<=70 ? 70 : 100);
+  const dispAbTgt = dispLdlTgt==null ? null
+    : (acc.abTgt!=null && dispLdlTgt===acc.ldlTgt) ? acc.abTgt   // Diabetes: moderate intensity apoB <90, high intensity <70 (2026 algorithm)
+    : (dispLdlTgt<=55 ? 55 : dispLdlTgt<=70 ? 70 : 100);
 
   const curLabel=onStatin?'On-treatment':'Current/pre-treatment';
   const showCur = onStatin; // Blank the current/on-treatment column if not on a statin
@@ -5556,7 +5653,7 @@ function upd(){
     const carotidOverride = g('carotidPlaque')?.checked && !ascvd && !anyAbs && primRisk >= 3 && primRisk < 5;
     const activeEnhLabels = [...document.querySelectorAll('.enh:checked')].map(el=>{
       const label = el.closest('label');
-      return label ? label.textContent.trim().replace(/\s+/g,' ') : '';
+      return label ? label.textContent.replace(/Details\s*▾/g,'').trim().replace(/\s+/g,' ') : '';
     }).filter(Boolean);
     if(ckdEnh) activeEnhLabels.push('CKD (eGFR 15–59, age <40 — risk enhancer)');
     g('emrSummary').value=makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt, acc, onStatin, currentTg, absInds, anyAbs, carotidOverride, activeEnhLabels, ckdActive:(ckdAbs||ckdEnh), egfr});
@@ -5616,7 +5713,7 @@ function renderAbsIndsDefault(){
     {key:'ldl190',label:'LDL-C ≥ 190 mg/dL (severe hypercholesterolemia / suspected FH)', sub:'Excess cumulative LDL exposure; familial hypercholesterolemia should be considered'},
     {key:'cac',   label:'CAC ≥100 / ≥1000 — sufficient condition for statin therapy', sub:'2026 ACC/AHA Section 4.2.7: sufficient condition to initiate statin therapy regardless of PREVENT risk'},
     {key:'ckd',   label:'CKD (eGFR 15–59) + age ≥ 40', sub:'Traditional risk equations underestimate risk in CKD; dialysis patients require separate judgment'},
-    {key:'dm',    label:'Diabetes (age 30–79)',                 sub:'Diabetes alone warrants at least moderate-intensity statin; initiate regardless of PREVENT score'},
+    {key:'dm',    label:'Diabetes (age 40–75)',                 sub:'Moderate-intensity statin regardless of LDL-C level and PREVENT (COR 1)'},
     {key:'hiv',   label:'HIV (stable on cART, age 40–75)',         sub:'REPRIEVE trial: pitavastatin 4 mg → 35% reduction in MACE'},
   ];
   let html='';
@@ -6108,8 +6205,10 @@ function clearAllInputs(){
   ['bpTx','smoker','dm','ascvdHx','veryHigh','onStatin',
    'prsCheck','enhCkm','enhInflam','enhHiv','enhLpa','enhHsCRP',
    'enhTg175','enhLdl160','abiCheck','carotidPlaque','cacMain',
-   'cac0','cac1to99','cacCheck','cac1000'].forEach(function(id){
+   'cac0','cac1to99','cacCheck','cac1000',
+   'dmEnhDur','dmEnhAlb','dmEnhEgfr','dmEnhRet','dmEnhNeu','dmEnhAbi','dmMultiRF'].forEach(function(id){
     var el=document.getElementById(id);
+    if(el){ el.dataset.autoChecked='false'; }
     if(el && el.checked){ el.checked=false; el.dispatchEvent(new Event('change')); }
   });
   document.querySelectorAll('input.enh[type=checkbox]').forEach(function(el){
