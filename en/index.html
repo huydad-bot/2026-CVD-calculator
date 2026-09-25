@@ -1968,7 +1968,7 @@ function switchRRTab(idx){
       <div class="field"><span class="fl"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> Triglycerides (TG)</span><div style="display:flex;align-items:center;gap:6px"><input type="number" autocomplete="off" id="tg" min="0" max="2000" style="width:80px;flex:none"><span style="font-size:12.5px;color:#888780;white-space:nowrap">mg/dL</span></div></div>
     </div>
     <div style="display:flex;flex-wrap:wrap;align-items:center;gap:2px 10px;margin:2px 0 4px">
-      <label class="ck" style="margin-bottom:0"><input type="checkbox" id="tgNonfasting"> <span style="font-size:12.5px;font-weight:600">Nonfasting (postprandial) sample</span></label>
+      <label class="ck" style="margin-bottom:0"><span style="font-size:12.5px;font-weight:600">Nonfasting (postprandial) sample</span> <input type="checkbox" id="tgNonfasting"></label>
       <span class="expl" style="font-size:11.5px;color:#5f5e5a">Default is a fasting sample. Check if drawn after a meal — the TG threshold changes from fasting ≥150 to nonfasting ≥175 mg/dL, and a repeat fasting sample is needed to confirm persistent hypertriglyceridemia or FCS (LDL-C uses directly measured values)</span>
     </div>
     <div id="htgInputs" style="display:none;margin:0 0 6px;padding:6px 10px;background:#fbf7ee;border:1px solid #ecd9b0;border-radius:8px">
@@ -2015,12 +2015,12 @@ function switchRRTab(idx){
 
     <!-- Currently on a statin -->
     <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;margin-top:6px">
-      <label class="ck" style="display:inline-flex;margin-bottom:0"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:4px;vertical-align:middle">●</span><input type="checkbox" id="onStatin"> <b>Currently on a statin</b></label>
+      <label class="ck" style="display:inline-flex;margin-bottom:0"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:4px;vertical-align:middle">●</span> Currently on a statin <input type="checkbox" id="onStatin"></label>
       <span class="expl" style="font-size:12.5px;color:#185fa5;font-weight:600;line-height:1.5">If the pre-treatment lipid values are unknown, you can select the <span class="text-toggle-link" onclick="var b=document.getElementById('statinIntensityBox');var s=getComputedStyle(b).display==='none';b.style.display=s?'block':'none';document.body.style.overflow=s?'hidden':'';this.querySelector('.chev').textContent=s?' ▴':' ▾';" style="color:#0c447c;font-weight:800;text-decoration:underline;text-decoration-style:dotted;cursor:pointer">statin intensity<span class="chev" id="statinIntensityChev" style="font-size:10.5px"> ▾</span></span> currently used to calculate and enter an estimated baseline.</span>
     </div>
     <!-- Statin intolerance (2026 Figure 18) -->
     <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px">
-      <label class="ck" style="display:inline-flex;margin-bottom:0"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:4px;vertical-align:middle">●</span><input type="checkbox" id="statinIntol"> <b>Statin intolerance</b></label>
+      <label class="ck" style="display:inline-flex;margin-bottom:0"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:4px;vertical-align:middle">●</span> Statin intolerance <input type="checkbox" id="statinIntol"></label>
       <span class="expl" style="font-size:12px;color:#5f5e5a;line-height:1.5">Muscle symptoms on ≥2 statins, 1 at the lowest approved dose (2026 Figure 18, secondary causes excluded) · <span class="text-toggle-link" onclick="toggleSamsDetail()" style="color:#185fa5;font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px">SAMS details</span></span>
     </div>
     <!-- Statin intensity table (click to expand) -->
