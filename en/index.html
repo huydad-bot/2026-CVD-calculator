@@ -2364,8 +2364,22 @@ function switchRRTab(idx){
       <div style="font-size:11.5px;color:#888780;margin-top:1px">Premature menopause &lt;45 yr · pre-eclampsia · gestational diabetes/hypertension · preterm delivery</div></div>
     </label>
 
+    <!-- CKD under 40: automatically applied as a risk enhancer -->
+    <div id="ckdEnhDisplay" style="display:none;align-items:flex-start;gap:6px;padding:3px 0 2px;font-size:13.5px;color:#1a1a18">
+      <span style="display:inline-flex;align-items:center;justify-content:center;width:13px;height:13px;flex-shrink:0;margin-top:1px;background:#e24b4a;border-radius:3px">
+        <svg width="9" height="9" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span>CKD (eGFR 15–59) <span style="color:#888780;font-size:11.5px">— under age 40: automatically applied as a risk enhancer (based on eGFR input)</span></span>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-bottom:8px;border-bottom:1px solid #e2e0db">
+      <span style="font-size:12.5px;color:#5f5e5a">Risk enhancers selected:
+        <span id="enhCount" style="font-weight:700;color:#1a1a18;background:#f0efe9;padding:1px 7px;border-radius:5px;margin-left:3px">0</span>
+      </span>
+      <span style="font-size:11.5px;color:#888780">— applied immediately when changed</span>
+    </div>
+
     <!-- ══ Diabetes-specific risk enhancers (if diabetes present) ══ -->
-    <div id="dmEnhBlock" style="margin-top:10px;padding-top:9px;border-top:2px solid #185fa5">
+    <div id="dmEnhBlock" style="margin-top:10px">
       <div style="font-size:13.5px;font-weight:700;color:#185fa5;margin-bottom:2px">Check if diabetes is present</div>
       <div class="expl" style="font-size:11.5px;color:#5f5e5a;margin-bottom:5px;line-height:1.5">Diabetes-specific risk enhancers (2026 ACC/AHA Table 17) — diabetes age 20–39: ≥1 → consider a moderate-intensity statin (COR 2b). Not used for the age 40–75 decision. Not included in the general risk-enhancer count above.</div>
       <label class="ck"><input type="checkbox" class="dmEnh" id="dmEnhDur"><div><div style="font-weight:600;color:#1a1a18">Long duration: ≥10 y type 2 or ≥20 y type 1 diabetes</div></div></label>
@@ -2379,19 +2393,6 @@ function switchRRTab(idx){
       </div>
     </div>
 
-    <!-- CKD under 40: automatically applied as a risk enhancer -->
-    <div id="ckdEnhDisplay" style="display:none;align-items:flex-start;gap:6px;padding:3px 0 2px;font-size:13.5px;color:#1a1a18">
-      <span style="display:inline-flex;align-items:center;justify-content:center;width:13px;height:13px;flex-shrink:0;margin-top:1px;background:#e24b4a;border-radius:3px">
-        <svg width="9" height="9" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </span>
-      <span>CKD (eGFR 15–59) <span style="color:#888780;font-size:11.5px">— under age 40: automatically applied as a risk enhancer (based on eGFR input)</span></span>
-    </div>
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding-top:8px;border-top:1px solid #e2e0db">
-      <span style="font-size:12.5px;color:#5f5e5a">Risk enhancers selected:
-        <span id="enhCount" style="font-weight:700;color:#1a1a18;background:#f0efe9;padding:1px 7px;border-radius:5px;margin-left:3px">0</span>
-      </span>
-      <span style="font-size:11.5px;color:#888780">— applied immediately when changed</span>
-    </div>
     </div><!-- /riskEnhancerBody -->
   </div>
 
