@@ -97,7 +97,6 @@ body.compact-mode .rind,
 body.compact-mode .expl,
 body.compact-mode #cardCprBanner,
 body.compact-mode #cardCprSubtitle,
-body.compact-mode #cardAbsInd,
 body.compact-mode #cardSpecialStatin,
 body.compact-mode #cardNntLeft,
 body.compact-mode #cardNnhLeft,
@@ -567,7 +566,7 @@ var CPR_DATA = {
             ▸ Lp(a) ≥125 nmol/L (≥50 mg/dL)<br>\
             ▸ hsCRP ≥2 mg/L (2회 이상)<br>\
             ▸ TG ≥175 mg/dL (비공복) / ≥150 mg/dL (공복)<br>\
-            ▸ LDL-C 지속 160–189 mg/dL, non-HDL ≥190 mg/dL, <b>apoB ≥120 mg/dL</b>\
+            ▸ LDL-C 지속 160–189 mg/dL, non-HDL-C ≥190–219 mg/dL, <b>apoB ≥120 mg/dL</b>\
           </div>\
         </div>\
       </div>\
@@ -991,7 +990,7 @@ var GLOSSARY=[
   {abbr:'Q2W',full:'Every 2 Weeks',ko:'2주마다 1회',desc:'투약 빈도 표기. 예) Evolocumab 140 mg SC Q2W.'},
   {abbr:'QM',full:'Every Month (Monthly)',ko:'매월 1회',desc:'투약 빈도 표기. 예) Evolocumab 420 mg SC QM.'},
   {abbr:'T1DM',full:'Type 1 Diabetes Mellitus',ko:'제1형 당뇨병',desc:'자가면역에 의한 인슐린 분비 결핍성 당뇨. ASCVD 위험인자. 스타틴 유발 NODM 논의는 주로 T2DM/전당뇨 맥락에 해당.'},
-  {abbr:'IBD',full:'Inflammatory Bowel Disease',ko:'염증성 장질환',desc:'크론병·궤양성 대장염을 포함하는 만성 염증질환. 전신 염증으로 ASCVD 위험증강인자.'},
+  {abbr:'IBD',full:'Inflammatory Bowel Disease',ko:'염증성 장질환',desc:'크론병·궤양성 대장염을 포함하는 만성 염증질환. 전신 염증으로 ASCVD 위험 증가가 보고되나, 2026 ACC/AHA Table 13 위험증강인자 예시에는 포함되지 않음.'},
   {abbr:'NLA',full:'National Lipid Association',ko:'미국지질학회',desc:'지질·죽상경화 분야 전문학회. FH 진단·관리, 지질 측정 등에 대한 권고 발표.'},
   {abbr:'SDM',full:'Shared Decision Making',ko:'공유 의사결정',desc:'위험·이익·환자 가치를 함께 논의하여 결정하는 과정. CPR Framework의 핵심이며 특히 중간위험군 스타틴 시작 결정에 권고.'},
   {abbr:'FDA',full:'U.S. Food and Drug Administration',ko:'미국 식품의약국',desc:'미국 의약품·의료기기 규제기관. 예) 2012년 스타틴 정기 간기능 모니터링 권고 철회.'},
@@ -1497,7 +1496,7 @@ function switchCLTab(idx){
               ▸ Lp(a) ≥125 nmol/L (≥50 mg/dL)<br>
               ▸ hsCRP ≥2 mg/L (2회 이상)<br>
               ▸ TG ≥175 mg/dL (비공복) / ≥150 mg/dL (공복)<br>
-              ▸ LDL-C 지속 160–189 mg/dL, non-HDL ≥190 mg/dL, <b>apoB ≥120 mg/dL</b>
+              ▸ LDL-C 지속 160–189 mg/dL, non-HDL-C ≥190–219 mg/dL, <b>apoB ≥120 mg/dL</b>
             </div>
           </div>
         </div>
@@ -1996,6 +1995,7 @@ function switchRRTab(idx){
       <label class="ck"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 고혈압 치료중 <input type="checkbox" id="bpTx"></label>
       <label class="ck"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 흡연 <input type="checkbox" id="smoker"></label>
       <label class="ck"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 당뇨병 <input type="checkbox" id="dm"></label>
+      <label class="ck"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> HIV (안정 cART 중) <input type="checkbox" id="enhHiv"></label>
     </div>
     <div style="margin-top:6px">
       <label class="ck"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> ASCVD 기왕력 (2차 예방) <input type="checkbox" id="ascvdHx"></label>
@@ -2273,18 +2273,10 @@ function switchRRTab(idx){
             상세 ▾<span id="inflamPanelArrow" style="display:none"></span>
           </span>
         </div>
-        <div class="expl" style="font-size:11.5px;color:#888780;margin-top:1px">RA · 루푸스 · 건선 · 염증성 장질환 · 강직성 척추염 · 만성 간염</div>
+        <div class="expl" style="font-size:11.5px;color:#888780;margin-top:1px">전신홍반루푸스 · 류마티스 관절염 · 진행성 건선 · 염증성 관절염</div>
       </div>
     </label>
 
-    <!-- ── HIV (독립 항목) ── -->
-    <label class="ck">
-      <input type="checkbox" class="enh" id="enhHiv">
-      <div>
-        <div style="font-weight:600;color:#1a1a18">HIV (안정 cART 중)</div>
-        <div class="expl" style="font-size:11.5px;color:#888780;margin-top:1px">40–75세: 위험도 무관 절대 적응증 (Class I) · 40세 미만·75세 초과: 위험증강인자로만 반영 · 선호 약제: Pitavastatin 4 mg</div>
-      </div>
-    </label>
     <!-- ══ 만성 염증성 질환 상세 패널 (모달, 화면 중앙 확대) ══ -->
     <div id="inflamPanel" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.55);align-items:center;justify-content:center;padding:14px" onclick="if(event.target===this)toggleInflamDetail()">
     <div style="width:100%;max-width:560px;background:#faeeda;border-radius:10px;border-left:3px solid #c9a02a;font-size:12.5px;line-height:1.75;box-shadow:0 10px 50px rgba(0,0,0,0.35);overflow:hidden">
@@ -2292,16 +2284,15 @@ function switchRRTab(idx){
       <div style="font-weight:700;color:#854f0b;margin-bottom:6px">🔥 만성 염증과 ASCVD</div>
       <div style="color:#5f5e5a;margin-bottom:7px">
         지속적 전신 염증은 죽상경화 촉진·플라크 불안정화를 통해 ASCVD 위험을 독립적으로 증가시킨다.<br>
-        PREVENT 공식에 포함되지 않으므로 별도 위험증강인자로 반영.
+        PREVENT 공식에 포함되지 않으므로 별도 위험증강인자로 반영.<br>
+        ※ 목록은 2026 ACC/AHA Table 13 원문 예시(SLE, RA, advanced psoriasis, inflammatory arthritis) 기준.
       </div>
       <div style="background:#fff;border-radius:5px;padding:6px 8px;font-size:11.5px;line-height:1.9">
         <div style="display:grid;grid-template-columns:1fr auto;gap:1px 12px">
           <span style="font-weight:600">류마티스 관절염 (RA)</span><span style="color:#a32d2d;font-weight:700">RR ~1.5×</span>
           <span style="font-weight:600">전신홍반루푸스 (SLE)</span><span style="color:#a32d2d;font-weight:700">RR ~2–3×</span>
-          <span style="font-weight:600">건선 (중등도–중증)</span><span style="color:#a32d2d;font-weight:700">RR ~1.3–1.5×</span>
-          <span style="font-weight:600">염증성 장질환 (IBD)</span><span style="color:#854f0b;font-weight:700">RR ~1.2–1.4×</span>
-          <span style="font-weight:600">강직성 척추염 (AS)</span><span style="color:#854f0b;font-weight:700">RR ~1.3–1.5×</span>
-          <span style="font-weight:600">만성 간염 B/C</span><span style="color:#854f0b;font-weight:700">RR ~1.2–1.3×</span>
+          <span style="font-weight:600">진행성 건선 (advanced psoriasis)</span><span style="color:#a32d2d;font-weight:700">RR ~1.3–1.5×</span>
+          <span style="font-weight:600">염증성 관절염 (예: 건선관절염·강직성 척추염)</span><span style="color:#854f0b;font-weight:700">RR ~1.3–1.5×</span>
         </div>
       </div>
       <div style="text-align:right;margin-top:6px"><span class="text-toggle-link" onclick="event.preventDefault();event.stopPropagation();toggleInflamDetail()" style="font-size:11.5px;color:#c9a02a;cursor:pointer;font-weight:600">닫기 ✕</span></div>
@@ -2375,8 +2366,8 @@ function switchRRTab(idx){
     <!-- ── Table 13 #9 ── -->
     <label class="ck">
       <input type="checkbox" class="enh" id="enhLdl160">
-      <div><div style="font-weight:600;color:#1a1a18">LDL-C ≥160–189 mg/dL</div>
-      <div class="expl" style="font-size:11.5px;color:#888780;margin-top:1px">또는 non-HDL ≥190 mg/dL / ApoB ≥120 mg/dL</div></div>
+      <div><div style="font-weight:600;color:#1a1a18">LDL-C 지속 ≥160–189 mg/dL</div>
+      <div class="expl" style="font-size:11.5px;color:#888780;margin-top:1px">또는 non-HDL-C ≥190–219 mg/dL / ApoB ≥120 mg/dL</div></div>
     </label>
 
     <!-- ── Table 13 #10 ── -->
@@ -2385,6 +2376,22 @@ function switchRRTab(idx){
       <div><div style="font-weight:600;color:#1a1a18">생식 위험인자 (Reproductive risk markers)</div>
       <div class="expl" style="font-size:11.5px;color:#888780;margin-top:1px">조기 폐경 &lt;45세 · 자간전증 · 임신성 당뇨/고혈압 · 조산</div></div>
     </label>
+
+    <!-- ══ 당뇨병 특이 위험증강인자 (당뇨병 있는 경우) ══ -->
+    <div id="dmEnhBlock" style="margin-top:10px;padding-top:9px;border-top:2px solid #185fa5">
+      <div style="font-size:13.5px;font-weight:700;color:#185fa5;margin-bottom:2px">당뇨병이 있는 경우 체크</div>
+      <div class="expl" style="font-size:11.5px;color:#5f5e5a;margin-bottom:5px;line-height:1.5">당뇨병 특이 위험증강인자 (2026 ACC/AHA Table 17) — 20–39세 당뇨병 스타틴 판단(COR 2b)에 사용. 위 일반 위험증강인자 개수에는 포함되지 않음.</div>
+      <label class="ck"><input type="checkbox" class="dmEnh" id="dmEnhDur"><div><div style="font-weight:600;color:#1a1a18">당뇨병 유병기간: 제2형 ≥10년 또는 제1형 ≥20년</div></div></label>
+      <label class="ck"><input type="checkbox" class="dmEnh" id="dmEnhAlb"><div><div style="font-weight:600;color:#1a1a18">알부민뇨 ≥30 μg/mg creatinine <span class="expl" style="font-size:11.5px;font-weight:400;color:#5f5e5a">— UACR 입력 시 자동 체크</span></div></div></label>
+      <label class="ck"><input type="checkbox" class="dmEnh" id="dmEnhEgfr"><div><div style="font-weight:600;color:#1a1a18">eGFR &lt;60 mL/min/1.73m² <span class="expl" style="font-size:11.5px;font-weight:400;color:#5f5e5a">— eGFR 입력 시 자동 체크</span></div></div></label>
+      <label class="ck"><input type="checkbox" class="dmEnh" id="dmEnhRet"><div><div style="font-weight:600;color:#1a1a18">망막병증</div></div></label>
+      <label class="ck"><input type="checkbox" class="dmEnh" id="dmEnhNeu"><div><div style="font-weight:600;color:#1a1a18">신경병증</div></div></label>
+      <label class="ck"><input type="checkbox" class="dmEnh" id="dmEnhAbi"><div><div style="font-weight:600;color:#1a1a18">ABI &lt;0.9 <span class="expl" style="font-size:11.5px;font-weight:400;color:#5f5e5a">— Subclinical ASCVD의 ABI 체크와 연동</span></div></div></label>
+      <div style="margin-top:6px;padding-top:6px;border-top:1px dashed #d0cec8">
+        <label class="ck"><input type="checkbox" id="dmMultiRF"><div><div style="font-weight:600;color:#1a1a18">다수의 ASCVD 위험인자 (의사 판단)</div>
+        <div class="expl" style="font-size:11.5px;color:#5f5e5a;margin-top:1px">40–75세 당뇨병: PREVENT ≥10% <b>또는</b> 다수 위험인자 → 고강도 스타틴(COR 2a). 원문은 개수·항목을 정의하지 않으므로 임상 판단으로 체크.</div></div></label>
+      </div>
+    </div>
 
     <!-- CKD 40세 미만: 위험증강인자 자동 반영 -->
     <div id="ckdEnhDisplay" style="display:none;align-items:flex-start;gap:6px;padding:3px 0 2px;font-size:13.5px;color:#1a1a18">
@@ -3990,12 +3997,6 @@ function accRec(age,risk,ldl,dm,ascvd,vhr,nE,tg,smoker,bpTx,r30,egfr){
       ldlTgt: fhHighRisk ? 70 : 100,
       nhTgt: fhHighRisk ? 100 : 130};
   }
-  if(age<30){
-    if(ldl>=160||nE>=1)return{c:'mo',l:'중등강도',ind:'30세 미만 — FH 또는 고위험 특성',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],n:'2026 신규: FH 또는 LDL ≥160인 30세 미만 — 조기 치료로 누적 위험 감소',nt:'info',ldlTgt:100,nhTgt:130};
-    return{c:'no',l:'생활습관 교정',ind:'30세 미만',d:[],n:'LDL ≥160 또는 조기 가족력 없으면 생활습관 교정 우선. 30년 위험 평가 가능.',nt:'info',ldlTgt:130,nhTgt:160};
-  }
-  if(age>79)return{c:'mo',l:'중등강도 (개별화)',ind:'79세 초과',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],n:'다제 복용·근병증·낙상 위험 고려. 기존 스타틴 유지 합리적. 개별 임상 판단.',nt:'info',ldlTgt:100,nhTgt:130};
-  if(ldl<70)return{c:'no',l:'개별 판단',ind:'LDL < 70 mg/dL',d:[],n:'LDL 이미 낮음. 이차성 원인 및 기저 질환 확인.',nt:'info',ldlTgt:null,nhTgt:null};
   // ── 말기신질환(CKD 5기·투석 수준, eGFR<15) ──
   // 당뇨병이 있어도 "위험도 무관 스타틴" 원칙보다 이 근거가 우선함: 4D(당뇨·투석 환자 대상), AURORA 연구 —
   // 스타틴으로 LDL은 유의하게 낮췄으나 심혈관 주요 사건 감소는 확인되지 않음. 신규 시작 권고하지 않음(2026 가이드라인).
@@ -4005,45 +4006,79 @@ function accRec(age,risk,ldl,dm,ascvd,vhr,nE,tg,smoker,bpTx,r30,egfr){
       n:'eGFR '+egfr+' (말기신질환/투석 수준): 스타틴을 새로 시작하는 것의 심혈관 이득이 명확하지 않습니다(2026 가이드라인, 4D·AURORA 연구 근거).'+dmPart+' 이미 스타틴을 복용 중이었다면 유지는 합리적일 수 있습니다. 신장내과와 개별 상담이 필요합니다. 이 근거 자체가 "LDL-C를 특정 수치까지 낮추면 이득이 있다"는 것을 보여주지 못했으므로, 확립된 LDL-C 목표치가 없습니다.',
       nt:'warn',ldlTgt:null,nhTgt:null,noTargetReason:'esrd'};
   }
-  if(dm){
-    if(risk>=10){
-      if(ldl<70)return{c:'no',l:'목표 LDL 달성 (투약 전)',ind:'당뇨 + PREVENT-ASCVD ≥10% — 치료 전 LDL 이미 목표 이하',d:[],
-        n:'치료 전 LDL-C가 목표 &lt;70 mg/dL 이하입니다.<br>2026 ACC/AHA "regardless of LDL-C level" 원칙은 LDL 수치에 무관하게 스타틴을 고려하라는 취지이나, 가이드라인은 <b>투약 전 이미 목표치를 충족한 경우</b>의 스타틴 투약을 명시적으로 요구하지 않습니다. 생활습관 교정 및 주기적 추적 관찰을 권고합니다.',
-        nt:'suc',ldlTgt:70,nhTgt:100};
-      return{c:'hi',l:'고강도',ind:'당뇨 + PREVENT-ASCVD ≥10%',d:['Atorvastatin 40–80 mg','Rosuvastatin 20–40 mg'],n:'고강도 스타틴. LDL <70 mg/dL 목표.',nt:'warn',ldlTgt:70,nhTgt:100};
+  // ══ 당뇨병 (ASCVD 없음) — 2026 ACC/AHA "Adults With Diabetes and Without ASCVD" 알고리즘 ══
+  // LDL-C 수치와 무관하게 적용 (40–75세 COR 1). eGFR<15(투석 수준)는 위에서 먼저 처리됨.
+  if(dm && age>=20){
+    const dmEnhN = document.querySelectorAll('.dmEnh:checked').length;
+    const multiRF = !!document.getElementById('dmMultiRF')?.checked;
+    const r30ok = r30!=null && Number.isFinite(r30) && age>=30 && age<=59;
+    const hiTail='<br>▸ 목표 미달 시 에제티미브 <b>또는</b> PCSK9 mAb 추가(동등 선택지, COR 2b) — 목표 ≥50% 감소, LDL-C &lt;70, non-HDL-C &lt;100, 선택적 apoB &lt;70.';
+    const ipeOn = tg>=150 && tg<=500;
+    const ipeTail = ipeOn ? '<br>▸ <b>TG '+tg+' mg/dL (150–500)</b>: LDL-C &lt;100 도달 후에도 TG 상승 지속 시 IPE(icosapent ethyl 2 g bid) 추가(COR 2b). LDL-C &lt;100 미달이면 먼저 LDL-C 강하 치료 강화(COR 1).' : '';
+    // 20–39세
+    if(age<40){
+      const c30 = age>=30 && (risk>=3 || (r30ok && r30>=10));
+      if(c30) return{c:'mo',l:'중등강도',ind:'당뇨 30–39세 + '+(risk>=3?'PREVENT 10년 ≥3%':'30년 ≥10%')+' (COR 2a)',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],
+        n:'당뇨병 30–39세에서 PREVENT-ASCVD 10년 ≥3% 또는 30년 ≥10% → 중등강도 스타틴 시작이 합리적(COR 2a).',nt:'info',ldlTgt:100,nhTgt:130,dmPath:true};
+      if(dmEnhN>=1) return{c:'mo',l:'중등강도 고려',ind:'당뇨 20–39세 + 당뇨 특이 위험증강인자 '+dmEnhN+'개 (COR 2b)',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],
+        n:'당뇨병 특이 위험증강인자(유병기간·알부민뇨·eGFR&lt;60·망막병증·신경병증·ABI&lt;0.9)가 있어 중등강도 스타틴 시작을 고려할 수 있음(COR 2b).',nt:'info',ldlTgt:100,nhTgt:130,dmPath:true};
+      return{c:'lo',l:'생활습관 교정',ind:'당뇨 20–39세 — 스타틴 적응 조건 없음',d:[],
+        n:'건강행동 상담(COR 1). '+(age>=30?'PREVENT 10년 &lt;3% · 30년 &lt;10%이고 ':'')+'당뇨병 특이 위험증강인자 없음 → 스타틴 권고 대상 아님 (표시된 LDL 목표는 참고치).',nt:'info',ldlTgt:130,nhTgt:160,dmPath:true};
     }
-    if(risk>=5){
-      if(ldl<100)return{c:'no',l:'목표 LDL 달성 (투약 전)',ind:'당뇨 + PREVENT-ASCVD 5–10% — 치료 전 LDL 이미 목표 이하',d:[],
-        n:'치료 전 LDL-C가 목표 &lt;100 mg/dL 이하입니다.<br>2026 ACC/AHA "regardless of LDL-C level" 원칙은 LDL 수치에 무관하게 스타틴을 고려하라는 취지이나, 가이드라인은 <b>투약 전 이미 목표치를 충족한 경우</b>의 스타틴 투약을 명시적으로 요구하지 않습니다. 생활습관 교정 및 주기적 추적 관찰을 권고합니다.',
-        nt:'suc',ldlTgt:100,nhTgt:130};
-      return{c:'mo',l:'중등강도',ind:'당뇨 + PREVENT-ASCVD 5–10%',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg','Pitavastatin 2–4 mg'],n:'중등강도 스타틴 권고. LDL <100 mg/dL 목표.',nt:'info',ldlTgt:100,nhTgt:130};
+    // >75세
+    if(age>75){
+      return{c:'mo',l:'중등강도 고려',ind:'당뇨 >75세 — 이득-위해 논의(COR 1) 후 중등강도 스타틴 (COR 2b)',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],
+        n:'75세 초과 당뇨병: 먼저 이득-위해 논의(COR 1) 후 중등강도 스타틴 시작을 고려(COR 2b). 다제 복용·근병증·낙상·기대여명을 함께 고려. 기존 복용 중이면 유지 합리적.',nt:'info',ldlTgt:100,nhTgt:130,dmPath:true};
     }
-    // risk < 5% — 저위험 당뇨 (사용자 질문 케이스)
-    if(ldl<100)return{c:'no',l:'목표 LDL 달성 (투약 전)',ind:'당뇨 (30–79세, PREVENT-ASCVD &lt;5%) — 치료 전 LDL 이미 목표 이하',d:[],
-      n:'치료 전 LDL-C가 목표 &lt;100 mg/dL 이하입니다.<br>2026 ACC/AHA "regardless of LDL-C level" 원칙은 LDL이 낮아도 당뇨에서 스타틴을 고려하라는 취지이나, 가이드라인은 <b>투약 전 이미 목표치를 충족한 경우</b>의 스타틴 투약을 명시적으로 요구하지 않습니다. 생활습관 교정 및 주기적 추적 관찰을 권고합니다.',
-      nt:'suc',ldlTgt:100,nhTgt:130};
-    return{c:'mo',l:'중등강도',ind:'당뇨 (30–79세, PREVENT-ASCVD < 5%)',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],n:'당뇨 단독 저위험: 중등강도 권고. LDL <100 목표.',nt:'info',ldlTgt:100,nhTgt:130};
+    // 40–75세: LDL-C 수치와 무관하게 중등강도 시작(COR 1) → PREVENT ≥10% 또는 다수 위험인자 시 고강도(COR 2a)
+    if(risk>=10 || multiRF){
+      const why=[risk>=10?'PREVENT-ASCVD ≥10%':null, multiRF?'다수 ASCVD 위험인자':null].filter(Boolean).join(' · ');
+      return{c:'hi',l:'고강도',ind:'당뇨 40–75세 + '+why+' (COR 2a)',d:['Atorvastatin 40–80 mg','Rosuvastatin 20–40 mg'],
+        n:'당뇨병 40–75세: LDL-C 수치와 무관하게 스타틴 시작(COR 1), '+why+' → 고강도로 상향(COR 2a). 목표: LDL-C ≥50% 감소, LDL-C &lt;70 mg/dL, non-HDL-C &lt;100 mg/dL, 선택적 apoB &lt;70 mg/dL.'+hiTail+ipeTail,
+        nt:'warn',ldlTgt:70,nhTgt:100,abTgt:70,pct:'50',dmPath:true,ipe:ipeOn};
+    }
+    return{c:'mo',l:'중등강도',ind:'당뇨 40–75세 (COR 1)',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg','Pitavastatin 2–4 mg'],
+      n:'당뇨병 40–75세: LDL-C 수치와 무관하게 중등강도 스타틴 시작(COR 1). 목표: LDL-C ≥30–49% 감소, LDL-C &lt;100 mg/dL, non-HDL-C &lt;130 mg/dL, 선택적 apoB &lt;90 mg/dL. PREVENT &lt;10%이고 다수 위험인자 없으면 중등강도 유지(COR 1).',
+      nt:'info',ldlTgt:100,nhTgt:130,abTgt:90,pct:'30–49',dmPath:true};
   }
+  if(age<30){
+    if(ldl>=160||nE>=1)return{c:'mo',l:'중등강도',ind:'30세 미만 — FH 또는 고위험 특성',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],n:'2026 신규: FH 또는 LDL ≥160인 30세 미만 — 조기 치료로 누적 위험 감소',nt:'info',ldlTgt:100,nhTgt:130};
+    return{c:'no',l:'생활습관 교정',ind:'30세 미만',d:[],n:'LDL ≥160 또는 조기 가족력 없으면 생활습관 교정 우선. 30년 위험 평가 가능.',nt:'info',ldlTgt:130,nhTgt:160};
+  }
+  if(age>79)return{c:'mo',l:'중등강도 (개별화)',ind:'79세 초과',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],n:'다제 복용·근병증·낙상 위험 고려. 기존 스타틴 유지 합리적. 개별 임상 판단.',nt:'info',ldlTgt:100,nhTgt:130};
+  if(ldl<70)return{c:'no',l:'개별 판단',ind:'LDL < 70 mg/dL',d:[],n:'LDL 이미 낮음. 이차성 원인 및 기저 질환 확인.',nt:'info',ldlTgt:null,nhTgt:null};
   /* Primary prevention — PREVENT-ASCVD thresholds (2026) */
   if(risk<3){
-    // 30년 ASCVD ≥10%: 처방 변경 아님 — 참고 정보로만 표시 (note30yr 플래그)
-    // 근거: NNT 300+으로 임상 의미 제한적. 2026 Class IIb = "고려 가능" 수준.
-    // 10년 위험도 기반 처방 유지, 생활습관 교정 강화 + 공동 의사결정 참고 제공.
-    const has30note = r30>=10&&age>=30&&age<=59;
+    // 2026 ACC/AHA 1차 예방 알고리즘: 저위험(<3%)이라도 LDL-C 160–189 또는 30년 ASCVD ≥10%이면
+    // 중등강도 스타틴 (COR 2a) — 목표 ≥30% 감소, LDL-C <100, non-HDL-C <130
+    const r30hi = r30!=null && Number.isFinite(r30) && r30>=10 && age>=30 && age<=59; // PREVENT 30년 위험은 30–59세에서만 유효
+    if(ldl>=160 || r30hi){
+      const why = [ldl>=160?'LDL-C 160–189 mg/dL':null, r30hi?'30년 ASCVD ≥10%':null].filter(Boolean).join(' · ');
+      return{c:'mo',l:'중등강도',ind:'저위험 < 3% + '+why+' (COR 2a)',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],
+        n:'2026 ACC/AHA 1차 예방 알고리즘: 10년 위험 &lt;3%이나 '+why+'에 해당 → 중등강도 스타틴 시작이 합리적(COR 2a). 목표: LDL-C ≥30% 감소, LDL-C &lt;100 mg/dL, non-HDL-C &lt;130 mg/dL.',
+        nt:'info',ldlTgt:100,nhTgt:130,pct:'30'};
+    }
     return{c:'lo',l:'생활습관 교정',ind:'저위험 < 3% (PREVENT-ASCVD)',d:[],
-      n:'스타틴 일상적 권고 불필요. 식이·운동·금연. LDL 목표 &lt;130 mg/dL.',
-      nt:'info',ldlTgt:130,nhTgt:160,note30yr:has30note,r30val:r30};
+      n:'건강행동 상담(COR 1). 스타틴 권고 대상 아님 — 알고리즘상 별도 LDL-C 목표는 제시되지 않음(표시된 &lt;130은 참고치).',
+      nt:'info',ldlTgt:130,nhTgt:160};
   }
   if(risk<5){
-    if(nE>=1||ldl>=160)return{c:'mo',l:'중등강도 고려',ind:'경계위험 (3–5%) + 위험증가 인자',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],n:'스타틴-환자 공동 결정. LDL <100 mg/dL 목표. CAC=0이면 10년 유예 합리적.',nt:'info',ldlTgt:100,nhTgt:130};
-    return{c:'no',l:'생활습관 교정',ind:'경계위험 (3–5%)',d:[],n:'스타틴 선호도 낮음. 위험증강인자 재확인 후에도 없을 경우, CAC 점수 측정으로 결정 보조. LDL <100 목표.',nt:'info',ldlTgt:100,nhTgt:130};
+    // 2026 알고리즘: "Decide to start LLT?" (공동 의사결정) → YES: 중등강도 스타틴(COR 2a) / NO: CAC 평가(COR 1)
+    // 위험증강인자는 결정을 돕는 근거로만 사용 (자동 기준 아님)
+    const bdTail='<br>▸ <b>LLT 시작 결정 시</b>: 중등강도 스타틴(COR 2a), 목표 LDL-C ≥30% 감소 · &lt;100 mg/dL · non-HDL-C &lt;130 mg/dL<br>▸ <b>시작하지 않기로 한 경우</b>: CAC 평가(COR 1) — CAC &gt;0이면 스타틴 시작(COR 1), CAC 0이면 건강행동 상담 후 3–7년 뒤 CAC 재검';
+    if(nE>=1||ldl>=160)return{c:'mo',l:'중등강도 고려',ind:'경계위험 (3–<5%) — 공동 의사결정 (위험증강인자 있음)',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],n:'위험증강인자가 있어 스타틴 시작 쪽으로 공동 의사결정을 뒷받침합니다.'+bdTail,nt:'info',ldlTgt:100,nhTgt:130,pct:'30'};
+    return{c:'no',l:'공동 의사결정',ind:'경계위험 (3–<5%) — 스타틴 시작 또는 CAC 평가',d:[],n:'환자와 공동 의사결정으로 LLT 시작 여부를 정합니다.'+bdTail,nt:'info',ldlTgt:100,nhTgt:130,pct:'30'};
   }
   if(risk<10){
     // 2026 ACC/AHA: 중간위험 + enhancer도 기본 중등강도/<100, CAC 재분류 시 고강도/<70으로 강화
-    if(nE>=2||tg>=175)return{c:'mo',l:'중등강도, 필요 시 강화 고려',ind:'중간위험 (5–<10%) + 다수 위험증가 인자',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg','Pitavastatin 2–4 mg'],n:'중등강도 스타틴 권고. 기본 LDL <100 mg/dL 목표. Risk enhancer 다수이면 고강도 상향 또는 CAC로 재분류 고려 — CAC ≥100 확인 시 LDL <70 mg/dL로 강화.',nt:'warn',ldlTgt:100,nhTgt:130};
-    return{c:'mo',l:'중등강도',ind:'중간위험 (5–<10%)',d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg','Pitavastatin 2–4 mg','Pravastatin 40–80 mg'],n:'중등강도 스타틴 권고. LDL <100 mg/dL 목표. CAC=0이면 유예 가능.',nt:'info',ldlTgt:100,nhTgt:130};
+    // 2026 알고리즘: 중등~고강도 스타틴 시작(COR 1) + 목표 ≥30–50% 감소, LDL-C <100, non-HDL-C <130 (COR 2a)
+    // 시작 결정이 불확실하면 CAC 평가(COR 1) → CAC >0 스타틴, CAC 0 건강행동 상담 + 3–7년 후 재검
+    const imTail='목표: LDL-C ≥30–50% 감소, LDL-C &lt;100 mg/dL, non-HDL-C &lt;130 mg/dL (COR 2a).<br>▸ 시작 결정이 불확실하면 CAC 평가(COR 1): CAC &gt;0 → 스타틴 시작, CAC 0 → 건강행동 상담 후 3–7년 뒤 CAC 재검.';
+    const imDrugs=['Atorvastatin 10–20 mg (중등)','Rosuvastatin 5–10 mg (중등)','Atorvastatin 40–80 mg (고강도)','Rosuvastatin 20–40 mg (고강도)'];
+    if(nE>=2||tg>=175)return{c:'mo',l:'중등~고강도',ind:'중간위험 (5–<10%) + 다수 위험증가 인자',d:imDrugs,n:'중등~고강도 스타틴 시작(COR 1). 위험증강인자 다수로 고강도 쪽을 고려합니다. '+imTail,nt:'warn',ldlTgt:100,nhTgt:130,pct:'30–50'};
+    return{c:'mo',l:'중등~고강도',ind:'중간위험 (5–<10%)',d:imDrugs,n:'중등~고강도 스타틴 시작(COR 1). '+imTail,nt:'info',ldlTgt:100,nhTgt:130,pct:'30–50'};
   }
-  return{c:'hi',l:'고강도',ind:'고위험 ≥ 10% (PREVENT-ASCVD)',d:['Atorvastatin 40–80 mg','Rosuvastatin 20–40 mg'],n:'고강도 스타틴 권고. LDL <70 mg/dL 목표.',nt:'warn',ldlTgt:70,nhTgt:100};
+  return{c:'hi',l:'고강도',ind:'고위험 ≥ 10% (PREVENT-ASCVD)',d:['Atorvastatin 40–80 mg','Rosuvastatin 20–40 mg'],n:'고강도 스타틴 시작(COR 1). 목표: LDL-C ≥50% 감소, LDL-C &lt;70 mg/dL, non-HDL-C &lt;100 mg/dL (COR 2a).<br>▸ 목표 미달 시 에제티미브 추가(COR 2a) → 그래도 미달 시 PCSK9 mAb 또는 bempedoic acid 추가(COR 2b).',nt:'warn',ldlTgt:70,nhTgt:100,pct:'50'};
 }
 
 /* ── ACC/AHA PREVENT Risk Classification ── */
@@ -4066,19 +4101,22 @@ function preventClass(primRisk,ldl,ascvd,dm,egfr,age,sex,sbp,bpTx,smoker,hdl,nE,
     return{cat:dm?'당뇨병 + 말기신질환(투석 수준)':'말기신질환(CKD 5기·투석 수준)',l:null,nh:null,ab:null,c:'#854f0b',bg:'#faeeda',
       basis:`eGFR ${egfr} (CKD 5기·투석 수준): 스타틴 신규 시작의 심혈관 이득 불명확(4D·AURORA 연구, 2026 가이드라인). ${dm?'당뇨병이 있어도 이 근거가 우선 적용됨. ':''}기존 복용 중이면 유지 권고. 신장내과 개별 상담 필요. LDL-C 목표치를 낮추는 것의 이득이 확인되지 않아 확립된 목표치 없음 (참고) PREVENT-ASCVD ${primRisk.toFixed(1)}%`,row:null};
   }
-  if(dm){
-    if(primRisk>=10) return{cat:'당뇨병 + PREVENT 고위험',l:70,nh:100,ab:70,c:'#a32d2d',bg:'#fcebeb',basis:`당뇨병 + PREVENT-ASCVD ${primRisk.toFixed(1)}% ≥10%`,row:'pr-high'};
-    return{cat:'당뇨병',l:100,nh:130,ab:100,c:'#854f0b',bg:'#faeeda',basis:`당뇨병: 최소 중등강도 statin, PREVENT-ASCVD ${primRisk.toFixed(1)}%`,row:primRisk>=5?'pr-inter':primRisk>=3?'pr-border':'pr-low'};
+  if(dm && age>=40 && age<=75){
+    const _mrf=!!document.getElementById('dmMultiRF')?.checked;
+    if(primRisk>=10||_mrf) return{cat:primRisk>=10?'당뇨병 + PREVENT 고위험':'당뇨병 + 다수 위험인자',l:70,nh:100,ab:70,c:'#a32d2d',bg:'#fcebeb',basis:`당뇨병 + ${primRisk>=10?`PREVENT-ASCVD ${primRisk.toFixed(1)}% ≥10%`:'다수 ASCVD 위험인자'}: 고강도 스타틴(COR 2a), LDL-C <70 · non-HDL-C <100 · apoB <70`,row:'pr-high'};
+    return{cat:'당뇨병',l:100,nh:130,ab:90,c:'#854f0b',bg:'#faeeda',basis:`당뇨병 40–75세: 중등강도 statin(COR 1), LDL-C <100 · non-HDL-C <130 · apoB <90, PREVENT-ASCVD ${primRisk.toFixed(1)}%`,row:primRisk>=5?'pr-inter':primRisk>=3?'pr-border':'pr-low'};
   }
+  if(dm && age>75) return{cat:'당뇨병 (>75세)',l:100,nh:130,ab:100,c:'#854f0b',bg:'#faeeda',basis:`당뇨병 >75세: 이득-위해 논의 후 중등강도 statin(COR 2b), PREVENT-ASCVD ${primRisk.toFixed(1)}%`,row:null};
   if(primRisk<3){
-    if(r30>=10&&age>=30&&age<=59) return{cat:'저위험',l:130,nh:160,ab:100,c:'#185fa5',bg:'#eaf2fb',
-      basis:`PREVENT-ASCVD 10년 ${primRisk.toFixed(1)}% (<3%) · (참고) 30년 ${r30!=null?r30.toFixed(1):'—'}% — 생활습관 교정 우선, 30년 위험 참고`,row:'pr-low'};
+    const r30hiC=(r30!=null&&r30>=10&&age>=30&&age<=59);
+    if(r30hiC||ldl>=160) return{cat:'저위험 + 스타틴 고려 조건',l:100,nh:130,ab:100,c:'#185fa5',bg:'#eaf2fb',
+      basis:`PREVENT-ASCVD 10년 ${primRisk.toFixed(1)}% (<3%)${ldl>=160?' · LDL-C 160–189':''}${r30hiC?` · 30년 ${r30.toFixed(1)}% ≥10%`:''} — 중등강도 스타틴(COR 2a), LDL-C <100 / non-HDL-C <130`,row:'pr-low'};
     return{cat:'저위험',l:130,nh:160,ab:100,c:'#3b6d11',bg:'#eaf3de',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% <3%`,row:'pr-low'};
   }
   if(primRisk<5) return{cat:'경계위험',l:100,nh:130,ab:100,c:'#3b6d11',bg:'#eaf3de',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% 3–<5%. Risk enhancer가 있으면 statin 고려`,row:'pr-border'};
   if(primRisk<10){
     // 2026 ACC/AHA: 중간위험+enhancer 기본 목표 <100, CAC 재분류 후 <70
-    if(nE>=2||tg>=175||ldl>=160) return{cat:'중간위험 + risk enhancer',l:100,nh:130,ab:100,c:'#854f0b',bg:'#faeeda',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% 5–<10% + risk enhancer: 기본 목표 <100, CAC ≥100 등 고위험 재분류 시 <70으로 강화`,row:'pr-inter'};
+    if(nE>=2||tg>=175||ldl>=160) return{cat:'중간위험 + risk enhancer',l:100,nh:130,ab:100,c:'#854f0b',bg:'#faeeda',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% 5–<10% + risk enhancer: 중등~고강도 스타틴, 목표 <100, CAC ≥100 등 고위험 재분류 시 <70으로 강화`,row:'pr-inter'};
     return{cat:'중간위험',l:100,nh:130,ab:100,c:'#854f0b',bg:'#faeeda',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% 5–<10%`,row:'pr-inter'};
   }
   return{cat:'고위험',l:70,nh:100,ab:70,c:'#a32d2d',bg:'#fcebeb',basis:`PREVENT-ASCVD ${primRisk.toFixed(1)}% ≥10%`,row:'pr-high'};
@@ -4183,7 +4221,7 @@ function makeFlow(acc,preventCat,ldl,ascvd,vhr,onStatin=false,baselineLdl=null,t
     : '';
 
   let html=`<div style="font-size:12.5px;color:#888780;margin-bottom:10px">
-    <b style="color:#1a1a18">LDL 목표: &lt;${tgt} mg/dL</b> &nbsp;·&nbsp; ${onStatin?'현재':'치료 전'} LDL: <b>${ldl} mg/dL</b>
+    <b style="color:#1a1a18">LDL 목표: &lt;${tgt} mg/dL</b>${acc.pct?` &nbsp;·&nbsp; <b style="color:#1a1a18">감소율 목표: ≥${acc.pct}%</b>`:''} &nbsp;·&nbsp; ${onStatin?'현재':'치료 전'} LDL: <b>${ldl} mg/dL</b>
     ${onStatin&&baselineLdl!==null?`&nbsp;·&nbsp; 치료 전 LDL: <b>${baselineLdl} mg/dL</b>`:''}
     &nbsp;·&nbsp; 추가 감소 필요량: <b style="color:${ldl>tgt?'#a32d2d':'#3b6d11'}">${Math.max(0,ldl-tgt)} mg/dL</b>
   </div><div class="sw">`;
@@ -4192,7 +4230,7 @@ function makeFlow(acc,preventCat,ldl,ascvd,vhr,onStatin=false,baselineLdl=null,t
 
   // ── [Bug E] 1차 예방 PCSK9 note ──
   const pcsk9Note = isPrimaryPrev
-    ? `PCSK9 mAb 예상 LDL: ~${afterPCSK9} mg/dL · Bempedoic acid 예상 LDL: ~${afterBemp} mg/dL<br>⚠ PCSK9 억제제는 1차 예방에서 국내 건강보험 급여 기준 미충족 — 비급여 처방 또는 FH·ASCVD 해당 여부 재확인 필요. Bempedoic acid는 스타틴 불내성 시 선택적으로 고려.`
+    ? `PCSK9 mAb 예상 LDL: ~${afterPCSK9} mg/dL · Bempedoic acid 예상 LDL: ~${afterBemp} mg/dL<br>2026 ACC/AHA 1차 예방: 에제티미브 후에도 목표 미달 시 PCSK9 mAb <b>또는</b> bempedoic acid 추가 (동등한 선택지, COR 2b).<br>⚠ PCSK9 억제제는 1차 예방에서 국내 건강보험 급여 기준 미충족 — 비급여 처방 또는 FH·ASCVD 해당 여부 재확인 필요.`
     : `PCSK9 mAb 예상 LDL: ~${afterPCSK9} mg/dL · Bempedoic acid 예상 LDL: ~${afterBemp} mg/dL<br>2026 신규: CLEAR OUTCOMES 근거. 스타틴 불내성 환자에서 Bempedoic acid 사용 (Class 2a). 건강보험 기준: FH 또는 ASCVD + 최대내약 스타틴 + Ezetimibe 후 LDL ≥70.`;
 
   if(isLifestyle){
@@ -4208,8 +4246,19 @@ function makeFlow(acc,preventCat,ldl,ascvd,vhr,onStatin=false,baselineLdl=null,t
       afterEze,needEze,!needEze,'');
     const needPCSK9=afterEze>tgt;
     html+=rboxtop(4,'PCSK9 억제제 또는 Bempedoic acid',
-      `<b>PCSK9 mAb</b> (LDL ~55% 추가 감소): Evolocumab (Repatha®) / Alirocumab (Praluent®)<br><b>Bempedoic acid</b> (LDL ~20% 추가 감소, 스타틴 불내성 시 대안): 180 mg/일 ± Ezetimibe 복합제`,
+      `<b>PCSK9 mAb</b> (LDL ~55% 추가 감소): Evolocumab (Repatha®) / Alirocumab (Praluent®)<br><b>Bempedoic acid</b> (LDL ~20% 추가 감소${isPrimaryPrev?', PCSK9 mAb와 동등 선택지':', 스타틴 불내성 시 대안'}): 180 mg/일 ± Ezetimibe 복합제`,
       afterPCSK9,needPCSK9,!needPCSK9,pcsk9Note);
+  } else if(acc.dmPath){
+    // 당뇨병 알고리즘: 스타틴 후 목표 미달 시 에제티미브 또는 PCSK9 mAb (동등 선택지, COR 2b)
+    const needAdd=s1ldl>tgt;
+    const afterP=Math.round(startLdl*0.45);
+    html+=rbox(2,'에제티미브 또는 PCSK9 mAb 추가 <span style="font-size:11.5px;font-weight:400;color:#854f0b">(동등 선택지, COR 2b)</span>',
+      `<b>Ezetimibe</b> 10 mg/일 (추가 LDL ~15–20% 감소, 예상 ~${afterEze} mg/dL)<br><b>PCSK9 mAb</b> Evolocumab 140 mg Q2W / Alirocumab 75–150 mg Q2W (추가 LDL ~55% 감소, 예상 ~${afterP} mg/dL)`,
+      afterEze,needAdd,!needAdd,
+      '목표: LDL-C ≥50% 감소, &lt;70 mg/dL, non-HDL-C &lt;100, 선택적 apoB &lt;70 (당뇨병 알고리즘).<br>⚠ PCSK9 억제제는 1차 예방에서 국내 건강보험 급여 기준 미충족 — 비급여 처방 필요.');
+    if(acc.ipe){
+      html+=`<div class="nb info" style="margin-top:6px;font-size:12px">▸ <b>IPE (icosapent ethyl 2 g bid) 추가 고려 (COR 2b)</b> — LDL-C &lt;100 mg/dL 도달 후에도 TG 150–500 mg/dL 지속 시. LDL-C &lt;100 미달이면 먼저 LDL-C 강하 치료 강화(COR 1).</div>`;
+    }
   } else {
     // 중등·고강도 스타틴이 Step1 (또는 현재 스타틴 중)
     const needEze=s1ldl>tgt;
@@ -4220,7 +4269,7 @@ function makeFlow(acc,preventCat,ldl,ascvd,vhr,onStatin=false,baselineLdl=null,t
     // Inclisiran: ASCVD, VHR, 또는 FH(LDL≥190) 케이스에 Step 4 표시
     const showInclisiran = ascvd || vhr || isFH;
     html+=rbox(3,'PCSK9 억제제 또는 Bempedoic acid',
-      `<b>PCSK9 mAb</b> (LDL ~55% 추가 감소): Evolocumab (Repatha®) 140 mg SC Q2W / 420 mg QM &nbsp;|&nbsp; Alirocumab (Praluent®) 75–150 mg SC Q2W<br><b>Bempedoic acid</b> (LDL ~20% 추가 감소, 스타틴 불내성 시 대안): 180 mg/일 ± Ezetimibe 복합제`,
+      `<b>PCSK9 mAb</b> (LDL ~55% 추가 감소): Evolocumab (Repatha®) 140 mg SC Q2W / 420 mg QM &nbsp;|&nbsp; Alirocumab (Praluent®) 75–150 mg SC Q2W<br><b>Bempedoic acid</b> (LDL ~20% 추가 감소${isPrimaryPrev?', PCSK9 mAb와 동등 선택지':', 스타틴 불내성 시 대안'}): 180 mg/일 ± Ezetimibe 복합제`,
       afterPCSK9,needPCSK9,!needPCSK9,pcsk9Note);
     if(showInclisiran){
       const needIncl=afterEze>tgt;
@@ -4246,7 +4295,7 @@ function recHTML(r,src){
     return h;
   }
   // 중등·고강도 스타틴: 기존 레이아웃 유지
-  let h=`<div class="rb ${r.c}"><div class="rsrc">${src}</div><div class="ri">${r.l} 스타틴</div><div class="rind">${r.ind||''}</div>`;
+  let h=`<div class="rb ${r.c}"><div class="rsrc">${src}</div><div class="ri">${/ 고려$/.test(r.l)?r.l.replace(/ 고려$/,'')+' 스타틴 고려':r.l+' 스타틴'}</div><div class="rind">${r.ind||''}</div>`;
   if(r.d.length)h+=`<ul class="rdrugs">${r.d.map(d=>`<li>${d}</li>`).join('')}</ul>`;
   h+=`</div>`;
   if(r.n)h+=`<div class="nb ${r.nt}">${r.n}</div>`;
@@ -4300,7 +4349,9 @@ function recommendationVerb(acc){
 function statinSentence(acc){
   if(!acc) return '스타틴 치료를 개별 판단합니다';
   if(acc.c==='hi') return acc.l.includes('고려') ? '고강도 스타틴 치료를 고려' : '고강도 스타틴 치료를 권고';
+  if(acc.c==='mo' && acc.l.includes('중등~고강도')) return '중등~고강도 스타틴 치료를 권고';
   if(acc.c==='mo') return acc.l.includes('고려') ? '중등강도 스타틴 치료를 고려' : '중등강도 스타틴 치료를 권고';
+  if(acc.c==='no' && acc.l==='공동 의사결정') return '공동 의사결정으로 스타틴 시작 또는 CAC 평가를 선택';
   if(acc.c==='lo' || acc.c==='no') return '생활습관 교정을 우선하며 스타틴 치료는 개별적으로 고려';
   return `${acc.l} 스타틴 치료를 ${recommendationVerb(acc)}`;
 }
@@ -4439,7 +4490,7 @@ function makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt
 
   // 위험증강인자 목록 문장 (불릿 1줄)
   const enhLine = (activeEnhLabels && activeEnhLabels.length > 0 && (acc.c==='mo'||acc.c==='hi') && !anyAbs && !carotidOverride)
-    ? `확인된 위험증강인자 (${activeEnhLabels.length}개): ${activeEnhLabels.join('; ')}`
+    ? `확인된 위험증강인자 (${activeEnhLabels.length}개): ${activeEnhLabels.join('; ')}${acc.dmPath?' (당뇨병 경로 판단에는 미반영)':''}`
     : '';
 
   if(anyAbs && absInds){
@@ -4513,6 +4564,15 @@ function makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt
     ]);
   }
 
+  // 당뇨병 20–39세: 당뇨 특이 위험증가 인자(Table 17)로 권고가 바뀐 경우
+  let dmEnhLine='';
+  if(acc.dmPath && age<40 && acc.c==='mo' && /특이 위험증강인자/.test(acc.ind||'')){
+    const dmLabs=[...document.querySelectorAll('.dmEnh:checked')].map(el=>{
+      const b=el.closest('label')?.querySelector('div > div'); 
+      return b ? b.childNodes[0].textContent.trim() : '';
+    }).filter(Boolean);
+    dmEnhLine=`당뇨병 특이 위험증가 인자(2026 ACC/AHA Table 17) ${dmLabs.length}개 확인: ${dmLabs.join('; ')} — 당뇨병 20–39세에서 이 인자로 인해 권고가 건강행동 상담에서 중등강도 스타틴 고려(COR 2b)로 변경됨`;
+  }
   const statinText = statinSentence(acc);
   const riskPrefix = ageOutOfRange
     ? ageRangeNote
@@ -4520,6 +4580,7 @@ function makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt
   return bl([
     riskPrefix,
     enhLine,
+    dmEnhLine,
     `치료 전 LDL-C는 ${ldl} mg/dL이며, ${txState}현재 LDL-C 목표는 <${dispLdlTgt} mg/dL로 판단됨`,
     `이에 따라 ${statinText}하며, ${addonText}`,
     ckdLine,
@@ -4762,6 +4823,19 @@ function upd(){
     }
   }
 
+  // 당뇨병 특이 위험증강인자 자동 체크 (UACR ≥30, eGFR <60, ABI <0.9)
+  (function(){
+    function auto(id,cond){
+      const el=g(id); if(!el) return;
+      if(cond){ el.checked=true; el.dataset.autoChecked='true'; }
+      else if(el.dataset.autoChecked==='true'){ el.checked=false; el.dataset.autoChecked='false'; }
+    }
+    const _u=parseFloat(g('uacr')?.value), _e=parseFloat(g('egfr')?.value);
+    auto('dmEnhAlb', !isNaN(_u) && _u>=30);
+    auto('dmEnhEgfr', !isNaN(_e) && _e>0 && _e<60);
+    auto('dmEnhAbi', !!g('abiCheck')?.checked);
+  })();
+
   // LDL 자동 체크 — 다른 필수값 미입력 시에도 LDL 단독 입력으로 즉시 반영
   if(g('enhLdl160')){
     const _ldl=parseFloat(ldlRaw);
@@ -4803,7 +4877,7 @@ function upd(){
           {key:'ldl190',label:'LDL-C ≥ 190 mg/dL (중증 고콜레스테롤혈증 / FH 의심)',sub:'누적 LDL 노출 과다, 가족성 고콜레스테롤혈증 감별 필요',active:_ldl190,strength:'고강도'},
           {key:'cac',label:'CAC ≥100 / ≥1000 — 스타틴 충분조건',sub:'2026 ACC/AHA Section 4.2.7: PREVENT 위험도 무관 스타틴 시작의 충분조건',active:false},
           {key:'ckd',label:'CKD (eGFR 15–59) + 나이 ≥ 40세',sub:'전통적 위험방정식이 CKD에서 위험을 과소평가',active:false},
-          {key:'dm',label:'당뇨병 (30–79세)',sub:'당뇨 단독으로도 최소 중등강도 스타틴',active:false},
+          {key:'dm',label:'당뇨병 (40–75세)',sub:'LDL-C 수치와 무관하게 중등강도 스타틴 (COR 1)',active:false},
           {key:'hiv',label:'HIV (안정 cART, 40–75세)',sub:'REPRIEVE trial: Pitavastatin 4 mg → MACE 35% 감소',active:false},
         ];
         let html='';
@@ -4854,7 +4928,7 @@ function upd(){
     const nonHdl = (tc && hdl) ? (tc - hdl) : null;
     const apobMeasEarly = parseFloat(g('apob')?.value) || null;
     const ldlTrigger  = ldl >= 160 && ldl < 190;
-    const nonHdlTrigger = nonHdl !== null && nonHdl >= 190 && ldl < 190;
+    const nonHdlTrigger = nonHdl !== null && nonHdl >= 190 && nonHdl < 220 && ldl < 190;
     const apobTrigger = apobMeasEarly !== null && apobMeasEarly >= 120 && ldl < 190;
     const shouldAutoCheck = ldlTrigger || nonHdlTrigger || apobTrigger;
 
@@ -5063,7 +5137,8 @@ function upd(){
   const anyCAC=cac1to99Active||cacActive||cac1000Active;
   const ckdAbs=(egfr>=15&&egfr<60&&age>=40);
   const dmEsrd=dm&&egfr>0&&egfr<15; // 말기신질환(투석 수준) — DM의 '위험도 무관' 원칙보다 이 근거가 우선
-  const dmAbs=dm&&age>=30&&age<=79&&!dmEsrd;
+  const dmMrf=!!g('dmMultiRF')?.checked;
+  const dmAbs=dm&&age>=40&&age<=75&&!dmEsrd;
   const hivChecked=g('enhHiv')?.checked??false;
   const hivAbs=hivChecked&&age>=40&&age<=75;
   const ldl190Abs=ldl>=190;
@@ -5077,7 +5152,7 @@ function upd(){
     if(cacActive&&!ascvd) notes.push('CAC ≥100 또는 ≥75 백분위 — 스타틴 충분조건, LDL<70 목표');
     if(cac1to99Active&&!ascvd) notes.push('CAC 1–99 — 중등도 강도 스타틴이 합리적(COR 2a), LDL<100 목표');
     if(ckdAbs&&!ascvd) notes.push('CKD (eGFR 15–59) + 나이≥40세 — 위험도 무관 중등강도 스타틴');
-    if(dmAbs&&!ascvd) notes.push(`당뇨병 — 위험도 무관 ${primRisk>=10?'고강도':'중등강도'} 스타틴`);
+    if(dmAbs&&!ascvd) notes.push(`당뇨병 40–75세 — LDL 수치·위험도 무관 ${(primRisk>=10||dmMrf)?'고강도':'중등강도'} 스타틴`);
     if(dmEsrd&&!ascvd) notes.push('당뇨병 + 말기신질환(eGFR<15, 투석 수준) — 신규 스타틴 시작 이득 불명확, 개별 상담 필요 (당뇨병의 위험도 무관 원칙보다 우선)');
     if(hivAbs&&!ascvd) notes.push('HIV (안정 cART, 40–75세) — 위험도 무관 중등강도 스타틴 (Class I)');
     return notes;
@@ -5214,7 +5289,7 @@ function upd(){
       acc={c:'hi',l:'고강도',ind:'CAC ≥100 또는 ≥75 백분위 — 스타틴 충분조건 (LDL <70)',
            d:['Atorvastatin 40–80 mg','Rosuvastatin 20–40 mg'],
            n:'CAC ≥100: 2026 ACC/AHA Section 4.2.7 — PREVENT 위험도 무관 스타틴 충분조건(COR 1, LOE B-R). LDL &lt;70 mg/dL, non-HDL-C &lt;100 mg/dL 목표. CAC 100–299와 300–999는 원문에서 번호가 다른 별도 공식 권고이나 목표 수치는 동일하여 여기서는 하나로 통합했습니다.',
-           nt:'warn',ldlTgt:70,nhTgt:100};
+           nt:'warn',ldlTgt:70,nhTgt:100,pct:'50'};
     }
     // CAC 1–99 & <75 백분위: 2026 ACC/AHA COR 2a — 중등도 강도 스타틴이 합리적, LDL <100
     // 치료 시작 자체는 CAC>0 시 COR 1(권고)이나, 이 특정 강도·목표는 COR 2a(합리적) 등급
@@ -5224,7 +5299,7 @@ function upd(){
       acc={c:'mo',l:'중등도 강도 (합리적)',ind:'CAC 1–99 & <75 백분위 — 중등도 강도 스타틴이 합리적 (COR 2a, LDL <100)',
            d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],
            n:'CAC 1–99: 2026 ACC/AHA Section 4.2.7에 따른 소견입니다(권고 4, COR 2a, LOE B-R). CAC&gt;0 확인 시 치료 시작 자체는 권고(COR 1, Section 4.2.3.6)이며, 중등도 강도·LDL &lt;100 목표는 합리적(COR 2a) 수준입니다. Table 13의 일반 위험증강인자와는 별개로, 검사로 CAC가 확인된 이후에는 PREVENT 위험도 수치와 무관하게 이 기준이 적용됩니다.',
-           nt:'info',ldlTgt:100,nhTgt:130};
+           nt:'info',ldlTgt:100,nhTgt:130,pct:'30'};
     }
     // CAC = 0: 2026 ACC/AHA COR 2a — 경계·중간위험에서 스타틴 유예 합리적
     // 원문: "the absence of CAC may not be that reassuring in those with multiple first-degree relatives with premature ASCVD"
@@ -5325,10 +5400,10 @@ function upd(){
     {
       key:'dm',
       active:dmAbs,
-      label:`당뇨병 (30–79세)`,
-      detail:dmAbs?`${age}세 당뇨병 — ${primRisk>=10?'PREVENT ≥10%: 고강도':'PREVENT &lt;10%: 중등강도'} 스타틴 권고`:(dmEsrd?`당뇨병 있으나 eGFR ${egfr}(말기신질환/투석 수준) — 신규 스타틴 시작 이득 불명확, 개별 상담 필요`:(dm?`당뇨병 있으나 나이 ${age}세 (적용 연령 30–79세 범위 외)`:'해당 없음')),
-      strength:dm&&primRisk>=10?'고강도':'중등강도',
-      basis:'당뇨 단독으로도 최소 중등강도 스타틴; PREVENT 점수에 관계없이 치료 시작. 단, 말기신질환(투석 수준)에서는 신규 시작 근거 불명확(4D·AURORA 연구)'
+      label:`당뇨병 (40–75세)`,
+      detail:dmAbs?`${age}세 당뇨병 — ${primRisk>=10?'PREVENT ≥10%: 고강도(COR 2a)':dmMrf?'다수 위험인자: 고강도(COR 2a)':'중등강도(COR 1)'} 스타틴 권고`:(dmEsrd?`당뇨병 있으나 eGFR ${egfr}(말기신질환/투석 수준) — 신규 스타틴 시작 이득 불명확, 개별 상담 필요`:(dm?`당뇨병 있으나 나이 ${age}세 (40–75세 범위 외 — 20–39세·>75세는 별도 경로)`:'해당 없음')),
+      strength:dm&&(primRisk>=10||dmMrf)?'고강도':'중등강도',
+      basis:'당뇨병 40–75세: LDL-C·PREVENT와 무관하게 중등강도 스타틴 시작(COR 1). 단, 말기신질환(투석 수준)에서는 신규 시작 근거 불명확(4D·AURORA 연구)'
     },
     {
       key:'hiv',
@@ -5336,7 +5411,7 @@ function upd(){
       label:`HIV (안정 cART, 40–75세)`,
       detail:hivAbs
         ?`${age}세 HIV + 안정 cART — 중등강도 스타틴 권고. 선호: Pitavastatin 4 mg (CYP3A4 비의존, PI 상호작용 최소)`
-        :(hivChecked?`HIV 체크됨 — 나이 ${age}세 (40–75세 범위 외: 위험증강인자로만 반영)`:'해당 없음'),
+        :(hivChecked?`HIV 체크됨 — 나이 ${age}세 (40–75세 범위 외: 본 권고 대상 아님)`:'해당 없음'),
       strength:'중등강도',
       basis:'REPRIEVE trial: Pitavastatin 4 mg → MACE 35% 감소 (2026 ACC/AHA Class I, NEJM 2023)'
     }
@@ -5430,7 +5505,9 @@ function upd(){
   }
 
   // ApoB 목표치 — LDL 목표와 수치 일치 원칙 (이 도구: <55/<70/<100)
-  const dispAbTgt = dispLdlTgt==null ? null : (dispLdlTgt<=55 ? 55 : dispLdlTgt<=70 ? 70 : 100);
+  const dispAbTgt = dispLdlTgt==null ? null
+    : (acc.abTgt!=null && dispLdlTgt===acc.ldlTgt) ? acc.abTgt   // 당뇨병: 중등강도 apoB <90, 고강도 <70 (2026 알고리즘)
+    : (dispLdlTgt<=55 ? 55 : dispLdlTgt<=70 ? 70 : 100);
 
   const curLabel=onStatin?'치료 중':'현재/치료 전';
   const showCur = onStatin; // 스타틴 미복용 시 치료 중/현재 컬럼 공란
@@ -5620,7 +5697,7 @@ function renderAbsIndsDefault(){
     {key:'ldl190',label:'LDL-C ≥ 190 mg/dL (중증 고콜레스테롤혈증 / FH 의심)', sub:'누적 LDL 노출 과다, 가족성 고콜레스테롤혈증 감별 필요'},
     {key:'cac',   label:'CAC ≥100 / ≥1000 — 스타틴 충분조건', sub:'2026 ACC/AHA Section 4.2.7: PREVENT 위험도 무관 스타틴 시작의 충분조건'},
     {key:'ckd',   label:'CKD (eGFR 15–59) + 나이 ≥ 40세', sub:'전통적 위험방정식이 CKD에서 위험을 과소평가; 투석 환자는 별도 판단'},
-    {key:'dm',    label:'당뇨병 (30–79세)',                 sub:'당뇨 단독으로도 최소 중등강도 스타틴; PREVENT 점수에 관계없이 치료 시작'},
+    {key:'dm',    label:'당뇨병 (40–75세)',                 sub:'LDL-C 수치·PREVENT와 무관하게 중등강도 스타틴 (COR 1)'},
     {key:'hiv',   label:'HIV (안정 cART, 40–75세)',         sub:'REPRIEVE trial: Pitavastatin 4 mg → MACE 35% 감소'},
   ];
   let html='';
@@ -6132,8 +6209,10 @@ function clearAllInputs(){
   ['bpTx','smoker','dm','ascvdHx','veryHigh','onStatin',
    'prsCheck','enhCkm','enhInflam','enhHiv','enhLpa','enhHsCRP',
    'enhTg175','enhLdl160','abiCheck','carotidPlaque','cacMain',
-   'cac0','cac1to99','cacCheck','cac1000'].forEach(function(id){
+   'cac0','cac1to99','cacCheck','cac1000',
+   'dmEnhDur','dmEnhAlb','dmEnhEgfr','dmEnhRet','dmEnhNeu','dmEnhAbi','dmMultiRF'].forEach(function(id){
     var el=document.getElementById(id);
+    if(el){ el.dataset.autoChecked='false'; }
     if(el && el.checked){ el.checked=false; el.dispatchEvent(new Event('change')); }
   });
   document.querySelectorAll('input.enh[type=checkbox]').forEach(function(el){
