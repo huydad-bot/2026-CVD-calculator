@@ -744,7 +744,7 @@ var GROUPS_DATA = [
     note:'• 위험 인자가 여러 개 겹치면 더 강하게 치료' },
   { n:4, name:'임상적 ASCVD', nameEn:'2차 예방',
     def:'• 이미 심근경색, 뇌졸중, 말초동맥질환을 앓은 적이 있음',
-    tool:'※ PREVENT 계산 대상 아님 — 이미 병을 앓았다는 사실 자체가 답<br>• 초고위험 여부만 구분: 최근 12개월 내 급성관상동맥증후군, 여러 번의 주요사건<br>• 또는 사건 1회 + 고위험 동반질환(65세 초과·재관류술·흡연·당뇨·심부전·고혈압 등)',
+    tool:'※ PREVENT 계산 대상 아님 — 이미 병을 앓았다는 사실 자체가 답<br>• 초고위험 여부만 구분: 주요 ASCVD 사건 2개 이상<br>• 또는 주요 사건 1개 + 고위험 조건 2개 이상(65세 이상·관상동맥 우회술/중재술·현재 흡연·당뇨병·울혈성 심부전·고혈압·최대내약 스타틴+ezetimibe에도 LDL-C ≥100)',
     statin:'• 무조건 고강도 스타틴부터 시작',
     ldl:'• 고위험 &lt;70<br>• 초고위험 &lt;55',
     note:'• 목표 미달 시: 에제티미브 → PCSK9 억제제/inclisiran → bempedoic acid 순으로 추가' },
@@ -862,7 +862,7 @@ document.addEventListener('keydown', function(e){
 var GLOSSARY=[
   {abbr:'ACC',full:'American College of Cardiology',ko:'미국심장학회',desc:'2026 ACC/AHA Dyslipidemia Guideline 등 주요 심혈관 가이드라인 발행 학회'},
   {abbr:'AHA',full:'American Heart Association',ko:'미국심장협회',desc:'ACC와 공동으로 심혈관 가이드라인 발행. AHA PREVENT 2023 모델 발표'},
-  {abbr:'ASCVD',full:'Atherosclerotic Cardiovascular Disease',ko:'죽상경화성 심혈관질환',desc:'관상동맥질환(MI·불안정협심증), 허혈성 뇌졸중/TIA, 말초동맥질환(PAD)을 포함하는 죽상경화 기반 심혈관질환 전반. 1차·2차 예방 모두의 핵심 개념 — ① 2차 예방: ASCVD 기왕력이 있으면 위험도 계산 없이 곧바로 고위험/초고위험으로 분류되는 게이트웨이 기준. ② 1차 예방: PREVENT 위험도 점수가 계산하는 목표 사건 자체(앞으로 10년 내 ASCVD가 처음 발생할 확률)가 바로 ASCVD임.'},
+  {abbr:'ASCVD',full:'Atherosclerotic Cardiovascular Disease',ko:'죽상경화성 심혈관질환',desc:'*관상동맥질환(MI·불안정협심증), 허혈성 뇌졸중/TIA, 말초동맥질환(PAD)을 포함하는 죽상경화 기반 심혈관질환 전반.<br><br>*1차·2차 예방 모두의 핵심 개념 — ① 2차 예방: ASCVD 기왕력이 있으면 위험도 계산 없이 곧바로 고위험/초고위험으로 분류되는 게이트웨이 기준. ② 1차 예방: PREVENT 위험도 점수가 계산하는 목표 사건 자체(앞으로 10년 내 ASCVD가 처음 발생할 확률)가 바로 ASCVD임.'},
   {abbr:'ASCVD risk',full:'10-year ASCVD Risk (hard ASCVD)',ko:'10년 죽상경화성 심혈관질환 위험도',desc:'<b>정의</b>: 향후 10년 내 첫 hard ASCVD 사건이 발생할 확률. 구성 사건은 ① 비치명 MI, ② CHD 사망, ③ 치명·비치명 뇌졸중의 3가지임(2013 PCE 정의, PREVENT의 ASCVD 결과변수도 동일 구성). 불안정협심증·재관류술·TIA·PAD는 포함하지 않음.<br><br><b>3개 구성요소의 빈도 순위와 구성비(합계 100%)</b><div style="overflow-x:auto;margin:5px 0"><table style="border-collapse:collapse;font-size:11.5px;width:100%;min-width:300px"><tr><th style="padding:3px 5px;border-bottom:1.5px solid #b4b2a9;text-align:left;background:#efeee9">구분</th><th style="padding:3px 5px;border-bottom:1.5px solid #b4b2a9;text-align:left;background:#efeee9">1위</th><th style="padding:3px 5px;border-bottom:1.5px solid #b4b2a9;text-align:left;background:#efeee9">2위</th><th style="padding:3px 5px;border-bottom:1.5px solid #b4b2a9;text-align:left;background:#efeee9">3위</th></tr><tr><td style="padding:3px 5px;border-bottom:1px solid #e4e2dc"><b>한국인</b><br>KHS</td><td style="padding:3px 5px;border-bottom:1px solid #e4e2dc">뇌졸중 <b>80.3%</b><br><span style="color:#8a8880">(비치명 74.7 + 치명 5.6)</span></td><td style="padding:3px 5px;border-bottom:1px solid #e4e2dc">비치명 MI <b>16.2%</b></td><td style="padding:3px 5px;border-bottom:1px solid #e4e2dc">CHD 사망 <b>3.6%</b></td></tr><tr><td style="padding:3px 5px;border-bottom:1px solid #e4e2dc"><b>미국인</b><br>MESA</td><td style="padding:3px 5px;border-bottom:1px solid #e4e2dc">MI <b>44.6%</b></td><td style="padding:3px 5px;border-bottom:1px solid #e4e2dc">뇌졸중 <b>38.6%</b></td><td style="padding:3px 5px;border-bottom:1px solid #e4e2dc">CHD 사망 <b>16.8%</b></td></tr></table></div><b>① 한국인 — KHS (Korean Heart Study; Jung KJ et al. Atherosclerosis 2015)</b><br>40–79세 200,010명, 평균 12.8년 추적. ASCVD 사건 12,327건: 비치명 MI 2,175 · 치명 CHD 478 · 비치명 뇌졸중 10,049 · 치명 뇌졸중 749건. 구성요소 합계(13,451건)가 총 사건 수보다 많아 일부 중복 집계로 보이며, 구성비는 이 합계를 분모로 계산함. 순위: <b>뇌졸중 ≫ MI > CHD 사망</b> (뇌졸중 : 관상동맥 사건 ≈ 4 : 1).<br><br><b>② 미국인 — MESA (Budoff MJ et al. Eur Heart J 2018)</b><br>Hard ASCVD 500건: MI 217 · 뇌졸중 188 · CHD 사망 82 · 소생된 심정지 13건. 소생된 심정지를 제외한 3개 항목(487건)으로 100% 환산함. 소생된 심정지를 CHD 사망에 합산하면 MI 43% · 뇌졸중 38% · CHD 사망 19%. 순위: <b>MI > 뇌졸중 > CHD 사망</b>.<br>교차 확인 — REGARDS (Muntner P et al. JAMA 2014): 판정 사건 338건 중 CHD(MI+CHD 사망) 192건(57%), 뇌졸중 146건(43%)으로 MESA와 같은 방향임.<br>참고: PCE 유도 코호트(ARIC·CHS·CARDIA·Framingham) 자체의 구성요소별 건수는 가이드라인 원문에 제시되지 않음.<br><br><b>③ 해석 시 주의점</b><br>• <b>한국 뇌졸중 비율 과대 가능성</b>: KHS는 건강보험 청구자료 기반으로, 판정(adjudication)을 거친 미국 코호트와 직접 비교에 한계가 있음. 뇌졸중 코드에 후유증·재입원이 혼입되었을 수 있음. 판정을 거친 KoGES 안산·안성 코호트에서는 비치명 CHD 317건(협심증 포함), 비치명 뇌졸중/TIA 216건, ASCVD 사망 89건으로 CHD가 더 많았음(단, 협심증·TIA 포함으로 hard ASCVD 정의와 다름).<br>• <b>코호트 시기</b>: KHS는 1997–2012년 자료임. 이후 한국은 뇌졸중 비중 감소·허혈성 심질환 비중 증가 추세이므로, 현재 실제 구성비는 뇌졸중 우위이되 80%보다 낮을 가능성이 큼.<br>• <b>미국 내 이질성</b>: MESA는 백인·흑인·히스패닉·중국계를 포함하는 다인종 코호트임. 백인 남성에서는 MI 비중이 더 높고, 흑인·여성에서는 뇌졸중 비중이 상승함.<br>• <b>공통점</b>: 두 집단 모두 CHD 사망이 최소 구성요소임. 특히 한국은 5% 미만으로, 관상동맥 사건 발생 자체와 치명률이 모두 낮음을 반영함.<br><br><b>④ 임상적 함의</b><br>한국인에게 PCE 10년 ASCVD 위험을 설명할 때 그 위험의 대부분이 뇌졸중이라는 점을 함께 제시하는 것이 타당함. 이는 KHS에서 PCE(백인 방정식)가 남성 위험을 56.5% 과대추정하고 여성 위험을 27.9% 과소추정한 결과와도 연결되며, 한국 자료로 유도한 KRPM이 가장 양호한 보정도를 보였음.'},
   {abbr:'PREVENT',full:'Predicting Risk of cardiovascular disease EVENTs',ko:'심혈관질환 위험도 예측 모델',desc:'2023 AHA 발표. 10년/30년 Total CVD·ASCVD·심부전 위험을 eGFR·UACR·HbA1c·BMI 포함하여 예측. PCE보다 전반적 위험 정확도 향상'},
   {abbr:'CVD',full:'Cardiovascular Disease',ko:'심혈관질환',desc:'Total CVD = ASCVD + 심부전 포함. PREVENT 모델은 Total CVD와 ASCVD를 구분하여 제공'},
@@ -880,9 +880,9 @@ var GLOSSARY=[
   {abbr:'CKD',full:'Chronic Kidney Disease',ko:'만성신장질환',desc:'eGFR 15–59 mL/min/1.73m² 시 ASCVD 위험증강인자. 40세 미만에서는 자동 반영. eGFR <30 시 스타틴 용량 조절 필요'},
   {abbr:'eGFR',full:'estimated Glomerular Filtration Rate',ko:'추정 사구체여과율',desc:'CKD-EPI 2021 공식 적용. PREVENT 위험 모델 포함 변수(mg/dL). <60 시 CKD, <15 시 말기신부전'},
   {abbr:'UACR',full:'Urine Albumin-to-Creatinine Ratio',ko:'소변 알부민-크레아티닌 비',desc:'신장 손상 지표(mg/g). 30 이상: 미세알부민뇨. 300 이상: 대량알부민뇨. PREVENT 2023 포함 변수'},
-  {abbr:'HbA1c',full:'Hemoglobin A1c (Glycated Hemoglobin)',ko:'당화혈색소',desc:'3개월 혈당 조절 지표(%). 5.7–6.4%: 전당뇨. ≥6.5%: 당뇨 진단. PREVENT 2023 포함 변수. 당뇨(dm=1) 시 hba1cDm 계수, 비당뇨(dm=0) 시 hba1cNoDm 계수로 각각 별도 반영. 단독으로 입력해도 PREVENT의 HbA1c 전용 모델(AHA 보충자료 Table S12.C/H)이 적용되어 위험도에 반영됨. UACR도 함께 입력하면 Full model이 적용됨'},
+  {abbr:'HbA1c',full:'Hemoglobin A1c (Glycated Hemoglobin)',ko:'당화혈색소',desc:'*3개월 혈당 조절 지표(%). 5.7–6.4%: 전당뇨. ≥6.5%: 당뇨 진단.<br><br>*PREVENT 2023 포함 변수. 당뇨(dm=1) 시 hba1cDm 계수, 비당뇨(dm=0) 시 hba1cNoDm 계수로 각각 별도 반영. 단독으로 입력해도 PREVENT의 HbA1c 전용 모델(AHA 보충자료 Table S12.C/H)이 적용되어 위험도에 반영됨. UACR도 함께 입력하면 Full model이 적용됨'},
   {abbr:'BMI',full:'Body Mass Index',ko:'체질량지수',desc:'체중(kg) / 신장(m²). ≥25: 과체중, ≥30: 비만, ≥35: 고도비만(CKM 위험증강인자). PREVENT 모델 포함 변수'},
-  {abbr:'CAC',full:'Coronary Artery Calcification (Score)',ko:'관상동맥 석회화 점수',desc:'CT로 측정하는 무증상 죽상경화 정량 지표. CAC=0: 10년 위험 낮음(부재 확인은 아님) — 스타틴 유예 합리적, 1군(PREVENT) 트랙 유지. CAC≥1(양성) 확인 시 1군에서 5군(Subclinical atherosclerosis) 기준으로 전환: 1–99는 중등도 스타틴 권고(LDL<100), 100–299 또는 ≥75백분위는 고강도 스타틴 충분조건(LDL<70), 300–999는 고강도 스타틴, ≥1000은 초고위험 수준(LDL<55)'},
+  {abbr:'CAC',full:'Coronary Artery Calcification (Score)',ko:'관상동맥 석회화 점수',desc:'*CT로 측정하는 무증상 죽상경화 정량 지표.<br><br>*CAC=0: 10년 위험 낮음(부재 확인은 아님) — 스타틴 유예 합리적, 1군(PREVENT) 트랙 유지. CAC≥1(양성) 확인 시 1군에서 5군(Subclinical atherosclerosis) 기준으로 전환: 1–99는 중등도 스타틴 권고(LDL<100), 100–299 또는 ≥75백분위는 고강도 스타틴 충분조건(LDL<70), 300–999는 고강도 스타틴, ≥1000은 초고위험 수준(LDL<55)'},
   {abbr:'ABI',full:'Ankle-Brachial Index',ko:'발목-상완 지수',desc:'<0.9: 말초동맥질환(PAD). 무증상이면 위험증강인자(LDL<100). 파행·재개통술·궤양 있으면 ASCVD 2차 예방으로 전환. >1.40: 혈관 석회화로 비압박성 — toe-brachial index 시행 권장'},
   {abbr:'PRS',full:'Polygenic Risk Score',ko:'다유전자 위험 점수',desc:'수십만 개 SNP 조합으로 산출한 유전 위험도. CAD PRS 상위 10% 이내 또는 상대위험도 ≥2배 시 위험증강인자 (2026 ACC/AHA Class 2a)'},
   {abbr:'CAD',full:'Coronary Artery Disease',ko:'관상동맥질환',desc:'ASCVD의 주요 임상 표현형. 안정협심증·불안정협심증·MI 포함'},
@@ -892,29 +892,29 @@ var GLOSSARY=[
   {abbr:'OSA',full:'Obstructive Sleep Apnea',ko:'폐쇄성 수면무호흡증',desc:'AHI ≥15(중등도 이상) 시 CKM 위험증강인자. 교감신경 항진·염증·산화스트레스로 심혈관 위험 증가'},
   {abbr:'AHI',full:'Apnea-Hypopnea Index',ko:'무호흡-저호흡 지수',desc:'수면 시간당 무호흡+저호흡 횟수. 5–14: 경도, 15–29: 중등도, ≥30: 중증 OSA'},
   {abbr:'PAD',full:'Peripheral Artery Disease',ko:'말초동맥질환',desc:'ABI <0.9, 파행, 하지 재개통술력 포함. ASCVD의 주요 임상 표현형. 2차 예방 대상'},
-  {abbr:'VHR',full:'Very High Risk',ko:'초고위험군 (2차 예방)',desc:'2026 ACC/AHA Dyslipidemia Guideline 정의. ASCVD 기왕력 환자 중 아래 기준 해당 시 VHR 분류 → <b>LDL-C &lt;55 · ApoB &lt;55 · non-HDL &lt;85 mg/dL</b> 목표 적용.<br><br><b style="color:#a32d2d">[A] 복수의 주요 ASCVD 사건 (2개 이상)</b><br><span style="padding-left:8px;display:block">MI(STEMI/NSTEMI) · 허혈성 뇌졸중/TIA · 불안정협심증 입원 · PAD(파행·재개통술·절단)</span><b style="color:#a32d2d">[B] 단일 주요 ASCVD 사건 + 고위험 조건 1개 이상</b><br><span style="padding-left:8px;display:block">▸ 당뇨병 · 고혈압 · CKD(eGFR 15–59) · 흡연 지속<br>▸ 조기 ASCVD (남 &lt;55세, 여 &lt;65세)<br>▸ FH (이형접합 가족성 고콜레스테롤혈증)<br>▸ 다혈관 관상동맥질환 (multivessel CAD)<br>▸ 최대 내약 스타틴에서도 LDL-C ≥70 mg/dL 지속<br>▸ CAC ≥300 또는 ≥75th percentile</span><br>치료: 고강도 스타틴 → Ezetimibe → PCSK9i 단계 강화. LDL &lt;55 달성 시 추가 사건 ~20% 추가 감소 (CTT)'},
+  {abbr:'VHR',full:'Very High Risk',ko:'초고위험군 (2차 예방)',desc:'2026 ACC/AHA Dyslipidemia Guideline 정의. ASCVD 기왕력 환자 중 아래 기준 해당 시 VHR 분류 → <b>LDL-C &lt;55 · ApoB &lt;55 · non-HDL &lt;85 mg/dL</b> 목표 적용.<br><br><b style="color:#a32d2d">[A] 주요 ASCVD 사건 2개 이상</b><br><b style="color:#a32d2d">[B] 주요 ASCVD 사건 1개 + 고위험 조건 2개 이상</b><br><br><b>주요 ASCVD 사건</b><br><span style="padding-left:8px;display:block">▸ 최근 12개월 내 ACS<br>▸ MI 병력 (위 ACS 외)<br>▸ 허혈성 뇌졸중 병력<br>▸ 증상성 PAD</span><b>고위험 조건</b><br><span style="padding-left:8px;display:block">▸ 65세 이상<br>▸ 관상동맥 우회술 또는 경피적 관상동맥중재술<br>▸ 현재 흡연<br>▸ 당뇨병<br>▸ 울혈성 심부전 병력<br>▸ 고혈압<br>▸ 최대내약 스타틴 + ezetimibe에도 LDL-C ≥100 mg/dL (2.6 mmol/L)</span><br>※ ASCVD + CKD 3기 이상(eGFR &lt;60)은 초고위험과 동일한 목표 적용 (2026 4.2.8.8 권고 2, COR 1)<br><br>치료: 고강도 스타틴 → 에제티미브 및/또는 PCSK9 mAb(COR 1) → inclisiran(PCSK9 mAb 불내성·구입 불가·투여 빈도 선호 시, COR 2a) → bempedoic acid(COR 2a). LDL &lt;55 달성 시 추가 사건 ~20% 추가 감소 (CTT)'},
   {abbr:'MI',full:'Myocardial Infarction',ko:'심근경색증',desc:'ASCVD 기왕력의 주요 유형. STEMI/NSTEMI 포함. 2차 예방 대상 — LDL 목표 <70 (일반), <55 (초고위험)'},
   {abbr:'PCSK9',full:'Proprotein Convertase Subtilisin/Kexin type 9',ko:'PCSK9 (지단백 수용체 조절 효소)',desc:'LDL 수용체를 분해하여 LDL-C 상승 유발. 억제제(evolocumab·alirocumab): LDL 추가 50–60% 감소. 초고위험 스타틴+에제티미브 미달성 시 3단계 추가 치료'},
   {abbr:'NNT',full:'Number Needed to Treat',ko:'치료 필요 수',desc:'1명의 사건을 예방하기 위해 치료해야 하는 환자 수. 낮을수록 치료 효율 높음. 위험군별: 저위험 ~267, 경계 ~100, 중간 ~53, 고위험 1차 ~24, 고위험 2차 ~11, 초고위험 2차 ~7'},
-  {abbr:'NNH',full:'Number Needed to Harm',ko:'위해 필요 수',desc:'치료로 인해 1명에게 부작용이 발생하는 데 필요한 치료 환자 수. NNT vs NNH 비교로 치료 이익/위해 균형 판단. 스타틴 NNH(4년 기준): 신규당뇨(NODM) — 중등강도 ~208, 고강도 ~58 / 간효소 상승(>3×ULN) ~313 / 약리적 SAMS(진성) ~13–50 / 진성 근병증 ~2,500 / 횡문근융해증 ~8,000–12,500. 통합 NNH(RCT 기반 약리적 부작용 합산, 중등강도) ≈ 21 (CTT · Lancet 2026)'},
+  {abbr:'NNH',full:'Number Needed to Harm',ko:'위해 필요 수',desc:'*치료로 인해 1명에게 부작용이 발생하는 데 필요한 치료 환자 수.<br><br>*NNT vs NNH 비교로 치료 이익/위해 균형 판단. 스타틴 NNH(4년 기준): 신규당뇨(NODM) — 중등강도 ~208, 고강도 ~58 / 간효소 상승(>3×ULN) ~313 / 약리적 SAMS(진성) ~13–50 / 진성 근병증 ~2,500 / 횡문근융해증 ~8,000–12,500. 통합 NNH(RCT 기반 약리적 부작용 합산, 중등강도) ≈ 21 (CTT · Lancet 2026)'},
   {abbr:'RRR',full:'Relative Risk Reduction',ko:'상대위험 감소율',desc:'스타틴: LDL 38.7 mg/dL(1 mmol/L) 감소 시 ASCVD 사건 약 22% 상대적 감소 (CTT meta-analysis). 기저위험에 무관하게 일정'},
   {abbr:'ARR',full:'Absolute Risk Reduction',ko:'절대위험 감소율',desc:'10년간 절대적 사건 예방 비율 = 기저위험 × RRR. 기저위험이 높을수록 ARR 증가 → NNT 감소'},
   {abbr:'CTT',full:'Cholesterol Treatment Trialists Collaboration',ko:'콜레스테롤 치료 임상시험 협력단',desc:'스타틴 RCT 대규모 메타분석. LDL 1 mmol/L 감소 시 ASCVD 사건 약 22% RRR의 핵심 근거 제공'},
   {abbr:'4S',full:'Scandinavian Simvastatin Survival Study',ko:'스칸디나비아 심바스타틴 생존 연구',desc:'1994년 발표. 관상동맥질환 환자(2차 예방)에서 Simvastatin 20–40mg vs 위약. 총 사망률 30%, 심혈관 사망 42% 감소. NNT₅yr ≈ 12–19. 스타틴 2차예방 효과를 확립한 landmark trial'},
-  {abbr:'WOSCOPS',full:'West of Scotland Coronary Prevention Study',ko:'서스코틀랜드 관상동맥 예방 연구',desc:'1995년. 고콜레스테롤혈증 남성(1차 예방)에서 Pravastatin 40mg vs 위약. MACE 31% 감소. NNT₅yr ≈ 42. 스타틴 1차예방 효과를 최초로 입증한 대규모 RCT. ▸ 당뇨: 2001년 post hoc 서브분석에서 신규 T2DM 30% 감소(RR 0.70) 보고 — 사전 계획 endpoint 아님(탐색적). 이후 메타분석(Sattar 2010)에서 스타틴 전반은 T2DM 약 9% 증가로 확인되어 상반됨'},
+  {abbr:'WOSCOPS',full:'West of Scotland Coronary Prevention Study',ko:'서스코틀랜드 관상동맥 예방 연구',desc:'*1995년. 고콜레스테롤혈증 남성(1차 예방)에서 Pravastatin 40mg vs 위약.<br><br>*MACE 31% 감소. NNT₅yr ≈ 42. 스타틴 1차예방 효과를 최초로 입증한 대규모 RCT.<br><br>*당뇨: 2001년 post hoc 서브분석에서 신규 T2DM 30% 감소(RR 0.70) 보고 — 사전 계획 endpoint 아님(탐색적). 이후 메타분석(Sattar 2010)에서 스타틴 전반은 T2DM 약 9% 증가로 확인되어 상반됨'},
   {abbr:'AFCAPS',full:'Air Force/Texas Coronary Atherosclerosis Prevention Study',ko:'공군/텍사스 관상동맥 죽상경화증 예방 연구',desc:'1998년. 평균 LDL 콜레스테롤, 낮은 HDL의 1차예방 집단에서 Lovastatin 20–40mg. 첫 MACE 37% 감소. NNT₅yr ≈ 50. TexCAPS와 병합 보고. 중간위험 1차예방에서 스타틴 효용 근거'},
   {abbr:'LIPID',full:'Long-term Intervention with Pravastatin in Ischaemic Disease',ko:'허혈성 심질환의 장기 프라바스타틴 개입 연구',desc:'1998년. ACS 과거력(MI 또는 불안정 협심증) 환자에서 Pravastatin 40mg vs 위약, 추적 6.1년. 관상동맥 사망 24%, 총 사망 22% 감소. 2차예방 기저위험 추정의 핵심 근거 RCT 중 하나'},
-  {abbr:'HPS',full:'Heart Protection Study',ko:'심장 보호 연구',desc:'2002년. 40–80세 고위험 환자 20,536명에서 Simvastatin 40mg vs 위약, 추적 5년. MACE 24% 감소. 기저 LDL 수준에 무관하게 이익 발생 → 절대 LDL 수준보다 위험도 기반 치료 결정의 근거 제공. CKD, 당뇨, 뇌졸중 환자 포함 광범위 코호트'},
-  {abbr:'PROVE-IT',full:'Pravastatin or Atorvastatin Evaluation and Infection Therapy (TIMI 22)',ko:'PROVE-IT TIMI 22',desc:'2004년. ACS 환자에서 Atorvastatin 80mg(집중) vs Pravastatin 40mg(표준). Atorvastatin군 MACE 16% 추가 감소, LDL 목표 62 vs 95 mg/dL. 집중 지질강하 요법(intensive LDL-lowering)의 근거. 2차 예방 기저위험 추정에 활용'},
-  {abbr:'TNT',full:'Treating to New Targets',ko:'새로운 목표치로의 치료',desc:'2005년. 안정 관상동맥질환 환자에서 Atorvastatin 80mg vs 10mg, 추적 4.9년. 고강도군 MACE 22% 추가 감소(LDL 77 vs 101 mg/dL). 신규 당뇨: 9.04% vs 8.10% → NNH ≈ 106/4.9yr (집중 vs 표준). LDL <70 mg/dL 목표의 근거'},
-  {abbr:'JUPITER',full:'Justification for the Use of Statins in Prevention: an Intervention Trial Evaluating Rosuvastatin',ko:'주피터 시험',desc:'2008년. LDL <130, hs-CRP ≥2.0 mg/L인 1차예방 환자에서 Rosuvastatin 20mg vs 위약. MACE 44% 감소, 추적 중앙값 1.9년(조기 종료). 신규 당뇨: 3.0% vs 2.4% → NNH ≈ 164/1.9yr. hs-CRP 기반 스타틴 적응증 확대의 근거'},
+  {abbr:'HPS',full:'Heart Protection Study',ko:'심장 보호 연구',desc:'*2002년. 40–80세 고위험 환자 20,536명에서 Simvastatin 40mg vs 위약, 추적 5년.<br><br>*MACE 24% 감소. 기저 LDL 수준에 무관하게 이익 발생 → 절대 LDL 수준보다 위험도 기반 치료 결정의 근거 제공. CKD, 당뇨, 뇌졸중 환자 포함 광범위 코호트'},
+  {abbr:'PROVE-IT',full:'Pravastatin or Atorvastatin Evaluation and Infection Therapy (TIMI 22)',ko:'PROVE-IT TIMI 22',desc:'*2004년. ACS 환자에서 Atorvastatin 80mg(집중) vs Pravastatin 40mg(표준).<br><br>*Atorvastatin군 MACE 16% 추가 감소, LDL 목표 62 vs 95 mg/dL. 집중 지질강하 요법(intensive LDL-lowering)의 근거. 2차 예방 기저위험 추정에 활용'},
+  {abbr:'TNT',full:'Treating to New Targets',ko:'새로운 목표치로의 치료',desc:'*2005년. 안정 관상동맥질환 환자에서 Atorvastatin 80mg vs 10mg, 추적 4.9년.<br><br>*고강도군 MACE 22% 추가 감소(LDL 77 vs 101 mg/dL). 신규 당뇨: 9.04% vs 8.10% → NNH ≈ 106/4.9yr (집중 vs 표준). LDL <70 mg/dL 목표의 근거'},
+  {abbr:'JUPITER',full:'Justification for the Use of Statins in Prevention: an Intervention Trial Evaluating Rosuvastatin',ko:'주피터 시험',desc:'*2008년. LDL <130, hs-CRP ≥2.0 mg/L인 1차예방 환자에서 Rosuvastatin 20mg vs 위약.<br><br>*MACE 44% 감소, 추적 중앙값 1.9년(조기 종료). 신규 당뇨: 3.0% vs 2.4% → NNH ≈ 164/1.9yr. hs-CRP 기반 스타틴 적응증 확대의 근거'},
   {abbr:'AURORA',full:'A Study to Evaluate the Use of Rosuvastatin in Subjects on Regular Hemodialysis',ko:'오로라 연구',desc:'2009년. 혈액투석 환자에서 Rosuvastatin 10mg vs 위약. LDL 43% 감소에도 MACE 유의한 감소 없음(HR 0.96). 4D trial(Atorvastatin, 투석 당뇨 환자)과 함께 투석 환자에서 스타틴의 심혈관 이익 제한적임을 시사'},
-  {abbr:'4D',full:'Die Deutsche Diabetes Dialyse Studie',ko:'독일 당뇨 투석 연구',desc:'2005년 NEJM. 혈액투석 중인 제2형 당뇨 환자 1,255명에서 Atorvastatin 20mg vs 위약, 추적 4년. LDL 42% 감소에도 1차 복합 심혈관 엔드포인트(심장사망+비치명적 MI+뇌졸중) 유의한 감소 없음(RR 0.92, p=0.37). 치명적 뇌졸중은 스타틴군에서 오히려 증가(RR 2.03). AURORA와 함께 투석 환자에서 스타틴 심혈관 이익 제한적 근거. 가이드라인: 투석 시작 전부터 복용 중이면 유지, 투석 후 신규 시작은 권고하지 않음'},
-  {abbr:'SHARP',full:'Study of Heart and Renal Protection',ko:'심장 및 신장 보호 연구',desc:'2011년. CKD 환자 9,270명(투석 3,023명 + 비투석 6,247명)에서 Simvastatin 20mg + Ezetimibe 10mg vs 위약. 주요 혈관사건 17% 감소. 투석 서브그룹에서는 유의한 이익 없음. 비투석 CKD 환자에서 스타틴(±Ezetimibe) 지침 근거'},
-  {abbr:'MESA',full:'Multi-Ethnic Study of Atherosclerosis',ko:'다민족 죽상경화증 연구',desc:'미국 다기관 전향적 코호트(2000년~). 백인·흑인·히스패닉·중국계 6,814명. CAC 점수와 심혈관 사건 위험 연관성 규명. CAC=0의 "보증" 효과(negative warranty), CAC ≥100의 고위험 재분류 근거 제공. 현 ACC/AHA 지침의 CAC 기반 의사결정 근거'},
-  {abbr:'REDUCE-IT',full:'Reduction of Cardiovascular Events with Icosapentaenoic Acid–Intervention Trial',ko:'리듀스-IT',desc:'2018년. 스타틴 복용 중 TG 135–499 mg/dL + ASCVD 또는 당뇨 고위험군에서 Icosapentaenoic acid(EPA; Vascepa) 4g/day vs 위약. MACE 25% 감소. 일반 어유(EPA+DHA 혼합)와 효과 차이 있음(STRENGTH trial 음성). 고순도 EPA 단독 제제의 근거'},
-  {abbr:'REPRIEVE',full:'Randomized Trial to Prevent Vascular Events in HIV',ko:'리프리브',desc:'2023년 NEJM. HIV 감염 환자(40–75세, 전통 위험인자 기준 저~중등 위험)에서 Pitavastatin 4mg vs 위약. 주요 심혈관사건(MACE) 35% 감소, 추적 5.1년. HIV 특이적 염증·면역활성화에 의한 잔류 위험을 스타틴으로 감소. ARV 치료 중 HIV 환자 스타틴 적응증 확립'},
-  {abbr:'CLEAR',full:'CLEAR Outcomes (Cholesterol Lowering via Bempedoic acid, an ACL-Inhibiting Regulator)',ko:'클리어 아웃컴즈',desc:'2023년 NEJM. 스타틴 불내성 환자에서 Bempedoic acid(Nexletol) 180mg vs 위약. MACE 13% 감소. LDL 약 21% 감소. 스타틴 근육 부작용으로 중단한 환자의 대안 지질강하제 근거. 2026 ACC/AHA 가이드라인에 스타틴 불내성 비스타틴 옵션으로 권고'},
+  {abbr:'4D',full:'Die Deutsche Diabetes Dialyse Studie',ko:'독일 당뇨 투석 연구',desc:'*2005년 NEJM. 혈액투석 중인 제2형 당뇨 환자 1,255명에서 Atorvastatin 20mg vs 위약, 추적 4년.<br><br>*LDL 42% 감소에도 1차 복합 심혈관 엔드포인트(심장사망+비치명적 MI+뇌졸중) 유의한 감소 없음(RR 0.92, p=0.37). 치명적 뇌졸중은 스타틴군에서 오히려 증가(RR 2.03). AURORA와 함께 투석 환자에서 스타틴 심혈관 이익 제한적 근거. 가이드라인: 투석 시작 전부터 복용 중이면 유지, 투석 후 신규 시작은 권고하지 않음'},
+  {abbr:'SHARP',full:'Study of Heart and Renal Protection',ko:'심장 및 신장 보호 연구',desc:'*2011년. CKD 환자 9,270명(투석 3,023명 + 비투석 6,247명)에서 Simvastatin 20mg + Ezetimibe 10mg vs 위약.<br><br>*주요 혈관사건 17% 감소. 투석 서브그룹에서는 유의한 이익 없음. 비투석 CKD 환자에서 스타틴(±Ezetimibe) 지침 근거'},
+  {abbr:'MESA',full:'Multi-Ethnic Study of Atherosclerosis',ko:'다민족 죽상경화증 연구',desc:'*미국 다기관 전향적 코호트(2000년~).<br><br>*백인·흑인·히스패닉·중국계 6,814명. CAC 점수와 심혈관 사건 위험 연관성 규명. CAC=0의 "보증" 효과(negative warranty), CAC ≥100의 고위험 재분류 근거 제공. 현 ACC/AHA 지침의 CAC 기반 의사결정 근거'},
+  {abbr:'REDUCE-IT',full:'Reduction of Cardiovascular Events with Icosapentaenoic Acid–Intervention Trial',ko:'리듀스-IT',desc:'*2018년. 스타틴 복용 중 TG 135–499 mg/dL + ASCVD 또는 당뇨 고위험군에서 Icosapentaenoic acid(EPA; Vascepa) 4g/day vs 위약.<br><br>*MACE 25% 감소. 일반 어유(EPA+DHA 혼합)와 효과 차이 있음(STRENGTH trial 음성). 고순도 EPA 단독 제제의 근거'},
+  {abbr:'REPRIEVE',full:'Randomized Trial to Prevent Vascular Events in HIV',ko:'리프리브',desc:'*2023년 NEJM. HIV 감염 환자(40–75세, 전통 위험인자 기준 저~중등 위험)에서 Pitavastatin 4mg vs 위약.<br><br>*주요 심혈관사건(MACE) 35% 감소, 추적 5.1년. HIV 특이적 염증·면역활성화에 의한 잔류 위험을 스타틴으로 감소. ARV 치료 중 HIV 환자 스타틴 적응증 확립'},
+  {abbr:'CLEAR',full:'CLEAR Outcomes (Cholesterol Lowering via Bempedoic acid, an ACL-Inhibiting Regulator)',ko:'클리어 아웃컴즈',desc:'*2023년 NEJM. 스타틴 불내성 환자에서 Bempedoic acid(Nexletol) 180mg vs 위약.<br><br>*MACE 13% 감소. LDL 약 21% 감소. 스타틴 근육 부작용으로 중단한 환자의 대안 지질강하제 근거. 2026 ACC/AHA 가이드라인에 스타틴 불내성 비스타틴 옵션으로 권고'},
   {abbr:'FH',full:'Familial Hypercholesterolemia',ko:'가족성 고콜레스테롤혈증',desc:'LDL 수용체·ApoB·PCSK9 유전자 변이로 LDL-C 극도 상승. DLCN/Simon Broome 기준으로 진단. 조기 ASCVD 위험. 고강도 스타틴+에제티미브±PCSK9i 요구'},
   {abbr:'LOE',full:'Level of Evidence',ko:'근거 수준',desc:'• A: 다중 RCT/메타분석<br>• B-R: 무작위 단일<br>• B-NR: 비무작위 연구<br>• C-LD: 제한된 데이터<br>• C-EO: 전문가 의견'},
   {abbr:'RCT',full:'Randomized Controlled Trial',ko:'무작위 대조 임상시험',desc:'임상 근거의 최고 수준. LOE A = 복수의 RCT 또는 메타분석 기반'},
@@ -936,45 +936,46 @@ var GLOSSARY=[
   {abbr:'STEMI',full:'ST-Elevation Myocardial Infarction',ko:'ST분절상승 심근경색',desc:'관상동맥 완전 폐색으로 ST분절 상승 동반 심근경색. 응급 재관류 치료 필요. 2차 예방 고위험군'},
   {abbr:'NSTEMI',full:'Non-ST-Elevation Myocardial Infarction',ko:'비ST분절상승 심근경색',desc:'관상동맥 부분 폐색. 심근 손상 동반. ACS의 일부. 2차 예방 대상'},
   {abbr:'ACS',full:'Acute Coronary Syndrome',ko:'급성관상동맥증후군',desc:'불안정협심증·NSTEMI·STEMI 포함. 2차 예방 — LDL 목표 <70 mg/dL (초고위험 <55 mg/dL)'},
-  {abbr:'MACE',full:'Major Adverse Cardiovascular Events',ko:'주요 심혈관 이상사건',desc:'심혈관 임상시험의 1차 복합 엔드포인트. 3-point MACE(3P-MACE) = 심혈관 사망 + 비치명적 MI + 비치명적 허혈성 뇌졸중. 4-point MACE는 불안정협심증에 의한 입원을 추가. WOSCOPS·AFCAPS·TNT·JUPITER·REPRIEVE·CLEAR 등 주요 스타틴 RCT의 1차 엔드포인트로 사용. 복합 엔드포인트이므로 구성 요소 별 효과 크기 차이에 주의'},
-  {abbr:'SAMS',full:'Statin-Associated Muscle Symptoms',ko:'스타틴 관련 근육 증상',desc:'스타틴 복용 중 발생하는 근육 관련 증상의 총칭. 근육통(myalgia)·근무력증·근병증(myopathy, CK>10×ULN)·횡문근융해증까지 스펙트럼. RCT에서 약리적 SAMS는 0.5–2%이나, 임상 현장에서 10–20% 호소 — 차이의 80–90%는 노세보(nocebo) 효과. SAMSON n-of-1 trial: 이전 SAMS 환자의 위약 기간과 스타틴 기간 근육 증상 차이 없음 확인'},
-  {abbr:'NODM',full:'New-Onset Diabetes Mellitus',ko:'신규 당뇨병 발생 (스타틴 유발)',desc:'스타틴 복용 후 발생하는 당뇨병. 계열 전체 효과(class effect)이나 강도 비례. CTT 2024(Lancet Diabetes Endocrinol): 중등강도 RR 1.10, 고강도 RR 1.36. NNH(4년): 중등강도 ~208, 고강도 ~58. 단, 스타틴 유발 NODM은 기존 T2DM보다 대혈관 합병증 위험 낮음 — 잠재적 DM의 조기 현성화로 해석. Pitavastatin·Pravastatin이 상대적으로 낮은 위험'},
-  {abbr:'Nocebo',full:'Nocebo Effect',ko:'노세보 효과',desc:'위약을 복용해도 약물 부작용을 예상하여 증상이 발생하는 현상. 플라세보의 반대 개념. 스타틴 SAMS의 80–90%를 설명: SAMSON trial(N=200 n-of-1 crossover)에서 atorvastatin과 위약의 근육 증상 점수 차이 없음. 임상적으로 SAMS 호소 시 dechallenge/rechallenge 또는 약물 전환을 먼저 시도'},
-  {abbr:'Rhabdo',full:'Rhabdomyolysis',ko:'횡문근융해증',desc:'골격근 대량 파괴로 미오글로빈이 혈중 유출되는 중증 근독성. CK >10×ULN + 미오글로빈뇨 ± 급성신부전. 스타틴 발생률: 2–3/100,000 person-yr(NNH ~8,000–12,500/4년). 집중요법에서 4/10,000(vs 표준 1/10,000). Simvastatin 80mg 금지 후 발생률 감소. 위험인자: CYP3A4 약물 상호작용(특히 simvastatin/lovastatin), 고령, CKD, 갑상선기능저하증, gemfibrozil 병용'},
+  {abbr:'MACE',full:'Major Adverse Cardiovascular Events',ko:'주요 심혈관 이상사건',desc:'*심혈관 임상시험의 1차 복합 엔드포인트.<br><br>*3-point MACE(3P-MACE) = 심혈관 사망 + 비치명적 MI + 비치명적 허혈성 뇌졸중. 4-point MACE는 불안정협심증에 의한 입원을 추가. WOSCOPS·AFCAPS·TNT·JUPITER·REPRIEVE·CLEAR 등 주요 스타틴 RCT의 1차 엔드포인트로 사용. 복합 엔드포인트이므로 구성 요소 별 효과 크기 차이에 주의'},
+  {abbr:'SAMS',full:'Statin-Associated Muscle Symptoms',ko:'스타틴 관련 근육 증상',desc:'*스타틴 복용 중 발생하는 근육 관련 증상의 총칭.<br><br>*근육통(myalgia)·근무력증·근병증(myopathy, CK>10×ULN)·횡문근융해증까지 스펙트럼. RCT에서 약리적 SAMS는 0.5–2%이나, 임상 현장에서 10–20% 호소 — 차이의 80–90%는 노세보(nocebo) 효과. SAMSON n-of-1 trial: 이전 SAMS 환자의 위약 기간과 스타틴 기간 근육 증상 차이 없음 확인'},
+  {abbr:'Statin intolerance',full:'Statin Intolerance',ko:'스타틴 불내성',desc:'*정의: 2종 이상의 스타틴에서 근육 증상 등 부작용이 있고, 그중 1종은 최저 승인용량에서 발생한 경우 (NLA 2022, 2026 ACC/AHA Figure 18과 동일; 2차 원인 배제 필요). 모든 용량을 못 쓰는 완전 불내성과 목표 용량을 못 쓰는 부분 불내성으로 구분.<br><br>*유병률: Bytyçi 등(Eur Heart J 2022, 176개 연구 약 410만 명) 전체 약 9%, NLA·EAS 등 공식 정의 적용 시 약 6–7%, RCT 약 5% vs 코호트 약 17%. 이중맹검 RCT(CTT, Lancet 2022, 약 12만 명)에서 근육통·근력 저하 보고는 스타틴군 약 27% vs 위약군 약 27%로 거의 같고, 스타틴에 의한 초과분은 첫해 약 1%p — 스타틴군 근육 증상의 90% 이상은 스타틴 때문이 아님. SAMSON(NEJM 2020): 노세보 비율 0.90.<br><br>*임상 현장 호소는 5–30%이나 진성 약리적 불내성, 특히 완전 불내성은 드물며, 대부분 대체 스타틴·격일 투여·비스타틴 병용으로 치료 가능. 2026 가이드라인은 구체적 비율 대신 RCT에서는 낮고 관찰연구에서는 높다고 기술.'},
+  {abbr:'NODM',full:'New-Onset Diabetes Mellitus',ko:'신규 당뇨병 발생 (스타틴 유발)',desc:'*스타틴 복용 후 발생하는 당뇨병. 계열 전체 효과(class effect)이나 강도 비례.<br><br>*CTT 2024(Lancet Diabetes Endocrinol): 중등강도 RR 1.10, 고강도 RR 1.36. NNH(4년): 중등강도 ~208, 고강도 ~58. 단, 스타틴 유발 NODM은 기존 T2DM보다 대혈관 합병증 위험 낮음 — 잠재적 DM의 조기 현성화로 해석. Pitavastatin·Pravastatin이 상대적으로 낮은 위험'},
+  {abbr:'Nocebo',full:'Nocebo Effect',ko:'노세보 효과',desc:'*위약을 복용해도 약물 부작용을 예상하여 증상이 발생하는 현상.<br><br>*플라세보의 반대 개념. 스타틴 SAMS의 80–90%를 설명: SAMSON trial(N=200 n-of-1 crossover)에서 atorvastatin과 위약의 근육 증상 점수 차이 없음. 임상적으로 SAMS 호소 시 dechallenge/rechallenge 또는 약물 전환을 먼저 시도'},
+  {abbr:'Rhabdo',full:'Rhabdomyolysis',ko:'횡문근융해증',desc:'*골격근 대량 파괴로 미오글로빈이 혈중 유출되는 중증 근독성.<br><br>*CK >10×ULN + 미오글로빈뇨 ± 급성신부전. 스타틴 발생률: 2–3/100,000 person-yr(NNH ~8,000–12,500/4년). 집중요법에서 4/10,000(vs 표준 1/10,000). Simvastatin 80mg 금지 후 발생률 감소. 위험인자: CYP3A4 약물 상호작용(특히 simvastatin/lovastatin), 고령, CKD, 갑상선기능저하증, gemfibrozil 병용'},
   {abbr:'IMNM',full:'Immune-Mediated Necrotizing Myopathy',ko:'면역매개 괴사근병증',desc:'스타틴 중단 후에도 지속·악화되는 자가면역 근병증. Anti-HMGCR 항체(스타틴 노출 후 자가면역 유발) 양성. 발생률 ~1–2/100,000 — 극희귀. 면역억제 치료 필요(스테로이드, IVIG, Rituximab). 고강도 장기 스타틴 사용자에서 주의'},
-  {abbr:'LFT',full:'Liver Function Tests',ko:'간기능 검사',desc:'AST, ALT, ALP, GGT, bilirubin, PT 포함. 스타틴 임상시험에서 AST/ALT >3×ULN 발생: 스타틴군 0.30%/yr vs 위약 0.22%/yr, RR 1.41(CTT Lancet 2026). NNH ~313/4년. 단, 임상적 간부전·담즙정체·간염 등 심각한 간독성은 FDR 유의 신호 없음 — 생화학적 이상이 임상 간질환으로 진행하지 않음이 확인됨'},
-  {abbr:'ALP',full:'Alkaline Phosphatase',ko:'알칼리인산분해효소',desc:'담도계·골격계·간 손상의 지표. 정상 범위 40–130 IU/L(기관별 상이). 스타틴의 \"기타 LFT 이상\"에 포함되는 항목 중 하나. 담도 폐쇄·간침윤성 질환·골전이 시 상승. 스타틴 투여 시 경미한 ALP 상승이 보고되나 임상적 담즙정체 신호는 CTT 2026 대규모 RCT에서 FDR 유의하지 않음'},
-  {abbr:'GGT',full:'Gamma-Glutamyl Transferase',ko:'감마글루타밀전이효소',desc:'간·담도·췌장 질환 및 알코올 섭취의 민감한 지표. 정상 범위 남 10–71 IU/L, 여 6–42 IU/L(기관별 상이). 스타틴의 \"기타 LFT 이상\"에 포함. 알코올·약물·지방간에서도 상승하여 특이도 낮음. 스타틴 투여 시 경미한 GGT 상승 가능하나 임상적 의의는 제한적 — ALP와 함께 담도 기원 여부 감별에 활용'},
-  {abbr:'ARD',full:'Absolute Risk Difference',ko:'절대위험 차이',desc:'치료군과 대조군(위약군) 간 사건 발생률의 절대적 차이. 이익 맥락에서는 ARR(Absolute Risk Reduction)과 동의어로 쓰임. 부작용(NNH) 맥락에서는 스타틴군 부작용 발생률 − 위약군 발생률 = 초과 발생률. NNH = 1 ÷ ARD. 예) 스타틴 중등강도 4년간 NODM ARD ≈ 0.48% → NNH ≈ 208. ARD는 기저 발생률에 비례하므로 동일 RR이라도 고위험 집단에서 ARD가 커져 NNH는 낮아짐'},
+  {abbr:'LFT',full:'Liver Function Tests',ko:'간기능 검사',desc:'*AST, ALT, ALP, GGT, bilirubin, PT 포함.<br><br>*스타틴 임상시험에서 AST/ALT >3×ULN 발생: 스타틴군 0.30%/yr vs 위약 0.22%/yr, RR 1.41(CTT Lancet 2026). NNH ~313/4년. 단, 임상적 간부전·담즙정체·간염 등 심각한 간독성은 FDR 유의 신호 없음 — 생화학적 이상이 임상 간질환으로 진행하지 않음이 확인됨'},
+  {abbr:'ALP',full:'Alkaline Phosphatase',ko:'알칼리인산분해효소',desc:'*담도계·골격계·간 손상의 지표. 정상 범위 40–130 IU/L(기관별 상이).<br><br>*스타틴의 \"기타 LFT 이상\"에 포함되는 항목 중 하나. 담도 폐쇄·간침윤성 질환·골전이 시 상승. 스타틴 투여 시 경미한 ALP 상승이 보고되나 임상적 담즙정체 신호는 CTT 2026 대규모 RCT에서 FDR 유의하지 않음'},
+  {abbr:'GGT',full:'Gamma-Glutamyl Transferase',ko:'감마글루타밀전이효소',desc:'*간·담도·췌장 질환 및 알코올 섭취의 민감한 지표.<br><br>*정상 범위 남 10–71 IU/L, 여 6–42 IU/L(기관별 상이). 스타틴의 \"기타 LFT 이상\"에 포함. 알코올·약물·지방간에서도 상승하여 특이도 낮음. 스타틴 투여 시 경미한 GGT 상승 가능하나 임상적 의의는 제한적 — ALP와 함께 담도 기원 여부 감별에 활용'},
+  {abbr:'ARD',full:'Absolute Risk Difference',ko:'절대위험 차이',desc:'*치료군과 대조군(위약군) 간 사건 발생률의 절대적 차이.<br><br>*이익 맥락에서는 ARR(Absolute Risk Reduction)과 동의어로 쓰임. 부작용(NNH) 맥락에서는 스타틴군 부작용 발생률 − 위약군 발생률 = 초과 발생률. NNH = 1 ÷ ARD. 예) 스타틴 중등강도 4년간 NODM ARD ≈ 0.48% → NNH ≈ 208. ARD는 기저 발생률에 비례하므로 동일 RR이라도 고위험 집단에서 ARD가 커져 NNH는 낮아짐'},
   {abbr:'ULN',full:'Upper Limit of Normal',ko:'정상 상한치',desc:'임상검사 참고 범위의 상한값. 스타틴 부작용 기준으로 빈번히 사용: CK >10×ULN(근병증), CK >40×ULN(횡문근융해증 기준 중 하나), AST/ALT >3×ULN(간독성 기준). ULN은 기관별·성별·연령별로 상이하므로 절대값이 아닌 배수(×ULN)로 표현'},
-  {abbr:'CK',full:'Creatine Kinase',ko:'크레아틴키나제',desc:'골격근·심근·뇌 손상의 주요 혈청 지표(IU/L). 근독성 분류 기준: 증상 동반 CK >4×ULN → SAMS 의심, >10×ULN → 근병증(myopathy), >40×ULN + 미오글로빈뇨·신부전 → 횡문근융해증. 스타틴 시작 전 기저치 측정 권장(특히 고위험군). 운동·외상·갑상선기능저하 시에도 상승하므로 해석 시 임상 맥락 필수'},
-  {abbr:'AST',full:'Aspartate Aminotransferase',ko:'아스파르테이트아미노전달효소',desc:'간세포·심근·골격근 손상 지표(IU/L). 정상 범위 10–40 IU/L(기관별 상이). FIB-4 계산식에 포함: (나이 × AST) / (혈소판 × √ALT). 스타틴 간독성 기준: AST >3×ULN. ALT보다 특이도 낮음(근육 손상 시에도 상승). ALT와 함께 LFT의 핵심 지표'},
-  {abbr:'ALT',full:'Alanine Aminotransferase',ko:'알라닌아미노전달효소',desc:'간세포 손상의 특이적 지표(IU/L). 정상 범위 7–56 IU/L(기관별 상이). FIB-4 계산식에 포함(√ALT). 스타틴 간독성 기준: ALT >3×ULN. AST보다 간 특이도 높아 간질환 모니터링에 선호. CTT 2026 대규모 메타분석에서 스타틴군 AST/ALT >3×ULN 발생률 0.30%/yr — FDR 보정 후 심각한 간독성 신호 없음'},
-  {abbr:'T2DM',full:'Type 2 Diabetes Mellitus',ko:'제2형 당뇨병',desc:'인슐린 저항성 및 상대적 인슐린 분비 부족에 의한 만성 고혈당 질환. ASCVD 주요 위험인자이자 위험증강인자. NODM(스타틴 유발 신규 당뇨)은 기존 T2DM보다 대혈관 합병증 위험이 낮은 것으로 보고됨 — 잠재적 DM의 조기 현성화로 해석. HbA1c ≥6.5% 또는 공복혈당 ≥126 mg/dL로 진단'},
-  {abbr:'HMGCR',full:'3-Hydroxy-3-Methylglutaryl-CoA Reductase',ko:'HMG-CoA 환원효소',desc:'콜레스테롤 생합성의 속도결정 효소. 스타틴의 직접 억제 표적. IMNM(면역매개 괴사근병증)에서 anti-HMGCR 자가항체가 생성되며, 이는 스타틴 노출 후 HMGCR 단백질에 대한 자가면역 반응으로 발생. Anti-HMGCR 항체는 IMNM의 진단 표지자이자 질병 활성도 지표로 사용'},
-  {abbr:'IVIG',full:'Intravenous Immunoglobulin',ko:'정맥내 면역글로불린',desc:'혈장에서 정제한 다가 면역글로불린(IgG) 제제. 자가면역 질환의 면역조절 치료에 사용. IMNM(스타틴 관련 anti-HMGCR 근병증) 치료 시 스테로이드·Rituximab과 함께 면역억제 병합요법의 구성 약제. 용량: 1–2 g/kg/cycle. 스타틴 중단 후에도 근육 증상이 지속·악화되는 경우 IMNM을 의심하고 신속 투여 고려'},
-  {abbr:'SAMSON',full:'Self-Assessment Method for Statin Side-effects Or Nocebo',ko:'SAMSON 시험',desc:'2020년 N Engl J Med. 이전에 SAMS로 스타틴을 중단한 환자 200명 대상 n-of-1 교차 설계 RCT(영국). Atorvastatin 20mg vs 위약 vs 약 없음 각 1개월씩 무작위 반복 투여. 결과: 스타틴 기간과 위약 기간의 근육 증상 점수 차이 없음(위약 대비 약 90% 증상) → 스타틴 SAMS의 약 90%가 노세보(nocebo) 효과임을 직접 입증한 핵심 근거. SAMS 호소 환자에서 dechallenge/rechallenge 또는 격일 투여 전략의 근거'},
-  {abbr:'FDR',full:'False Discovery Rate',ko:'위발견율 (다중검정 보정)',desc:'다중 가설 검정 시 양성 결과 중 위양성(false positive)의 예상 비율. Benjamini-Hochberg 방법으로 보정. CTT 2026(Lancet) 메타분석에서 스타틴 40여 개 부작용 항목을 동시 검정 후 FDR 보정 적용 — 이 보정 후 심각한 간독성(임상 간부전·담즙정체)은 통계적 유의 신호 없음. 단순 p<0.05와 달리 다중 비교의 과검출을 억제하므로 대규모 안전성 분석에 적합'},
-  {abbr:'HR',full:'Hazard Ratio',ko:'위험비',desc:'생존분석(Cox 비례위험 모형)에서 두 군 간 사건 발생 속도의 비율. RR(Relative Risk)과 유사하나 시간 경과를 반영. HR=1: 두 군 동등, HR<1: 치료군 사건 위험 감소, HR>1: 증가. 예) AURORA: Rosuvastatin vs 위약 HR 0.96(p=NS) → 사건 위험 차이 없음. 추적 기간이 다른 시험 간 비교 시 HR이 단순 위험률 비교보다 정확'},
-  {abbr:'RR',full:'Relative Risk',ko:'상대위험도',desc:'코호트 연구 또는 RCT에서 치료군 사건 발생률 ÷ 대조군 사건 발생률. RR=1: 차이 없음, RR<1: 치료군 위험 감소, RR>1: 위험 증가. HR과 달리 고정 추적 기간에 적용. 예) WOSCOPS post hoc: pravastatin 신규 당뇨 RR 0.70(탐색적). NODM: 중등강도 스타틴 RR 1.10, 고강도 RR 1.36. RRR = 1 − RR'},
-  {abbr:'STRENGTH',full:'Statin Residual Risk Reduction with EpaNova in High CV Risk PatienTs with Hypertriglyceridemia',ko:'스트렝스 시험',desc:'2020년 JAMA. 스타틴 복용 중 TG 180–499 mg/dL 고위험군에서 EPA+DHA 혼합 카르복실산(Epanova) 4g/day vs 옥수수유 위약. 추적 중앙값 3.5년. MACE 유의한 감소 없음(HR 0.99, p=0.84) — 조기 종료. REDUCE-IT(순수 EPA)와 달리 음성 결과. EPA+DHA 혼합 어유 대비 고순도 EPA 단독 제제의 우월성 근거로 해석. 위약으로 사용한 옥수수유의 LDL-C 상승이 교란요인 가능성 논란'},
-  {abbr:'TIMI',full:'Thrombolysis In Myocardial Infarction',ko:'TIMI 연구 그룹',desc:'미국 브리검여성병원 중심의 심혈관 임상연구 컨소시엄. ACS·항혈전 치료 분야의 대규모 RCT 주도. PROVE-IT TIMI 22(집중 vs 표준 지질강하), TIMI 프레임수(관상동맥 혈류 등급) 등 다수의 landmark 연구 수행. 시험명에 TIMI가 포함된 경우 동 그룹 주관 또는 공동 주관 연구'},
-  {abbr:'DHA',full:'Docosahexaenoic Acid',ko:'도코사헥사엔산(오메가-3)',desc:'EPA와 함께 오메가-3 지방산의 주요 구성 성분. TG 강하 효과는 EPA와 유사하나, 심혈관 사건 감소 근거는 EPA 단독 제제(Icosapent ethyl)에만 확립됨. EPA+DHA 혼합 어유는 STRENGTH trial에서 MACE 감소 실패(HR 0.99). DHA가 LDL-C를 경미하게 상승시켜 순이익을 상쇄할 가능성이 논의됨. 따라서 심혈관 사건 예방 목적으로는 고순도 EPA 단독 제제(REDUCE-IT 근거)를 사용하며, EPA+DHA 혼합 일반 어유 보충제는 권고하지 않음'},
+  {abbr:'CK',full:'Creatine Kinase',ko:'크레아틴키나제',desc:'*골격근·심근·뇌 손상의 주요 혈청 지표(IU/L).<br><br>*근독성 분류 기준: 증상 동반 CK >4×ULN → SAMS 의심, >10×ULN → 근병증(myopathy), >40×ULN + 미오글로빈뇨·신부전 → 횡문근융해증. 스타틴 시작 전 기저치 측정 권장(특히 고위험군). 운동·외상·갑상선기능저하 시에도 상승하므로 해석 시 임상 맥락 필수'},
+  {abbr:'AST',full:'Aspartate Aminotransferase',ko:'아스파르테이트아미노전달효소',desc:'*간세포·심근·골격근 손상 지표(IU/L).<br><br>*정상 범위 10–40 IU/L(기관별 상이). FIB-4 계산식에 포함: (나이 × AST) / (혈소판 × √ALT). 스타틴 간독성 기준: AST >3×ULN. ALT보다 특이도 낮음(근육 손상 시에도 상승). ALT와 함께 LFT의 핵심 지표'},
+  {abbr:'ALT',full:'Alanine Aminotransferase',ko:'알라닌아미노전달효소',desc:'*간세포 손상의 특이적 지표(IU/L).<br><br>*정상 범위 7–56 IU/L(기관별 상이). FIB-4 계산식에 포함(√ALT). 스타틴 간독성 기준: ALT >3×ULN. AST보다 간 특이도 높아 간질환 모니터링에 선호. CTT 2026 대규모 메타분석에서 스타틴군 AST/ALT >3×ULN 발생률 0.30%/yr — FDR 보정 후 심각한 간독성 신호 없음'},
+  {abbr:'T2DM',full:'Type 2 Diabetes Mellitus',ko:'제2형 당뇨병',desc:'*인슐린 저항성 및 상대적 인슐린 분비 부족에 의한 만성 고혈당 질환.<br><br>*ASCVD 주요 위험인자이자 위험증강인자. NODM(스타틴 유발 신규 당뇨)은 기존 T2DM보다 대혈관 합병증 위험이 낮은 것으로 보고됨 — 잠재적 DM의 조기 현성화로 해석. HbA1c ≥6.5% 또는 공복혈당 ≥126 mg/dL로 진단'},
+  {abbr:'HMGCR',full:'3-Hydroxy-3-Methylglutaryl-CoA Reductase',ko:'HMG-CoA 환원효소',desc:'*콜레스테롤 생합성의 속도결정 효소. 스타틴의 직접 억제 표적.<br><br>*IMNM(면역매개 괴사근병증)에서 anti-HMGCR 자가항체가 생성되며, 이는 스타틴 노출 후 HMGCR 단백질에 대한 자가면역 반응으로 발생. Anti-HMGCR 항체는 IMNM의 진단 표지자이자 질병 활성도 지표로 사용'},
+  {abbr:'IVIG',full:'Intravenous Immunoglobulin',ko:'정맥내 면역글로불린',desc:'*혈장에서 정제한 다가 면역글로불린(IgG) 제제.<br><br>*자가면역 질환의 면역조절 치료에 사용. IMNM(스타틴 관련 anti-HMGCR 근병증) 치료 시 스테로이드·Rituximab과 함께 면역억제 병합요법의 구성 약제. 용량: 1–2 g/kg/cycle. 스타틴 중단 후에도 근육 증상이 지속·악화되는 경우 IMNM을 의심하고 신속 투여 고려'},
+  {abbr:'SAMSON',full:'Self-Assessment Method for Statin Side-effects Or Nocebo',ko:'SAMSON 시험',desc:'*2020년 N Engl J Med. 이전에 SAMS로 스타틴을 중단한 환자 200명 대상 n-of-1 교차 설계 RCT(영국).<br><br>*Atorvastatin 20mg vs 위약 vs 약 없음 각 1개월씩 무작위 반복 투여. 결과: 스타틴 기간과 위약 기간의 근육 증상 점수 차이 없음(위약 대비 약 90% 증상) → 스타틴 SAMS의 약 90%가 노세보(nocebo) 효과임을 직접 입증한 핵심 근거. SAMS 호소 환자에서 dechallenge/rechallenge 또는 격일 투여 전략의 근거'},
+  {abbr:'FDR',full:'False Discovery Rate',ko:'위발견율 (다중검정 보정)',desc:'*다중 가설 검정 시 양성 결과 중 위양성(false positive)의 예상 비율.<br><br>*Benjamini-Hochberg 방법으로 보정. CTT 2026(Lancet) 메타분석에서 스타틴 40여 개 부작용 항목을 동시 검정 후 FDR 보정 적용 — 이 보정 후 심각한 간독성(임상 간부전·담즙정체)은 통계적 유의 신호 없음. 단순 p<0.05와 달리 다중 비교의 과검출을 억제하므로 대규모 안전성 분석에 적합'},
+  {abbr:'HR',full:'Hazard Ratio',ko:'위험비',desc:'*생존분석(Cox 비례위험 모형)에서 두 군 간 사건 발생 속도의 비율.<br><br>*RR(Relative Risk)과 유사하나 시간 경과를 반영. HR=1: 두 군 동등, HR<1: 치료군 사건 위험 감소, HR>1: 증가. 예) AURORA: Rosuvastatin vs 위약 HR 0.96(p=NS) → 사건 위험 차이 없음. 추적 기간이 다른 시험 간 비교 시 HR이 단순 위험률 비교보다 정확'},
+  {abbr:'RR',full:'Relative Risk',ko:'상대위험도',desc:'*코호트 연구 또는 RCT에서 치료군 사건 발생률 ÷ 대조군 사건 발생률.<br><br>*RR=1: 차이 없음, RR<1: 치료군 위험 감소, RR>1: 위험 증가. HR과 달리 고정 추적 기간에 적용. 예) WOSCOPS post hoc: pravastatin 신규 당뇨 RR 0.70(탐색적). NODM: 중등강도 스타틴 RR 1.10, 고강도 RR 1.36. RRR = 1 − RR'},
+  {abbr:'STRENGTH',full:'Statin Residual Risk Reduction with EpaNova in High CV Risk PatienTs with Hypertriglyceridemia',ko:'스트렝스 시험',desc:'*2020년 JAMA. 스타틴 복용 중 TG 180–499 mg/dL 고위험군에서 EPA+DHA 혼합 카르복실산(Epanova) 4g/day vs 옥수수유 위약.<br><br>*추적 중앙값 3.5년. MACE 유의한 감소 없음(HR 0.99, p=0.84) — 조기 종료. REDUCE-IT(순수 EPA)와 달리 음성 결과. EPA+DHA 혼합 어유 대비 고순도 EPA 단독 제제의 우월성 근거로 해석. 위약으로 사용한 옥수수유의 LDL-C 상승이 교란요인 가능성 논란'},
+  {abbr:'TIMI',full:'Thrombolysis In Myocardial Infarction',ko:'TIMI 연구 그룹',desc:'*미국 브리검여성병원 중심의 심혈관 임상연구 컨소시엄.<br><br>*ACS·항혈전 치료 분야의 대규모 RCT 주도. PROVE-IT TIMI 22(집중 vs 표준 지질강하), TIMI 프레임수(관상동맥 혈류 등급) 등 다수의 landmark 연구 수행. 시험명에 TIMI가 포함된 경우 동 그룹 주관 또는 공동 주관 연구'},
+  {abbr:'DHA',full:'Docosahexaenoic Acid',ko:'도코사헥사엔산(오메가-3)',desc:'*EPA와 함께 오메가-3 지방산의 주요 구성 성분.<br><br>*TG 강하 효과는 EPA와 유사하나, 심혈관 사건 감소 근거는 EPA 단독 제제(Icosapent ethyl)에만 확립됨. EPA+DHA 혼합 어유는 STRENGTH trial에서 MACE 감소 실패(HR 0.99). DHA가 LDL-C를 경미하게 상승시켜 순이익을 상쇄할 가능성이 논의됨. 따라서 심혈관 사건 예방 목적으로는 고순도 EPA 단독 제제(REDUCE-IT 근거)를 사용하며, EPA+DHA 혼합 일반 어유 보충제는 권고하지 않음'},
   {abbr:'COR',full:'Class of Recommendation',ko:'권고 등급',desc:'ACC/AHA 가이드라인 권고 등급 체계.<br>• Class I: 이익 >> 위험, 시행 권고(COR I)<br>• Class IIa: 이익 > 위험, 시행 합리적(COR 2a)<br>• Class IIb: 이익 ≥ 위험, 고려 가능(COR 2b)<br>• Class III: 이익 없음(No Benefit) 또는 위험(Harm)<br>• LOE(근거 수준, A/B-R/B-NR/C-LD/C-EO)와 쌍으로 표기. 예) COR I LOE A = 최고 수준 근거에 기반한 강력 권고'},
-  {abbr:'DM',full:'Diabetes Mellitus',ko:'당뇨병',desc:'인슐린 분비 부족 또는 작용 결함으로 인한 만성 고혈당 질환. 제1형(T1DM, 자가면역)·제2형(T2DM, 인슐린저항성)으로 대분류. ASCVD 주요 위험인자이자 위험증강인자. PREVENT 모델에서 HbA1c가 위험 예측 변수로 포함됨. 스타틴의 NODM 유발 위험은 당뇨 전단계 또는 잠재적 DM에서 더 높으며, 발현을 촉진하는 것으로 해석'},
-  {abbr:'HIV',full:'Human Immunodeficiency Virus',ko:'인체면역결핍바이러스',desc:'후천성면역결핍증(AIDS)의 원인 바이러스. 안정적 ART(항레트로바이러스 치료) 중인 HIV 감염 환자에서 ASCVD 위험이 높음 — HIV 특이적 만성 염증·면역활성화에 의한 잔류 위험 기전. REPRIEVE trial(2023, NEJM): Pitavastatin 4mg → MACE 35% 감소. 2026 ACC/AHA 가이드라인 Class I 권고(40–75세 HIV 환자, ART 중)'},
-  {abbr:'DDI',full:'Drug-Drug Interaction',ko:'약물-약물 상호작용',desc:'두 약물이 동시 투여될 때 상호 간 약동학(흡수·분포·대사·배설) 또는 약역학적 작용에 영향을 미치는 현상. 지질치료에서 특히 중요한 DDI: CYP3A4 억제제(아졸계 항진균제·칼슘채널차단제·Amiodarone)와 Simvastatin/Lovastatin 병용 → 혈중 스타틴 농도 급증 → 근독성·횡문근융해증 위험 증가. 신이식 후 면역억제제(Cyclosporine, Tacrolimus)와 스타틴 DDI도 임상적으로 중요'},
-  {abbr:'LLT',full:'Lipid-Lowering Therapy',ko:'지질강하치료',desc:'LDL-C 감소를 목표로 하는 치료의 통칭. 생활습관 교정(식이·운동)과 약물 치료(스타틴·에제티미브·PCSK9i·Bempedoic acid·Inclisiran 등)를 포함. 1차·2차 예방에서 위험도에 따른 시작 기준과 목표치가 다름. 고령·기대여명 감소 시 LLT 중단을 고려하는 기준이 2026 ACC/AHA 가이드라인에 명시됨'},
-  {abbr:'NEJM',full:'New England Journal of Medicine',ko:'뉴잉글랜드 의학저널',desc:'세계 최고 권위의 의학 학술지(Impact Factor 1위권). 심혈관 landmark 임상시험 다수 발표: SAMSON(2020), REPRIEVE(2023), CLEAR Outcomes(2023), 4S, WOSCOPS, JUPITER 등. 약어 NEJM은 문헌 인용 시 표준 약칭으로 사용'},
-  {abbr:'JACC',full:'Journal of the American College of Cardiology',ko:'미국심장학회 학술지',desc:'ACC 공식 학술지. 심혈관 가이드라인·임상 연구의 주요 발표 채널. 2013 PCE 위험 계산식 원저(JACC 2014;63:2935), 2018 ACC/AHA 콜레스테롤 가이드라인(JACC 2019;73:e285) 게재. Circulation, JAMA Cardiology와 함께 심장학 3대 저널'},
-  {abbr:'VLDL-C',full:'VLDL Cholesterol',ko:'초저밀도지단백 콜레스테롤',desc:'VLDL 입자 내 콜레스테롤 성분. 혈청 TG가 정상일 때 VLDL-C ≈ TG/5(mg/dL)로 추산(Friedewald 근사). TC = LDL-C + HDL-C + VLDL-C. Non-HDL-C = LDL-C + VLDL-C + IDL-C + Lp(a). TG ≥400 mg/dL 시 Friedewald 공식 LDL-C 계산 불가 — Martin-Hopkins 또는 직접측정법(direct LDL) 사용'},
-  {abbr:'CYP450',full:'Cytochrome P450 Enzyme System',ko:'사이토크롬 P450 효소계',desc:'간 및 소장의 주요 약물 대사 효소군. 스타틴 대사에서 핵심: Simvastatin·Lovastatin·Atorvastatin은 CYP3A4 의존 대사. Rosuvastatin·Fluvastatin은 CYP2C9 의존. Pravastatin·Pitavastatin은 CYP450 비의존(비교적 DDI 적음). CYP3A4 억제제(아졸계 항진균제, 칼슘채널차단제, 자몽주스 등) 병용 시 CYP3A4 의존 스타틴 혈중 농도 급증 → 근독성 위험'},
-  {abbr:'ART',full:'Antiretroviral Therapy',ko:'항레트로바이러스 치료',desc:'HIV 감염 치료를 위해 여러 항레트로바이러스 약물을 병합 투여하는 요법(cART, HAART로도 불림). 안정적 ART 중인 HIV 환자에서 면역기능은 회복되나 만성 염증·혈관 노화가 지속 — 잔류 ASCVD 위험의 원인. REPRIEVE trial은 안정적 ART 중인 40–75세 HIV 환자 대상 Pitavastatin 효과 입증. 일부 프로테아제 억제제(PI 계열 ART)는 CYP3A4 억제로 스타틴 DDI 주의'},
-  {abbr:'CPR',full:'Clinician-Patient Risk Discussion (Cardiovascular Preventive Risk Framework)',ko:'심혈관 예방위험 프레임워크 / 임상가-환자 위험 논의',desc:'2026 ACC/AHA Dyslipidemia Guideline의 핵심 의사결정 철학. 위험도 계산(PREVENT), 위험증강인자, CAC 점수, 환자 선호도·기저질환·예상 이익(NNT)·예상 위해(NNH)를 통합하여 개별 환자에게 최적화된 의사결정을 내리는 접근. 특히 중간위험군(10년 ASCVD 7.5–20%)에서 치료 시작/강도 결정에 CPR 과정을 권고. 환자 가치관·삶의 질·치료 선호를 반영하는 공유 의사결정(Shared Decision Making)의 구체적 구현'},
-  {abbr:'CYP3A4',full:'Cytochrome P450 3A4',ko:'사이토크롬 P450 3A4',desc:'CYP450 효소계의 주요 동종효소. Simvastatin·Lovastatin·Atorvastatin 대사 담당. 억제제(아졸계 항진균제·마크로라이드·칼슘채널차단제·자몽주스, 일부 PI 계열 ART) 병용 시 해당 스타틴 혈중 농도 급증 → 근독성·횡문근융해증 위험. Pravastatin·Pitavastatin·Rosuvastatin은 CYP3A4 비의존이라 상대적으로 안전.'},
+  {abbr:'DM',full:'Diabetes Mellitus',ko:'당뇨병',desc:'*인슐린 분비 부족 또는 작용 결함으로 인한 만성 고혈당 질환.<br><br>*제1형(T1DM, 자가면역)·제2형(T2DM, 인슐린저항성)으로 대분류. ASCVD 주요 위험인자이자 위험증강인자. PREVENT 모델에서 HbA1c가 위험 예측 변수로 포함됨. 스타틴의 NODM 유발 위험은 당뇨 전단계 또는 잠재적 DM에서 더 높으며, 발현을 촉진하는 것으로 해석'},
+  {abbr:'HIV',full:'Human Immunodeficiency Virus',ko:'인체면역결핍바이러스',desc:'*후천성면역결핍증(AIDS)의 원인 바이러스.<br><br>*안정적 ART(항레트로바이러스 치료) 중인 HIV 감염 환자에서 ASCVD 위험이 높음 — HIV 특이적 만성 염증·면역활성화에 의한 잔류 위험 기전. REPRIEVE trial(2023, NEJM): Pitavastatin 4mg → MACE 35% 감소. 2026 ACC/AHA 가이드라인 Class I 권고(40–75세 HIV 환자, ART 중)'},
+  {abbr:'DDI',full:'Drug-Drug Interaction',ko:'약물-약물 상호작용',desc:'*두 약물이 동시 투여될 때 상호 간 약동학(흡수·분포·대사·배설) 또는 약역학적 작용에 영향을 미치는 현상.<br><br>*지질치료에서 특히 중요한 DDI: CYP3A4 억제제(아졸계 항진균제·칼슘채널차단제·Amiodarone)와 Simvastatin/Lovastatin 병용 → 혈중 스타틴 농도 급증 → 근독성·횡문근융해증 위험 증가. 신이식 후 면역억제제(Cyclosporine, Tacrolimus)와 스타틴 DDI도 임상적으로 중요'},
+  {abbr:'LLT',full:'Lipid-Lowering Therapy',ko:'지질강하치료',desc:'*LDL-C 감소를 목표로 하는 치료의 통칭.<br><br>*생활습관 교정(식이·운동)과 약물 치료(스타틴·에제티미브·PCSK9i·Bempedoic acid·Inclisiran 등)를 포함. 1차·2차 예방에서 위험도에 따른 시작 기준과 목표치가 다름. 고령·기대여명 감소 시 LLT 중단을 고려하는 기준이 2026 ACC/AHA 가이드라인에 명시됨'},
+  {abbr:'NEJM',full:'New England Journal of Medicine',ko:'뉴잉글랜드 의학저널',desc:'*세계 최고 권위의 의학 학술지(Impact Factor 1위권).<br><br>*심혈관 landmark 임상시험 다수 발표: SAMSON(2020), REPRIEVE(2023), CLEAR Outcomes(2023), 4S, WOSCOPS, JUPITER 등. 약어 NEJM은 문헌 인용 시 표준 약칭으로 사용'},
+  {abbr:'JACC',full:'Journal of the American College of Cardiology',ko:'미국심장학회 학술지',desc:'*ACC 공식 학술지. 심혈관 가이드라인·임상 연구의 주요 발표 채널.<br><br>*2013 PCE 위험 계산식 원저(JACC 2014;63:2935), 2018 ACC/AHA 콜레스테롤 가이드라인(JACC 2019;73:e285) 게재. Circulation, JAMA Cardiology와 함께 심장학 3대 저널'},
+  {abbr:'VLDL-C',full:'VLDL Cholesterol',ko:'초저밀도지단백 콜레스테롤',desc:'*VLDL 입자 내 콜레스테롤 성분. 혈청 TG가 정상일 때 VLDL-C ≈ TG/5(mg/dL)로 추산(Friedewald 근사).<br><br>*TC = LDL-C + HDL-C + VLDL-C. Non-HDL-C = LDL-C + VLDL-C + IDL-C + Lp(a). TG ≥400 mg/dL 시 Friedewald 공식 LDL-C 계산 불가 — Martin-Hopkins 또는 직접측정법(direct LDL) 사용'},
+  {abbr:'CYP450',full:'Cytochrome P450 Enzyme System',ko:'사이토크롬 P450 효소계',desc:'*간 및 소장의 주요 약물 대사 효소군.<br><br>*스타틴 대사에서 핵심: Simvastatin·Lovastatin·Atorvastatin은 CYP3A4 의존 대사. Rosuvastatin·Fluvastatin은 CYP2C9 의존. Pravastatin·Pitavastatin은 CYP450 비의존(비교적 DDI 적음). CYP3A4 억제제(아졸계 항진균제, 칼슘채널차단제, 자몽주스 등) 병용 시 CYP3A4 의존 스타틴 혈중 농도 급증 → 근독성 위험'},
+  {abbr:'ART',full:'Antiretroviral Therapy',ko:'항레트로바이러스 치료',desc:'*HIV 감염 치료를 위해 여러 항레트로바이러스 약물을 병합 투여하는 요법(cART, HAART로도 불림).<br><br>*안정적 ART 중인 HIV 환자에서 면역기능은 회복되나 만성 염증·혈관 노화가 지속 — 잔류 ASCVD 위험의 원인. REPRIEVE trial은 안정적 ART 중인 40–75세 HIV 환자 대상 Pitavastatin 효과 입증. 일부 프로테아제 억제제(PI 계열 ART)는 CYP3A4 억제로 스타틴 DDI 주의'},
+  {abbr:'CPR',full:'Clinician-Patient Risk Discussion (Cardiovascular Preventive Risk Framework)',ko:'심혈관 예방위험 프레임워크 / 임상가-환자 위험 논의',desc:'*2026 ACC/AHA Dyslipidemia Guideline의 핵심 의사결정 철학.<br><br>*위험도 계산(PREVENT), 위험증강인자, CAC 점수, 환자 선호도·기저질환·예상 이익(NNT)·예상 위해(NNH)를 통합하여 개별 환자에게 최적화된 의사결정을 내리는 접근. 특히 중간위험군(10년 ASCVD 7.5–20%)에서 치료 시작/강도 결정에 CPR 과정을 권고. 환자 가치관·삶의 질·치료 선호를 반영하는 공유 의사결정(Shared Decision Making)의 구체적 구현'},
+  {abbr:'CYP3A4',full:'Cytochrome P450 3A4',ko:'사이토크롬 P450 3A4',desc:'*CYP450 효소계의 주요 동종효소.<br><br>*Simvastatin·Lovastatin·Atorvastatin 대사 담당. 억제제(아졸계 항진균제·마크로라이드·칼슘채널차단제·자몽주스, 일부 PI 계열 ART) 병용 시 해당 스타틴 혈중 농도 급증 → 근독성·횡문근융해증 위험. Pravastatin·Pitavastatin·Rosuvastatin은 CYP3A4 비의존이라 상대적으로 안전.'},
   {abbr:'CYP2C9',full:'Cytochrome P450 2C9',ko:'사이토크롬 P450 2C9',desc:'CYP450 동종효소. Rosuvastatin·Fluvastatin 대사에 관여. CYP2C9 억제제 또는 유전 다형성에 따라 노출이 변동할 수 있으나 CYP3A4 경로보다 임상적 DDI는 적은 편.'},
   {abbr:'HeFH',full:'Heterozygous Familial Hypercholesterolemia',ko:'이형접합 가족성 고콜레스테롤혈증',desc:'FH의 흔한 형태(유병률 ~1/250). 단일 대립유전자 변이로 LDL-C 대개 190–400 mg/dL. 조기 ASCVD 위험. 고강도 스타틴+에제티미브±PCSK9i. DLCN/Simon Broome 기준으로 진단.'},
-  {abbr:'HoFH',full:'Homozygous Familial Hypercholesterolemia',ko:'동형접합 가족성 고콜레스테롤혈증',desc:'양 대립유전자 변이의 중증 FH(유병률 ~1/30만). LDL-C 흔히 >400 mg/dL, 소아기 ASCVD. DLCN 점수 비적용, 유전·임상 기준으로 진단. PCSK9i 효과는 잔존 LDL 수용체 활성에 의존하며 Evinacumab·LDL 분리반출(apheresis)을 고려.'},
+  {abbr:'HoFH',full:'Homozygous Familial Hypercholesterolemia',ko:'동형접합 가족성 고콜레스테롤혈증',desc:'*양 대립유전자 변이의 중증 FH(유병률 ~1/30만).<br><br>*LDL-C 흔히 >400 mg/dL, 소아기 ASCVD. DLCN 점수 비적용, 유전·임상 기준으로 진단. PCSK9i 효과는 잔존 LDL 수용체 활성에 의존하며 Evinacumab·LDL 분리반출(apheresis)을 고려.'},
   {abbr:'CHD',full:'Coronary Heart Disease',ko:'관상동맥심장질환',desc:'관상동맥 죽상경화에 의한 심장질환. CAD와 거의 동의어로 쓰이며 협심증·MI 포함. 청년기부터의 누적 LDL 노출과 용량 의존적으로 연관.'},
   {abbr:'SLE',full:'Systemic Lupus Erythematosus',ko:'전신홍반루푸스',desc:'만성 자가면역 염증질환. 전신 염증을 통해 ASCVD 위험을 높이는 위험증강인자에 포함(RA·건선·염증성 관절염과 함께).'},
   {abbr:'RA',full:'Rheumatoid Arthritis',ko:'류마티스 관절염',desc:'만성 염증성 관절질환. 전신 염증으로 ASCVD 위험 증가 → 위험증강인자.'},
@@ -1007,81 +1008,81 @@ var GLOSSARY=[
   {abbr:'CKD-EPI',full:'CKD Epidemiology Collaboration (equation)',ko:'CKD-EPI 사구체여과율 추정식',desc:'eGFR 계산식. 2021년 인종 보정을 제거한 개정판을 적용. PREVENT 모델의 eGFR 입력에 사용.'},
 
   /* ── 약제 (Medications) ── */
-  {abbr:'Statin',full:'HMG-CoA Reductase Inhibitor',ko:'스타틴 (HMG-CoA 환원효소 억제제)',desc:'콜레스테롤 생합성의 속도결정 단계인 HMG-CoA → 메발론산 전환을 억제. 간의 LDL 수용체 발현 상향조절 → LDL-C 감소. LDL 1 mmol/L(38.7 mg/dL) 감소 시 ASCVD 사건 약 22% RRR(CTT). 강도에 따라 고강도(LDL ≥50% 감소) · 중등강도(30–49%) · 저강도(<30%)으로 분류. 계열 부작용: SAMS, NODM, LFT 이상(드묾).'},
-  {abbr:'Rosuvastatin',full:'Rosuvastatin (Crestor®)',ko:'로수바스타틴',desc:'고강도 스타틴. 용량: 20–40 mg/day(고강도), 5–10 mg(중등강도). 수용성 스타틴 — CYP2C9 대사, CYP3A4 비의존. ASCVD 2차예방 및 1차예방(JUPITER trial, hs-CRP ≥2.0) 근거. 심한 CKD에서 ≤10 mg 제한 권고. AURORA trial: 투석 환자에서 MACE 감소 없음. NODM 위험은 스타틴 중 상대적으로 높음(RR ~1.2 vs 위약).'},
-  {abbr:'Atorvastatin',full:'Atorvastatin (Lipitor®)',ko:'아토르바스타틴',desc:'고강도 스타틴. 용량: 40–80 mg/day(고강도), 10–20 mg(중등강도). 지용성 — CYP3A4 대사. PROVE-IT, TNT, ASCOT-LLA 등 다수의 landmark RCT 근거. CYP3A4 억제제(아졸계, 칼슘채널차단제, 일부 PI) 병용 시 노출 증가 주의. 신이식 후 cyclosporine 병용 시 용량 제한.'},
-  {abbr:'Simvastatin',full:'Simvastatin (Zocor®)',ko:'심바스타틴',desc:'중등강도 스타틴. 용량: 20–40 mg/day. 지용성 — CYP3A4 대사. 4S trial(1994)로 2차예방 효과 최초 입증한 역사적 약물. 80 mg 제형: 횡문근융해증 위험↑ → FDA 2011년 신규 처방 금지. CYP3A4 억제제(아미오다론·암로디핀·베라파밀 등)와 DDI 가장 현저한 스타틴.'},
-  {abbr:'Pravastatin',full:'Pravastatin (Pravachol®)',ko:'프라바스타틴',desc:'중등강도 스타틴. 용량: 40–80 mg/day. 수용성 — CYP450 비의존 대사(설폰화 경로). DDI가 가장 적은 스타틴 중 하나. HIV PI 병용 시 비교적 안전. WOSCOPS(1차예방), LIPID(2차예방) 근거. NODM 위험 스타틴 중 낮은 편. ▸ WOSCOPS post hoc에서 신규 T2DM 30% 감소(RR 0.70) 보고되었으나 탐색적 결과로, 당뇨 예방 효과로 해석 불가'},
-  {abbr:'Pitavastatin',full:'Pitavastatin (Livalo®)',ko:'피타바스타틴',desc:'중등강도 스타틴. 용량: 1–4 mg/day. CYP3A4 비의존 대사 — DDI 최소. NODM 위험이 스타틴 중 가장 낮음(RR ~0.77 대비 rosuvastatin). HIV 감염 환자(안정 ART 중 40–75세)에서 REPRIEVE trial: Pitavastatin 4 mg → MACE 35% 감소(2026 ACC/AHA COR I). 신장 배설 비율 낮아 CKD에서 선호.'},
+  {abbr:'Statin',full:'HMG-CoA Reductase Inhibitor',ko:'스타틴 (HMG-CoA 환원효소 억제제)',desc:'*콜레스테롤 생합성의 속도결정 단계인 HMG-CoA → 메발론산 전환을 억제.<br><br>*간의 LDL 수용체 발현 상향조절 → LDL-C 감소. LDL 1 mmol/L(38.7 mg/dL) 감소 시 ASCVD 사건 약 22% RRR(CTT). 강도에 따라 고강도(LDL ≥50% 감소) · 중등강도(30–49%) · 저강도(<30%)으로 분류. 계열 부작용: SAMS, NODM, LFT 이상(드묾).'},
+  {abbr:'Rosuvastatin',full:'Rosuvastatin (Crestor®)',ko:'로수바스타틴',desc:'*고강도 스타틴. 용량: 20–40 mg/day(고강도), 5–10 mg(중등강도).<br><br>*수용성 스타틴 — CYP2C9 대사, CYP3A4 비의존. ASCVD 2차예방 및 1차예방(JUPITER trial, hs-CRP ≥2.0) 근거. 심한 CKD에서 ≤10 mg 제한 권고. AURORA trial: 투석 환자에서 MACE 감소 없음. NODM 위험은 스타틴 중 상대적으로 높음(RR ~1.2 vs 위약).'},
+  {abbr:'Atorvastatin',full:'Atorvastatin (Lipitor®)',ko:'아토르바스타틴',desc:'*고강도 스타틴. 용량: 40–80 mg/day(고강도), 10–20 mg(중등강도).<br><br>*지용성 — CYP3A4 대사. PROVE-IT, TNT, ASCOT-LLA 등 다수의 landmark RCT 근거. CYP3A4 억제제(아졸계, 칼슘채널차단제, 일부 PI) 병용 시 노출 증가 주의. 신이식 후 cyclosporine 병용 시 용량 제한.'},
+  {abbr:'Simvastatin',full:'Simvastatin (Zocor®)',ko:'심바스타틴',desc:'*중등강도 스타틴. 용량: 20–40 mg/day.<br><br>*지용성 — CYP3A4 대사. 4S trial(1994)로 2차예방 효과 최초 입증한 역사적 약물. 80 mg 제형: 횡문근융해증 위험↑ → FDA 2011년 신규 처방 금지. CYP3A4 억제제(아미오다론·암로디핀·베라파밀 등)와 DDI 가장 현저한 스타틴.'},
+  {abbr:'Pravastatin',full:'Pravastatin (Pravachol®)',ko:'프라바스타틴',desc:'*중등강도 스타틴. 용량: 40–80 mg/day.<br><br>*수용성 — CYP450 비의존 대사(설폰화 경로). DDI가 가장 적은 스타틴 중 하나. HIV PI 병용 시 비교적 안전. WOSCOPS(1차예방), LIPID(2차예방) 근거. NODM 위험 스타틴 중 낮은 편.<br><br>*WOSCOPS post hoc에서 신규 T2DM 30% 감소(RR 0.70) 보고되었으나 탐색적 결과로, 당뇨 예방 효과로 해석 불가'},
+  {abbr:'Pitavastatin',full:'Pitavastatin (Livalo®)',ko:'피타바스타틴',desc:'*중등강도 스타틴. 용량: 1–4 mg/day.<br><br>*CYP3A4 비의존 대사 — DDI 최소. NODM 위험이 스타틴 중 가장 낮음(RR ~0.77 대비 rosuvastatin). HIV 감염 환자(안정 ART 중 40–75세)에서 REPRIEVE trial: Pitavastatin 4 mg → MACE 35% 감소(2026 ACC/AHA COR I). 신장 배설 비율 낮아 CKD에서 선호.'},
   {abbr:'Lovastatin',full:'Lovastatin (Mevacor®)',ko:'로바스타틴',desc:'저~중등강도 스타틴. 용량: 20–40 mg/day. 지용성 — CYP3A4 대사. AFCAPS/TexCAPS(1998) 1차예방 근거. HIV PI 계열 ART와 병용 금기. 현재는 다른 스타틴에 밀려 사용 빈도 낮음.'},
   {abbr:'Fluvastatin',full:'Fluvastatin (Lescol®)',ko:'플루바스타틴',desc:'저~중등강도 스타틴. 용량: XL 80 mg 또는 40 mg bid. CYP2C9 대사. CYP3A4 비의존으로 PI 병용 시 비교적 안전하나 pitavastatin/pravastatin에 비해 근거 적음.'},
-  {abbr:'Ezetimibe',full:'Ezetimibe (Zetia®; 바이토린® = ezetimibe/simvastatin)',ko:'에제티미브',desc:'소장 NPC1L1 수송체 억제 → 식이·담즙 콜레스테롤 흡수 차단. LDL 18–20% 추가 감소. 스타틴 병용 시 상가 효과. IMPROVE-IT trial(2015): ACS 후 simvastatin+ezetimibe → simvastatin 단독 대비 MACE 6.4% 추가 감소(절대 2%). 스타틴 불내성 시 단독 사용. 2026 ACC/AHA: LDL 목표 미달 시 2단계 추가(스타틴 다음).'},
-  {abbr:'PCSK9i',full:'PCSK9 Inhibitor (Monoclonal Antibody)',ko:'PCSK9 억제제 (단클론항체)',desc:'항체로 PCSK9를 차단 → LDL 수용체 분해 억제 → 간 LDL 제거 능력 최대화 → LDL 50–60% 추가 감소. 제제: Evolocumab(Repatha®) SC 140 mg Q2W 또는 420 mg QM / Alirocumab(Praluent®) 75–150 mg Q2W. 2026 ACC/AHA: 최대내약 스타틴+ezetimibe에도 LDL 목표 미달성 시 3단계 권고(VHR COR I, 고위험 COR IIa). Lp(a) 20–30% 감소 부가 효과.'},
-  {abbr:'Evolocumab',full:'Evolocumab (Repatha®)',ko:'에볼로쿠맙',desc:'완전인간 단클론항체 PCSK9 억제제. 용량: 140 mg SC Q2W 또는 420 mg SC QM. FOURIER trial(2017): 안정 ASCVD 환자 MACE 15% 감소, LDL 중앙값 30 mg/dL 달성. FOURIER-OLE: 조기 시작군의 legacy effect 확인 — "더 일찍·더 오래" 치료의 근거. FH(HoFH 포함) 적응증.'},
-  {abbr:'Alirocumab',full:'Alirocumab (Praluent®)',ko:'알리로쿠맙',desc:'완전인간 단클론항체 PCSK9 억제제. 용량: 75 mg SC Q2W 시작, 필요 시 150 mg Q2W. ODYSSEY OUTCOMES trial(2018): ACS 후 환자에서 MACE 15% 감소, 저위험 서브군에서 LDL <25 mg/dL에서도 안전성 확인. Evolocumab과 동등한 임상 효과로 병용 없이 단독 사용.'},
-  {abbr:'Inclisiran',full:'Inclisiran (Leqvio®)',ko:'인클리시란',desc:'siRNA 기전 PCSK9 억제제. PCSK9 mRNA를 간에서 분해 → PCSK9 단백 합성 자체 억제. 용량: 284 mg SC, 초회 → 3개월 후 → 이후 6개월마다(연 2회 투여). LDL 약 50% 감소, 효과 지속성 우수. 단, 심혈관 결과 시험(ORION-4, VICTORION-2P) 진행 중 — CV outcome 근거 미확립. 2026 ACC/AHA: COR IIa(PCSK9 mAb와 동등하게 권고되지 않음, 연구 진행 중).'},
-  {abbr:'siRNA',full:'Small Interfering RNA',ko:'소간섭 RNA',desc:'RNA 간섭(RNAi) 기전을 이용한 유전자 침묵 치료. 표적 mRNA에 상보적으로 결합하여 분해 → 단백 발현 억제. 지질치료에서: Inclisiran(PCSK9 siRNA), Olpasiran(Lp(a) siRNA). 간세포 특이 전달(GalNAc 접합)로 off-target 최소화. 약효 지속 시간이 길어 투여 빈도가 낮은 것이 장점.'},
-  {abbr:'Olpasiran',full:'Olpasiran (AMG 890)',ko:'올파시란',desc:'Lp(a) 특이적 siRNA 치료제. LPA 유전자의 mRNA를 간에서 분해 → apolipoprotein(a) 합성 억제 → Lp(a) 90%+ 감소. OCEAN(a)-Dose Finding: Q12W 75 mg 용량에서 Lp(a) 95% 감소. OCEAN(a) OUTCOMES trial(심혈관 결과 시험) 진행 중(2026–27 결과 예상). 2026 ACC/AHA 가이드라인에 아직 승인 목표치 없음.'},
-  {abbr:'Muvalaplin',full:'Muvalaplin',ko:'무바라플린',desc:'Lp(a) 조립을 방해하는 경구 소분자 억제제. apolipoprotein(a)과 ApoB-100 간 결합 차단 → Lp(a) 합성 억제. olpasiran(siRNA)과 달리 경구 투여 가능. 임상 2상: Lp(a) 65–85% 감소. 3상 심혈관 결과 시험 준비 중. Lp(a) 표적 치료제 파이프라인 중 가장 진전된 경구제.'},
-  {abbr:'Olezarsen',full:'Olezarsen (AKCEA-APO-CIIIRx)',ko:'올레자르센',desc:'ApoC-III를 표적하는 ASO(antisense oligonucleotide). ApoC-III는 TG가 풍부한 지단백의 분해를 억제하는 단백질 — 억제 시 TG 대폭 감소. 중증 고중성지방혈증(TG ≥500 mg/dL) 또는 가족성 카일로미크론혈증증후군(FCS) 적응증. BALANCE trial: TG 60–70% 감소. 2026 ACC/AHA 신규 추가 약제. 주 1회 SC 투여.'},
-  {abbr:'ASO',full:'Antisense Oligonucleotide',ko:'안티센스 올리고뉴클레오타이드',desc:'표적 mRNA에 상보적으로 결합하여 RNase H 매개 분해를 유도, 단백 발현 억제. siRNA와 유사하나 작용 기전 일부 상이. 지질치료 적용: Mipomersen(ApoB-100 표적, HoFH), Olezarsen(ApoC-III 표적, 중증 고TG혈증). 간 특이 전달로 전신 부작용 최소화.'},
-  {abbr:'Bempedoic acid',full:'Bempedoic acid (Nexletol®; Nexlizet® = +ezetimibe)',ko:'벰페도산',desc:'ATP 시트르산 분해효소(ACL) 억제 → 간 콜레스테롤 합성 상류 차단. 간에서만 활성화(간 특이적 프로드럭) → 골격근 CYP450 비의존 → 근육 부작용 없음. LDL 약 18–25% 감소. CLEAR Outcomes(2023, NEJM): 스타틴 불내성 환자에서 MACE 13% 감소. 2026 ACC/AHA: 스타틴 불내성 시 비스타틴 옵션으로 권고. 주의: 요산 상승(통풍 악화 가능), 힘줄파열 드묾.'},
-  {abbr:'Icosapent ethyl',full:'Icosapent ethyl (Vascepa®; 고순도 EPA)',ko:'이코사펜트산에틸',desc:'고순도 EPA(에이코사펜타엔산) 에틸에스테르. 일반 어유(EPA+DHA 혼합)와 다른 단일 성분. 용량: 2 g bid(4 g/day). REDUCE-IT(2018): 스타틴 복용 중 TG 135–499 + ASCVD/당뇨 고위험군에서 MACE 25% 감소. 기전: TG 강하 외 항염·항산화·항혈전 효과 추정. STRENGTH(EPA+DHA 혼합): MACE 감소 없음 → 고순도 EPA 단독 제제만 근거 있음. 적응증: TG ≥175 mg/dL + ASCVD 고위험/2차예방.'},
-  {abbr:'Evinacumab',full:'Evinacumab (Evkeeza®)',ko:'에비나쿠맙',desc:'ANGPTL3 단클론항체 억제제. ANGPTL3(Angiopoietin-like protein 3)는 LPL·EL(내피세포 지질분해효소)을 억제하여 TG·LDL·HDL 대사를 방해 — 억제 시 반대로 LDL 47–49% 추가 감소(ELIPSE HoFH). 2021년 FDA 승인: HoFH(동형접합 가족성 고콜레스테롤혈증) 12세 이상 적응증. LDL 수용체(LDLR) 완전 결핍(null/null) HoFH에서도 효과 — PCSK9i·스타틴·에제티미브가 모두 듣지 않는 경우의 대안. IV 주입 15mg/kg Q4W.'},
-  {abbr:'ELIPSE HoFH',full:'Evinacumab LIPid StudiEs in Homozygous Familial Hypercholesterolemia',ko:'엘립스 호에프에이치 연구',desc:'2020년 NEJM. 최대내약 지질강하요법(스타틴·PCSK9i·에제티미브·아페레시스 등 병용) 중에도 LDL-C ≥70 mg/dL인 HoFH 환자 65명(12세 이상)을 Evinacumab 15mg/kg IV Q4W(43명) vs 위약(22명) 2:1 무작위배정, 24주 추적. 1차 종료점(24주 LDL-C 변화율) 군간 차이 49%p — Evinacumab군 47% 감소 vs 위약군 2% 증가(p&lt;0.0001), 절대 감소량 132 mg/dL(기저 LDL-C 평균 ~250 mg/dL). LDLR 완전 결핍(null/null) 환자에서도 효과 유지가 핵심 소견 — LDLR 경로에 의존하는 기존 약제(스타틴·에제티미브·PCSK9i)가 무효한 환자군에 새로운 치료 옵션을 제시한 최초의 대규모 3상 근거. Evinacumab의 HoFH 적응증 FDA 승인(2021)의 핵심 근거 연구.'},
-  {abbr:'Mipomersen',full:'Mipomersen (Kynamro®)',ko:'미포메르센',desc:'ApoB-100을 표적하는 ASO. 간 ApoB-100 mRNA 분해 → 모든 ApoB 함유 지단백(LDL·VLDL·Lp(a)) 합성 감소. LDL 20–35% 감소. FDA 2013년 HoFH 성인 적응증 승인. 간지방증(steatohepatitis) 위험으로 사용 제한적. 주 1회 SC 주사.'},
-  {abbr:'Lomitapide',full:'Lomitapide (Juxtapid®)',ko:'로미타피드',desc:'미토콘드리아 트리글리세리드 전달 단백(MTP) 억제제 → ApoB 함유 지단백 조립 억제 → 간 VLDL·카일로미크론 분비 감소 → LDL 40–50% 추가 감소. FDA 2012년 HoFH 성인 적응증 승인. 경구 투여. 주요 부작용: 간독성(간지방증·LFT 상승), GI 부작용(지방 흡수 불량). REMS 프로그램 의무화. LDL 분리반출(apheresis)과 병용 가능.'},
-  {abbr:'Colesevelam',full:'Colesevelam (Welchol®)',ko:'콜레세벨람',desc:'담즙산 격리제(BAS, Bile Acid Sequestrant). 장내 담즙산에 결합 → 간의 콜레스테롤 → 담즙산 전환 증가 → LDL 수용체 발현 상향 → LDL 15–18% 감소. 경구 정제 또는 분말. GI 부작용(변비·복부팽만). TG를 경미하게 상승시킬 수 있어 고TG혈증 시 주의. 혈당강하 효과도 있어 T2DM 병용 시 추가 이점. 스타틴 불내성 또는 임신 중 안전한 LDL 강하가 필요한 경우 고려.'},
-  {abbr:'Fenofibrate',full:'Fenofibrate (Tricor®, Antara®)',ko:'페노피브레이트',desc:'PPARα 효능제 → LPL 발현 증가·ApoC-III 감소 → TG 분해 촉진, TG 30–50% 감소, HDL 소폭 증가. LDL 효과는 제한적. ACCORD Lipid trial: 스타틴+fenofibrate는 스타틴 단독 대비 심혈관 이익 추가 없음(전체). TG ≥500 mg/dL 시 췌장염 예방 목적 사용. 주의: 신독성(eGFR 저하), statin+gemfibrozil 병용 금지(fenofibrate는 허용). CKD에서 용량 조절 필요.'},
-  {abbr:'Gemfibrozil',full:'Gemfibrozil (Lopid®)',ko:'젬피브로질',desc:'PPARα 효능제 피브레이트 계열. Helsinki Heart Study(1차예방): TG 감소, HDL 증가, 관상동맥 사건 34% 감소. VA-HIT(2차예방): 낮은 HDL-C 환자에서 gemfibrozil → MACE 22% 감소. 스타틴과 병용 시 OATP1B1 억제로 스타틴 혈중 농도 급증 → 횡문근융해증 위험 — 스타틴+gemfibrozil 병용 금기. Fenofibrate는 이 DDI 없음.'},
-  {abbr:'Niacin',full:'Niacin (Nicotinic Acid; Niaspan® extended-release)',ko:'나이아신(니코틴산)',desc:'비타민 B3. 고용량 시 HDL 증가(25–35%), TG 감소(20–50%), LDL 감소(15–20%)의 광범위 지질 효과. 과거 스타틴 이전 2차예방 근거. AIM-HIGH, HPS2-THRIVE: 스타틴 배경 치료에서 niacin 추가 시 MACE 추가 감소 없음, 오히려 심각한 부작용(근육통·간독성·혈당 상승·홍조) 증가. 2026 ACC/AHA: 지질치료 루틴 사용 권고하지 않음.'},
-  {abbr:'Omega-3',full:'Omega-3 Fatty Acids (Mixed EPA+DHA)',ko:'오메가-3 지방산 (EPA+DHA 혼합)',desc:'어유 유래 다가불포화지방산. TG 강하 효과 확인. 단, EPA+DHA 혼합 어유 보충제는 STRENGTH trial에서 MACE 감소 없음(HR 0.99). 일반 어유 보충제(OTC)는 심혈관 사건 예방 근거 없음. 심혈관 이익이 확립된 제제는 고순도 EPA 단독인 Icosapent ethyl(REDUCE-IT)뿐. 2026 ACC/AHA: 일반 어유(식이보충제) COR III(권고하지 않음) 명시.'},
+  {abbr:'Ezetimibe',full:'Ezetimibe (Zetia®; 바이토린® = ezetimibe/simvastatin)',ko:'에제티미브',desc:'*소장 NPC1L1 수송체 억제 → 식이·담즙 콜레스테롤 흡수 차단.<br><br>*LDL 18–20% 추가 감소. 스타틴 병용 시 상가 효과. IMPROVE-IT trial(2015): ACS 후 simvastatin+ezetimibe → simvastatin 단독 대비 MACE 6.4% 추가 감소(절대 2%). 스타틴 불내성 시 단독 사용. 2026 ACC/AHA: LDL 목표 미달 시 2단계 추가(스타틴 다음).'},
+  {abbr:'PCSK9i',full:'PCSK9 Inhibitor (Monoclonal Antibody)',ko:'PCSK9 억제제 (단클론항체)',desc:'*항체로 PCSK9를 차단 → LDL 수용체 분해 억제 → 간 LDL 제거 능력 최대화 → LDL 50–60% 추가 감소.<br><br>*제제: Evolocumab(Repatha®) SC 140 mg Q2W 또는 420 mg QM / Alirocumab(Praluent®) 75–150 mg Q2W. 2026 ACC/AHA: 최대내약 스타틴+ezetimibe에도 LDL 목표 미달성 시 3단계 권고(VHR COR I, 고위험 COR IIa). Lp(a) 20–30% 감소 부가 효과.'},
+  {abbr:'Evolocumab',full:'Evolocumab (Repatha®)',ko:'에볼로쿠맙',desc:'*완전인간 단클론항체 PCSK9 억제제.<br><br>*용량: 140 mg SC Q2W 또는 420 mg SC QM. FOURIER trial(2017): 안정 ASCVD 환자 MACE 15% 감소, LDL 중앙값 30 mg/dL 달성. FOURIER-OLE: 조기 시작군의 legacy effect 확인 — "더 일찍·더 오래" 치료의 근거. FH(HoFH 포함) 적응증.'},
+  {abbr:'Alirocumab',full:'Alirocumab (Praluent®)',ko:'알리로쿠맙',desc:'*완전인간 단클론항체 PCSK9 억제제.<br><br>*용량: 75 mg SC Q2W 시작, 필요 시 150 mg Q2W. ODYSSEY OUTCOMES trial(2018): ACS 후 환자에서 MACE 15% 감소, 저위험 서브군에서 LDL <25 mg/dL에서도 안전성 확인. Evolocumab과 동등한 임상 효과로 병용 없이 단독 사용.'},
+  {abbr:'Inclisiran',full:'Inclisiran (Leqvio®)',ko:'인클리시란',desc:'*siRNA 기전 PCSK9 억제제. PCSK9 mRNA를 간에서 분해 → PCSK9 단백 합성 자체 억제.<br><br>*용량: 284 mg SC, 초회 → 3개월 후 → 이후 6개월마다(연 2회 투여). LDL 약 50% 감소, 효과 지속성 우수. 단, 심혈관 결과 시험(ORION-4, VICTORION-2P) 진행 중 — CV outcome 근거 미확립. 2026 ACC/AHA: COR IIa(PCSK9 mAb와 동등하게 권고되지 않음, 연구 진행 중).'},
+  {abbr:'siRNA',full:'Small Interfering RNA',ko:'소간섭 RNA',desc:'*RNA 간섭(RNAi) 기전을 이용한 유전자 침묵 치료.<br><br>*표적 mRNA에 상보적으로 결합하여 분해 → 단백 발현 억제. 지질치료에서: Inclisiran(PCSK9 siRNA), Olpasiran(Lp(a) siRNA). 간세포 특이 전달(GalNAc 접합)로 off-target 최소화. 약효 지속 시간이 길어 투여 빈도가 낮은 것이 장점.'},
+  {abbr:'Olpasiran',full:'Olpasiran (AMG 890)',ko:'올파시란',desc:'*Lp(a) 특이적 siRNA 치료제.<br><br>*LPA 유전자의 mRNA를 간에서 분해 → apolipoprotein(a) 합성 억제 → Lp(a) 90%+ 감소. OCEAN(a)-Dose Finding: Q12W 75 mg 용량에서 Lp(a) 95% 감소. OCEAN(a) OUTCOMES trial(심혈관 결과 시험) 진행 중(2026–27 결과 예상). 2026 ACC/AHA 가이드라인에 아직 승인 목표치 없음.'},
+  {abbr:'Muvalaplin',full:'Muvalaplin',ko:'무바라플린',desc:'*Lp(a) 조립을 방해하는 경구 소분자 억제제. apolipoprotein(a)과 ApoB-100 간 결합 차단 → Lp(a) 합성 억제. olpasiran(siRNA)과 달리 경구 투여 가능.<br><br>*임상 2상: Lp(a) 65–85% 감소. 3상 심혈관 결과 시험 준비 중. Lp(a) 표적 치료제 파이프라인 중 가장 진전된 경구제.'},
+  {abbr:'Olezarsen',full:'Olezarsen (AKCEA-APO-CIIIRx)',ko:'올레자르센',desc:'*ApoC-III를 표적하는 ASO(antisense oligonucleotide).<br><br>*ApoC-III는 TG가 풍부한 지단백의 분해를 억제하는 단백질 — 억제 시 TG 대폭 감소. 중증 고중성지방혈증(TG ≥500 mg/dL) 또는 가족성 카일로미크론혈증증후군(FCS) 적응증. BALANCE trial: TG 60–70% 감소. 2026 ACC/AHA 신규 추가 약제. 주 1회 SC 투여.'},
+  {abbr:'ASO',full:'Antisense Oligonucleotide',ko:'안티센스 올리고뉴클레오타이드',desc:'*표적 mRNA에 상보적으로 결합하여 RNase H 매개 분해를 유도, 단백 발현 억제. siRNA와 유사하나 작용 기전 일부 상이.<br><br>*지질치료 적용: Mipomersen(ApoB-100 표적, HoFH), Olezarsen(ApoC-III 표적, 중증 고TG혈증). 간 특이 전달로 전신 부작용 최소화.'},
+  {abbr:'Bempedoic acid',full:'Bempedoic acid (Nexletol®; Nexlizet® = +ezetimibe)',ko:'벰페도산',desc:'*ATP 시트르산 분해효소(ACL) 억제 → 간 콜레스테롤 합성 상류 차단.<br><br>*간에서만 활성화(간 특이적 프로드럭) → 골격근 CYP450 비의존 → 근육 부작용 없음. LDL 약 18–25% 감소. CLEAR Outcomes(2023, NEJM): 스타틴 불내성 환자에서 MACE 13% 감소. 2026 ACC/AHA: 스타틴 불내성 시 비스타틴 옵션으로 권고. 주의: 요산 상승(통풍 악화 가능), 힘줄파열 드묾.'},
+  {abbr:'Icosapent ethyl',full:'Icosapent ethyl (Vascepa®; 고순도 EPA)',ko:'이코사펜트산에틸',desc:'*고순도 EPA(에이코사펜타엔산) 에틸에스테르.<br><br>*일반 어유(EPA+DHA 혼합)와 다른 단일 성분. 용량: 2 g bid(4 g/day). REDUCE-IT(2018): 스타틴 복용 중 TG 135–499 + ASCVD/당뇨 고위험군에서 MACE 25% 감소. 기전: TG 강하 외 항염·항산화·항혈전 효과 추정. STRENGTH(EPA+DHA 혼합): MACE 감소 없음 → 고순도 EPA 단독 제제만 근거 있음. 적응증: TG ≥175 mg/dL + ASCVD 고위험/2차예방.'},
+  {abbr:'Evinacumab',full:'Evinacumab (Evkeeza®)',ko:'에비나쿠맙',desc:'*ANGPTL3 단클론항체 억제제. ANGPTL3(Angiopoietin-like protein 3)는 LPL·EL(내피세포 지질분해효소)을 억제하여 TG·LDL·HDL 대사를 방해 — 억제 시 반대로 LDL 47–49% 추가 감소(ELIPSE HoFH).<br><br>*2021년 FDA 승인: HoFH(동형접합 가족성 고콜레스테롤혈증) 12세 이상 적응증. LDL 수용체(LDLR) 완전 결핍(null/null) HoFH에서도 효과 — PCSK9i·스타틴·에제티미브가 모두 듣지 않는 경우의 대안. IV 주입 15mg/kg Q4W.'},
+  {abbr:'ELIPSE HoFH',full:'Evinacumab LIPid StudiEs in Homozygous Familial Hypercholesterolemia',ko:'엘립스 호에프에이치 연구',desc:'*2020년 NEJM. 최대내약 지질강하요법(스타틴·PCSK9i·에제티미브·아페레시스 등 병용) 중에도 LDL-C ≥70 mg/dL인 HoFH 환자 65명(12세 이상)을 Evinacumab 15mg/kg IV Q4W(43명) vs 위약(22명) 2:1 무작위배정, 24주 추적.<br><br>*1차 종료점(24주 LDL-C 변화율) 군간 차이 49%p — Evinacumab군 47% 감소 vs 위약군 2% 증가(p&lt;0.0001), 절대 감소량 132 mg/dL(기저 LDL-C 평균 ~250 mg/dL). LDLR 완전 결핍(null/null) 환자에서도 효과 유지가 핵심 소견 — LDLR 경로에 의존하는 기존 약제(스타틴·에제티미브·PCSK9i)가 무효한 환자군에 새로운 치료 옵션을 제시한 최초의 대규모 3상 근거.<br><br>*Evinacumab의 HoFH 적응증 FDA 승인(2021)의 핵심 근거 연구.'},
+  {abbr:'Mipomersen',full:'Mipomersen (Kynamro®)',ko:'미포메르센',desc:'*ApoB-100을 표적하는 ASO. 간 ApoB-100 mRNA 분해 → 모든 ApoB 함유 지단백(LDL·VLDL·Lp(a)) 합성 감소.<br><br>*LDL 20–35% 감소. FDA 2013년 HoFH 성인 적응증 승인. 간지방증(steatohepatitis) 위험으로 사용 제한적. 주 1회 SC 주사.'},
+  {abbr:'Lomitapide',full:'Lomitapide (Juxtapid®)',ko:'로미타피드',desc:'*미토콘드리아 트리글리세리드 전달 단백(MTP) 억제제 → ApoB 함유 지단백 조립 억제 → 간 VLDL·카일로미크론 분비 감소 → LDL 40–50% 추가 감소.<br><br>*FDA 2012년 HoFH 성인 적응증 승인. 경구 투여. 주요 부작용: 간독성(간지방증·LFT 상승), GI 부작용(지방 흡수 불량). REMS 프로그램 의무화. LDL 분리반출(apheresis)과 병용 가능.'},
+  {abbr:'Colesevelam',full:'Colesevelam (Welchol®)',ko:'콜레세벨람',desc:'*담즙산 격리제(BAS, Bile Acid Sequestrant).<br><br>*장내 담즙산에 결합 → 간의 콜레스테롤 → 담즙산 전환 증가 → LDL 수용체 발현 상향 → LDL 15–18% 감소. 경구 정제 또는 분말. GI 부작용(변비·복부팽만). TG를 경미하게 상승시킬 수 있어 고TG혈증 시 주의. 혈당강하 효과도 있어 T2DM 병용 시 추가 이점. 스타틴 불내성 또는 임신 중 안전한 LDL 강하가 필요한 경우 고려.'},
+  {abbr:'Fenofibrate',full:'Fenofibrate (Tricor®, Antara®)',ko:'페노피브레이트',desc:'*PPARα 효능제 → LPL 발현 증가·ApoC-III 감소 → TG 분해 촉진, TG 30–50% 감소, HDL 소폭 증가.<br><br>*LDL 효과는 제한적. ACCORD Lipid trial: 스타틴+fenofibrate는 스타틴 단독 대비 심혈관 이익 추가 없음(전체). TG ≥500 mg/dL 시 췌장염 예방 목적 사용. 주의: 신독성(eGFR 저하), statin+gemfibrozil 병용 금지(fenofibrate는 허용). CKD에서 용량 조절 필요.'},
+  {abbr:'Gemfibrozil',full:'Gemfibrozil (Lopid®)',ko:'젬피브로질',desc:'*PPARα 효능제 피브레이트 계열. Helsinki Heart Study(1차예방): TG 감소, HDL 증가, 관상동맥 사건 34% 감소.<br><br>*VA-HIT(2차예방): 낮은 HDL-C 환자에서 gemfibrozil → MACE 22% 감소. 스타틴과 병용 시 OATP1B1 억제로 스타틴 혈중 농도 급증 → 횡문근융해증 위험 — 스타틴+gemfibrozil 병용 금기. Fenofibrate는 이 DDI 없음.'},
+  {abbr:'Niacin',full:'Niacin (Nicotinic Acid; Niaspan® extended-release)',ko:'나이아신(니코틴산)',desc:'*비타민 B3. 고용량 시 HDL 증가(25–35%), TG 감소(20–50%), LDL 감소(15–20%)의 광범위 지질 효과.<br><br>*과거 스타틴 이전 2차예방 근거. AIM-HIGH, HPS2-THRIVE: 스타틴 배경 치료에서 niacin 추가 시 MACE 추가 감소 없음, 오히려 심각한 부작용(근육통·간독성·혈당 상승·홍조) 증가. 2026 ACC/AHA: 지질치료 루틴 사용 권고하지 않음.'},
+  {abbr:'Omega-3',full:'Omega-3 Fatty Acids (Mixed EPA+DHA)',ko:'오메가-3 지방산 (EPA+DHA 혼합)',desc:'*어유 유래 다가불포화지방산. TG 강하 효과 확인.<br><br>*단, EPA+DHA 혼합 어유 보충제는 STRENGTH trial에서 MACE 감소 없음(HR 0.99). 일반 어유 보충제(OTC)는 심혈관 사건 예방 근거 없음. 심혈관 이익이 확립된 제제는 고순도 EPA 단독인 Icosapent ethyl(REDUCE-IT)뿐. 2026 ACC/AHA: 일반 어유(식이보충제) COR III(권고하지 않음) 명시.'},
   {abbr:'Rituximab',full:'Rituximab (Rituxan®, MabThera®)',ko:'리툭시맙',desc:'CD20 표적 단클론항체 — B세포 고갈. 지질치료 직접 적응증은 아니나, 스타틴 관련 IMNM(anti-HMGCR 근병증)에서 스테로이드·IVIG 반응 불충분 시 면역억제 3차 선택약으로 사용.'},
-  {abbr:'Cyclosporine',full:'Cyclosporine (Sandimmune®, Neoral®)',ko:'사이클로스포린',desc:'칼시뉴린 억제제 면역억제제. 신장·심장 이식 후 거부반응 예방. OATP1B1 및 CYP3A4 억제로 스타틴 혈중 농도 대폭 상승 → 근독성 위험. 병용 시 스타틴 용량 상한 엄격 제한(예: simvastatin ≤10 mg, atorvastatin ≤10 mg). Bempedoic acid도 cyclosporine과 DDI 가능.'},
-  {abbr:'Colchicine',full:'Colchicine (Colcrys®, LoDoCo)',ko:'콜히친',desc:'항염 약물. 심혈관 적응증: LoDoCo2 trial(2020) — 안정 관상동맥질환에서 저용량 colchicine 0.5 mg/day → MACE 31% 감소. COLCOT trial(2019) — MI 후 colchicine → MACE 23% 감소. 잔류 염증성 위험(hs-CRP 상승) 환자에서 스타틴 보조 항염 전략으로 주목. 2026 ACC/AHA에서 ASCVD 2차예방 항염 치료 옵션으로 언급.'},
+  {abbr:'Cyclosporine',full:'Cyclosporine (Sandimmune®, Neoral®)',ko:'사이클로스포린',desc:'*칼시뉴린 억제제 면역억제제. 신장·심장 이식 후 거부반응 예방.<br><br>*OATP1B1 및 CYP3A4 억제로 스타틴 혈중 농도 대폭 상승 → 근독성 위험. 병용 시 스타틴 용량 상한 엄격 제한(예: simvastatin ≤10 mg, atorvastatin ≤10 mg). Bempedoic acid도 cyclosporine과 DDI 가능.'},
+  {abbr:'Colchicine',full:'Colchicine (Colcrys®, LoDoCo)',ko:'콜히친',desc:'*항염 약물. 심혈관 적응증: LoDoCo2 trial(2020) — 안정 관상동맥질환에서 저용량 colchicine 0.5 mg/day → MACE 31% 감소.<br><br>*COLCOT trial(2019) — MI 후 colchicine → MACE 23% 감소. 잔류 염증성 위험(hs-CRP 상승) 환자에서 스타틴 보조 항염 전략으로 주목. 2026 ACC/AHA에서 ASCVD 2차예방 항염 치료 옵션으로 언급.'},
 
   /* ── 추가 임상시험 (Clinical Trials) ── */
-  {abbr:'FOURIER-OLE',full:'FOURIER Open-Label Extension',ko:'푸리에 공개연장 연구',desc:'FOURIER trial(evolocumab vs 위약) 종료 후, 위약군을 evolocumab으로 전환하여 장기 추적한 공개연장 연구. 핵심 결과: 처음부터 evolocumab을 투여한 군이 위약 후 전환군보다 MACE 발생률 더 낮음 → 조기 치료 시작의 legacy effect(잔류 이익) 확인. LDL 30 mg/dL 수준의 매우 낮은 목표치에서도 장기 안전성 문제 없음 입증.'},
-  {abbr:'ODYSSEY OUTCOMES',full:'ODYSSEY OUTCOMES Trial',ko:'오디세이 아웃컴즈',desc:'2018년 NEJM. ACS 후 1–12개월 이내 고위험 환자 18,924명에서 Alirocumab(최대 150 mg Q2W) vs 위약, 추적 2.8년. 3P-MACE 15% 감소(HR 0.85). LDL <25 mg/dL에서도 안전성 확인. 사망률 감소 경향(p=0.026). ACS 직후 조기 PCSK9i 적용의 근거.'},
-  {abbr:'ORION-4',full:'ORION-4 Trial (Inclisiran Outcomes)',ko:'오리온-4',desc:'Inclisiran(siRNA PCSK9 억제제)의 심혈관 결과 확인을 위한 대규모 RCT. 기존 ASCVD 환자 약 15,000명 대상, 추적 ~5년. 결과 발표 예정(VICTORION-2P와 함께). Inclisiran이 LDL 감소 효과에 더해 실제 MACE 감소를 입증하면 PCSK9 mAb와 동등한 지위 획득 예상.'},
+  {abbr:'FOURIER-OLE',full:'FOURIER Open-Label Extension',ko:'푸리에 공개연장 연구',desc:'*FOURIER trial(evolocumab vs 위약) 종료 후, 위약군을 evolocumab으로 전환하여 장기 추적한 공개연장 연구.<br><br>*핵심 결과: 처음부터 evolocumab을 투여한 군이 위약 후 전환군보다 MACE 발생률 더 낮음 → 조기 치료 시작의 legacy effect(잔류 이익) 확인. LDL 30 mg/dL 수준의 매우 낮은 목표치에서도 장기 안전성 문제 없음 입증.'},
+  {abbr:'ODYSSEY OUTCOMES',full:'ODYSSEY OUTCOMES Trial',ko:'오디세이 아웃컴즈',desc:'*2018년 NEJM. ACS 후 1–12개월 이내 고위험 환자 18,924명에서 Alirocumab(최대 150 mg Q2W) vs 위약, 추적 2.8년.<br><br>*3P-MACE 15% 감소(HR 0.85). LDL <25 mg/dL에서도 안전성 확인. 사망률 감소 경향(p=0.026). ACS 직후 조기 PCSK9i 적용의 근거.'},
+  {abbr:'ORION-4',full:'ORION-4 Trial (Inclisiran Outcomes)',ko:'오리온-4',desc:'*Inclisiran(siRNA PCSK9 억제제)의 심혈관 결과 확인을 위한 대규모 RCT.<br><br>*기존 ASCVD 환자 약 15,000명 대상, 추적 ~5년. 결과 발표 예정(VICTORION-2P와 함께). Inclisiran이 LDL 감소 효과에 더해 실제 MACE 감소를 입증하면 PCSK9 mAb와 동등한 지위 획득 예상.'},
   {abbr:'VICTORION-2P',full:'VICTORION-2 Prevent Trial',ko:'빅토리온-2P',desc:'Inclisiran 2차 예방 심혈관 결과 시험. ORION-4와 함께 Inclisiran의 CV outcome 근거를 구축하는 핵심 RCT. 결과 발표 후 2026 ACC/AHA 가이드라인 COR IIa 등급이 상향 조정될 가능성.'},
-  {abbr:'IMPROVE-IT',full:'IMProved Reduction of Outcomes: Vytorin Efficacy International Trial',ko:'임프루브-IT',desc:'2015년 NEJM. ACS 후 환자 18,144명에서 Simvastatin 40mg + Ezetimibe 10mg vs Simvastatin 40mg + 위약, 추적 7년. 복합 MACE 6.4% 절대 감소(32.7% vs 34.7%, HR 0.936). LDL 53 vs 70 mg/dL. Ezetimibe의 스타틴 추가 시 심혈관 이익을 입증한 최초 대규모 RCT. "LDL 낮을수록 좋다(lower is better)" 원칙 강화.'},
-  {abbr:'COLCOT',full:'Colchicine Cardiovascular Outcomes Trial',ko:'콜콧',desc:'2019년 NEJM. 최근 MI(30일 이내) 환자 4,745명에서 colchicine 0.5 mg/day vs 위약, 추적 22.6개월. 1차 복합 엔드포인트(심혈관 사망·소생된 심정지·MI·뇌졸중·긴급 관상동맥 재개통) 23% 감소(HR 0.77). MI 직후 항염 치료의 심혈관 이익을 입증한 랜드마크 시험. LoDoCo2와 함께 colchicine 심혈관 적응증의 양대 근거.'},
-  {abbr:'LoDoCo2',full:'Low Dose Colchicine 2 Trial',ko:'로도코-2',desc:'2020년 NEJM. 안정 관상동맥질환 환자 5,522명에서 colchicine 0.5 mg/day vs 위약, 추적 28.6개월. 1차 복합 엔드포인트(심혈관 사망·자연 발생 MI·허혈성 뇌졸중·허혈로 인한 관상동맥 재개통) 31% 감소(HR 0.69). COLCOT가 급성기라면 LoDoCo2는 만성 안정기 증거. 두 시험 모두 colchicine의 심혈관 항염 치료 근거.'},
-  {abbr:'AIM-HIGH',full:'Atherothrombosis Intervention in Metabolic Syndrome with Low HDL/High Triglycerides: Impact on Global Health Outcomes',ko:'에임-하이',desc:'2011년 NEJM. 스타틴 복용 중 기존 ASCVD + 낮은 HDL/높은 TG 환자에서 Niacin 확장형 1.5–2g/day 추가 vs 위약. LDL 낮은 배경(심바스타틴 기반)에서 niacin 추가 시 HDL 상승·TG 감소에도 불구하고 MACE 유의한 추가 감소 없음 → 조기 종료. Niacin의 잔류 이익 가설 기각.'},
-  {abbr:'HPS2-THRIVE',full:'Heart Protection Study 2 — Treatment of HDL to Reduce the Incidence of Vascular Events',ko:'HPS2-쓰라이브',desc:'2014년 NEJM. 유럽·중국 고위험 ASCVD 환자 25,673명에서 Niacin 2g + Laropiprant vs 위약(모두 스타틴 배경). MACE 유의한 감소 없음, 오히려 근골격계·내분비·감염·출혈 부작용 증가. AIM-HIGH와 함께 스타틴 배경 치료에서 niacin의 심혈관 이익 기각. Niacin 임상 퇴출의 결정적 근거.'},
-  {abbr:'BALANCE',full:'BALANCE Trial (Olezarsen)',ko:'밸런스',desc:'Olezarsen(ApoC-III 표적 ASO)의 중증 고중성지방혈증 대상 임상시험. TG 60–70% 감소 확인. FCS(가족성 카일로미크론혈증증후군) 또는 중증 다유전자성 고TG혈증 환자 대상. 2026 ACC/AHA 가이드라인에 신규 수록된 약제의 핵심 근거 시험.'},
-  {abbr:'Helsinki Heart Study',full:'Helsinki Heart Study (Gemfibrozil)',ko:'헬싱키 심장 연구',desc:'1987년 NEJM. 핀란드 중년 남성 비관상동맥질환(1차예방) 환자 4,081명에서 Gemfibrozil 1,200 mg/day vs 위약, 추적 5년. 심장 발작(관상동맥 사건) 34% 감소, 특히 TG 감소·HDL 증가 환자에서 효과 현저. 피브레이트 1차예방 근거의 핵심 RCT.'},
-  {abbr:'VA-HIT',full:'Veterans Affairs High-Density Lipoprotein Cholesterol Intervention Trial',ko:'VA-HIT',desc:'1999년 NEJM. 낮은 HDL-C(평균 32 mg/dL)·정상 LDL-C 기존 관상동맥질환 남성 2,531명에서 Gemfibrozil 1,200 mg/day vs 위약, 추적 5.1년. 관상동맥 사망 + 비치명적 MI 22% 감소. LDL은 거의 변화 없이 HDL 상승(+6%)과 TG 감소(-31%)로 이익 달성. 피브레이트 2차예방 및 "HDL 가설" 지지 근거.'},
-  {abbr:'ACCORD Lipid',full:'ACCORD Lipid Trial (Action to Control Cardiovascular Risk in Diabetes)',ko:'어코드 지질',desc:'2010년 NEJM. T2DM 환자에서 Simvastatin + Fenofibrate vs Simvastatin + 위약. 1차 복합 MACE 유의한 차이 없음(HR 0.92, p=0.32). 단, TG ≥204 + HDL ≤34 서브그룹에서 이익 가능성 시사(p=0.057). 당뇨 환자에서 스타틴+피브레이트 병용의 일반적 심혈관 이익 기각. TG 극고치 환자의 췌장염 예방에는 피브레이트 사용 가능.'},
-  {abbr:'FIELD',full:'Fenofibrate Intervention and Event Lowering in Diabetes',ko:'필드 연구',desc:'2005년 Lancet. T2DM 환자 9,795명(스타틴 비복용, 대부분 1차예방)에서 Fenofibrate 단독 vs 위약, 추적 5년. 1차 종료점(관상동맥 사망+비치명적 MI) 11% 상대위험 감소했으나 유의성 없음(p=0.16) — 위약군에서 스타틴 추가 복용(drop-in)이 많아 효과가 희석되었을 가능성. 2차 종료점인 총 심혈관 사건은 유의하게 감소(11%, p=0.035), 주로 비치명적 MI·재관류술 감소에 기인. 고TG(&gt;2.3 mmol/L)+저HDL 혼합형 이상지질혈증 아형에서 이익 더 큼(27% 감소, p=0.005). 당뇨망막병증 레이저 치료 필요성·알부민뇨 진행 등 미세혈관 합병증 감소가 특징적 이차 소견. 크레아티닌·호모시스테인 상승(가역적), 췌장염·폐색전증 소폭 증가.'},
-  {abbr:'ASCOT-LLA',full:'Anglo-Scandinavian Cardiac Outcomes Trial – Lipid Lowering Arm',ko:'아스코트-지질강하군',desc:'2003년 Lancet. 고혈압 + 위험인자 ≥3개, 총콜레스테롤 ≤6.5 mmol/L(~251 mg/dL)인 1차예방 환자 10,305명(ASCOT-BPLA 참여자 중 하위군)에서 Atorvastatin 10mg vs 위약, 중앙추적 3.3년(유효성 뚜렷해 조기 종료). 1차 종료점(비치명적 MI+치명적 CHD) 36% 상대위험 감소(HR 0.64, p=0.0005), 치명적/비치명적 뇌졸중 유의 감소. LDL-C 기저치가 크게 높지 않은(평균 ~130 mg/dL) 고혈압 환자에서도 스타틴의 1차예방 이익을 입증한 핵심 연구 — 스타틴 적응증을 "고LDL" 기준에서 "위험인자 기반 전체 위험도" 기준으로 확장하는 근거가 됨.'},
-  {abbr:'CARDS',full:'Collaborative AtoRvastatin Diabetes Study',ko:'카즈 연구',desc:'2004년 Lancet. LDL-C 정상/경도 상승(≤4.14 mmol/L)이면서 심혈관질환 병력 없는 T2DM 환자 2,838명(위험인자 ≥1개: 고혈압·망막병증·알부민뇨·흡연)에서 Atorvastatin 10mg vs 위약, 중앙추적 3.9년(유효성 뚜렷해 2년 조기 종료). 1차 종료점(급성 관상동맥 사건+관류술+뇌졸중) 37% 상대위험 감소(p=0.001), 총사망률도 감소 경향(p=0.059). LDL이 높지 않은 당뇨병 환자에서도 스타틴 1차예방 이익을 입증한 핵심 연구 — ASCOT-LLA·JUPITER와 함께 "위험인자 기반" 스타틴 적응증 확대의 근거.'},
-  {abbr:'CARE',full:'Cholesterol And Recurrent Events Trial',ko:'케어 연구',desc:'1996년 NEJM. 심근경색 후 총콜레스테롤 정상범위(&lt;240 mg/dL) 환자 4,159명에서 Pravastatin 40mg vs 위약, 추적 5년. 1차 종료점(관상동맥 사망+비치명적 MI) 24% 상대위험 감소(p=0.003), 뇌졸중 31% 감소(2차 종료점). LDL이 크게 높지 않은 2차예방 환자에서도 스타틴 이익을 입증 — 4S·LIPID와 함께 초기 스타틴 2차예방 3대 근거 연구.'},
-  {abbr:'IDEAL',full:'Incremental Decrease in End points through Aggressive Lipid lowering',ko:'아이디얼 연구',desc:'2005년 JAMA. MI 병력 환자 8,888명에서 Atorvastatin 80mg(고강도) vs Simvastatin 20–40mg(중등도), 중앙추적 4.8년. 1차 종료점(관상동맥 사망+비치명적 MI+심정지)은 유의한 차이 없었으나(HR 0.89, p=0.07), 주요 2차 종료점인 비치명적 MI는 유의하게 감소(HR 0.83, p=0.02), 모든 관상동맥 사건도 감소. PROVE-IT·TNT와 함께 "고강도 vs 중등도 스타틴" 비교 근거로 인용되나, 1차 종료점 자체는 미달성이었다는 점에서 TNT보다 근거 강도는 낮게 평가됨.'},
-  {abbr:'PROMINENT',full:'Pemafibrate to Reduce Cardiovascular Outcomes by Reducing Triglycerides in Patients With Diabetes',ko:'프로미넌트 연구',desc:'2022년 NEJM. T2DM+TG 200–499 mg/dL+HDL-C ≤40 mg/dL인 환자 10,497명(대부분 스타틴 병용)에서 Pemafibrate 0.2mg 1일 2회 vs 위약, 중앙추적 3.4년. TG 26% 감소에도 불구하고 1차 종료점(MACE) 유의한 차이 없음(HR 1.03, p=0.67) — LDL-C 소폭 상승이 상쇄 요인으로 추정. 정맥혈전색전증·신장 이상반응 유의하게 증가. FIELD·ACCORD Lipid에 이어 "잔여 TG 위험을 피브레이트로 낮춰도 심혈관 이익 없다"는 결론을 굳힌 최신 대규모 음성 연구 — 현재 피브레이트의 심혈관 이익 근거 부재를 뒷받침하는 핵심 논거.'},
-  {abbr:'CANTOS',full:'Canakinumab Anti-inflammatory Thrombosis Outcomes Study',ko:'캔토스 연구',desc:'2017년 NEJM. MI 병력+hs-CRP ≥2 mg/L인 환자 10,061명에서 Canakinumab(IL-1β 억제 단클론항체) 3개월마다 피하주사 vs 위약, 추적 3.7년. LDL·HDL 변화 없이 hs-CRP만 감소시켰음에도 150mg 용량에서 1차 종료점(MACE) 15% 유의 감소(HR 0.85, p=0.021). 콜레스테롤과 무관하게 염증 자체를 낮춰도 심혈관 사건이 줄어든다는 "잔여 염증 위험(residual inflammatory risk)" 가설을 입증한 최초의 대규모 RCT — 이후 COLCOT·LoDoCo2(콜히친) 등 항염증 치료 연구의 이론적 토대. 치명적 감염 위험 증가가 트레이드오프.'},
-  {abbr:'GLAGOV',full:'GLobal Assessment of plaque reGression with a PCSK9 antibOdy as measured by intraVascular ultrasound',ko:'글라고브 연구',desc:'2016년 JAMA. 스타틴 복용 중인 관상동맥질환 환자 968명에서 Evolocumab 월 1회 추가 vs 위약, IVUS로 76주간 죽상반 용적(PAV) 변화 측정. Evolocumab군 LDL-C 36.6 mg/dL 도달(위약군 93.0 mg/dL), PAV 유의하게 감소(-0.95% vs +0.05%, p&lt;0.001) — 스타틴 위에 PCSK9 억제제를 추가하면 정상보다 훨씬 낮은 LDL에서도 죽상경화반이 실제로 퇴행함을 IVUS 영상으로 입증. 이후 임상 결과 연구인 FOURIER의 병태생리학적 근거를 뒷받침.'},
-  {abbr:'Lp(a)HORIZON',full:'Lp(a)HORIZON Trial (Pelacarsen)',ko:'엘피에이 호라이즌 연구',desc:'2026년 9월 톱라인 결과 발표(Novartis/Ionis). 기존 심혈관질환+Lp(a) ≥70 mg/dL인 환자 8,323명에서 Pelacarsen(ASO, 매월 피하주사) vs 위약. Lp(a)를 유의하게 감소시켰음에도 1차 종료점(심혈관 사망+비치명적 MI+비치명적 뇌졸중+응급 관류술)에서 유의한 차이를 보이지 못함 — Lp(a)를 표적으로 한 최초의 대규모 3상 심혈관 결과 연구였으나 1차 종료점 미달성으로 발표됨(세부 데이터는 추후 학회에서 공개 예정). Olpasiran·Muvalaplin·Lepodisiran 등 다른 Lp(a) 저하제의 향후 임상 개발 방향에 큰 영향을 미칠 것으로 예상되는 최신 이슈.'},
+  {abbr:'IMPROVE-IT',full:'IMProved Reduction of Outcomes: Vytorin Efficacy International Trial',ko:'임프루브-IT',desc:'*2015년 NEJM. ACS 후 환자 18,144명에서 Simvastatin 40mg + Ezetimibe 10mg vs Simvastatin 40mg + 위약, 추적 7년.<br><br>*복합 MACE 6.4% 절대 감소(32.7% vs 34.7%, HR 0.936). LDL 53 vs 70 mg/dL. Ezetimibe의 스타틴 추가 시 심혈관 이익을 입증한 최초 대규모 RCT. "LDL 낮을수록 좋다(lower is better)" 원칙 강화.'},
+  {abbr:'COLCOT',full:'Colchicine Cardiovascular Outcomes Trial',ko:'콜콧',desc:'*2019년 NEJM. 최근 MI(30일 이내) 환자 4,745명에서 colchicine 0.5 mg/day vs 위약, 추적 22.6개월.<br><br>*1차 복합 엔드포인트(심혈관 사망·소생된 심정지·MI·뇌졸중·긴급 관상동맥 재개통) 23% 감소(HR 0.77). MI 직후 항염 치료의 심혈관 이익을 입증한 랜드마크 시험. LoDoCo2와 함께 colchicine 심혈관 적응증의 양대 근거.'},
+  {abbr:'LoDoCo2',full:'Low Dose Colchicine 2 Trial',ko:'로도코-2',desc:'*2020년 NEJM. 안정 관상동맥질환 환자 5,522명에서 colchicine 0.5 mg/day vs 위약, 추적 28.6개월.<br><br>*1차 복합 엔드포인트(심혈관 사망·자연 발생 MI·허혈성 뇌졸중·허혈로 인한 관상동맥 재개통) 31% 감소(HR 0.69). COLCOT가 급성기라면 LoDoCo2는 만성 안정기 증거. 두 시험 모두 colchicine의 심혈관 항염 치료 근거.'},
+  {abbr:'AIM-HIGH',full:'Atherothrombosis Intervention in Metabolic Syndrome with Low HDL/High Triglycerides: Impact on Global Health Outcomes',ko:'에임-하이',desc:'*2011년 NEJM. 스타틴 복용 중 기존 ASCVD + 낮은 HDL/높은 TG 환자에서 Niacin 확장형 1.5–2g/day 추가 vs 위약.<br><br>*LDL 낮은 배경(심바스타틴 기반)에서 niacin 추가 시 HDL 상승·TG 감소에도 불구하고 MACE 유의한 추가 감소 없음 → 조기 종료. Niacin의 잔류 이익 가설 기각.'},
+  {abbr:'HPS2-THRIVE',full:'Heart Protection Study 2 — Treatment of HDL to Reduce the Incidence of Vascular Events',ko:'HPS2-쓰라이브',desc:'*2014년 NEJM. 유럽·중국 고위험 ASCVD 환자 25,673명에서 Niacin 2g + Laropiprant vs 위약(모두 스타틴 배경).<br><br>*MACE 유의한 감소 없음, 오히려 근골격계·내분비·감염·출혈 부작용 증가. AIM-HIGH와 함께 스타틴 배경 치료에서 niacin의 심혈관 이익 기각. Niacin 임상 퇴출의 결정적 근거.'},
+  {abbr:'BALANCE',full:'BALANCE Trial (Olezarsen)',ko:'밸런스',desc:'*Olezarsen(ApoC-III 표적 ASO)의 중증 고중성지방혈증 대상 임상시험.<br><br>*TG 60–70% 감소 확인. FCS(가족성 카일로미크론혈증증후군) 또는 중증 다유전자성 고TG혈증 환자 대상. 2026 ACC/AHA 가이드라인에 신규 수록된 약제의 핵심 근거 시험.'},
+  {abbr:'Helsinki Heart Study',full:'Helsinki Heart Study (Gemfibrozil)',ko:'헬싱키 심장 연구',desc:'*1987년 NEJM. 핀란드 중년 남성 비관상동맥질환(1차예방) 환자 4,081명에서 Gemfibrozil 1,200 mg/day vs 위약, 추적 5년.<br><br>*심장 발작(관상동맥 사건) 34% 감소, 특히 TG 감소·HDL 증가 환자에서 효과 현저. 피브레이트 1차예방 근거의 핵심 RCT.'},
+  {abbr:'VA-HIT',full:'Veterans Affairs High-Density Lipoprotein Cholesterol Intervention Trial',ko:'VA-HIT',desc:'*1999년 NEJM. 낮은 HDL-C(평균 32 mg/dL)·정상 LDL-C 기존 관상동맥질환 남성 2,531명에서 Gemfibrozil 1,200 mg/day vs 위약, 추적 5.1년.<br><br>*관상동맥 사망 + 비치명적 MI 22% 감소. LDL은 거의 변화 없이 HDL 상승(+6%)과 TG 감소(-31%)로 이익 달성. 피브레이트 2차예방 및 "HDL 가설" 지지 근거.'},
+  {abbr:'ACCORD Lipid',full:'ACCORD Lipid Trial (Action to Control Cardiovascular Risk in Diabetes)',ko:'어코드 지질',desc:'*2010년 NEJM. T2DM 환자에서 Simvastatin + Fenofibrate vs Simvastatin + 위약.<br><br>*1차 복합 MACE 유의한 차이 없음(HR 0.92, p=0.32). 단, TG ≥204 + HDL ≤34 서브그룹에서 이익 가능성 시사(p=0.057). 당뇨 환자에서 스타틴+피브레이트 병용의 일반적 심혈관 이익 기각. TG 극고치 환자의 췌장염 예방에는 피브레이트 사용 가능.'},
+  {abbr:'FIELD',full:'Fenofibrate Intervention and Event Lowering in Diabetes',ko:'필드 연구',desc:'*2005년 Lancet. T2DM 환자 9,795명(스타틴 비복용, 대부분 1차예방)에서 Fenofibrate 단독 vs 위약, 추적 5년.<br><br>*1차 종료점(관상동맥 사망+비치명적 MI) 11% 상대위험 감소했으나 유의성 없음(p=0.16) — 위약군에서 스타틴 추가 복용(drop-in)이 많아 효과가 희석되었을 가능성. 2차 종료점인 총 심혈관 사건은 유의하게 감소(11%, p=0.035), 주로 비치명적 MI·재관류술 감소에 기인. 고TG(&gt;2.3 mmol/L)+저HDL 혼합형 이상지질혈증 아형에서 이익 더 큼(27% 감소, p=0.005).<br><br>*당뇨망막병증 레이저 치료 필요성·알부민뇨 진행 등 미세혈관 합병증 감소가 특징적 이차 소견. 크레아티닌·호모시스테인 상승(가역적), 췌장염·폐색전증 소폭 증가.'},
+  {abbr:'ASCOT-LLA',full:'Anglo-Scandinavian Cardiac Outcomes Trial – Lipid Lowering Arm',ko:'아스코트-지질강하군',desc:'*2003년 Lancet. 고혈압 + 위험인자 ≥3개, 총콜레스테롤 ≤6.5 mmol/L(~251 mg/dL)인 1차예방 환자 10,305명(ASCOT-BPLA 참여자 중 하위군)에서 Atorvastatin 10mg vs 위약, 중앙추적 3.3년(유효성 뚜렷해 조기 종료).<br><br>*1차 종료점(비치명적 MI+치명적 CHD) 36% 상대위험 감소(HR 0.64, p=0.0005), 치명적/비치명적 뇌졸중 유의 감소.<br><br>*LDL-C 기저치가 크게 높지 않은(평균 ~130 mg/dL) 고혈압 환자에서도 스타틴의 1차예방 이익을 입증한 핵심 연구 — 스타틴 적응증을 "고LDL" 기준에서 "위험인자 기반 전체 위험도" 기준으로 확장하는 근거가 됨.'},
+  {abbr:'CARDS',full:'Collaborative AtoRvastatin Diabetes Study',ko:'카즈 연구',desc:'*2004년 Lancet. LDL-C 정상/경도 상승(≤4.14 mmol/L)이면서 심혈관질환 병력 없는 T2DM 환자 2,838명(위험인자 ≥1개: 고혈압·망막병증·알부민뇨·흡연)에서 Atorvastatin 10mg vs 위약, 중앙추적 3.9년(유효성 뚜렷해 2년 조기 종료).<br><br>*1차 종료점(급성 관상동맥 사건+관류술+뇌졸중) 37% 상대위험 감소(p=0.001), 총사망률도 감소 경향(p=0.059).<br><br>*LDL이 높지 않은 당뇨병 환자에서도 스타틴 1차예방 이익을 입증한 핵심 연구 — ASCOT-LLA·JUPITER와 함께 "위험인자 기반" 스타틴 적응증 확대의 근거.'},
+  {abbr:'CARE',full:'Cholesterol And Recurrent Events Trial',ko:'케어 연구',desc:'*1996년 NEJM. 심근경색 후 총콜레스테롤 정상범위(&lt;240 mg/dL) 환자 4,159명에서 Pravastatin 40mg vs 위약, 추적 5년.<br><br>*1차 종료점(관상동맥 사망+비치명적 MI) 24% 상대위험 감소(p=0.003), 뇌졸중 31% 감소(2차 종료점). LDL이 크게 높지 않은 2차예방 환자에서도 스타틴 이익을 입증 — 4S·LIPID와 함께 초기 스타틴 2차예방 3대 근거 연구.'},
+  {abbr:'IDEAL',full:'Incremental Decrease in End points through Aggressive Lipid lowering',ko:'아이디얼 연구',desc:'*2005년 JAMA. MI 병력 환자 8,888명에서 Atorvastatin 80mg(고강도) vs Simvastatin 20–40mg(중등도), 중앙추적 4.8년.<br><br>*1차 종료점(관상동맥 사망+비치명적 MI+심정지)은 유의한 차이 없었으나(HR 0.89, p=0.07), 주요 2차 종료점인 비치명적 MI는 유의하게 감소(HR 0.83, p=0.02), 모든 관상동맥 사건도 감소.<br><br>*PROVE-IT·TNT와 함께 "고강도 vs 중등도 스타틴" 비교 근거로 인용되나, 1차 종료점 자체는 미달성이었다는 점에서 TNT보다 근거 강도는 낮게 평가됨.'},
+  {abbr:'PROMINENT',full:'Pemafibrate to Reduce Cardiovascular Outcomes by Reducing Triglycerides in Patients With Diabetes',ko:'프로미넌트 연구',desc:'*2022년 NEJM. T2DM+TG 200–499 mg/dL+HDL-C ≤40 mg/dL인 환자 10,497명(대부분 스타틴 병용)에서 Pemafibrate 0.2mg 1일 2회 vs 위약, 중앙추적 3.4년.<br><br>*TG 26% 감소에도 불구하고 1차 종료점(MACE) 유의한 차이 없음(HR 1.03, p=0.67) — LDL-C 소폭 상승이 상쇄 요인으로 추정. 정맥혈전색전증·신장 이상반응 유의하게 증가.<br><br>*FIELD·ACCORD Lipid에 이어 "잔여 TG 위험을 피브레이트로 낮춰도 심혈관 이익 없다"는 결론을 굳힌 최신 대규모 음성 연구 — 현재 피브레이트의 심혈관 이익 근거 부재를 뒷받침하는 핵심 논거.'},
+  {abbr:'CANTOS',full:'Canakinumab Anti-inflammatory Thrombosis Outcomes Study',ko:'캔토스 연구',desc:'*2017년 NEJM. MI 병력+hs-CRP ≥2 mg/L인 환자 10,061명에서 Canakinumab(IL-1β 억제 단클론항체) 3개월마다 피하주사 vs 위약, 추적 3.7년.<br><br>*LDL·HDL 변화 없이 hs-CRP만 감소시켰음에도 150mg 용량에서 1차 종료점(MACE) 15% 유의 감소(HR 0.85, p=0.021). 콜레스테롤과 무관하게 염증 자체를 낮춰도 심혈관 사건이 줄어든다는 "잔여 염증 위험(residual inflammatory risk)" 가설을 입증한 최초의 대규모 RCT — 이후 COLCOT·LoDoCo2(콜히친) 등 항염증 치료 연구의 이론적 토대.<br><br>*치명적 감염 위험 증가가 트레이드오프.'},
+  {abbr:'GLAGOV',full:'GLobal Assessment of plaque reGression with a PCSK9 antibOdy as measured by intraVascular ultrasound',ko:'글라고브 연구',desc:'*2016년 JAMA. 스타틴 복용 중인 관상동맥질환 환자 968명에서 Evolocumab 월 1회 추가 vs 위약, IVUS로 76주간 죽상반 용적(PAV) 변화 측정.<br><br>*Evolocumab군 LDL-C 36.6 mg/dL 도달(위약군 93.0 mg/dL), PAV 유의하게 감소(-0.95% vs +0.05%, p&lt;0.001) — 스타틴 위에 PCSK9 억제제를 추가하면 정상보다 훨씬 낮은 LDL에서도 죽상경화반이 실제로 퇴행함을 IVUS 영상으로 입증. 이후 임상 결과 연구인 FOURIER의 병태생리학적 근거를 뒷받침.'},
+  {abbr:'Lp(a)HORIZON',full:'Lp(a)HORIZON Trial (Pelacarsen)',ko:'엘피에이 호라이즌 연구',desc:'*2026년 9월 톱라인 결과 발표(Novartis/Ionis).<br><br>*기존 심혈관질환+Lp(a) ≥70 mg/dL인 환자 8,323명에서 Pelacarsen(ASO, 매월 피하주사) vs 위약. Lp(a)를 유의하게 감소시켰음에도 1차 종료점(심혈관 사망+비치명적 MI+비치명적 뇌졸중+응급 관류술)에서 유의한 차이를 보이지 못함 — Lp(a)를 표적으로 한 최초의 대규모 3상 심혈관 결과 연구였으나 1차 종료점 미달성으로 발표됨(세부 데이터는 추후 학회에서 공개 예정).<br><br>*Olpasiran·Muvalaplin·Lepodisiran 등 다른 Lp(a) 저하제의 향후 임상 개발 방향에 큰 영향을 미칠 것으로 예상되는 최신 이슈.'},
   {abbr:'KRAKEN',full:'KRAKEN Trial (Zerlasiran/SLN360)',ko:'크라켄',desc:'Lp(a)를 표적하는 siRNA 치료제 Zerlasiran(SLN360)의 임상시험 프로그램. OCEAN(a)(Olpasiran)과 함께 Lp(a) 표적 siRNA 치료의 양대 임상 축. Phase 2에서 Lp(a) 80–90% 감소 확인. 심혈관 결과 시험 계획 중.'},
 
   /* ── 기전·분자 용어 (Mechanisms & Molecular) ── */
   {abbr:'NPC1L1',full:'Niemann-Pick C1-Like 1 Protein',ko:'NPC1L1 단백질',desc:'소장 점막 상피세포의 콜레스테롤 흡수 수송체. 식이 콜레스테롤과 담즙 재흡수 콜레스테롤을 소장 내강에서 세포 내로 수송. Ezetimibe의 직접 억제 표적. NPC1L1 억제 → 장내 콜레스테롤 흡수 감소 → 간 LDL 수용체 발현 증가 → 혈중 LDL-C 감소.'},
-  {abbr:'ANGPTL3',full:'Angiopoietin-Like Protein 3',ko:'앤지오포이에틴 유사 단백질 3',desc:'간에서 분비되는 단백질. LPL(지단백 분해효소) 및 EL(내피세포 지질분해효소)을 억제하여 TG 분해를 억제하고 LDL·HDL을 상승시킴. 기능 상실 변이(LOF) 시 범지질저하증(pan-hypolipidemia) 표현형(LDL·HDL·TG 모두 저하). Evinacumab(단클론항체)·Vupanorsen(ASO, 개발중단)·Zodasiran(siRNA) 등 ANGPTL3 억제제의 표적. HoFH에서 LDL 수용체(LDLR) 무관하게 LDL 감소 가능 — ELIPSE HoFH 참고.'},
-  {abbr:'ApoC-III',full:'Apolipoprotein C-III',ko:'아포지단백 C-III',desc:'TG가 풍부한 지단백(VLDL·IDL·카일로미크론 잔유물)의 표면에 존재하는 단백질. LPL 활성 억제 + 간 수용체 매개 지단백 제거 억제 → TG 상승의 핵심 조절인자. 기능 상실 변이 시 저중성지방혈증. Olezarsen(ASO), Volanesorsen(ASO, FCS 적응증) 등 표적 치료제가 개발되었으며 중증 고TG혈증에서 TG 60–80% 감소.'},
-  {abbr:'LPL',full:'Lipoprotein Lipase',ko:'지단백 분해효소',desc:'혈관 내피세포 표면의 효소. TG가 풍부한 지단백(VLDL·카일로미크론)의 TG를 가수분해 → 지방산 유리. ApoC-III에 의해 억제, ApoC-II에 의해 활성화. LPL 기능 상실 변이 시 가족성 카일로미크론혈증증후군(FCS) 유발 — 중증 고TG혈증 및 췌장염 위험. PPARα 효능제(피브레이트)가 LPL 발현을 증가시켜 TG를 감소시킴.'},
-  {abbr:'PPARα',full:'Peroxisome Proliferator-Activated Receptor alpha',ko:'퍼록시좀 증식자 활성화 수용체 알파',desc:'간 및 골격근의 핵 수용체 전사인자. 활성화 시 지방산 β-산화 촉진·LPL 발현 증가·ApoC-III 억제·ApoA-I 증가 → TG 감소·HDL 상승. 피브레이트 계열(Fenofibrate, Gemfibrozil)의 직접 작용 표적. Icosapent ethyl(EPA)도 PPARα 부분 효능제로 일부 효과 기여.'},
-  {abbr:'GalNAc',full:'N-Acetylgalactosamine',ko:'N-아세틸갈락토사민',desc:'간세포 ASGPr(비시알릭산 당단백 수용체)에 특이적으로 결합하는 당분자. siRNA 및 ASO 제제에 접합(conjugation)하여 간 특이 전달을 가능케 함. Inclisiran, Olpasiran 등 현세대 핵산 치료제의 간 표적 전달 핵심 기술. GalNAc 접합으로 전신 투여 후 간세포 내재화 효율 극대화, 오프타깃 효과 최소화.'},
-  {abbr:'RNAi',full:'RNA Interference',ko:'RNA 간섭',desc:'세포 내 이중가닥 RNA(dsRNA) 유래 소간섭 RNA(siRNA)가 RISC 복합체를 통해 상보적 mRNA를 특이적으로 분해하는 유전자 침묵 기전. 2006년 노벨 생리의학상(Fire·Mello). 지질치료 적용: Inclisiran(PCSK9 siRNA), Olpasiran/Zerlasiran(Lp(a) siRNA). GalNAc 접합으로 간 특이성 확보.'},
-  {abbr:'MTP',full:'Microsomal Triglyceride Transfer Protein',ko:'미세소체 중성지방 전달 단백',desc:'소포체(ER) 내 ApoB-100에 TG·콜레스테롤·인지질을 조립하는 효소. VLDL 및 카일로미크론 형성의 필수 단계를 촉매. Lomitapide(HoFH 치료제)의 직접 억제 표적 — MTP 차단 시 간 VLDL·카일로미크론 분비 억제 → LDL 40–50% 감소. 부작용으로 간 지방 축적(지방간) 유발.'},
-  {abbr:'FCS',full:'Familial Chylomicronemia Syndrome',ko:'가족성 카일로미크론혈증증후군',desc:'LPL 유전자(또는 LPL 활성화 관련 유전자: APOC2·APOA5·LMF1·GPIHBP1) 기능 상실 변이로 TG 극심 상승(대개 >1000 mg/dL). 반복적 급성 췌장염 위험. 스타틴·피브레이트 효과 제한적. Olezarsen(ApoC-III ASO)·Volanesorsen(ApoC-III ASO) 및 LPL 유전자치료(Alipogene tiparvovec) 적응증.'},
-  {abbr:'BAS',full:'Bile Acid Sequestrant',ko:'담즙산 격리제',desc:'장내에서 담즙산과 이온결합하여 대변으로 배출 → 간의 콜레스테롤 → 담즙산 전환 촉진 → LDL 수용체 상향 조절 → LDL 15–18% 감소. 제제: Cholestyramine, Colestipol, Colesevelam(3세대, 정제형). 전신 흡수 없어 임신 중 안전. 부작용: 변비·복부팽만·TG 경미 상승.'},
+  {abbr:'ANGPTL3',full:'Angiopoietin-Like Protein 3',ko:'앤지오포이에틴 유사 단백질 3',desc:'*간에서 분비되는 단백질. LPL(지단백 분해효소) 및 EL(내피세포 지질분해효소)을 억제하여 TG 분해를 억제하고 LDL·HDL을 상승시킴.<br><br>*기능 상실 변이(LOF) 시 범지질저하증(pan-hypolipidemia) 표현형(LDL·HDL·TG 모두 저하). Evinacumab(단클론항체)·Vupanorsen(ASO, 개발중단)·Zodasiran(siRNA) 등 ANGPTL3 억제제의 표적. HoFH에서 LDL 수용체(LDLR) 무관하게 LDL 감소 가능 — ELIPSE HoFH 참고.'},
+  {abbr:'ApoC-III',full:'Apolipoprotein C-III',ko:'아포지단백 C-III',desc:'*TG가 풍부한 지단백(VLDL·IDL·카일로미크론 잔유물)의 표면에 존재하는 단백질.<br><br>*LPL 활성 억제 + 간 수용체 매개 지단백 제거 억제 → TG 상승의 핵심 조절인자. 기능 상실 변이 시 저중성지방혈증. Olezarsen(ASO), Volanesorsen(ASO, FCS 적응증) 등 표적 치료제가 개발되었으며 중증 고TG혈증에서 TG 60–80% 감소.'},
+  {abbr:'LPL',full:'Lipoprotein Lipase',ko:'지단백 분해효소',desc:'*혈관 내피세포 표면의 효소. TG가 풍부한 지단백(VLDL·카일로미크론)의 TG를 가수분해 → 지방산 유리.<br><br>*ApoC-III에 의해 억제, ApoC-II에 의해 활성화. LPL 기능 상실 변이 시 가족성 카일로미크론혈증증후군(FCS) 유발 — 중증 고TG혈증 및 췌장염 위험. PPARα 효능제(피브레이트)가 LPL 발현을 증가시켜 TG를 감소시킴.'},
+  {abbr:'PPARα',full:'Peroxisome Proliferator-Activated Receptor alpha',ko:'퍼록시좀 증식자 활성화 수용체 알파',desc:'*간 및 골격근의 핵 수용체 전사인자.<br><br>*활성화 시 지방산 β-산화 촉진·LPL 발현 증가·ApoC-III 억제·ApoA-I 증가 → TG 감소·HDL 상승. 피브레이트 계열(Fenofibrate, Gemfibrozil)의 직접 작용 표적. Icosapent ethyl(EPA)도 PPARα 부분 효능제로 일부 효과 기여.'},
+  {abbr:'GalNAc',full:'N-Acetylgalactosamine',ko:'N-아세틸갈락토사민',desc:'*간세포 ASGPr(비시알릭산 당단백 수용체)에 특이적으로 결합하는 당분자. siRNA 및 ASO 제제에 접합(conjugation)하여 간 특이 전달을 가능케 함.<br><br>*Inclisiran, Olpasiran 등 현세대 핵산 치료제의 간 표적 전달 핵심 기술. GalNAc 접합으로 전신 투여 후 간세포 내재화 효율 극대화, 오프타깃 효과 최소화.'},
+  {abbr:'RNAi',full:'RNA Interference',ko:'RNA 간섭',desc:'*세포 내 이중가닥 RNA(dsRNA) 유래 소간섭 RNA(siRNA)가 RISC 복합체를 통해 상보적 mRNA를 특이적으로 분해하는 유전자 침묵 기전.<br><br>*2006년 노벨 생리의학상(Fire·Mello). 지질치료 적용: Inclisiran(PCSK9 siRNA), Olpasiran/Zerlasiran(Lp(a) siRNA). GalNAc 접합으로 간 특이성 확보.'},
+  {abbr:'MTP',full:'Microsomal Triglyceride Transfer Protein',ko:'미세소체 중성지방 전달 단백',desc:'*소포체(ER) 내 ApoB-100에 TG·콜레스테롤·인지질을 조립하는 효소.<br><br>*VLDL 및 카일로미크론 형성의 필수 단계를 촉매. Lomitapide(HoFH 치료제)의 직접 억제 표적 — MTP 차단 시 간 VLDL·카일로미크론 분비 억제 → LDL 40–50% 감소. 부작용으로 간 지방 축적(지방간) 유발.'},
+  {abbr:'FCS',full:'Familial Chylomicronemia Syndrome',ko:'가족성 카일로미크론혈증증후군',desc:'*LPL 유전자(또는 LPL 활성화 관련 유전자: APOC2·APOA5·LMF1·GPIHBP1) 기능 상실 변이로 TG 극심 상승(대개 >1000 mg/dL).<br><br>*반복적 급성 췌장염 위험. 스타틴·피브레이트 효과 제한적. Olezarsen(ApoC-III ASO)·Volanesorsen(ApoC-III ASO) 및 LPL 유전자치료(Alipogene tiparvovec) 적응증.'},
+  {abbr:'BAS',full:'Bile Acid Sequestrant',ko:'담즙산 격리제',desc:'*장내에서 담즙산과 이온결합하여 대변으로 배출 → 간의 콜레스테롤 → 담즙산 전환 촉진 → LDL 수용체 상향 조절 → LDL 15–18% 감소.<br><br>*제제: Cholestyramine, Colestipol, Colesevelam(3세대, 정제형). 전신 흡수 없어 임신 중 안전. 부작용: 변비·복부팽만·TG 경미 상승.'},
   {abbr:'REMS',full:'Risk Evaluation and Mitigation Strategy',ko:'위험 평가 및 완화 전략',desc:'FDA가 특정 위험 약물에 의무화하는 약물 안전 관리 프로그램. 지질치료에서: Lomitapide(Juxtapid®) — 간독성 위험으로 REMS 의무화, 처방의·약사·환자 등록 및 LFT 모니터링 필수. 처방 전 프로그램 등록 없이는 조제 불가.'},
-  {abbr:'SLCO1B1',full:'Solute Carrier Organic Anion Transporter 1B1 (Gene)',ko:'유기음이온 수송체 1B1 유전자',desc:'OATP1B1 단백질을 코딩하는 유전자. 간세포 기저막에서 스타틴을 포함한 유기음이온을 간 내로 수송. SLCO1B1 c.521T>C(rs4149056) 변이 시 OATP1B1 기능 저하 → 스타틴 혈중 농도 상승 → 근독성(SAMS, 횡문근융해증) 위험 증가. Simvastatin·Rosuvastatin이 특히 취약. 약물유전체학 검사(CPIC 가이드라인) 활용 가능.'},
-  {abbr:'Apheresis',full:'LDL Apheresis (Extracorporeal LDL Removal)',ko:'LDL 분리반출술',desc:'체외순환으로 혈액에서 LDL·Lp(a)를 직접 제거하는 비약물적 치료. 적응증: HoFH, 약물 치료에도 LDL 극도 상승하는 HeFH, 초고 Lp(a) + 진행성 ASCVD. 2주마다 시행, LDL 60–70% 일시 감소(이후 반등). 비용·시간 부담 크나 일부 국가에서 보험 급여. Lomitapide·PCSK9i 도입 후 HoFH에서는 빈도 감소 추세.'},
-  {abbr:'Epanova',full:'Epanova® (omega-3 carboxylic acids, EPA+DHA free fatty acid form)',ko:'에파노바',desc:'EPA+DHA 혼합 오메가-3 유리지방산 제제. STRENGTH trial(2020, JAMA)에서 고TG혈증 고위험군 대상 위약(옥수수유) 대비 MACE 감소 없음(HR 0.99) — 조기 종료. 고순도 EPA 단독(Icosapent ethyl, REDUCE-IT)과 달리 EPA+DHA 혼합 제제의 심혈관 이익 부재를 보여준 시험의 약물. 위약으로 사용된 옥수수유의 LDL-C 상승 교란 가능성 논란.'},
-  {abbr:'CTT 2026',full:'Cholesterol Treatment Trialists 2026 Analysis (Lancet)',ko:'CTT 2026 메타분석',desc:'CTT Collaboration이 Lancet에 발표한 2026년 최신 스타틴 안전성 메타분석. 주요 결과: 스타틴 약 40개 부작용 항목을 FDR 보정 후 분석 → AST/ALT >3×ULN RR 1.41, LFT 이상 NNH ~313/4년; 근병증 드묾; 신규 당뇨(NODM) 중등강도 RR 1.10/고강도 RR 1.36; 통합 NNH(약리적 부작용) ≈21. 임상 간부전·담즙정체 등 심각한 간독성은 FDR 보정 후 유의 신호 없음 확인.'},
-  {abbr:'CTT 2024',full:'CTT 2024 Diabetes Analysis (Lancet Diabetes Endocrinol)',ko:'CTT 2024 당뇨 분석',desc:'CTT Collaboration이 Lancet Diabetes & Endocrinology에 발표한 2024년 스타틴 신규 당뇨(NODM) 분석. 23개 RCT 메타분석: 중등강도 스타틴 RR 1.10, 고강도 RR 1.36(위약 대비). NNH(4년): 중등강도 ~208, 고강도 ~58. NODM 발생은 기저 위험인자(전당뇨·비만·대사증후군·공복혈당 장애) 있는 환자에서 집중. Pitavastatin·Pravastatin은 RR 0.77–0.86으로 상대적으로 낮음.'}
+  {abbr:'SLCO1B1',full:'Solute Carrier Organic Anion Transporter 1B1 (Gene)',ko:'유기음이온 수송체 1B1 유전자',desc:'*OATP1B1 단백질을 코딩하는 유전자.<br><br>*간세포 기저막에서 스타틴을 포함한 유기음이온을 간 내로 수송. SLCO1B1 c.521T>C(rs4149056) 변이 시 OATP1B1 기능 저하 → 스타틴 혈중 농도 상승 → 근독성(SAMS, 횡문근융해증) 위험 증가. Simvastatin·Rosuvastatin이 특히 취약. 약물유전체학 검사(CPIC 가이드라인) 활용 가능.'},
+  {abbr:'Apheresis',full:'LDL Apheresis (Extracorporeal LDL Removal)',ko:'LDL 분리반출술',desc:'*체외순환으로 혈액에서 LDL·Lp(a)를 직접 제거하는 비약물적 치료.<br><br>*적응증: HoFH, 약물 치료에도 LDL 극도 상승하는 HeFH, 초고 Lp(a) + 진행성 ASCVD. 2주마다 시행, LDL 60–70% 일시 감소(이후 반등). 비용·시간 부담 크나 일부 국가에서 보험 급여. Lomitapide·PCSK9i 도입 후 HoFH에서는 빈도 감소 추세.'},
+  {abbr:'Epanova',full:'Epanova® (omega-3 carboxylic acids, EPA+DHA free fatty acid form)',ko:'에파노바',desc:'*EPA+DHA 혼합 오메가-3 유리지방산 제제.<br><br>*STRENGTH trial(2020, JAMA)에서 고TG혈증 고위험군 대상 위약(옥수수유) 대비 MACE 감소 없음(HR 0.99) — 조기 종료. 고순도 EPA 단독(Icosapent ethyl, REDUCE-IT)과 달리 EPA+DHA 혼합 제제의 심혈관 이익 부재를 보여준 시험의 약물. 위약으로 사용된 옥수수유의 LDL-C 상승 교란 가능성 논란.'},
+  {abbr:'CTT 2026',full:'Cholesterol Treatment Trialists 2026 Analysis (Lancet)',ko:'CTT 2026 메타분석',desc:'*CTT Collaboration이 Lancet에 발표한 2026년 최신 스타틴 안전성 메타분석.<br><br>*주요 결과: 스타틴 약 40개 부작용 항목을 FDR 보정 후 분석 → AST/ALT >3×ULN RR 1.41, LFT 이상 NNH ~313/4년; 근병증 드묾; 신규 당뇨(NODM) 중등강도 RR 1.10/고강도 RR 1.36; 통합 NNH(약리적 부작용) ≈21. 임상 간부전·담즙정체 등 심각한 간독성은 FDR 보정 후 유의 신호 없음 확인.'},
+  {abbr:'CTT 2024',full:'CTT 2024 Diabetes Analysis (Lancet Diabetes Endocrinol)',ko:'CTT 2024 당뇨 분석',desc:'*CTT Collaboration이 Lancet Diabetes & Endocrinology에 발표한 2024년 스타틴 신규 당뇨(NODM) 분석.<br><br>*23개 RCT 메타분석: 중등강도 스타틴 RR 1.10, 고강도 RR 1.36(위약 대비). NNH(4년): 중등강도 ~208, 고강도 ~58. NODM 발생은 기저 위험인자(전당뇨·비만·대사증후군·공복혈당 장애) 있는 환자에서 집중. Pitavastatin·Pravastatin은 RR 0.77–0.86으로 상대적으로 낮음.'}
 ];
 
 var _glIdx=-1, _glFiltered=[];
@@ -1974,6 +1975,15 @@ function switchRRTab(idx){
       <div class="field"><span class="fl"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> LDL-C</span><input type="number" autocomplete="off" id="ldl" min="30" max="400" placeholder="mg/dL"></div>
       <div class="field"><span class="fl"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 중성지방 (TG)</span><input type="number" autocomplete="off" id="tg" min="0" max="2000" placeholder="mg/dL"></div>
     </div>
+    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:2px 10px;margin:2px 0 4px">
+      <label class="ck" style="margin-bottom:0"><input type="checkbox" id="tgNonfasting"> <span style="font-size:12.5px;font-weight:600">비공복(식후) 채혈</span></label>
+      <span class="expl" style="font-size:11.5px;color:#5f5e5a">기본값은 공복 채혈. 식후 채혈이면 체크 — TG 기준이 공복 ≥150에서 비공복 ≥175 mg/dL로 바뀌고, 지속적 고중성지방혈증·FCS 판정에는 공복 재검이 필요함 (LDL-C는 직접 측정값 사용)</span>
+    </div>
+    <div id="htgInputs" style="display:none;margin:0 0 6px;padding:6px 10px;background:#fbf7ee;border:1px solid #ecd9b0;border-radius:8px">
+      <div style="font-size:12px;font-weight:700;color:#854f0b;margin-bottom:2px">고중성지방혈증 추가 정보</div>
+      <label class="ck" style="margin-bottom:2px"><input type="checkbox" id="tgPersist"><div><div style="font-size:12.5px;font-weight:600;color:#1a1a18">지속적 공복 고중성지방혈증</div><div class="expl" style="font-size:11.5px;color:#5f5e5a">2차 원인 교정, 4–12주 생활습관 교정, 안정된 최대내약 스타틴(적응증 시) 이후에도 공복 TG ≥150 mg/dL</div></div></label>
+      <label class="ck" style="margin-bottom:0"><input type="checkbox" id="fcsDx"><div><div style="font-size:12.5px;font-weight:600;color:#1a1a18">가족성 킬로미크론혈증 증후군 (FCS) 진단</div></div></label>
+    </div>
 
     <!-- 혈압 및 임상 인자 -->
     <div style="margin-bottom:5px;margin-top:6px">
@@ -1999,12 +2009,14 @@ function switchRRTab(idx){
     </div>
     <div style="margin-top:6px">
       <label class="ck"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> ASCVD 기왕력 (2차 예방) <input type="checkbox" id="ascvdHx"></label>
-      <label class="ck" id="vhrRow" style="display:none;padding-left:14px"><input type="checkbox" id="veryHigh"><span style="font-size:12.5px">초고위험(해당시, 체크): 복수 주요 사건 또는 1사건+다수 고위험 조건</span></label>
+      <label class="ck" id="vhrRow" style="display:none;padding-left:14px"><input type="checkbox" id="veryHigh"><span style="font-size:12.5px">초고위험(해당시, 체크): 주요 사건 2개 이상 또는 1개 + 고위험 조건 2개 이상</span></label>
       <div id="vhrCriteria" style="display:none;margin:3px 0 4px 20px;padding:7px 10px;background:#fff5f5;border-radius:7px;border-left:2px solid #e8b4b4;font-size:11.5px;color:#5f5e5a;line-height:1.75">
         <span style="font-weight:700;color:#a32d2d">초고위험 해당 기준 (다음 중 하나):</span><br>
-        ① <b>복수의 주요 ASCVD 사건</b> — MI · 허혈성 뇌졸중 · PAD 등 2개 이상<br>
-        ② <b>단일 ASCVD 사건 + 고위험 조건 2개 이상</b><br>
-        <span style="padding-left:10px;display:block;color:#5f5e5a">당뇨병 · 고혈압 · CKD(eGFR&lt;60) · 흡연 지속 · LDL≥70(최대 스타틴 중) · 심부전</span>
+        ① <b>주요 ASCVD 사건 2개 이상</b>
+        <span style="padding-left:18px;display:block;color:#5f5e5a">최근 12개월 내 ACS, MI 병력(위 ACS 외), 허혈성 뇌졸중 병력, 증상성 PAD</span>
+        ② <b>주요 ASCVD 사건 1개 + 고위험 조건 2개 이상</b>
+        <span style="padding-left:18px;display:block;color:#5f5e5a">65세 이상, 관상동맥 우회술 또는 경피적 관상동맥중재술, 현재 흡연, 당뇨병, 울혈성 심부전, 고혈압, 최대내약 스타틴 + ezetimibe에도 LDL-C ≥100 mg/dL (2.6 mmol/L)</span>
+        <span style="display:block;color:#5f5e5a">※ <b>ASCVD + CKD 3기 이상(eGFR 15–59)</b>은 초고위험과 동일한 목표 적용 (COR 1) — eGFR 입력 시 자동 체크</span>
         <span style="color:#a32d2d;font-weight:600">→ 해당 시 체크 — LDL-C 목표 &lt;55 mg/dL 적용</span>
       </div>
     </div>
@@ -2013,6 +2025,11 @@ function switchRRTab(idx){
     <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;margin-top:6px">
       <label class="ck" style="display:inline-flex;margin-bottom:0"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:4px;vertical-align:middle">●</span><input type="checkbox" id="onStatin"> <b>현재 스타틴 복용 중</b></label>
       <span class="expl" style="font-size:12.5px;color:#185fa5;font-weight:600;line-height:1.5">치료 전 지질수치 값을 모를 때, 복용 중인 <span class="text-toggle-link" onclick="var b=document.getElementById('statinIntensityBox');var s=getComputedStyle(b).display==='none';b.style.display=s?'block':'none';document.body.style.overflow=s?'hidden':'';this.querySelector('.chev').textContent=s?' ▴':' ▾';" style="color:#0c447c;font-weight:800;text-decoration:underline;text-decoration-style:dotted;cursor:pointer">스타틴 강도<span class="chev" id="statinIntensityChev" style="font-size:10.5px"> ▾</span></span>를 선택하여 추정값을 계산, 입력할 수 있습니다.</span>
+    </div>
+    <!-- 스타틴 불내성 (2026 Figure 18) -->
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px">
+      <label class="ck" style="display:inline-flex;margin-bottom:0"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:4px;vertical-align:middle">●</span><input type="checkbox" id="statinIntol"> <b>스타틴 불내성</b></label>
+      <span class="expl" style="font-size:12px;color:#5f5e5a;line-height:1.5">2종 이상 스타틴에서 근육 증상, 그중 1종은 최저 승인용량 (2026 Figure 18, 2차 원인 배제) · <span class="text-toggle-link" onclick="toggleSamsDetail()" style="color:#185fa5;font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px">SAMS 상세</span></span>
     </div>
     <!-- 스타틴 강도 분류표 (클릭 시 펼침) -->
     <div id="statinIntensityBox" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.55);overflow-y:auto;padding:24px 14px" onclick="if(event.target===this){var b=document.getElementById('statinIntensityBox');b.style.display='none';document.body.style.overflow='';var c=document.getElementById('statinIntensityChev');if(c)c.textContent=' ▾';}">
@@ -2470,6 +2487,9 @@ function switchRRTab(idx){
       <input type="checkbox" class="enh" id="cac1to99" style="display:none">
       <input type="checkbox" class="enh" id="cacCheck" style="display:none">
       <input type="checkbox" class="enh" id="cac1000"  style="display:none">
+      <input type="checkbox" class="enh" id="cac300"   style="display:none">
+      <input type="checkbox" class="enh" id="cacNgMild" style="display:none">
+      <input type="checkbox" class="enh" id="cacNgMod"  style="display:none">
       <div class="cac-opt" data-cac="cac0"
         style="padding:7px 9px;border:1px solid #a8cf8a;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s;margin-bottom:5px">
         <div style="font-size:13.5px;font-weight:700;color:#1a1a18">CAC = 0</div>
@@ -2483,12 +2503,31 @@ function switchRRTab(idx){
         </div>
         <div class="cac-opt" data-cac="cacCheck"
           style="padding:7px 9px;border:1px solid #d0cec8;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s">
-          <div style="font-size:13.5px;font-weight:700;color:#1a1a18">CAC ≥100</div>
-          <div style="font-size:11.5px;color:#888780;margin-top:2px;line-height:1.45">또는 ≥75 백분위<br>고강도 스타틴 · LDL &lt;70</div>
+          <div style="font-size:13.5px;font-weight:700;color:#1a1a18">CAC 100–299</div>
+          <div style="font-size:11.5px;color:#888780;margin-top:2px;line-height:1.45">또는 ≥75 백분위<br>LLT 시작(COR 1) · LDL &lt;70</div>
         </div>
-        <div class="cac-opt" data-cac="cac1000" style="grid-column:1 / span 2;padding:7px 9px;border:1px solid #d0cec8;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s">
+        <div class="cac-opt" data-cac="cac300"
+          style="padding:7px 9px;border:1px solid #d0cec8;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s">
+          <div style="font-size:13.5px;font-weight:700;color:#1a1a18">CAC 300–999</div>
+          <div style="font-size:11.5px;color:#888780;margin-top:2px;line-height:1.45">Severe · LLT 시작(COR 1)<br>LDL &lt;70 (선택적 &lt;55, COR 2a)</div>
+        </div>
+        <div class="cac-opt" data-cac="cac1000"
+          style="padding:7px 9px;border:1px solid #d0cec8;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s">
           <div style="font-size:13.5px;font-weight:700;color:#1a1a18">CAC ≥1000</div>
-          <div style="font-size:11.5px;color:#888780;margin-top:2px;line-height:1.45">초고위험 수준 · LDL 목표 &lt;55 · 최대강도</div>
+          <div style="font-size:11.5px;color:#888780;margin-top:2px;line-height:1.45">Extensive · LLT 시작(COR 1)<br>LDL &lt;55 · non-HDL &lt;85</div>
+        </div>
+      </div>
+      <div style="font-size:11.5px;font-weight:700;color:#5f5e5a;margin:9px 0 5px">Nongated CT(흉부 CT 등) 우연 발견 CAC — Agatston 점수가 없을 때</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px">
+        <div class="cac-opt" data-cac="cacNgMild"
+          style="padding:7px 9px;border:1px solid #d0cec8;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s">
+          <div style="font-size:13.5px;font-weight:700;color:#1a1a18">경도 (Mild)</div>
+          <div style="font-size:11.5px;color:#888780;margin-top:2px;line-height:1.45">중등강도 스타틴(COR 2a)<br>LDL &lt;100 · non-HDL &lt;130</div>
+        </div>
+        <div class="cac-opt" data-cac="cacNgMod"
+          style="padding:7px 9px;border:1px solid #d0cec8;border-radius:7px;cursor:pointer;background:#fff;transition:all .12s">
+          <div style="font-size:13.5px;font-weight:700;color:#1a1a18">중등도~고도</div>
+          <div style="font-size:11.5px;color:#888780;margin-top:2px;line-height:1.45">중등~고강도 스타틴(COR 2a)<br>LDL &lt;70 · non-HDL &lt;100</div>
         </div>
       </div>
     </div>
@@ -3241,7 +3280,7 @@ function switchRRTab(idx){
               <div>&#9312; CK 측정 &#8212; <b>&gt;10&#215;ULN이면 즉시 중단</b></div>
               <div>&#9313; Dechallenge (중단 후 소실 확인) &#8594; Rechallenge (재투여 후 재현 여부)</div>
               <div>&#9314; 재현 시 &#8594; <b>Pitavastatin·Pravastatin으로 전환</b> 또는 격일 투여</div>
-              <div>&#9315; 약리적 SAMS 확정 시 &#8594; <b>Ezetimibe 단독</b> 또는 <b>Bempedoic acid</b> 대안 고려</div>
+              <div>&#9315; 스타틴 불내성 확정(2종 이상, 1종은 최저 승인용량) 시 &#8594; 2026 Figure 18: <b>ASCVD</b>는 감량 스타틴 + bempedoic acid·에제티미브·PCSK9 mAb (COR 1) · <b>고위험</b>(PREVENT ≥10%·CAC ≥300·당뇨 여 &gt;65/남 &gt;60)은 bempedoic acid/에제티미브로 LDL &lt;70 (COR 1), 미달 시 PCSK9 mAb · <b>PREVENT 3–&lt;10%</b>는 에제티미브/bempedoic acid로 LDL &lt;100 (2b)</div>
             </div>
 
             <div style="font-size:11.5px;color:#a32d2d;padding:6px 10px;background:#fff0f0;border-radius:6px;border-left:2px solid #e24b4a">
@@ -3445,7 +3484,7 @@ function switchRRTab(idx){
         </div>
         <div id="faqA8" style="display:none;padding:10px 12px;font-size:12.5px;color:#1a1a18;line-height:1.8;background:#fff">
           NLA(National Lipid Association) 2022 scientific statement 기준: 스타틴 치료와 관련된 1가지 이상의 부작용이 있어 <b>용량 감량이나 중단 시 호전되는 경우</b>로 정의하며, 모든 용량을 못 쓰는 <b>완전 불내성(complete)</b>과 치료목표 도달에 필요한 용량을 못 쓰는 <b>부분 불내성(partial)</b>으로 나눈다.<br>
-          진단을 위해서는 <b>최소 2종의 스타틴을 시도(그중 1종은 최저 승인용량)</b>해야 한다는 것이 원칙이며, "한 번 먹어보고 아팠다"만으로 불내성으로 단정하지 않는다.<br>
+          진단을 위해서는 <b>최소 2종의 스타틴을 시도(그중 1종은 최저 승인용량)</b>해야 한다는 것이 원칙이며, "한 번 먹어보고 아팠다"만으로 불내성으로 단정하지 않는다. 이 정의는 <b>2026 ACC/AHA Figure 18</b>의 정의와 동일하다.<br>
           전체 스타틴 사용자의 5~30%가 어떤 형태로든 불내성을 보고하지만, 이중맹검 RCT에서 실제 약리적 인과관계가 확인되는 진성 불내성은 이보다 훨씬 적어 노세보 효과가 상당 부분을 차지하는 것으로 해석된다.
         </div>
       </div>
@@ -3979,8 +4018,22 @@ function clamp(v){return Math.min(100,Math.max(0,v));}
 /* Risk thresholds based on PREVENT-ASCVD: Low <3%, Borderline 3-5%, Intermediate 5-10%, High ≥10% */
 function accRec(age,risk,ldl,dm,ascvd,vhr,nE,tg,smoker,bpTx,r30,egfr){
   if(ascvd){
-    if(vhr)return{c:'hi',l:'고강도',ind:'2차 예방 — 초고위험',d:['Rosuvastatin 20–40 mg','Atorvastatin 40–80 mg'],n:'LDL <55 미달성 → Ezetimibe 또는 PCSK9 억제제 추가 (동등 위치, 임상 판단에 따라 선택). Inclisiran은 CV outcome 근거 확립 전으로 PCSK9 mAb와 동등하게 권고되지 않음 (Class 2a, 연구 진행 중)',nt:'dng',ldlTgt:55,nhTgt:85};
-    return{c:'hi',l:'고강도',ind:'2차 예방 (ASCVD 기왕력, 비초고위험)',d:['Rosuvastatin 20–40 mg','Atorvastatin 40–80 mg'],n:'LDL <70 미달성 → Ezetimibe 추가 고려',nt:'info',ldlTgt:70,nhTgt:100};
+    // 2026 ACC/AHA 4.2.6 권고 4–7 (초고위험) / 권고 1–3 (비초고위험), 4.2.8.8 권고 2 (ASCVD + CKD 3기 이상)
+    if(vhr){
+      const ckdV = egfr>=15 && egfr<60;
+      return{c:'hi',l:'고강도',ind:'2차 예방 — 초고위험'+(ckdV?' (ASCVD + CKD 3기 이상, COR 1)':''),d:['Rosuvastatin 20–40 mg','Atorvastatin 40–80 mg'],
+        n:'고강도(또는 최대내약) 스타틴 시작(COR 1). 목표: LDL-C ≥50% 감소, LDL-C &lt;55 mg/dL, non-HDL-C &lt;85 mg/dL, 선택적 apoB &lt;55 mg/dL.'
+         +'<br>▸ 목표 미달 시 에제티미브 <b>및/또는</b> PCSK9 mAb 추가(COR 1) — 에제티미브 선행 없이 PCSK9 mAb 단독·병용 가능, 필요 감소량과 환자 선호에 따라 선택'
+         +'<br>▸ PCSK9 mAb 불내성·구입 불가 또는 투여 빈도가 적은 쪽을 강하게 선호 시 inclisiran(COR 2a, CV outcome 시험 진행 중)'
+         +'<br>▸ 그래도 목표 미달 시 bempedoic acid 추가(COR 2a, 에제티미브·PCSK9 mAb와 병용 가능)'
+         +(ckdV?'<br>▸ CKD 3기 이상 + ASCVD: 초고위험과 동일한 목표 적용(4.2.8.8 권고 2, COR 1)':''),
+        nt:'dng',ldlTgt:55,nhTgt:85,abTgt:55,pct:'50',secPath:'vhr'};
+    }
+    return{c:'hi',l:'고강도',ind:'2차 예방 (ASCVD 기왕력, 비초고위험)',d:['Rosuvastatin 20–40 mg','Atorvastatin 40–80 mg'],
+      n:'고강도 스타틴 시작(COR 1). 목표: LDL-C ≥50% 감소, LDL-C &lt;70 mg/dL, non-HDL-C &lt;100 mg/dL.'
+       +'<br>▸ 최대내약 스타틴에도 목표 미달 시 에제티미브, PCSK9 mAb, 또는 bempedoic acid 추가 — 필요 감소량과 환자 선호에 따라 선택(COR 2a)'
+       +'<br>▸ 임상 판단과 환자 선호에 따라 LDL-C &lt;55 / non-HDL-C &lt;85 목표도 합리적(COR 2a)',
+      nt:'info',ldlTgt:70,nhTgt:100,pct:'50',secPath:'asc'};
   }
   if(ldl>=190){
     // 2026 ACC/AHA: LDL≥190 기본 목표 <100
@@ -4013,8 +4066,8 @@ function accRec(age,risk,ldl,dm,ascvd,vhr,nE,tg,smoker,bpTx,r30,egfr){
     const multiRF = nE>=2; // 일반 위험증가 인자 ≥2개 = 다수 ASCVD 위험인자로 간주 (본 도구의 운영 기준). 당뇨 특이 인자는 20–39세에만 사용
     const r30ok = r30!=null && Number.isFinite(r30) && age>=30 && age<=59;
     const hiTail='<br>▸ 목표 미달 시 에제티미브 <b>또는</b> PCSK9 mAb 추가(동등 선택지, COR 2b) — 목표 ≥50% 감소, LDL-C &lt;70, non-HDL-C &lt;100, 선택적 apoB &lt;70.';
-    const ipeOn = tg>=150 && tg<=500;
-    const ipeTail = ipeOn ? '<br>▸ <b>TG '+tg+' mg/dL (150–500)</b>: LDL-C &lt;100 도달 후에도 TG 상승 지속 시 IPE(icosapent ethyl 2 g bid) 추가(COR 2b). LDL-C &lt;100 미달이면 먼저 LDL-C 강하 치료 강화(COR 1).' : '';
+    const ipeOn = tg>=150 && tg<=499 && age>=50;  // 권고 4: ≥50세 + 위험인자 ≥1, 지속적 TG 150–499, 최대내약 스타틴에서 LDL-C <100
+    const ipeTail = ipeOn ? '<br>▸ <b>TG '+tg+' mg/dL (150–499), 50세 이상</b>: 위험인자 ≥1개이고 최대내약 스타틴에서 LDL-C &lt;100 도달 후에도 공복 TG 상승이 지속되면 IPE(icosapent ethyl 2 g bid) 추가(COR 2b). LDL-C &lt;100 미달이면 먼저 LDL-C 강하 치료 강화(COR 1).' : '';
     // 20–39세
     if(age<40){
       const c30 = age>=30 && (risk>=3 || (r30ok && r30>=10));
@@ -4226,6 +4279,25 @@ function makeFlow(acc,preventCat,ldl,ascvd,vhr,onStatin=false,baselineLdl=null,t
     &nbsp;·&nbsp; 추가 감소 필요량: <b style="color:${ldl>tgt?'#a32d2d':'#3b6d11'}">${Math.max(0,ldl-tgt)} mg/dL</b>
   </div><div class="sw">`;
 
+  if(acc.intol){
+    // 2026 Figure 18 — 스타틴 불내성: 비스타틴 치료가 Step 1
+    const vEB=Math.round(ldl*0.82*0.80), vP=Math.round(vEB*0.45), vI=Math.round(vEB*0.52);
+    const n1=ldl>tgt, n2=vEB>tgt;
+    const EB='<b>Ezetimibe</b> 10 mg (~18%) · <b>Bempedoic acid</b> 180 mg (~20%) · 복합제 (~38%)';
+    if(acc.intol==='asc'){
+      html+=rbox(1,'감량 스타틴(견딜 수 있으면) + bempedoic acid·에제티미브 <span style="font-size:11.5px;font-weight:400;color:#3b6d11">(COR 1)</span>',EB+'<br>감량 스타틴을 쓸 수 있으면 추가 감소 기대',vEB,n1,!n1,'bempedoic acid, 에제티미브, PCSK9 mAb는 단독 또는 병용 가능 — 순서 고정 아님(권고 3).');
+      html+=rbox(2,'PCSK9 mAb 추가 <span style="font-size:11.5px;font-weight:400;color:#3b6d11">(COR 1)</span>','Evolocumab 140 mg Q2W / 420 mg QM · Alirocumab 75–150 mg Q2W (~55%)',vP,n2,!n2,'⚠ 국내 건강보험 PCSK9 급여 기준 확인 필요.');
+      html+=rboxtop(3,'Inclisiran <span style="font-size:11.5px;font-weight:400;color:#854f0b">(COR 2a)</span>','284 mg SC 0·3개월 후 6개월마다 (~48%)<br><span style="font-size:11.5px;color:#854f0b">PCSK9 mAb 불내성·구입 불가 또는 투여 빈도가 적은 쪽을 강하게 선호 시</span>',vI,n2,!n2,'');
+    } else if(acc.intol==='mid'){
+      html+=rboxtop(1,'에제티미브 및/또는 bempedoic acid <span style="font-size:11.5px;font-weight:400;color:#c46a1a">(COR 2b)</span>',EB,vEB,n1,!n1,'비스타틴 치료 시작 결정이 불확실하면 CAC 측정으로 위험 재분류 고려(COR 2b).');
+    } else {
+      const c1 = acc.intol==='high'||acc.intol==='dm' ? '<span style="font-size:11.5px;font-weight:400;color:#3b6d11">(COR 1)</span>' : '';
+      html+=rbox(1,(acc.intol==='dm'?'에제티미브 및/또는 bempedoic acid, 또는 PCSK9 mAb ':'Bempedoic acid 및/또는 에제티미브 ')+c1,EB,vEB,n1,!n1,'');
+      html+=rboxtop(2,'PCSK9 mAb 추가 '+c1,'Evolocumab / Alirocumab (~55%)',vP,n2,!n2,'⚠ 국내 건강보험 PCSK9 급여 기준 확인 필요.');
+    }
+    html+='</div>';
+    return html;
+  }
   html+=rbox(1,s1name,s1drugs,s1ldl,true,false,s1note);
 
   // ── [Bug E] 1차 예방 PCSK9 note ──
@@ -4236,14 +4308,15 @@ function makeFlow(acc,preventCat,ldl,ascvd,vhr,onStatin=false,baselineLdl=null,t
   if(isLifestyle){
     // 저위험/경계위험: Step1=생활습관 → Step2=중등강도 스타틴 → Step3=Ezetimibe → Step4=PCSK9
     const needStatin=s1ldl>tgt;
+    const _intolChk=!!document.getElementById('statinIntol')?.checked;
     html+=rbox(2,'중등강도 스타틴 시작',
       'Atorvastatin 10–20 mg &nbsp;|&nbsp; Rosuvastatin 5–10 mg<br>LDL 감소 ~35% (중등강도 기준)',
       statinLdlForLifestyle,needStatin,!needStatin,
-      '생활습관 교정 후 목표 미달성 시 스타틴 추가. 위험증강인자 재평가 및 환자 공동 결정(shared decision-making) 후 시작.');
+      '생활습관 교정 후 목표 미달성 시 스타틴 추가. 위험증강인자 재평가 및 환자 공동 결정(shared decision-making) 후 시작.'+(_intolChk?'<br><span style="color:#6b4fa0;font-weight:600">▸ 스타틴 불내성: 스타틴 대신 에제티미브·bempedoic acid 등 비스타틴 치료로 대체 — PREVENT &lt;3%는 Figure 18 적용 대상이 아니므로 개별 판단</span>':''));
     const needEze=statinLdlForLifestyle>tgt;
     html+=rbox(3,'Ezetimibe 추가 (스타틴 기반)',
       'Ezetimibe (Zetia®) 10 mg 1회/일<br>추가 LDL 감소 ~15–20% (스타틴 후 add-on)',
-      afterEze,needEze,!needEze,'');
+      afterEze,needEze,!needEze,_intolChk?'<span style="color:#6b4fa0">▸ 스타틴 불내성: 스타틴 없이 단독 또는 bempedoic acid와 병용</span>':'');
     const needPCSK9=afterEze>tgt;
     html+=rboxtop(4,'PCSK9 억제제 또는 Bempedoic acid',
       `<b>PCSK9 mAb</b> (LDL ~55% 추가 감소): Evolocumab (Repatha®) / Alirocumab (Praluent®)<br><b>Bempedoic acid</b> (LDL ~20% 추가 감소${isPrimaryPrev?', PCSK9 mAb와 동등 선택지':', 스타틴 불내성 시 대안'}): 180 mg/일 ± Ezetimibe 복합제`,
@@ -4257,8 +4330,34 @@ function makeFlow(acc,preventCat,ldl,ascvd,vhr,onStatin=false,baselineLdl=null,t
       afterEze,needAdd,!needAdd,
       '목표: LDL-C ≥50% 감소, &lt;70 mg/dL, non-HDL-C &lt;100, 선택적 apoB &lt;70 (당뇨병 알고리즘).<br>⚠ PCSK9 억제제는 1차 예방에서 국내 건강보험 급여 기준 미충족 — 비급여 처방 필요.');
     if(acc.ipe){
-      html+=`<div class="nb info" style="margin-top:6px;font-size:12px">▸ <b>IPE (icosapent ethyl 2 g bid) 추가 고려 (COR 2b)</b> — LDL-C &lt;100 mg/dL 도달 후에도 TG 150–500 mg/dL 지속 시. LDL-C &lt;100 미달이면 먼저 LDL-C 강하 치료 강화(COR 1).</div>`;
+      html+=`<div class="nb info" style="margin-top:6px;font-size:12px">▸ <b>IPE (icosapent ethyl 2 g bid) 추가 고려 (COR 2b)</b> — 50세 이상 · 위험인자 ≥1 · 최대내약 스타틴에서 LDL-C &lt;100 mg/dL 도달 후에도 공복 TG 150–499 mg/dL 지속 시. LDL-C &lt;100 미달이면 먼저 LDL-C 강하 치료 강화(COR 1).</div>`;
     }
+  } else if(acc.secPath==='vhr'){
+    // 2026 Figure 11 — 초고위험: 에제티미브 및/또는 PCSK9 mAb(COR 1) → inclisiran(COR 2a) → bempedoic acid(COR 2a)
+    const need2=s1ldl>tgt;
+    const afterPonly=Math.round(startLdl*0.45);
+    const val2 = afterEze<=tgt ? afterEze : afterPCSK9;
+    html+=rbox(2,'에제티미브 및/또는 PCSK9 mAb 추가 <span style="font-size:11.5px;font-weight:400;color:#3b6d11">(COR 1)</span>',
+      `<b>Ezetimibe</b> 10 mg/일 (추가 LDL ~15–20% 감소, 예상 ~${afterEze} mg/dL)<br><b>PCSK9 mAb</b> Evolocumab 140 mg Q2W / 420 mg QM · Alirocumab 75–150 mg Q2W (추가 LDL ~55% 감소, 단독 예상 ~${afterPonly} mg/dL)<br><b>병용</b> 예상 ~${afterPCSK9} mg/dL`,
+      val2,need2,!need2,
+      '에제티미브를 먼저 쓸 필요 없이 PCSK9 mAb 단독 또는 병용 가능 — 필요 감소량과 환자 선호에 따라 선택.<br>⚠ 국내 건강보험 PCSK9 급여 기준: FH 또는 ASCVD + 최대내약 스타틴 + Ezetimibe 후 LDL ≥70.');
+    const need3=afterEze>tgt;
+    html+=rbox(3,'Inclisiran (Leqvio®) <span style="font-size:11.5px;font-weight:400;color:#854f0b">(COR 2a)</span>',
+      '284 mg SC: 초회 → 3개월 후 → 이후 6개월마다 (LDL ~48% 감소)<br><span style="font-size:11.5px;color:#854f0b">PCSK9 mAb를 <b>견디지 못하거나 구할 수 없는 경우</b>, 또는 <b>투여 빈도가 적은 쪽을 강하게 선호</b>하는 경우. CV outcome 시험 진행 중 — 2차 선택 PCSK9 억제제.</span>',
+      afterIncl,need3,!need3,'');
+    const val4=Math.round(val2*0.80);
+    const need4=val2>tgt;
+    html+=rboxtop(4,'Bempedoic acid 추가 <span style="font-size:11.5px;font-weight:400;color:#854f0b">(COR 2a)</span>',
+      '180 mg/일 (± Ezetimibe 복합제) — 추가 LDL ~20% 감소<br><span style="font-size:11.5px;color:#854f0b">최대내약 스타틴 중 목표 미달 시 에제티미브·PCSK9 mAb와 병용 가능 (스타틴 불내성에 한정되지 않음)</span>',
+      val4,need4,!need4,'');
+  } else if(acc.secPath==='asc'){
+    // 2026 Figure 12 — 비초고위험 ASCVD: 에제티미브, PCSK9 mAb, 또는 bempedoic acid 중 선택(COR 2a)
+    const need2=s1ldl>tgt;
+    const val2 = afterEze<=tgt ? afterEze : afterPCSK9;
+    html+=rbox(2,'에제티미브, PCSK9 mAb, 또는 bempedoic acid 추가 <span style="font-size:11.5px;font-weight:400;color:#854f0b">(선택, COR 2a)</span>',
+      `<b>Ezetimibe</b> 10 mg/일 (추가 ~15–20%, 예상 ~${afterEze} mg/dL)<br><b>PCSK9 mAb</b> Evolocumab / Alirocumab (추가 ~55%, 에제티미브 병용 시 예상 ~${afterPCSK9} mg/dL)<br><b>Bempedoic acid</b> 180 mg/일 (추가 ~20%, 예상 ~${Math.round(startLdl*0.80)} mg/dL)`,
+      val2,need2,!need2,
+      '최대내약 스타틴에도 LDL-C &lt;70 / non-HDL-C &lt;100 미달 시, 필요 감소량과 환자 선호에 따라 선택. 임상 판단에 따라 &lt;55 / &lt;85 목표도 합리적(COR 2a).<br>⚠ 국내 건강보험 PCSK9 급여 기준: FH 또는 ASCVD + 최대내약 스타틴 + Ezetimibe 후 LDL ≥70.');
   } else {
     // 중등·고강도 스타틴이 Step1 (또는 현재 스타틴 중)
     const needEze=s1ldl>tgt;
@@ -4295,7 +4394,7 @@ function recHTML(r,src){
     return h;
   }
   // 중등·고강도 스타틴: 기존 레이아웃 유지
-  let h=`<div class="rb ${r.c}"><div class="rsrc">${src}</div><div class="ri">${/ 고려$/.test(r.l)?r.l.replace(/ 고려$/,'')+' 스타틴 고려':r.l+' 스타틴'}</div><div class="rind">${r.ind||''}</div>`;
+  let h=`<div class="rb ${r.c}"><div class="rsrc">${src}</div><div class="ri">${r.intol?r.l:/ 고려$/.test(r.l)?r.l.replace(/ 고려$/,'')+' 스타틴 고려':r.l+' 스타틴'}</div><div class="rind">${r.ind||''}</div>`;
   if(r.d.length)h+=`<ul class="rdrugs">${r.d.map(d=>`<li>${d}</li>`).join('')}</ul>`;
   h+=`</div>`;
   if(r.n)h+=`<div class="nb ${r.nt}">${r.n}</div>`;
@@ -4347,6 +4446,7 @@ function recommendationVerb(acc){
   return '권고';
 }
 function statinSentence(acc){
+  if(acc && acc.intol) return acc.intol==='mid' ? '비스타틴 지질강하 치료를 고려' : '비스타틴 지질강하 치료를 권고';
   if(!acc) return '스타틴 치료를 개별 판단합니다';
   if(acc.c==='hi') return acc.l.includes('고려') ? '고강도 스타틴 치료를 고려' : '고강도 스타틴 치료를 권고';
   if(acc.c==='mo' && acc.l.includes('중등~고강도')) return '중등~고강도 스타틴 치료를 권고';
@@ -4362,14 +4462,89 @@ function addonSentence(currentLdl, target, acc, onStatin){
       ? '목표 LDL-C를 달성하여 현재 치료를 유지하며 주기적 추적 관찰을 권고'
       : '목표 LDL-C 범위 내로 확인됨. 생활습관 교정을 유지하며 주기적 추적 관찰을 권고';
   }
+  if(acc && acc.intol){
+    const m={asc:'감량 스타틴(견딜 수 있으면)과 bempedoic acid·에제티미브·PCSK9 mAb를 단독 또는 병용하여 목표 달성(COR 1), 미달 시 PCSK9 mAb 불내성·구입 불가·투여 빈도 선호이면 inclisiran(COR 2a)',
+             high:'bempedoic acid 및/또는 에제티미브 추가(COR 1), 목표 미달 시 PCSK9 mAb 추가(COR 1)',
+             dm:'에제티미브 및/또는 bempedoic acid, 또는 PCSK9 mAb로 비스타틴 치료 시작(COR 1)',
+             mid:'에제티미브 및/또는 bempedoic acid 추가 고려(COR 2b), 치료 결정이 불확실하면 CAC 측정 고려(COR 2b)',
+             fh:'에제티미브·bempedoic acid·PCSK9 mAb 등 비스타틴 치료 선택',
+             other:'에제티미브·bempedoic acid·PCSK9 mAb 등 비스타틴 치료 선택'};
+    return m[acc.intol];
+  }
   if(acc && (acc.c==='hi' || acc.c==='mo')){
     const start = onStatin ? '목표 미달성 시 최대내약 스타틴으로 강화/확인 후' : '목표 미달성 시 스타틴 시작 또는 최대내약 용량으로 조정 후';
     if(acc.dmPath && acc.c==='hi') return `${start} ezetimibe 또는 PCSK9 mAb 추가를 고려(동등 선택지, COR 2b)`;
+    if(acc.secPath==='vhr') return `${start} ezetimibe 및/또는 PCSK9 mAb 추가(COR 1), PCSK9 mAb 불내성·구입 불가·투여 빈도 선호 시 inclisiran(COR 2a), 그래도 미달 시 bempedoic acid 추가(COR 2a)를 고려`;
+    if(acc.secPath==='asc') return `${start} ezetimibe, PCSK9 mAb, 또는 bempedoic acid 중 필요 감소량과 환자 선호에 따라 선택하여 추가를 고려(COR 2a)`;
     if(target<=55) return `${start} ezetimibe 추가, 이후 PCSK9 inhibitor 또는 inclisiran 추가를 고려`;
     if(target<=70) return `${start} ezetimibe 추가, 필요 시 PCSK9 inhibitor 또는 inclisiran 추가를 고려`;
     return `${start} ezetimibe 추가를 고려`;
   }
   return '목표 미달성 시 생활습관 교정 강화와 statin 적응증 재평가를 고려';
+}
+/* ── 고중성지방혈증 관리 (2026 ACC/AHA Figure 14–17, 고중성지방혈증 권고 1–7) ──
+   전제: LDL-C는 직접 측정값 사용 (Friedewald 계산식 미사용) */
+function htgInfo(o){
+  const {tg, fasting, persist, fcs, ascvd, dm, age, ldl, nonHdl, onStatin, bpTx, smoker, egfr, uacr, nE, prevAscvd}=o;
+  const thr = fasting ? 150 : 175;
+  if(!(tg>=thr)) return {html:'',emr:''};
+  const fs = fasting ? '공복' : '비공복';
+  const li = s=>`<div style="margin:2px 0">${s}</div>`;
+  const cor = (c)=>`<span style="font-size:11px;font-weight:700;color:${c==='1'?'#3b6d11':c==='2a'?'#b8860b':'#c46a1a'}">(COR ${c})</span>`;
+  let group='', steps=[], emr='';
+  const common = li(`① 2차 원인 확인·관리 (조절 안 된 당뇨병, 갑상선기능저하증, 신증후군·CKD, 과음, 약물 등) ${cor('1')}`)
+               + li(`② 식이(첨가당·알코올·포화지방 감소), 신체활동, 체중 5–10% 감량 ${cor('1')}`)
+               + li(`※ TG ≥150 mg/dL에서는 LDL-C보다 <b>non-HDL-C 또는 apoB</b>를 우선 지표로 사용 ${cor('2a')}`);
+  const persistNote = persist ? '' : li(`<span style="color:#854f0b">▸ "지속적 공복 고중성지방혈증" 여부 확인 필요${fasting?'':' — <b>공복 재검</b>'} (2차 원인 교정·4–12주 생활습관·안정된 최대내약 스타틴 후). 해당하지 않으면 순응도·반응 모니터링 ${cor('1')}</span>`);
+  const lipidOk = (ldl<100 && nonHdl!=null && nonHdl<130);
+  if(fcs && tg>=1000){
+    group='FCS + 공복 TG ≥1000 (Figure 17)';
+    steps.push(li(`③ <b>지질 전문가 의뢰</b> ${cor('1')}`));
+    steps.push(li(`④ Fibrate 또는 처방 omega-3 지방산 추가 — TG 및 췌장염 위험 감소 ${cor('2a')}`));
+    steps.push(li(`⑤ <b>Olezarsen</b> 추가 (식이요법 보조) — TG 및 췌장염 위험 감소 ${cor('1')}`));
+    steps.push(li(`▸ 등록 영양사 의뢰 고려`));
+    if(!fasting) steps.push(li(`<span style="color:#854f0b">▸ FCS 경로는 <b>공복 TG ≥1000</b> 기준 — 공복 재검 필요</span>`));
+    emr=`고중성지방혈증(TG ${tg} mg/dL, ${fs}) + FCS: 지질 전문가 의뢰(COR 1), fibrate/처방 omega-3(COR 2a), olezarsen(COR 1) 고려`;
+  } else if(tg>=500){
+    group='TG ≥500 mg/dL (Figure 17)';
+    steps.push(persistNote);
+    steps.push(li(`③ PREVENT-ASCVD 10년 위험 추정${prevAscvd!=null?` (현재 ${prevAscvd.toFixed(1)}%)`:''} ${cor('1')}`));
+    steps.push(li(`④ 이득-위해 논의, 생활습관 및 <b>스타틴 등 LLT 최대화</b>로 LDL-C·non-HDL-C 목표 달성 ${cor('1')} · 선택적 apoB 목표 ${cor('2a')}`));
+    steps.push(li(`⑤ <b>Fibrate 또는 처방 omega-3 지방산</b> 추가 — TG 및 췌장염 위험 감소 ${cor('2a')}`));
+    if(tg>=1000) steps.push(li(`<span style="color:#a32d2d">▸ TG ≥1000: 급성 췌장염 위험이 특히 높음 — TG 강하 우선. <b>FCS 선별검사</b> 고려 (FCS 확진 시 지질 전문가 의뢰·olezarsen 경로)</span>`));
+    steps.push(li(`▸ 선택적 개입: 등록 영양사 의뢰 · FCS 선별 · 지질 전문가 의뢰`));
+    if(fcs) steps.push(li(`<span style="color:#854f0b">▸ FCS 체크됨 — FCS 전용 경로는 공복 TG ≥1000에서 적용</span>`));
+    emr=`고중성지방혈증(TG ${tg} mg/dL, ${fs}, ≥500): 2차 원인·생활습관 교정, 스타틴 등 LLT 최대화 후 fibrate/처방 omega-3 추가 고려(COR 2a)${tg>=1000?', 췌장염 예방 우선·FCS 선별 고려':''}`;
+  } else if(ascvd){
+    group='ASCVD + 고중성지방혈증 (Figure 15)';
+    steps.push(li(`③ 스타틴 및 기타 LDL-C 강하 치료 최대화 — LDL-C·non-HDL-C 목표 달성 ${cor('1')}`));
+    if(!persist){ steps.push(persistNote); emr=`고중성지방혈증(TG ${tg} mg/dL, ${fs}) + ASCVD: 2차 원인·생활습관 교정, LDL-C 강하 치료 최대화 후 지속적 공복 TG 150–499 여부 재평가`; }
+    else if(!onStatin){ steps.push(li(`④ 최대내약 스타틴 치료 후 재평가 — LDL-C &lt;100 · non-HDL-C &lt;130 도달 시 <b>IPE</b> 고려 ${cor('2b')}`)); emr=`고중성지방혈증(TG ${tg} mg/dL) + ASCVD: 최대내약 스타틴 후 LDL-C <100·non-HDL-C <130 도달 시 IPE 고려(COR 2b)`; }
+    else if(lipidOk){ steps.push(li(`④ 최대내약 스타틴에서 LDL-C &lt;100 · non-HDL-C &lt;130 → <b>Icosapent ethyl 2 g bid 추가</b> ${cor('2b')}`)); emr=`지속적 고중성지방혈증(TG ${tg} mg/dL) + ASCVD, 최대내약 스타틴에서 LDL-C <100·non-HDL-C <130: icosapent ethyl 추가 고려(COR 2b)`; }
+    else { steps.push(li(`④ LDL-C &lt;100 · non-HDL-C &lt;130 미달 → <b>LDL-C 강하 치료 강화</b> ${cor('1')} (IPE는 목표 도달 후 재검토)`)); emr=`지속적 고중성지방혈증(TG ${tg} mg/dL) + ASCVD, LDL-C/non-HDL-C 미달: LDL-C 강하 치료 강화(COR 1), 이후 IPE 재검토`; }
+  } else if(dm && age>40){
+    group='당뇨병 (40세 초과) + 고중성지방혈증 (Figure 9·14, 권고 4)';
+    const rf=[bpTx?'고혈압':null,smoker?'흡연':null,(egfr>0&&egfr<60)?'eGFR<60':null,uacr>=30?'알부민뇨':null,(nE-(document.getElementById('enhTg175')?.checked?1:0))>=1?'위험증가 인자':null].filter(Boolean);  // TG 자체는 위험인자 개수에서 제외
+    steps.push(li(`③ 스타틴 등 LLT 최대화 — LDL-C·non-HDL-C 목표 달성 ${cor('1')} · 혈당 조절 최적화`));
+    if(age<50||rf.length===0){ steps.push(li(`▸ IPE 대상 아님 — 권고 4: 50세 이상 + ASCVD 위험인자 ≥1개 필요 (현재 ${age}세, 위험인자 ${rf.length?rf.join('·'):'없음'})`)); emr=`고중성지방혈증(TG ${tg} mg/dL, ${fs}) + 당뇨병: 2차 원인·생활습관·혈당 조절, LLT 최대화 (IPE 적응 조건 미충족)`; }
+    else if(!persist){ steps.push(persistNote); emr=`고중성지방혈증(TG ${tg} mg/dL, ${fs}) + 당뇨병: 2차 원인·생활습관·혈당 조절, LLT 최대화 후 지속적 공복 TG 150–499 재평가`; }
+    else if(onStatin && ldl<100){ steps.push(li(`④ 50세 이상 + 위험인자(${rf.join('·')}), 최대내약 스타틴에서 LDL-C &lt;100 → <b>Icosapent ethyl 2 g bid 추가</b> ${cor('2b')}`)); emr=`지속적 고중성지방혈증(TG ${tg} mg/dL) + 당뇨병(≥50세, ${rf.join('·')}), LDL-C <100: icosapent ethyl 추가 고려(COR 2b)`; }
+    else { steps.push(li(`④ ${onStatin?'LDL-C &lt;100 미달 → LDL-C 강하 치료 강화':'최대내약 스타틴 치료 후 LDL-C &lt;100 도달 시'} ${onStatin?cor('1'):''} — 이후 IPE 고려 ${cor('2b')}`)); emr=`지속적 고중성지방혈증(TG ${tg} mg/dL) + 당뇨병: LDL-C <100 도달 후 IPE 고려(COR 2b)`; }
+  } else {
+    group='ASCVD·당뇨병 없는 고중성지방혈증 (Figure 16)';
+    if(!persist){ steps.push(persistNote); emr=`고중성지방혈증(TG ${tg} mg/dL, ${fs}): 2차 원인·생활습관 교정 후 지속적 공복 TG 150–499 여부 재평가`; }
+    else {
+      steps.push(li(`③ PREVENT-ASCVD 10년 위험 추정${prevAscvd!=null?` (현재 ${prevAscvd.toFixed(1)}%)`:''} ${cor('1')}`));
+      steps.push(li(`④ 이득-위해 논의, 생활습관 및 스타틴 등 LLT 최대화로 LDL-C·non-HDL-C 목표 달성 ${cor('1')} · 선택적 apoB 목표 ${cor('2a')}`));
+      emr=`지속적 고중성지방혈증(TG ${tg} mg/dL), ASCVD·당뇨 없음: PREVENT 기반 이득-위해 논의 및 LLT 최대화(COR 1), 선택적 apoB 목표(COR 2a)`;
+    }
+  }
+  if(persist && tg<500 && !(fcs&&tg>=1000)) steps.push(li(`▸ 선택적 개입: 등록 영양사 의뢰 · TG 기반 약제 추가 · FCS 선별 · 지질 전문가 의뢰`));
+  const html=`<div style="margin-top:8px;padding:10px 12px;background:#fbf7ee;border-radius:8px;border-left:4px solid #c9962b">
+    <div style="font-size:12.5px;font-weight:700;color:#854f0b;margin-bottom:4px">▲ 고중성지방혈증 관리 — ${group}</div>
+    <div style="font-size:12.5px;color:#1a1a18;line-height:1.55">TG ${tg} mg/dL (${fs}${persist?', 지속적':''})${nonHdl!=null?` · non-HDL-C ${Math.round(nonHdl)} mg/dL`:''}${common}${steps.join('')}</div>
+  </div>`;
+  return {html, emr};
 }
 function dmEnhCheckedLabels(){
   return [...document.querySelectorAll('.dmEnh:checked')].map(el=>{
@@ -4386,9 +4561,7 @@ function makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt
   const bl = (lines) => lines.filter(l => l && String(l).trim()).map(l => '• ' + String(l).trim()).join('\n');
 
   // TG ≥500 부가 안내 (불릿 1줄)
-  const tgLine = Number(currentTg) >= 500
-    ? `현재 TG ${currentTg} mg/dL로 500 mg/dL 이상 — 급성 췌장염 예방 관점의 2차 원인 평가 및 fibrate/처방 omega-3 계열 치료도 별도 고려`
-    : '';
+  const tgLine = window.__htgEmr || '';
 
   // ── NNT/NNH 참고 문구 계산 (불릿 1줄) ──
   // NNT: PREVENT 기본위험(1차) 또는 2차예방 가정위험 × 스타틴 RRR(중등 25%/고강도 35%) 기반 (updateNNT와 동일 로직, 보정계수 미적용 기본값)
@@ -4411,6 +4584,18 @@ function makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt
       const nnhVal = highIntensity ? 12 : 21;
       nntLine = `참고 : NNT ≈ ${nntVal}, NNH ≈ ${nnhVal} (${highIntensity?'고강도':'중등강도'} 스타틴, 10년/4년 기준 추정치)`;
     }
+  }
+  // 스타틴 불내성: 전용 요약
+  if(acc && acc.intol){
+    return bl([
+      Number.isFinite(prevAscvd) && !ascvd ? `PREVENT 2023 기준 10-year ASCVD risk는 ${prevAscvd.toFixed(1)}%` : (ascvd ? '2차 예방 (ASCVD 기왕력)' : ''),
+      `스타틴 불내성(2종 이상 스타틴, 1종은 최저 승인용량에서 근육 증상): ${acc.ind}`,
+      `치료 전 LDL-C는 ${ldl} mg/dL이며, ${onStatin&&currentLdl!=null&&currentLdl!==ldl?`현재 ${currentLdl} mg/dL, `:''}LDL-C 목표는 <${dispLdlTgt} mg/dL`,
+      addonText,
+      '근육 증상의 2차 원인·CK·근력 평가 및 스타틴 중단에 따른 ASCVD 위험 증가 설명 (COR 1)',
+      tgLine,
+      '참고 : 비스타틴 치료 — 스타틴 기준 NNT/NNH 추정치(신규 당뇨·SAMS) 미적용'
+    ]);
   }
 
   // 연령 범위 외 여부 — PREVENT 위험도 수치 표기 생략
@@ -4836,7 +5021,9 @@ function upd(){
   // TG 자동 체크 — 다른 필수값 미입력 시에도 TG 단독 입력으로 즉시 반영
   if(g('enhTg175')){
     const _tg=parseFloat(tgRaw);
-    if(!isNaN(_tg) && _tg >= 175){
+    const _tgThr = !g('tgNonfasting')?.checked ? 150 : 175;
+    if(g('htgInputs')){ const _pt=parseFloat(g('postTg')?.value); g('htgInputs').style.display=((!isNaN(_tg)&&_tg>=150)||(!isNaN(_pt)&&_pt>=150))?'block':'none'; }
+    if(!isNaN(_tg) && _tg >= _tgThr){
       g('enhTg175').checked = true;
       g('enhTg175').dataset.autoChecked = 'true';
     } else if(g('enhTg175').dataset.autoChecked === 'true'){
@@ -4856,6 +5043,7 @@ function upd(){
     auto('dmEnhAlb', !isNaN(_u) && _u>=30);
     auto('dmEnhEgfr', !isNaN(_e) && _e>0 && _e<60);
     auto('dmEnhAbi', !!g('abiCheck')?.checked);
+    auto('veryHigh', !!g('ascvdHx')?.checked && !isNaN(_e) && _e>=15 && _e<60);  // 4.2.8.8 권고 2: ASCVD + CKD 3기 이상 = 초고위험 목표
   })();
 
   // LDL 자동 체크 — 다른 필수값 미입력 시에도 LDL 단독 입력으로 즉시 반영
@@ -4879,7 +5067,7 @@ function upd(){
     const _egfr=parseFloat(g('egfr').value)||90;
     const _age=parseInt(ageRaw)||0;
     const _ckdEnh=(_egfr>=15&&_egfr<60&&_age>0&&_age<40);
-    const _cacIds=['cac0','cac1to99','cacCheck','cac1000'];
+    const _cacIds=['cac0','cac1to99','cacCheck','cac300','cac1000','cacNgMild','cacNgMod'];
     const nE=[...document.querySelectorAll('.enh:checked')].filter(el=>_cacIds.indexOf(el.id)<0).length+(_ckdEnh?1:0);
     if(g('enhCount')) g('enhCount').textContent=nE;
     if(g('ckdEnhDisplay')) g('ckdEnhDisplay').style.display=_ckdEnh?'flex':'none';
@@ -4964,9 +5152,9 @@ function upd(){
     g('enhLdl160').dataset.autoChecked = (ldl < 190 && shouldAutoCheck) ? 'true' : 'false';
   }
 
-  // TG ≥ 175 (비공복 기준): 기본정보 TG 입력값에 따라 위험증강인자 자동 체크
+  // TG: 공복 ≥150 / 비공복 ≥175 — 기본정보 TG 입력값에 따라 위험증강인자 자동 체크
   if(g('enhTg175')){
-    if(tg >= 175){
+    if(tg >= (!g('tgNonfasting')?.checked ? 150 : 175)){
       g('enhTg175').checked = true;
       g('enhTg175').dataset.autoChecked = 'true';
     } else {
@@ -4982,7 +5170,7 @@ function upd(){
   //   나이 <40세 → 위험증강인자로만 반영 (ckdEnh, nE에 자동 가산)
   const ckdEnh=(egfr>=15&&egfr<60&&age<40);
 
-  const cacIds=['cac0','cac1to99','cacCheck','cac1000'];
+  const cacIds=['cac0','cac1to99','cacCheck','cac300','cac1000','cacNgMild','cacNgMod'];
   const nE=[...document.querySelectorAll('.enh:checked')].filter(el=>cacIds.indexOf(el.id)<0).length+(ckdEnh?1:0);
   g('enhCount').textContent=nE;
   // CKD <40세 위험증강인자 자동 표시
@@ -5152,11 +5340,14 @@ function upd(){
   }
 
   // ── 절대 적응증 플래그 (배지 표시 전에 계산) ──
-  const cacActive=g('cacCheck')&&g('cacCheck').checked;       // CAC ≥100 또는 ≥75 백분위 (100–299/300–999 통합)
+  const cac300Active=!!(g('cac300')&&g('cac300').checked);    // CAC 300–999 (Severe)
+  const cacActive=!!((g('cacCheck')&&g('cacCheck').checked)||cac300Active); // CAC ≥100 또는 ≥75 백분위 (100–299 + 300–999 공통 처리)
+  const cacNgMildActive=!!(g('cacNgMild')&&g('cacNgMild').checked); // Nongated CT 우연 발견 — 경도
+  const cacNgModActive=!!(g('cacNgMod')&&g('cacNgMod').checked);    // Nongated CT 우연 발견 — 중등도~고도
   const cac0Active=g('cac0')&&g('cac0').checked;  // CAC = 0 — 10년 스타틴 유예 근거 (COR 2a)
   const cac1to99Active=g('cac1to99')&&g('cac1to99').checked;  // CAC 1–99 — 전용 override 있음 (COR 2a)
   const cac1000Active=g('cac1000')&&g('cac1000').checked;     // CAC ≥1000
-  const anyCAC=cac1to99Active||cacActive||cac1000Active;
+  const anyCAC=cac1to99Active||cacActive||cac1000Active||cacNgMildActive||cacNgModActive;
   const ckdAbs=(egfr>=15&&egfr<60&&age>=40);
   const dmEsrd=dm&&egfr>0&&egfr<15; // 말기신질환(투석 수준) — DM의 '위험도 무관' 원칙보다 이 근거가 우선
   const dmMrf=nE>=2;
@@ -5170,9 +5361,12 @@ function upd(){
     const notes=[];
     if(!excludeAscvd && ascvd) notes.push(vhr?'ASCVD 기왕력 (초고위험: LDL<55 목표)':'ASCVD 기왕력 (고강도 스타틴, LDL<70 목표)');
     if(ldl190Abs) notes.push('LDL-C ≥190 mg/dL — FH 의심, 위험도 무관 고강도 스타틴');
-    if(cac1000Active&&!ascvd) notes.push('CAC ≥1000 — 초고위험 수준, LDL<55 목표');
-    if(cacActive&&!ascvd) notes.push('CAC ≥100 또는 ≥75 백분위 — 스타틴 충분조건, LDL<70 목표');
+    if(cac1000Active&&!ascvd) notes.push('CAC ≥1000 — LLT 시작(COR 1), LDL<55 목표');
+    if(cacActive&&!cac300Active&&!ascvd) notes.push('CAC 100–299 또는 ≥75 백분위 — LLT 시작(COR 1), LDL<70 목표');
     if(cac1to99Active&&!ascvd) notes.push('CAC 1–99 — 중등도 강도 스타틴이 합리적(COR 2a), LDL<100 목표');
+    if(cac300Active&&!ascvd) notes.push('CAC 300–999 — LLT 시작(COR 1), LDL<70 목표 (선택적 <55, COR 2a)');
+    if(cacNgModActive&&!ascvd) notes.push('Nongated CT 우연 발견 CAC(중등도~고도) — 중등~고강도 스타틴(COR 2a), LDL<70 목표');
+    if(cacNgMildActive&&!ascvd) notes.push('Nongated CT 우연 발견 CAC(경도) — 중등강도 스타틴(COR 2a), LDL<100 목표');
     if(ckdAbs&&!ascvd) notes.push('CKD (eGFR 15–59) + 나이≥40세 — 위험도 무관 중등강도 스타틴');
     if(dmAbs&&!ascvd) notes.push(`당뇨병 40–75세 — LDL 수치·위험도 무관 ${(primRisk>=10||dmMrf)?'고강도':'중등강도'} 스타틴`);
     if(dmEsrd&&!ascvd) notes.push('당뇨병 + 말기신질환(eGFR<15, 투석 수준) — 신규 스타틴 시작 이득 불명확, 개별 상담 필요 (당뇨병의 위험도 무관 원칙보다 우선)');
@@ -5299,29 +5493,48 @@ function upd(){
              nt:'info',ldlTgt:100,nhTgt:130};
       }
     }
-    // CAC ≥1000: 초고위험 수준 — LDL <55, 최대강도 스타틴
+    // ── 2026 ACC/AHA Figure 13 — Subclinical atherosclerosis ──
+    // CAC ≥1000 (Extensive): LLT 시작(COR 1), ≥50%, LDL <55, non-HDL <85, 선택적 apoB <55
     if(cac1000Active){
-      acc={c:'hi',l:'고강도',ind:'CAC ≥1000 — 초고위험 수준 (LDL <55)',
+      acc={c:'hi',l:'고강도',ind:'CAC ≥1000 (Extensive) — LLT 시작 (COR 1, LDL <55)',
            d:['Rosuvastatin 20–40 mg','Atorvastatin 40–80 mg'],
-           n:'CAC ≥1000: 광범위 무증상 죽상경화. 2026 ACC/AHA — ASCVD 초고위험에 준하는 관리. LDL &lt;55 mg/dL 목표, 최대내약 스타틴 + Ezetimibe 추가 고려.',
-           nt:'dng',ldlTgt:55,nhTgt:85};
+           n:'CAC ≥1000: 광범위 무증상 죽상경화 (2026 Figure 13). LDL-C 강하 치료 시작(COR 1). 목표: LDL-C ≥50% 감소, LDL-C &lt;55 mg/dL, non-HDL-C &lt;85 mg/dL, 선택적 apoB &lt;55 mg/dL. 최대내약 스타틴으로 미달 시 에제티미브 추가 고려.',
+           nt:'dng',ldlTgt:55,nhTgt:85,abTgt:55,pct:'50',cacPath:true};
     }
-    // CAC ≥100 또는 ≥75 백분위: 고강도, LDL <70 (원문 Section 4.2.7 — 권고 2·3 병합, 둘 다 COR1/LOE B-R, 목표치 동일)
+    // CAC 300–999 (Severe) / CAC 100–299 또는 ≥75 백분위: LLT 시작(COR 1), ≥50%, LDL <70, non-HDL <100
     else if(cacActive && (!acc.ldlTgt || acc.ldlTgt > 70)){
-      acc={c:'hi',l:'고강도',ind:'CAC ≥100 또는 ≥75 백분위 — 스타틴 충분조건 (LDL <70)',
-           d:['Atorvastatin 40–80 mg','Rosuvastatin 20–40 mg'],
-           n:'CAC ≥100: 2026 ACC/AHA Section 4.2.7 — PREVENT 위험도 무관 스타틴 충분조건(COR 1, LOE B-R). LDL &lt;70 mg/dL, non-HDL-C &lt;100 mg/dL 목표. CAC 100–299와 300–999는 원문에서 번호가 다른 별도 공식 권고이나 목표 수치는 동일하여 여기서는 하나로 통합했습니다.',
-           nt:'warn',ldlTgt:70,nhTgt:100,pct:'50'};
+      if(cac300Active){
+        acc={c:'hi',l:'고강도',ind:'CAC 300–999 (Severe) — LLT 시작 (COR 1, LDL <70)',
+             d:['Atorvastatin 40–80 mg','Rosuvastatin 20–40 mg'],
+             n:'CAC 300–999: 2026 Figure 13 — LDL-C 강하 치료 시작(COR 1). 목표: LDL-C ≥50% 감소, LDL-C &lt;70 mg/dL, non-HDL-C &lt;100 mg/dL, 선택적 apoB &lt;70 mg/dL.<br>▸ <b>선택적 강화 목표(COR 2a)</b>: LDL-C &lt;55 mg/dL, non-HDL-C &lt;85 mg/dL, 선택적 apoB &lt;55 mg/dL',
+             nt:'warn',ldlTgt:70,nhTgt:100,abTgt:70,pct:'50',cacPath:true};
+      } else {
+        acc={c:'hi',l:'고강도',ind:'CAC 100–299 또는 ≥75 백분위 — LLT 시작 (COR 1, LDL <70)',
+             d:['Atorvastatin 40–80 mg','Rosuvastatin 20–40 mg'],
+             n:'CAC 100–299 또는 연령·성별·인종 ≥75 백분위: 2026 Figure 13 — PREVENT 위험도와 무관하게 LDL-C 강하 치료 시작(COR 1). 목표: LDL-C ≥50% 감소, LDL-C &lt;70 mg/dL, non-HDL-C &lt;100 mg/dL.',
+             nt:'warn',ldlTgt:70,nhTgt:100,pct:'50',noAb:true,cacPath:true};
+      }
     }
-    // CAC 1–99 & <75 백분위: 2026 ACC/AHA COR 2a — 중등도 강도 스타틴이 합리적, LDL <100
-    // 치료 시작 자체는 CAC>0 시 COR 1(권고)이나, 이 특정 강도·목표는 COR 2a(합리적) 등급
-    // CAC 검사가 이루어졌다는 것은 이미 PREVENT로 중간·일부 경계위험임을 확인한 뒤라는 전제이나,
-    // 검사 후에는 CAC≥100 등과 동일하게 위험도(primRisk) 수치와 무관하게 이 기준을 적용
+    // Nongated CT 우연 발견 — 중등도~고도: 중등~고강도(COR 2a), ≥50%, LDL <70, non-HDL <100
+    else if(cacNgModActive && (!acc.ldlTgt || acc.ldlTgt > 70)){
+      acc={c:'mo',l:'중등~고강도',ind:'Nongated CT 우연 발견 CAC (중등도~고도) — 중등~고강도 스타틴 (COR 2a)',
+           d:['Atorvastatin 10–20 mg (중등)','Rosuvastatin 5–10 mg (중등)','Atorvastatin 40–80 mg (고강도)','Rosuvastatin 20–40 mg (고강도)'],
+           n:'Nongated CT(흉부 CT 등)에서 우연히 발견된 중등도~고도 CAC: 2026 Figure 13 — 중등~고강도 스타틴 시작이 합리적(COR 2a). 목표: LDL-C ≥50% 감소, LDL-C &lt;70 mg/dL, non-HDL-C &lt;100 mg/dL.',
+           nt:'warn',ldlTgt:70,nhTgt:100,pct:'50',noAb:true,cacPath:true};
+    }
+    // CAC 1–99 & <75 백분위: 중등강도(COR 2a), ≥30–49%, LDL <100, non-HDL <130
     else if(cac1to99Active && (!acc.ldlTgt || acc.ldlTgt >= 100)){
       acc={c:'mo',l:'중등도 강도 (합리적)',ind:'CAC 1–99 & <75 백분위 — 중등도 강도 스타틴이 합리적 (COR 2a, LDL <100)',
            d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],
-           n:'CAC 1–99: 2026 ACC/AHA Section 4.2.7에 따른 소견입니다(권고 4, COR 2a, LOE B-R). CAC&gt;0 확인 시 치료 시작 자체는 권고(COR 1, Section 4.2.3.6)이며, 중등도 강도·LDL &lt;100 목표는 합리적(COR 2a) 수준입니다. Table 13의 일반 위험증강인자와는 별개로, 검사로 CAC가 확인된 이후에는 PREVENT 위험도 수치와 무관하게 이 기준이 적용됩니다.',
-           nt:'info',ldlTgt:100,nhTgt:130,pct:'30'};
+           n:'CAC 1–99 & &lt;75 백분위: 2026 Figure 13 — 중등강도 스타틴 시작이 합리적(COR 2a). 목표: LDL-C ≥30–49% 감소, LDL-C &lt;100 mg/dL, non-HDL-C &lt;130 mg/dL. 검사로 CAC가 확인된 이후에는 PREVENT 위험도 수치와 무관하게 이 기준이 적용됩니다.',
+           nt:'info',ldlTgt:100,nhTgt:130,pct:'30–49',noAb:true,cacPath:true};
+    }
+    // Nongated CT 우연 발견 — 경도: 중등강도(COR 2a), ≥30%, LDL <100, non-HDL <130
+    else if(cacNgMildActive && (!acc.ldlTgt || acc.ldlTgt >= 100)){
+      acc={c:'mo',l:'중등도 강도 (합리적)',ind:'Nongated CT 우연 발견 CAC (경도) — 중등강도 스타틴 (COR 2a)',
+           d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],
+           n:'Nongated CT(흉부 CT 등)에서 우연히 발견된 경도 CAC: 2026 Figure 13 — 중등강도 스타틴 시작이 합리적(COR 2a). 목표: LDL-C ≥30% 감소, LDL-C &lt;100 mg/dL, non-HDL-C &lt;130 mg/dL.',
+           nt:'info',ldlTgt:100,nhTgt:130,pct:'30',noAb:true,cacPath:true};
     }
     // CAC = 0: 2026 ACC/AHA COR 2a — 경계·중간위험에서 스타틴 유예 합리적
     // 원문: "the absence of CAC may not be that reassuring in those with multiple first-degree relatives with premature ASCVD"
@@ -5375,6 +5588,37 @@ function upd(){
     }
   }
 
+  // ── 스타틴 불내성 (2026 ACC/AHA 4.2.11 권고 1–8, Figure 18; 당뇨 섹션 권고 2) ──
+  if(g('statinIntol')?.checked){
+    const _dmOld = dm && ((sex==='F' && age>65) || (sex==='M' && age>60));
+    const _hi = !ascvd && (primRisk>=10 || cac300Active || cac1000Active || _dmOld);
+    const nsDrugs=['Ezetimibe 10 mg','Bempedoic acid 180 mg (± Ezetimibe 복합제)','PCSK9 mAb (Evolocumab · Alirocumab)'];
+    if(ascvd){
+      acc={...acc,intol:'asc',l:'비스타틴 병용 치료',ind:'스타틴 불내성 + ASCVD (권고 3, COR 1)',d:['감량 스타틴 (견딜 수 있으면)',...nsDrugs],
+        n:'스타틴 불내성 + ASCVD: 감량 스타틴(견딜 수 있으면)과 bempedoic acid, 에제티미브, PCSK9 mAb를 단독 또는 병용하여 기존 2차 예방 목표 달성(COR 1). 선택적 apoB 목표(COR 2a).<br>▸ bempedoic acid ± 에제티미브로 미달이고 PCSK9 mAb 불내성·구입 불가·투여 빈도 선호 시 inclisiran(COR 2a, 목표 LDL-C &lt;55 / non-HDL-C &lt;85)',
+        nt:'dng',pct:null};
+    } else if(ldl>=190){
+      acc={...acc,intol:'fh',l:'비스타틴 치료',ind:'스타틴 불내성 + LDL-C ≥190 (Figure 18 해당 분기 없음 — 기존 목표 유지)',d:nsDrugs,
+        n:'LDL-C ≥190(FH 의심)의 불내성은 Figure 18에 별도 분기가 없어 기존 목표를 유지하고 에제티미브·bempedoic acid·PCSK9 mAb 등 비스타틴 치료를 선택합니다.',nt:'warn',pct:null};
+    } else if(_hi){
+      const why=[primRisk>=10?'PREVENT ≥10%':null,(cac300Active||cac1000Active)?'CAC ≥300':null,_dmOld?`당뇨병(${sex==='F'?'여성 >65세':'남성 >60세'})`:null].filter(Boolean).join(' · ');
+      const lt=Math.min(acc.ldlTgt||70,70), nh=Math.min(acc.nhTgt||100,100);
+      acc={...acc,intol:'high',c:'hi',l:'비스타틴 치료',ind:'스타틴 불내성 + 고위험 ('+why+') — 권고 4·5, COR 1',d:['Bempedoic acid 180 mg','Ezetimibe 10 mg','Bempedoic acid + Ezetimibe 복합제','(미달 시) PCSK9 mAb'],
+        n:'스타틴 불내성, ASCVD 없음, 고위험('+why+'): bempedoic acid 및/또는 에제티미브 추가로 LDL-C &lt;'+lt+' mg/dL, non-HDL-C &lt;'+nh+' mg/dL 달성(COR 1), 선택적 apoB &lt;70. 목표 미달 시 PCSK9 mAb 추가(COR 1).',
+        nt:'warn',ldlTgt:lt,nhTgt:nh,abTgt:(lt===70?70:acc.abTgt),noAb:false,pct:null};
+    } else if(dm && (acc.c==='hi'||acc.c==='mo')){
+      acc={...acc,intol:'dm',l:'비스타틴 치료',ind:'스타틴 불내성 + 당뇨병 (당뇨 섹션 권고 2, COR 1) — 목표는 당뇨 경로 유지',d:nsDrugs,
+        n:'당뇨병 + 스타틴 불내성: 에제티미브 및/또는 bempedoic acid, 또는 PCSK9 mAb 시작(COR 1). 원문에 별도 목표가 없어 당뇨 경로의 목표를 유지합니다(권고 4의 LDL-C &lt;70은 여성 &gt;65세·남성 &gt;60세 대상).',nt:'info',pct:null};
+    } else if(!ascvd && primRisk>=3 && primRisk<10){
+      acc={...acc,intol:'mid',c:'mo',l:'비스타틴 치료 고려',ind:'스타틴 불내성 + 경계·중간위험 (PREVENT 3–<10%) — 권고 7·8, COR 2b',d:['Ezetimibe 10 mg','Bempedoic acid 180 mg','Bempedoic acid + Ezetimibe 복합제'],
+        n:'스타틴 불내성, PREVENT 3–&lt;10%: 에제티미브 및/또는 bempedoic acid로 LDL-C &lt;100 mg/dL, non-HDL-C &lt;130 mg/dL 달성이 고려될 수 있음(COR 2b). 비스타틴 치료 결정이 불확실하면 CAC 측정(COR 2b).',
+        nt:'info',ldlTgt:100,nhTgt:130,noAb:true,pct:null};
+    } else if(acc.c==='hi'||acc.c==='mo'){
+      acc={...acc,intol:'other',l:'비스타틴 치료',ind:acc.ind+' · 스타틴 불내성 (Figure 18 해당 분기 없음 — 기존 목표 유지)',d:nsDrugs,
+        n:(acc.n||'')+'<br>▸ 스타틴 불내성: Figure 18에 해당 분기가 없어 기존 목표를 유지하고 에제티미브·bempedoic acid·PCSK9 mAb 등 비스타틴 치료를 선택합니다.',pct:null};
+    }
+  }
+
   // ── 위험도 무관 스타틴 절대 적응증 판정 ──
   const absInds=[
     {
@@ -5395,21 +5639,33 @@ function upd(){
     },
     {
       key:'cac',
-      active:(cacActive||cac1000Active||cac1to99Active)&&!ascvd,
+      active:(cacActive||cac1000Active||cac1to99Active||cacNgMildActive||cacNgModActive)&&!ascvd,
       label:cac1000Active
-        ?'CAC ≥1000 — 초고위험 수준, 스타틴 충분조건 (LDL 목표 <55 mg/dL, 최대강도)'
+        ?'CAC ≥1000 (Extensive) — LLT 시작 (COR 1, LDL 목표 <55 mg/dL)'
+        :cac300Active
+          ?'CAC 300–999 (Severe) — LLT 시작 (COR 1, LDL 목표 <70 mg/dL, 선택적 <55)'
         :cacActive
-          ?'CAC ≥100 (또는 ≥75 백분위) — 스타틴 충분조건 (LDL 목표 <70 mg/dL)'
-          :'CAC 1–99 (또는 <75 백분위) — 중등도 강도 스타틴이 합리적 (COR 2a, LDL 목표 <100 mg/dL)',
-      detail:(cacActive||cac1000Active||cac1to99Active)
+          ?'CAC 100–299 (또는 ≥75 백분위) — LLT 시작 (COR 1, LDL 목표 <70 mg/dL)'
+        :cacNgModActive
+          ?'Nongated CT 우연 발견 CAC (중등도~고도) — 중등~고강도 스타틴 (COR 2a, LDL 목표 <70 mg/dL)'
+        :cacNgMildActive
+          ?'Nongated CT 우연 발견 CAC (경도) — 중등강도 스타틴 (COR 2a, LDL 목표 <100 mg/dL)'
+          :'CAC 1–99 (<75 백분위) — 중등도 강도 스타틴이 합리적 (COR 2a, LDL 목표 <100 mg/dL)',
+      detail:(cacActive||cac1000Active||cac1to99Active||cacNgMildActive||cacNgModActive)
         ?(cac1000Active
-            ?'무증상 죽상경화 광범위(CAC ≥1000) — 고강도 스타틴, LDL 목표 &lt;55 mg/dL'
+            ?'광범위 무증상 죽상경화(CAC ≥1000) — ≥50% 감소, LDL &lt;55, non-HDL &lt;85, 선택적 apoB &lt;55'
+            :cac300Active
+              ?'고도 무증상 죽상경화(CAC 300–999) — ≥50% 감소, LDL &lt;70, non-HDL &lt;100, 선택적 apoB &lt;70; 선택적 강화 LDL &lt;55 · non-HDL &lt;85 · apoB &lt;55 (COR 2a)'
             :cacActive
-              ?'무증상 죽상경화의 객관적 증거(CAC ≥100) — 고강도 스타틴, LDL 목표 &lt;70 mg/dL(원문 권고 2·3 병합, 목표 동일)'
-              :'무증상 죽상경화 소견(CAC 1–99) — 중등도 강도 스타틴이 합리적(COR 2a), LDL 목표 &lt;100 mg/dL')
+              ?'무증상 죽상경화(CAC 100–299 또는 ≥75 백분위) — ≥50% 감소, LDL &lt;70, non-HDL &lt;100'
+            :cacNgModActive
+              ?'Nongated CT 우연 발견 중등도~고도 CAC — ≥50% 감소, LDL &lt;70, non-HDL &lt;100 (COR 2a)'
+            :cacNgMildActive
+              ?'Nongated CT 우연 발견 경도 CAC — ≥30% 감소, LDL &lt;100, non-HDL &lt;130 (COR 2a)'
+              :'무증상 죽상경화 소견(CAC 1–99 & &lt;75 백분위) — ≥30–49% 감소, LDL &lt;100, non-HDL &lt;130 (COR 2a)')
         :'해당 없음',
-      strength:cac1000Active||cacActive?'고강도':'중등강도',
-      basis:'2026 ACC/AHA Section 4.2.3.6(CAC&gt;0 확인 시 치료 시작 권고, COR 1) 및 Section 4.2.7(점수별 목표치 — CAC 1–99는 COR 2a 중등도 강도, CAC≥100은 COR 1 고강도 충분조건). 세부 LDL 목표는 위험증가 인자 박스 CAC 등급 참조'
+      strength:cac1000Active||cacActive?'고강도':cacNgModActive?'중등~고강도':'중등강도',
+      basis:'2026 ACC/AHA Figure 13(Managing Adults With Subclinical Atherosclerosis) — CAC 1–99 & &lt;75 백분위: 중등강도(COR 2a) · 100–299 또는 ≥75 백분위, 300–999, ≥1000: LLT 시작(COR 1) · Nongated CT 우연 발견: 경도 중등강도 / 중등도~고도 중등~고강도(COR 2a). 세부 LDL 목표는 위험증가 인자 박스 CAC 등급 참조'
     },
     {
       key:'ckd',
@@ -5438,11 +5694,16 @@ function upd(){
       basis:'REPRIEVE trial: Pitavastatin 4 mg → MACE 35% 감소 (2026 ACC/AHA Class I, NEJM 2023)'
     }
   ];
+  // 스타틴 불내성: 원래 적응증은 그대로 표시하고, 불내성으로 바뀐 치료를 덧붙임
+  if(acc.intol){
+    const _chg=`<br><span style="color:#6b4fa0;font-weight:600">▸ 스타틴 불내성으로 변경: ${acc.l}</span> <span style="color:#6b4fa0">— ${acc.ind}${acc.ldlTgt?` · LDL-C 목표 &lt;${acc.ldlTgt} mg/dL`:''}</span>`;
+    absInds.forEach(i=>{ if(i.active) i.detail=(i.detail||'')+_chg; });
+  }
   const anyAbs=absInds.some(i=>i.active);
   let absHtml='';
   if(anyAbs){
     absHtml+=`<div style="margin-bottom:8px;padding:8px 11px;background:#fcebeb;border-radius:8px;border-left:3px solid #a32d2d">
-      <div style="font-size:12.5px;font-weight:700;color:#a32d2d">⚠ 위험도 분류 무관 스타틴 적응증 ${absInds.filter(i=>i.active).length}개 해당 — PREVENT 점수에 구속되지 않고 즉시 치료를 권고합니다.</div>
+      <div style="font-size:12.5px;font-weight:700;color:#a32d2d">⚠ 위험도 분류 무관 스타틴 적응증 ${absInds.filter(i=>i.active).length}개 해당 — PREVENT 점수에 구속되지 않고 즉시 치료를 권고합니다.${acc.intol?' <span style="color:#6b4fa0">(스타틴 불내성 — 비스타틴 치료로 대체)</span>':''}</div>
     </div>`;
   }
   absInds.forEach(ind=>{
@@ -5520,14 +5781,16 @@ function upd(){
   // ── 절대 적응증 목표치 보정 (accRec override 후 잔여 케이스 — 이중 안전망) ──
   // acc override로 대부분 처리되나, preventCat.l fallback 경로를 위해 유지
   if(ckdAbs && dispLdlTgt > 100){ dispLdlTgt=100; dispNhTgt=Math.min(dispNhTgt,130); }
-  if(!ascvd){
+  if(!ascvd && !acc.intol){
     if(cac1000Active && dispLdlTgt > 55){ dispLdlTgt=55; dispNhTgt=Math.min(dispNhTgt,85); }
     else if(cacActive && dispLdlTgt > 70){ dispLdlTgt=70; dispNhTgt=Math.min(dispNhTgt,100); }
-    else if(cac1to99Active && dispLdlTgt > 100){ dispLdlTgt=100; dispNhTgt=Math.min(dispNhTgt,130); }
+    else if(cacNgModActive && dispLdlTgt > 70){ dispLdlTgt=70; dispNhTgt=Math.min(dispNhTgt,100); }
+    else if((cac1to99Active||cacNgMildActive) && dispLdlTgt > 100){ dispLdlTgt=100; dispNhTgt=Math.min(dispNhTgt,130); }
   }
 
   // ApoB 목표치 — LDL 목표와 수치 일치 원칙 (이 도구: <55/<70/<100)
   const dispAbTgt = dispLdlTgt==null ? null
+    : (acc.noAb && dispLdlTgt===acc.ldlTgt) ? null   // CAC: 그림에 apoB 목표가 없는 등급
     : (acc.abTgt!=null && dispLdlTgt===acc.ldlTgt) ? acc.abTgt   // 당뇨병: 중등강도 apoB <90, 고강도 <70 (2026 알고리즘)
     : (dispLdlTgt<=55 ? 55 : dispLdlTgt<=70 ? 70 : 100);
 
@@ -5545,7 +5808,7 @@ function upd(){
   const statusHdl    = showCur ? statusHdlCell(currentHdl,sex) : statusHdlCell(hdl,sex);
   const ldlTgtCell = dispLdlTgt!=null ? `&lt;${dispLdlTgt} <span style="font-size:11.5px;color:#888">mg/dL</span>` : `<span style="color:#854f0b;font-size:12.5px">목표치 없음(개별판단)</span>`;
   const nhTgtCell  = dispNhTgt!=null  ? `&lt;${dispNhTgt} <span style="font-size:11.5px;color:#888">mg/dL</span>`  : `<span style="color:#854f0b;font-size:12.5px">목표치 없음(개별판단)</span>`;
-  const abTgtCell  = dispAbTgt!=null  ? `&lt;${dispAbTgt} mg/dL` : `<span style="color:#854f0b;font-size:12.5px">목표치 없음(개별판단)</span>`;
+  const abTgtCell  = dispAbTgt!=null  ? `&lt;${dispAbTgt} mg/dL` : (acc&&acc.noAb ? `<span style="color:#854f0b;font-size:12.5px">미제시 (2026 Figure 13)</span>` : `<span style="color:#854f0b;font-size:12.5px">목표치 없음(개별판단)</span>`);
   g('lipidTbl').innerHTML=`
     <tr><td>LDL-C</td><td style="font-weight:600">${ldl} mg/dL</td>${curLdlCell}<td>${ldlTgtCell}</td><td>${statusLdl}</td></tr>
     <tr><td>Non-HDL-C <span style="color:#888;font-size:11.5px">(TC−HDL)</span></td><td style="font-weight:600">${nonHDL} mg/dL</td>${curNhCell}<td>${nhTgtCell}</td><td>${statusNh}</td></tr>
@@ -5595,8 +5858,25 @@ function upd(){
       g('accRecOut').innerHTML+=`<div class="nb ${controlClass}">현재 스타틴 치료 중: 기저 위험군은 <b>${preventCat.cat}</b>으로 유지합니다. 현재 LDL-C ${currentLdl} mg/dL, 목표 &lt;${dispLdlTgt} mg/dL ${currentLdl<=dispLdlTgt?'달성':'미달성: 추가 감소 필요 '+ldlGap+' mg/dL'}.</div>`;
     }
   }
-  if(currentTg>=500) g('accRecOut').innerHTML+=`<div class="nb dng">⚠ 현재 TG ≥500 mg/dL: 급성 췌장염 예방 위해 2차 원인 평가 및 Fibrate/처방 omega-3 계열 치료를 고려하십시오.</div>`;
-  if(g('cacCheck')&&g('cacCheck').checked&&!ascvd){
+  {
+    const _htg=htgInfo({tg:currentTg, fasting:!g('tgNonfasting')?.checked, persist:!!g('tgPersist')?.checked, fcs:!!g('fcsDx')?.checked,
+      ascvd, dm, age, ldl:currentLdl, nonHdl:(currentTc!=null&&currentHdl!=null)?(currentTc-currentHdl):null, onStatin, bpTx, smoker, egfr, uacr, nE, prevAscvd});
+    window.__htgEmr=_htg.emr;
+    if(g('statinIntol')?.checked){
+      g('accRecOut').innerHTML+=`<div style="margin-top:8px;padding:10px 12px;background:#f3edfb;border-radius:8px;border-left:4px solid #6b4fa0">
+        <div style="font-size:12.5px;font-weight:700;color:#4a3a70;margin-bottom:4px">▲ 스타틴 불내성 — 공통 평가 (2026 Figure 18, 권고 1·2)</div>
+        <div style="font-size:12.5px;color:#1a1a18;line-height:1.6">
+          ① 근육 증상의 2차 원인 평가 (COR 1) — 갑상선기능저하증, 약물 상호작용, 과음, 격한 운동, 만성 간·신질환, 근육 질환 등<br>
+          ② 심한 근육통·근력 저하 시 객관적 근력 평가와 CK 측정 (COR 1)<br>
+          ③ 이득-위해 논의 — 환자의 우려를 인정하고, <b>스타틴 중단 시 ASCVD 위험 증가</b>를 설명하며 대안 치료 제시 (COR 1)<br>
+          <span style="font-size:11.5px;color:#5f5e5a">Table 24 위험 요인: 65세 이상, 저체중·비만, 여성, 갑상선기능저하증, 당뇨병, 만성 간·신질환, 음주, 격한 운동, 고용량 스타틴, 근육 질환, 대사 상호작용 약물, SLCO1B1 등 유전 변이</span>
+          ${acc.intol?'':'<br><span style="color:#854f0b">▸ 현재 조건(PREVENT &lt;3% 등)은 불내성 권고의 적용 대상이 아니어서 일반 경로를 따릅니다.</span>'}
+          <br><span style="font-size:11.5px;color:#5f5e5a">※ 비스타틴 치료에는 스타틴 기준 NNH(신규 당뇨·SAMS)가 적용되지 않습니다.</span>
+        </div></div>`;
+    }
+    if(_htg.html) g('accRecOut').innerHTML+=_htg.html;
+  }
+  if(((g('cacCheck')&&g('cacCheck').checked)||(g('cac300')&&g('cac300').checked))&&!ascvd){
     g('accRecOut').innerHTML+=`<div style="margin-top:8px;padding:10px 12px;background:#fcebeb;border-radius:8px;border-left:4px solid #a32d2d">
       <div style="font-size:12.5px;font-weight:700;color:#a32d2d;margin-bottom:4px">▲ CAC ≥100 확인 — 스타틴 치료의 충분조건</div>
       <div style="font-size:13.5px;color:#1a1a18;line-height:1.6">CAC ≥100 또는 ≥75 백분위는 무증상 죽상경화반의 객관적 증거로, <b>2026 ACC/AHA 가이드라인은 이를 "compelling reason to initiate statin therapy"로 명시</b>합니다. PREVENT 위험도 계산 결과에 구속되지 않고 스타틴 시작을 적극 권고합니다.</div>
@@ -5696,7 +5976,7 @@ function upd(){
       </tr>
       <tr>
         <th style="padding:6px 8px;border:1px solid #ccc;text-align:left">ApoB (${apoBLabel}) 치료 전 / 현재 / 목표</th>
-        <td style="padding:6px 8px;border:1px solid #ccc">${apob_meas!==null?apoBDisplay:'~'+apoBDisplay} / ${currentApoBLabel==='측정값'?currentApoBDisplay:'~'+currentApoBDisplay} / ${dispAbTgt!=null?`&lt;${dispAbTgt} mg/dL`:'목표치 없음(개별판단)'}</td>
+        <td style="padding:6px 8px;border:1px solid #ccc">${apob_meas!==null?apoBDisplay:'~'+apoBDisplay} / ${currentApoBLabel==='측정값'?currentApoBDisplay:'~'+currentApoBDisplay} / ${dispAbTgt!=null?`&lt;${dispAbTgt} mg/dL`:(acc&&acc.noAb?'미제시 (2026 Figure 13)':'목표치 없음(개별판단)')}</td>
         <th style="padding:6px 8px;border:1px solid #ccc;text-align:left">eGFR / 현재 TG</th>
         <td style="padding:6px 8px;border:1px solid #ccc">${egfr} / ${currentTg} mg/dL</td>
       </tr>
@@ -5951,7 +6231,7 @@ g('cacMain').addEventListener('change', function(){
   const panel = g('cacPanel');
   panel.style.display = this.checked ? 'block' : 'none';
   if(!this.checked){
-    ['cac0','cac1to99','cacCheck','cac1000'].forEach(id=>{
+    ['cac0','cac1to99','cacCheck','cac300','cac1000','cacNgMild','cacNgMod'].forEach(id=>{
       if(g(id)){ g(id).checked=false; }
     });
     document.querySelectorAll('.cac-opt').forEach(el=>{
@@ -5977,7 +6257,7 @@ document.querySelectorAll('.cac-opt').forEach(btn=>{
     this.style.borderColor='#1a1a18';
     this.querySelectorAll('div').forEach(d=>d.style.color='#fff');
     // 숨김 체크박스 동기화 (택1)
-    ['cac0','cac1to99','cacCheck','cac1000'].forEach(id=>{
+    ['cac0','cac1to99','cacCheck','cac300','cac1000','cacNgMild','cacNgMod'].forEach(id=>{
       if(g(id)) g(id).checked = (id===targetId);
     });
     upd();
@@ -6074,8 +6354,8 @@ clearResults(); // 초기 로드: 빈 화면
 function updateNNT(prevAscvd, ascvd, vhr, acc){
   /* ── 단일 최우선 보정 인자 결정 (CAC > Lp(a) > RE) ── */
   var adjMult=1, adjLabel='', adjBasis='';
-  var cac1=g('cac1to99')&&g('cac1to99').checked;
-  var cac2=g('cacCheck')&&g('cacCheck').checked;
+  var cac1=(g('cac1to99')&&g('cac1to99').checked)||(g('cacNgMild')&&g('cacNgMild').checked);
+  var cac2=(g('cacCheck')&&g('cacCheck').checked)||(g('cac300')&&g('cac300').checked)||(g('cacNgMod')&&g('cacNgMod').checked);
   var cac4=g('cac1000')&&g('cac1000').checked;
   if(cac4)       { adjMult=2.8; adjLabel='CAC ≥1000';  adjBasis='MESA 코호트'; }
   else if(cac2)  { adjMult=1.8; adjLabel='CAC ≥100';   adjBasis='MESA 코호트'; }
@@ -6086,7 +6366,7 @@ function updateNNT(prevAscvd, ascvd, vhr, acc){
     var reEls=document.querySelectorAll('input.enh:checked');
     var reCount=0;
     reEls.forEach(function(el){
-      if(['cac0','cac1to99','cacCheck','cac1000'].indexOf(el.id)<0) reCount++;
+      if(['cac0','cac1to99','cacCheck','cac300','cac1000','cacNgMild','cacNgMod'].indexOf(el.id)<0) reCount++;
     });
     if(reCount>=3)      { adjMult=1.4; adjLabel='위험증강인자 '+reCount+'개'; adjBasis='추정값'; }
     else if(reCount>=1) { adjMult=1.2; adjLabel='위험증강인자 '+reCount+'개'; adjBasis='추정값'; }
@@ -6231,8 +6511,8 @@ function clearAllInputs(){
   ['bpTx','smoker','dm','ascvdHx','veryHigh','onStatin',
    'prsCheck','enhCkm','enhInflam','enhHiv','enhLpa','enhHsCRP',
    'enhTg175','enhLdl160','abiCheck','carotidPlaque','cacMain',
-   'cac0','cac1to99','cacCheck','cac1000',
-   'dmEnhDur','dmEnhAlb','dmEnhEgfr','dmEnhRet','dmEnhNeu','dmEnhAbi','dmMultiRF'].forEach(function(id){
+   'cac0','cac1to99','cacCheck','cac300','cac1000','cacNgMild','cacNgMod',
+   'dmEnhDur','dmEnhAlb','dmEnhEgfr','dmEnhRet','dmEnhNeu','dmEnhAbi','dmMultiRF','tgNonfasting','tgPersist','fcsDx','statinIntol'].forEach(function(id){
     var el=document.getElementById(id);
     if(el){ el.dataset.autoChecked='false'; }
     if(el && el.checked){ el.checked=false; el.dispatchEvent(new Event('change')); }
