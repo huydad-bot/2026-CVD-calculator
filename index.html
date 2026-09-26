@@ -121,6 +121,22 @@ body.compact-mode #riskEnhancerBody label.ck:hover .expl{
   pointer-events:none;
 }
 
+/* 컴팩트 모드: '지속적 공복 고중성지방혈증'·'스타틴 불내성'도 마우스를 올리면 설명(.expl)을 말풍선으로 표시 */
+body.compact-mode #htgInputs label.ck,
+body.compact-mode .intol-row{position:relative}
+body.compact-mode #htgInputs label.ck:hover .expl,
+body.compact-mode .intol-row:hover .expl{
+  display:block!important;
+  position:absolute;left:19px;right:6px;top:100%;margin-top:1px!important;
+  z-index:50;padding:6px 10px;
+  background:#fff;color:#1a1a18!important;
+  border:1px solid #185fa5;border-radius:7px;
+  box-shadow:0 4px 14px rgba(0,0,0,.18);
+  font-size:12.5px!important;line-height:1.55;
+  pointer-events:none;
+}
+
+
 /* Stepwise vertical flow */
 .sw{margin:0}
 .sw-row{display:flex;gap:10px;align-items:stretch;margin-bottom:0}
