@@ -5987,7 +5987,7 @@ function upd(){
   // Stepwise flow — current/on-treatment LDL if present, otherwise baseline LDL
   // dispLdlTgt를 targetOverride로 전달: 지질표 목표치와 stepwise flow 목표치 일치 보장
   g('swFlow').innerHTML=makeFlow(acc,preventCat,currentLdl,ascvd,vhr,onStatin,ldl,dispLdlTgt);
-  try{ updateNNT(prevAscvd,ascvd,vhr,acc); }catch(e){ console.warn('NNT error:',e); }
+  window.__nndAbs=!!anyAbs; try{ updateNNT(prevAscvd,ascvd,vhr,acc); }catch(e){ console.warn('NNT error:',e); }
 
   // EMR copy summary
   if(g('emrSummary')){
@@ -6523,7 +6523,7 @@ function updateNNT(prevAscvd, ascvd, vhr, acc){
         +'<td style="padding:3px 6px;color:'+vc+'">'+v+' <span style="font-weight:400;color:#888780">(교차점 ≥'+r.thr+'%)</span></td></tr>';
     }).join('');
     summary.innerHTML+='<div style="margin-top:8px;padding:8px 10px;background:#faf9f6;border:1px solid #e2e0db;border-radius:8px">'
-      +'<div style="font-size:12px;font-weight:700;color:#5f5e5a;margin-bottom:4px">Figure 4 기준 이득-위해 비교 (10년, PREVENT '+riskPct.toFixed(1)+'%)</div>'
+      +'<div style="font-size:12px;font-weight:700;color:#5f5e5a;margin-bottom:4px">Figure 4 기준 이득-위해 비교 (10년, PREVENT '+riskPct.toFixed(1)+'%)'+(window.__nndAbs?' <span style="color:#a32d2d">(위험도 무관 적응증 해당 — 참고용)</span>':'')+'</div>'
       +'<div style="overflow-x:auto"><table style="border-collapse:collapse;font-size:12px;color:#1a1a18;width:100%">'
       +'<tr style="color:#888780;font-size:11px"><th style="text-align:left;padding:2px 6px">스타틴 강도</th><th style="padding:2px 6px">NNT</th><th style="padding:2px 6px">NND</th><th style="padding:2px 6px">NND/NNT</th><th style="text-align:left;padding:2px 6px">판정</th></tr>'
       +trs+'</table></div>'
