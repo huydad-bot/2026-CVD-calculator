@@ -892,6 +892,7 @@ var GLOSSARY=[
   {abbr:'VHR',full:'Very High Risk',ko:'Very high risk (secondary prevention)',desc:'Defined by the 2026 ACC/AHA Dyslipidemia Guideline. Patients with established ASCVD who meet the criteria below are classified VHR → target <b>LDL-C &lt;55 · ApoB &lt;55 · non-HDL &lt;85 mg/dL</b>.<br><br><b style="color:#a32d2d">[A] ≥2 major ASCVD events</b><br><b style="color:#a32d2d">[B] 1 major ASCVD event plus ≥2 high-risk conditions</b><br><br><b>Major ASCVD events</b><br><span style="padding-left:8px;display:block">▸ ACS within the past 12 months<br>▸ History of MI (other than the ACS above)<br>▸ History of ischemic stroke<br>▸ Symptomatic PAD</span><b>High-risk conditions</b><br><span style="padding-left:8px;display:block">▸ Age ≥65 y<br>▸ Coronary bypass or percutaneous coronary intervention<br>▸ Current smoker<br>▸ Diabetes<br>▸ History of congestive heart failure<br>▸ Hypertension<br>▸ LDL-C ≥100 mg/dL (2.6 mmol/L) despite maximally tolerated statin + ezetimibe</span><br>※ ASCVD + CKD stage ≥3 (eGFR &lt;60) receives the same goals as very high risk (2026 4.2.8.8 rec 2, COR 1)<br><br>Treatment: high-intensity statin → ezetimibe and/or PCSK9 mAb (COR 1) → inclisiran (if unable to tolerate/obtain a PCSK9 mAb or preferring less frequent dosing, COR 2a) → bempedoic acid (COR 2a). Achieving LDL &lt;55 yields an additional ~20% reduction in events (CTT).'},
   {abbr:'MI',full:'Myocardial Infarction',ko:'Myocardial infarction',desc:'A major type of established ASCVD. Includes STEMI/NSTEMI. Secondary prevention indication — LDL target &lt;70 (general), &lt;55 (very high risk).'},
   {abbr:'PCSK9',full:'Proprotein Convertase Subtilisin/Kexin type 9',ko:'PCSK9 (a lipoprotein-receptor-regulating enzyme)',desc:'*Promotes degradation of the LDL receptor, raising LDL-C.<br><br>*Inhibitors (evolocumab, alirocumab) reduce LDL by an additional 50–60%. A third-line add-on when very-high-risk patients fail to reach target on statin + ezetimibe.'},
+  {abbr:'NND',full:'Number Needed to Diagnose (diabetes)',ko:'Number needed to cause 1 new diabetes case',desc:'*Number of patients treated with a statin over a given period for 1 additional case of new-onset diabetes (a diabetes-specific NNH). Calculation: 1 ÷ absolute risk increase.<br><br>*2026 ACC/AHA Figure 4: 10-year NND is 100 for moderate-intensity and 33 for high-intensity statin. NNT (1 ÷ 10-y risk × RRR; moderate 35%, high 45%) equals the NND at about 3% (moderate) and 7% (high) — the basis for the PREVENT ≥3% threshold for considering LLT in primary prevention.<br><br>*Statin-associated diabetes occurs almost exclusively in people with prediabetes, advancing the time of diagnosis; it is rare with normoglycemia. Weighing it 1:1 against prevented MI/stroke makes the threshold conservative. Distinct from this tool\'s combined NNH (pooled pharmacologic adverse effects, 4 years).'},
   {abbr:'NNT',full:'Number Needed to Treat',ko:'Number needed to treat',desc:'*Number of patients who must be treated to prevent one event.<br><br>*Lower values indicate greater treatment efficiency. By risk group: low risk ~267, borderline ~100, intermediate ~53, high-risk primary prevention ~24, high-risk secondary prevention ~11, very-high-risk secondary prevention ~7.'},
   {abbr:'NNH',full:'Number Needed to Harm',ko:'Number needed to harm',desc:'*Number of patients who must be treated for one to experience an adverse effect.<br><br>*Comparing NNT with NNH clarifies the benefit/harm balance. Statin NNH (over 4 years): new-onset diabetes (NODM) — moderate intensity ~208, high intensity ~58 / liver enzyme elevation (&gt;3×ULN) ~313 / true pharmacologic SAMS ~13–50 / true myopathy ~2,500 / rhabdomyolysis ~8,000–12,500.<br><br>*Combined NNH (pooled RCT-based pharmacologic adverse effects, moderate intensity) ≈21 (CTT · Lancet 2026).'},
   {abbr:'RRR',full:'Relative Risk Reduction',ko:'Relative risk reduction',desc:'Statins: each 38.7 mg/dL (1 mmol/L) LDL reduction is associated with roughly a 22% relative reduction in ASCVD events (CTT meta-analysis), independent of baseline risk.'},
@@ -6410,6 +6411,37 @@ function updateNNT(prevAscvd, ascvd, vhr, acc){
     +'</div>';
 
   summary.innerHTML='<div style="display:flex;align-items:stretch;gap:10px;flex-wrap:wrap;margin-top:6px">'+nntBox+infoBox+'</div>';
+
+  /* ── 2026 ACC/AHA Figure 4: NNT-benefit vs NND (10년, 1차 예방) ── */
+  if(!isSecondary){
+    var intolOn=!!(g('statinIntol')&&g('statinIntol').checked);
+    var rows=[{k:'mo',lab:'Moderate',rrr:35,nnd:100,thr:3},{k:'hi',lab:'High',rrr:45,nnd:33,thr:7}];
+    var curHi = acc && acc.c==='hi';
+    var curBoth = acc && acc.l && /중등~고강도|Moderate-to-high/i.test(acc.l);
+    var trs=rows.map(function(r){
+      var nntF=Math.round(1/(riskPct/100*r.rrr/100));
+      var ratio=r.nnd/nntF;
+      var v,vc;
+      if(ratio>=1.1){v='Net benefit';vc='#3b6d11';}
+      else if(ratio>=0.9){v='Borderline';vc='#854f0b';}
+      else {v='Harm exceeds benefit';vc='#a32d2d';}
+      var cur = curBoth || (r.k==='hi'?curHi:!curHi);
+      return '<tr style="'+(cur?'background:#f3eeff;font-weight:700':'')+'">'
+        +'<td style="padding:3px 6px">'+r.lab+(cur?' ◀':'')+'</td>'
+        +'<td style="padding:3px 6px;text-align:center">'+nntF+'</td>'
+        +'<td style="padding:3px 6px;text-align:center">'+r.nnd+'</td>'
+        +'<td style="padding:3px 6px;text-align:center">'+ratio.toFixed(1)+'</td>'
+        +'<td style="padding:3px 6px;color:'+vc+'">'+v+' <span style="font-weight:400;color:#888780">(crossover ≥'+r.thr+'%)</span></td></tr>';
+    }).join('');
+    summary.innerHTML+='<div style="margin-top:8px;padding:8px 10px;background:#faf9f6;border:1px solid #e2e0db;border-radius:8px">'
+      +'<div style="font-size:12px;font-weight:700;color:#5f5e5a;margin-bottom:4px">Figure 4 benefit–harm comparison (10-y, PREVENT '+riskPct.toFixed(1)+'%)</div>'
+      +'<div style="overflow-x:auto"><table style="border-collapse:collapse;font-size:12px;color:#1a1a18;width:100%">'
+      +'<tr style="color:#888780;font-size:11px"><th style="text-align:left;padding:2px 6px">Statin intensity</th><th style="padding:2px 6px">NNT</th><th style="padding:2px 6px">NND</th><th style="padding:2px 6px">NND/NNT</th><th style="text-align:left;padding:2px 6px">Verdict</th></tr>'
+      +trs+'</table></div>'
+      +'<div class="expl" style="font-size:11px;color:#5f5e5a;margin-top:4px;line-height:1.5">NNT: PREVENT 10-y risk × Figure 4 RRR (moderate 35%, high 45%). NND: number treated for 10 years to cause 1 new diabetes case. NND/NNT = ASCVD events prevented per diabetes case (&gt;1 = net benefit). Assumptions differ from the baseline NNT above (CTT RRR 25/35%), so values may differ.</div>'
+      +(intolOn?'<div style="font-size:11px;color:#6b4fa0;margin-top:3px">※ Statin intolerance — statin NND does not apply to nonstatin therapy</div>':'')
+      +'</div>';
+  }
 
   if(btnWrap) btnWrap.style.display='block';
 
