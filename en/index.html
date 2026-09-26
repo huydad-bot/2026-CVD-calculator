@@ -2002,8 +2002,6 @@ function switchRRTab(idx){
       <label class="ck"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> On BP treatment <input type="checkbox" id="bpTx"></label>
       <label class="ck"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> Smoker <input type="checkbox" id="smoker"></label>
       <label class="ck"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> Diabetes <input type="checkbox" id="dm"></label>
-      <label class="ck detail-only"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> HIV (on stable cART) <input type="checkbox" id="enhHiv"></label>
-      <label class="ck detail-only"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> HeFH confirmed (clinical or genetic) <input type="checkbox" id="heFH"></label>
     </div>
     <div style="margin-top:6px">
       <label class="ck"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> Established ASCVD (secondary prevention) <input type="checkbox" id="ascvdHx"></label>
@@ -2023,11 +2021,6 @@ function switchRRTab(idx){
     <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;margin-top:6px">
       <label class="ck" style="display:inline-flex;margin-bottom:0"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:4px;vertical-align:middle">●</span> Currently on a statin <input type="checkbox" id="onStatin"></label>
       <span class="expl" style="font-size:12.5px;color:#185fa5;font-weight:600;line-height:1.5">If the pre-treatment lipid values are unknown, you can select the <span class="text-toggle-link" onclick="var b=document.getElementById('statinIntensityBox');var s=getComputedStyle(b).display==='none';b.style.display=s?'block':'none';document.body.style.overflow=s?'hidden':'';this.querySelector('.chev').textContent=s?' ▴':' ▾';" style="color:#0c447c;font-weight:800;text-decoration:underline;text-decoration-style:dotted;cursor:pointer">statin intensity<span class="chev" id="statinIntensityChev" style="font-size:10.5px"> ▾</span></span> currently used to calculate and enter an estimated baseline.</span>
-    </div>
-    <!-- Statin intolerance (2026 Figure 18) -->
-    <div class="detail-only intol-row" style="align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px">
-      <label class="ck" style="display:inline-flex;margin-bottom:0"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:4px;vertical-align:middle">●</span> Statin intolerance <input type="checkbox" id="statinIntol"></label>
-      <span class="expl" style="font-size:12px;color:#5f5e5a;line-height:1.5">Muscle symptoms on ≥2 statins, 1 at the lowest approved dose (2026 Figure 18, secondary causes excluded) · <span class="text-toggle-link" onclick="toggleSamsDetail()" style="color:#185fa5;font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px">SAMS details</span></span>
     </div>
     <!-- Statin intensity table (click to expand) -->
     <div id="statinIntensityBox" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.55);overflow-y:auto;padding:24px 14px" onclick="if(event.target===this){var b=document.getElementById('statinIntensityBox');b.style.display='none';document.body.style.overflow='';var c=document.getElementById('statinIntensityChev');if(c)c.textContent=' ▾';}">
@@ -2132,14 +2125,9 @@ function switchRRTab(idx){
         <span id="bmiOut" style="font-size:13.5px;font-weight:700;color:#1a1a18;min-width:48px;text-align:right"></span>
       </div>
     </div>
-    <div class="expl" style="margin-top:2px;margin-bottom:2px;padding:4px 9px;background:#f1efe8;border-radius:6px;font-size:11.5px;color:#5f5e5a">
-      ※ Height/weight (BMI) is used only for the heart failure risk estimate and does not affect the atherosclerotic cardiovascular disease (ASCVD) or total cardiovascular disease risk (by design of the AHA PREVENT model).
-    </div>
-    <div class="expl" style="margin-top:2px;margin-bottom:2px;padding:4px 9px;background:#f1efe8;border-radius:6px;font-size:11.5px;color:#5f5e5a">
-      ※ UACR and HbA1c each activate PREVENT's own dedicated model when entered alone (Full model is used when both are entered). Risk is incorporated regardless of diabetes status — even prediabetic values (e.g., 6.2%) are included.
-    </div>
-    <div class="divider" style="margin-top:8px"></div>
-    <div class="field" style="margin-top:7px;margin-bottom:0">
+    <!-- ApoB (detailed mode only) -->
+    <div class="detail-only" style="margin-top:6px">
+    <div class="field" style="margin-top:0;margin-bottom:0">
       <span class="fl">ApoB — Directly Measured Value (mg/dL)</span>
       <input type="number" autocomplete="off" id="apob" step="1" min="20" max="300" placeholder="an LDL-C-based estimate is used automatically if left blank">
       <div style="font-size:11.5px;color:#888780;margin-top:3px;line-height:1.5">※ Direct measurement recommended (2026 ACC/AHA Class IIa) if TG ≥150 · diabetes · on-treatment LDL &lt;70 · <span id="ldlNonhdlTerm" class="text-toggle-link" onclick="toggleLdlNonhdlBox()" style="color:#c07a00;font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px" title="Click to see explanation">LDL/non-HDL discordance</span></div>
@@ -2165,9 +2153,27 @@ function switchRRTab(idx){
       </div>
       </div>
     </div>
+    </div>
+    <div class="expl" style="margin-top:2px;margin-bottom:2px;padding:4px 9px;background:#f1efe8;border-radius:6px;font-size:11.5px;color:#5f5e5a">
+      ※ Height/weight (BMI) is used only for the heart failure risk estimate and does not affect the atherosclerotic cardiovascular disease (ASCVD) or total cardiovascular disease risk (by design of the AHA PREVENT model).
+    </div>
+    <div class="expl" style="margin-top:2px;margin-bottom:2px;padding:4px 9px;background:#f1efe8;border-radius:6px;font-size:11.5px;color:#5f5e5a">
+      ※ UACR and HbA1c each activate PREVENT's own dedicated model when entered alone (Full model is used when both are entered). Risk is incorporated regardless of diabetes status — even prediabetic values (e.g., 6.2%) are included.
+    </div>
     <div id="apobIndBox" style="display:none;margin-top:5px;padding:7px 10px;background:#e6f1fb;border-radius:7px;border-left:3px solid #185fa5">
       <div style="font-size:11.5px;font-weight:700;color:#185fa5;margin-bottom:2px">▸ 2026 ACC/AHA — current inputs meet criteria for recommending direct ApoB measurement</div>
       <div id="apobIndText" style="font-size:12.5px;color:#185fa5;line-height:1.6"></div>
+    </div>
+  
+    <!-- 상세사용 전용 추가 항목 (HIV · HeFH · 스타틴 불내성) -->
+    <div class="detail-only" style="margin-top:8px">
+      <div style="font-size:12.5px;color:#185fa5;font-weight:600;margin-bottom:4px">Check any that apply</div>
+      <div><label class="ck"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> HIV (on stable cART) <input type="checkbox" id="enhHiv"></label></div>
+      <div><label class="ck"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> HeFH confirmed (clinical or genetic) <input type="checkbox" id="heFH"></label></div>
+      <div class="intol-row" style="align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px">
+      <label class="ck" style="display:inline-flex;margin-bottom:0"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:4px;vertical-align:middle">●</span> Statin intolerance <input type="checkbox" id="statinIntol"></label>
+      <span class="expl" style="font-size:12px;color:#5f5e5a;line-height:1.5">Muscle symptoms on ≥2 statins, 1 at the lowest approved dose (2026 Figure 18, secondary causes excluded) · <span class="text-toggle-link" onclick="toggleSamsDetail()" style="color:#185fa5;font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px">SAMS details</span></span>
+    </div>
     </div>
   </div>
 
