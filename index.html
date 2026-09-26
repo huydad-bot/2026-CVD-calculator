@@ -2130,27 +2130,8 @@ function switchRRTab(idx){
         <span id="bmiOut" style="font-size:13.5px;font-weight:700;color:#1a1a18;min-width:48px;text-align:right"></span>
       </div>
     </div>
-    <div class="expl" style="margin-top:2px;margin-bottom:2px;padding:4px 9px;background:#f1efe8;border-radius:6px;font-size:11.5px;color:#5f5e5a">
-      ※ 키·몸무게(BMI)는 심부전 위험도 계산에만 반영되며, 동맥경화성 심혈관질환(ASCVD)·전체 심혈관질환 위험도에는 영향을 주지 않습니다(AHA PREVENT 모델 설계).
-    </div>
-    <div class="expl" style="margin-top:2px;margin-bottom:2px;padding:4px 9px;background:#f1efe8;border-radius:6px;font-size:11.5px;color:#5f5e5a">
-      ※ UACR·HbA1c는 각각 단독 입력해도 PREVENT 전용 모델이 적용되어 위험도에 반영됨(둘 다 입력 시 Full model). 당뇨 여부 무관, 전당뇨(예: 6.2%)도 위험도에 반영됨.
-    </div>
-  
-    <!-- 상세사용 전용 추가 항목 (HIV · HeFH · 스타틴 불내성) -->
-    <div class="detail-only" style="margin-top:8px">
-      <div style="font-size:12.5px;color:#185fa5;font-weight:600;margin-bottom:4px">해당사항이 있는 경우 체크하세요</div>
-      <div><label class="ck"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> HIV (안정 cART 중) <input type="checkbox" id="enhHiv"></label></div>
-      <div><label class="ck"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> HeFH 확진 (임상 또는 유전) <input type="checkbox" id="heFH"></label></div>
-      <div class="intol-row" style="align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px">
-      <label class="ck" style="display:inline-flex;margin-bottom:0"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:4px;vertical-align:middle">●</span> 스타틴 불내성 <input type="checkbox" id="statinIntol"></label>
-      <span class="expl" style="font-size:12px;color:#5f5e5a;line-height:1.5">2종 이상 스타틴에서 근육 증상, 그중 1종은 최저 승인용량 (2026 Figure 18, 2차 원인 배제) · <span class="text-toggle-link" onclick="toggleSamsDetail()" style="color:#185fa5;font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px">SAMS 상세</span></span>
-    </div>
-    </div>
-  </div>
-
-  <div class="card" id="cardApobPrecision" style="background:#eaf7fb">
-    <div class="sec">정밀 지질 평가 — ApoB (2026 ACC/AHA)</div>
+    <!-- ApoB (상세사용 전용) — 기존 "정밀 지질 평가" 섹션에서 이동 -->
+    <div class="detail-only" style="margin-top:6px">
     <div class="expl" style="margin-top:2px;margin-bottom:9px;padding:4px 9px;background:#f1efe8;border-radius:6px;font-size:11.5px;color:#5f5e5a">
       ※ ApoB는 PREVENT 위험도 점수 자체의 입력변수가 아니며(PREVENT 공식 예측변수 아님), 위험도 계산에는 반영되지 않습니다. 아래 <b>위험증강인자 자동판정</b> 및 <b>LDL-C 목표 설정·잔류위험 평가</b>에 사용됩니다.
     </div>
@@ -2185,7 +2166,27 @@ function switchRRTab(idx){
       <div style="font-size:11.5px;font-weight:700;color:#185fa5;margin-bottom:2px">▸ 2026 ACC/AHA — 현재 입력값 기준 ApoB 직접 측정 권장 조건 해당</div>
       <div id="apobIndText" style="font-size:12.5px;color:#185fa5;line-height:1.6"></div>
     </div>
+  
+    </div>
+    <div class="expl" style="margin-top:2px;margin-bottom:2px;padding:4px 9px;background:#f1efe8;border-radius:6px;font-size:11.5px;color:#5f5e5a">
+      ※ 키·몸무게(BMI)는 심부전 위험도 계산에만 반영되며, 동맥경화성 심혈관질환(ASCVD)·전체 심혈관질환 위험도에는 영향을 주지 않습니다(AHA PREVENT 모델 설계).
+    </div>
+    <div class="expl" style="margin-top:2px;margin-bottom:2px;padding:4px 9px;background:#f1efe8;border-radius:6px;font-size:11.5px;color:#5f5e5a">
+      ※ UACR·HbA1c는 각각 단독 입력해도 PREVENT 전용 모델이 적용되어 위험도에 반영됨(둘 다 입력 시 Full model). 당뇨 여부 무관, 전당뇨(예: 6.2%)도 위험도에 반영됨.
+    </div>
+  
+    <!-- 상세사용 전용 추가 항목 (HIV · HeFH · 스타틴 불내성) -->
+    <div class="detail-only" style="margin-top:8px">
+      <div style="font-size:12.5px;color:#185fa5;font-weight:600;margin-bottom:4px">해당사항이 있는 경우 체크하세요</div>
+      <div><label class="ck"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> HIV (안정 cART 중) <input type="checkbox" id="enhHiv"></label></div>
+      <div><label class="ck"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> HeFH 확진 (임상 또는 유전) <input type="checkbox" id="heFH"></label></div>
+      <div class="intol-row" style="align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px">
+      <label class="ck" style="display:inline-flex;margin-bottom:0"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:4px;vertical-align:middle">●</span> 스타틴 불내성 <input type="checkbox" id="statinIntol"></label>
+      <span class="expl" style="font-size:12px;color:#5f5e5a;line-height:1.5">2종 이상 스타틴에서 근육 증상, 그중 1종은 최저 승인용량 (2026 Figure 18, 2차 원인 배제) · <span class="text-toggle-link" onclick="toggleSamsDetail()" style="color:#185fa5;font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px">SAMS 상세</span></span>
+    </div>
+    </div>
   </div>
+
 
   <div class="card" id="cardRiskEnhancer" style="background:#eaf7fb">
     <div class="sec sec-clickable" onclick="toggleSection('riskEnhancerBody','riskEnhancerArrow')" style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none">
