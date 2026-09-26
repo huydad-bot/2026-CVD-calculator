@@ -2010,8 +2010,6 @@ function switchRRTab(idx){
       <label class="ck"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 고혈압 치료중 <input type="checkbox" id="bpTx"></label>
       <label class="ck"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 흡연 <input type="checkbox" id="smoker"></label>
       <label class="ck"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> 당뇨병 <input type="checkbox" id="dm"></label>
-      <label class="ck detail-only"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> HIV (안정 cART 중) <input type="checkbox" id="enhHiv"></label>
-      <label class="ck detail-only"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> HeFH 확진 (임상 또는 유전) <input type="checkbox" id="heFH"></label>
     </div>
     <div style="margin-top:6px">
       <label class="ck"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> ASCVD 기왕력 (2차 예방) <input type="checkbox" id="ascvdHx"></label>
@@ -2031,11 +2029,6 @@ function switchRRTab(idx){
     <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;margin-top:6px">
       <label class="ck" style="display:inline-flex;margin-bottom:0"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:4px;vertical-align:middle">●</span> 현재 스타틴 복용 중 <input type="checkbox" id="onStatin"></label>
       <span class="expl" style="font-size:12.5px;color:#185fa5;font-weight:600;line-height:1.5">치료 전 지질수치 값을 모를 때, 복용 중인 <span class="text-toggle-link" onclick="var b=document.getElementById('statinIntensityBox');var s=getComputedStyle(b).display==='none';b.style.display=s?'block':'none';document.body.style.overflow=s?'hidden':'';this.querySelector('.chev').textContent=s?' ▴':' ▾';" style="color:#0c447c;font-weight:800;text-decoration:underline;text-decoration-style:dotted;cursor:pointer">스타틴 강도<span class="chev" id="statinIntensityChev" style="font-size:10.5px"> ▾</span></span>를 선택하여 추정값을 계산, 입력할 수 있습니다.</span>
-    </div>
-    <!-- 스타틴 불내성 (2026 Figure 18) -->
-    <div class="detail-only intol-row" style="align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px">
-      <label class="ck" style="display:inline-flex;margin-bottom:0"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:4px;vertical-align:middle">●</span> 스타틴 불내성 <input type="checkbox" id="statinIntol"></label>
-      <span class="expl" style="font-size:12px;color:#5f5e5a;line-height:1.5">2종 이상 스타틴에서 근육 증상, 그중 1종은 최저 승인용량 (2026 Figure 18, 2차 원인 배제) · <span class="text-toggle-link" onclick="toggleSamsDetail()" style="color:#185fa5;font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px">SAMS 상세</span></span>
     </div>
     <!-- 스타틴 강도 분류표 (클릭 시 펼침) -->
     <div id="statinIntensityBox" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.55);overflow-y:auto;padding:24px 14px" onclick="if(event.target===this){var b=document.getElementById('statinIntensityBox');b.style.display='none';document.body.style.overflow='';var c=document.getElementById('statinIntensityChev');if(c)c.textContent=' ▾';}">
@@ -2142,6 +2135,17 @@ function switchRRTab(idx){
     </div>
     <div class="expl" style="margin-top:2px;margin-bottom:2px;padding:4px 9px;background:#f1efe8;border-radius:6px;font-size:11.5px;color:#5f5e5a">
       ※ UACR·HbA1c는 각각 단독 입력해도 PREVENT 전용 모델이 적용되어 위험도에 반영됨(둘 다 입력 시 Full model). 당뇨 여부 무관, 전당뇨(예: 6.2%)도 위험도에 반영됨.
+    </div>
+  
+    <!-- 상세사용 전용 추가 항목 (HIV · HeFH · 스타틴 불내성) -->
+    <div class="detail-only" style="margin-top:8px">
+      <div style="font-size:12.5px;color:#185fa5;font-weight:600;margin-bottom:4px">해당사항이 있는 경우 체크하세요</div>
+      <div><label class="ck"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> HIV (안정 cART 중) <input type="checkbox" id="enhHiv"></label></div>
+      <div><label class="ck"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> HeFH 확진 (임상 또는 유전) <input type="checkbox" id="heFH"></label></div>
+      <div class="intol-row" style="align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px">
+      <label class="ck" style="display:inline-flex;margin-bottom:0"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:4px;vertical-align:middle">●</span> 스타틴 불내성 <input type="checkbox" id="statinIntol"></label>
+      <span class="expl" style="font-size:12px;color:#5f5e5a;line-height:1.5">2종 이상 스타틴에서 근육 증상, 그중 1종은 최저 승인용량 (2026 Figure 18, 2차 원인 배제) · <span class="text-toggle-link" onclick="toggleSamsDetail()" style="color:#185fa5;font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px">SAMS 상세</span></span>
+    </div>
     </div>
   </div>
 
