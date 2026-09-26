@@ -2387,8 +2387,8 @@ function switchRRTab(idx){
     <!-- ── Table 13 #7 ── -->
     <label class="ck">
       <input type="checkbox" class="enh" id="enhTg175">
-      <div><div style="font-weight:600;color:#1a1a18">중성지방 ≥ 175 mg/dL</div>
-      <div class="expl" style="font-size:11.5px;color:#888780;margin-top:1px">비공복 기준 / 공복 시 ≥150 mg/dL</div></div>
+      <div><div style="font-weight:600;color:#1a1a18">중성지방 공복 ≥150 / 비공복 ≥175 mg/dL</div>
+      <div class="expl" style="font-size:11.5px;color:#888780;margin-top:1px">지속적으로 해당 시 · TG 입력값과 채혈 조건(비공복 체크 여부)에 따라 자동 체크</div></div>
     </label>
 
     <!-- ── Table 13 #9 ── -->
@@ -5978,7 +5978,12 @@ function upd(){
     const carotidOverride = g('carotidPlaque')?.checked && !ascvd && !anyAbs && primRisk >= 3 && primRisk < 5;
     const activeEnhLabels = [...document.querySelectorAll('.enh:checked')].map(el=>{
       const label = el.closest('label');
-      return label ? label.textContent.replace(/상세\s*▾/g,'').trim().replace(/\s+/g,' ') : '';
+      if(!label) return '';
+      // 부가 설명 없이 항목명만 표시 (항목명 구조가 없는 경우에만 전체 텍스트 사용)
+      const ttl=label.querySelector('div > div');
+      const ttlTxt=ttl ? ttl.textContent.replace(/상세\s*▾/g,'').trim().replace(/\s+/g,' ') : '';
+      if(ttlTxt) return ttlTxt;
+      return label.textContent.replace(/상세\s*▾/g,'').trim().replace(/\s+/g,' ');
     }).filter(Boolean);
     if(ckdEnh) activeEnhLabels.push('CKD (eGFR 15–59, 40세 미만 — 위험증강인자)');
     g('emrSummary').value=makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt, acc, onStatin, currentTg, absInds, anyAbs, carotidOverride, activeEnhLabels, ckdActive:(ckdAbs||ckdEnh), egfr, ascvd, vhr});
