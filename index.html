@@ -4741,12 +4741,13 @@ function recommendationVerb(acc){
   if(acc.l.includes('고려') || acc.l.includes('개별') || acc.c==='no' || acc.c==='lo') return '고려';
   return '권고';
 }
-function statinSentence(acc){
+function statinSentence(acc, stSent){
   if(acc && acc.intol) return acc.intol==='mid' ? '비스타틴 지질강하 치료를 고려' : '비스타틴 지질강하 치료를 권고';
   if(!acc) return '스타틴 치료를 개별 판단합니다';
-  if(acc.c==='hi') return acc.l.includes('고려') ? '고강도 스타틴 치료를 고려' : '고강도 스타틴 치료를 권고';
-  if(acc.c==='mo' && acc.l.includes('중등~고강도')) return '중등~고강도 스타틴 치료를 권고';
-  if(acc.c==='mo') return acc.l.includes('고려') ? '중등강도 스타틴 치료를 고려' : '중등강도 스타틴 치료를 권고';
+  const S = stSent || ((r,v)=>`${r} 스타틴 치료를 ${v}`);
+  if(acc.c==='hi') return S('고강도', acc.l.includes('고려') ? '고려' : '권고');
+  if(acc.c==='mo' && acc.l.includes('중등~고강도')) return S('중등~고강도', '권고');
+  if(acc.c==='mo') return S('중등강도', acc.l.includes('고려') ? '고려' : '권고');
   if(acc.c==='no' && acc.l==='공동 의사결정') return '공동 의사결정으로 스타틴 시작 또는 CAC 평가를 선택';
   if(acc.c==='lo' || acc.c==='no') return '생활습관 교정을 우선하며 스타틴 치료는 개별적으로 고려';
   return `${acc.l} 스타틴 치료를 ${recommendationVerb(acc)}`;
@@ -4852,6 +4853,21 @@ function makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt
   const riskLabel = preventCat && preventCat.cat ? preventCat.cat : riskBandText(prevAscvd);
   const txState = onStatin ? `현재 LDL-C는 ${currentLdl} mg/dL이며, ` : '';
   const addonText = addonSentence(currentLdl, dispLdlTgt, acc, onStatin);
+  // 스타틴 복용 중이면 '고려/권고' 대신 '계속' 또는 '증량' 문구로 전환
+  // rec: '고강도' | '중등강도' | '중등~고강도', verb: '고려' | '권고'
+  const curInt = onStatin ? ({high:'고강도',mod:'중등강도',low:'저강도'})[g('backCalcIntensity')?.value||''] || '' : '';
+  const stSent = (rec, verb) => {
+    if(!onStatin) return `${rec} 스타틴 치료를 ${verb}`;
+    const rank={'저강도':1,'중등강도':2,'고강도':3};
+    const need = rec==='고강도'?3:2;               // 중등~고강도는 중등강도 이상이면 충족
+    const atGoal = Number.isFinite(Number(dispLdlTgt)) && Number(currentLdl)<=Number(dispLdlTgt);
+    if(curInt && rank[curInt]<need){
+      return atGoal
+        ? `권고 강도는 ${rec}이나 목표 LDL-C를 달성하여 현재 ${curInt} 스타틴 치료를 계속`
+        : `현재 ${curInt}에서 ${rec} 스타틴으로 증량을 ${verb}`;
+    }
+    return `${curInt||rec} 스타틴 치료를 계속`;
+  };
 
   // 결과요약을 불릿(•) 목록으로 조립하는 헬퍼 — 빈 줄은 자동 제외
   const bl = (lines) => lines.filter(l => l && String(l).trim()).map(l => '• ' + String(l).trim()).join('\n');
@@ -5024,7 +5040,7 @@ function makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt
       dmAbsEnhLine,
       dmAbsSpecLine,
       `치료 전 LDL-C는 ${ldl} mg/dL이며, ${txState}LDL-C 목표는 <${dispLdlTgt} mg/dL`,
-      `${strengthText} 스타틴 치료를 권고하며, ${addonText}`,
+      `${stSent(strengthText,'권고')}하며, ${addonText}`,
       hivPrefLine,
       ckdLine,
       tgLine,
@@ -5041,7 +5057,7 @@ function makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt
       `경동맥 초음파상 plaque ≥1.5 mm가 확인됨`,
       `ESC/EAS 2025 Class IIa 위험수정인자로서, 위험도를 경계~중간위험으로 상향 재분류하여 스타틴 치료를 고려함 (위험도와 무관한 자동 적응증이 아님)`,
       `치료 전 LDL-C는 ${ldl} mg/dL이며, ${txState}LDL-C 목표는 <${dispLdlTgt} mg/dL`,
-      `중등강도 스타틴 치료를 고려하며, ${addonText}`,
+      `${stSent('중등강도','고려')}하며, ${addonText}`,
       ckdLine,
       tgLine,
       nntLine
@@ -5072,7 +5088,7 @@ function makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt
     const dmLabs=dmEnhCheckedLabels();
     dmEnhLine=`당뇨병 특이 위험증가 인자(2026 ACC/AHA Table 17) ${dmLabs.length}개 확인: ${dmLabs.join('; ')} — 당뇨병 20–39세에서 이 인자로 인해 권고가 건강행동 상담에서 중등강도 스타틴 고려(COR 2b)로 변경됨`;
   }
-  const statinText = statinSentence(acc);
+  const statinText = statinSentence(acc, stSent);
   const riskPrefix = ageOutOfRange
     ? ageRangeNote
     : `PREVENT 2023 기준 10-year ASCVD risk는 ${prevAscvd.toFixed(1)}%로 ${riskLabel}에 해당`;
