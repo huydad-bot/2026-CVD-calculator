@@ -4769,7 +4769,7 @@ function addonSentence(currentLdl, target, acc, onStatin){
     return m[acc.intol];
   }
   if(acc && (acc.c==='hi' || acc.c==='mo')){
-    const start = onStatin ? '목표 미달성 시 최대내약 스타틴으로 강화/확인 후' : '목표 미달성 시 스타틴 시작 또는 최대내약 용량으로 조정 후';
+    const start = onStatin ? '목표 미달성 시 최대내약 스타틴으로 강화/확인 후' : '스타틴 시작 후 최대내약 용량으로 조정하여도 목표 미달성 시';
     if(acc.dmPath && acc.c==='hi') return `${start} ezetimibe 또는 PCSK9 mAb 추가를 고려(동등 선택지, COR 2b)`;
     if(acc.secPath==='vhr') return `${start} ezetimibe 및/또는 PCSK9 mAb 추가(COR 1), PCSK9 mAb 불내성·구입 불가·투여 빈도 선호 시 inclisiran(COR 2a), 그래도 미달 시 bempedoic acid 추가(COR 2a)를 고려`;
     if(acc.secPath==='asc') return `${start} ezetimibe, PCSK9 mAb, 또는 bempedoic acid 중 필요 감소량과 환자 선호에 따라 선택하여 추가를 고려(COR 2a)`;
@@ -5031,6 +5031,11 @@ function makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt
       else if(fs.length>=2) dmAbsEnhLine=`${part} — 다수 위험인자에 해당하여 권고 강도가 중등강도에서 고강도 스타틴(COR 2a)으로 상향됨 (LDL-C 목표 <70, non-HDL-C <100, apoB <70)`;
       else dmAbsEnhLine=`${part?part+' — ':''}다수 위험인자(2개 이상) 미해당으로 중등강도 유지`;
     }
+    // LDL ≥190·CAC 경로는 PREVENT가 실제 위험을 반영하지 못해 NNT가 과대(이득 과소평가)
+    const underEst = activeInds.filter(i=>i.key==='ldl190'||i.key==='cac').map(i=>i.key==='ldl190'?'LDL-C ≥190 mg/dL':'CAC 소견');
+    const nntLineAbs = (nntLine && underEst.length)
+      ? `${nntLine} — PREVENT 위험도 기반 추정이므로 ${underEst.join('·')} 적응증에서는 치료 이득이 과소평가됨`
+      : nntLine;
     const hivPrefLine = (activeInds.some(i=>i.key==='hiv') && strengthText==='중등강도')
       ? `선호 약제: Pitavastatin 4 mg (CYP3A4 비의존 → protease inhibitor 상호작용 최소, REPRIEVE trial)`
       : '';
@@ -5044,7 +5049,7 @@ function makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt
       hivPrefLine,
       ckdLine,
       tgLine,
-      nntLine
+      nntLineAbs
     ]);
   }
 
@@ -6204,7 +6209,13 @@ function upd(){
   // Risk enhancer impact visualization
   if(nE>0&&!ascvd){
     const isLowRisk = primRisk < 3;
-    const impHtml=upgraded
+    const absNames = absInds.filter(i=>i.active && i.key!=='ascvd').map(i=>i.label.replace(/\s*[(—].*$/,''));
+    const impHtml=anyAbs
+      ?`<div style="margin-top:8px;padding:7px 11px;background:#f8f7f5;border-radius:8px;border-left:3px solid #b4b2a9">
+            <div style="font-size:11.5px;font-weight:700;color:#5f5e5a;margin-bottom:2px">위험증가 인자 ${nE}개 확인 — 처방 강도는 위험도 무관 적응증으로 이미 결정됨</div>
+            <div style="font-size:12.5px;color:#5f5e5a;line-height:1.6">위험도 무관 스타틴 적응증(${absNames.join('; ')})에 해당하여 PREVENT 위험도와 관계없이 스타틴 치료가 권고됩니다. 위험증가 인자는 처방 강도 결정에 추가로 반영되지 않으며 참고 정보로 표시합니다.</div>
+          </div>`
+      : upgraded
       ?`<div style="margin-top:8px;padding:8px 11px;background:#faeeda;border-radius:8px;border-left:3px solid #ef9f27">
           <div style="font-size:11.5px;font-weight:700;color:#854f0b;margin-bottom:3px">위험증가 인자 ${nE}개 → 처방 강도 상향</div>
           <div style="font-size:13.5px;color:#1a1a18;display:flex;align-items:center;gap:6px">
