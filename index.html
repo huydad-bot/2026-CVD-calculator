@@ -5042,6 +5042,7 @@ function makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt
     return bl([
       prevPrefix,
       `적응증: ${indNames}`,
+      activeInds.some(i=>i.key==='ldl190') ? 'LDL ≥190: 2차 원인(식이·갑상선·신증후군·약물 등) 배제 및 반복 측정으로 확인 후 적용 (권고 1). 2차 원인 교정 후 LDL <190이면 교정된 값으로 재평가' : '',
       dmAbsEnhLine,
       dmAbsSpecLine,
       `치료 전 LDL-C는 ${ldl} mg/dL이며, ${txState}LDL-C 목표는 <${dispLdlTgt} mg/dL`,
@@ -5936,7 +5937,7 @@ function upd(){
       key:'ldl190',
       active:ldl>=190,
       label:'LDL-C ≥ 190 mg/dL (중증 고콜레스테롤혈증 / FH 의심)',
-      detail:ldl>=190?(()=>{const fhHR=dm||primRisk>=10||tg>=175||smoker||bpTx;return`현재 LDL ${ldl} mg/dL — 고강도 스타틴, LDL 목표 &lt;${fhHR?70:100} mg/dL${fhHR?'':' · 위험증강인자(조기 가족력·Lp(a)≥50·ABI·CAC 등) 확인 시 &lt;70으로 강화'}`})():'해당 없음',
+      detail:ldl>=190?(()=>{const fhHR=dm||primRisk>=10||tg>=175||smoker||bpTx;return`현재 LDL ${ldl} mg/dL — 고강도 스타틴, LDL 목표 &lt;${fhHR?70:100} mg/dL${fhHR?'':' · 위험증강인자(조기 가족력·Lp(a)≥50·ABI·CAC 등) 확인 시 &lt;70으로 강화'}<br><span style="color:#854f0b">⚠ LDL ≥190: 2차 원인(식이·갑상선·신증후군·약물 등) 배제 및 반복 측정으로 확인 후 적용 (권고 1). 2차 원인 교정 후 LDL &lt;190이면 교정된 값으로 재평가</span>`})():'해당 없음',
       strength:'고강도',
       basis:'누적 LDL 노출 과다, 가족성 고콜레스테롤혈증 감별 필요'
     },
