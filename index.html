@@ -6196,7 +6196,7 @@ function upd(){
             <span style="font-size:17.5px;color:#ef9f27">→</span>
             <span style="font-weight:700;color:#a32d2d">${acc.l}</span>
           </div>
-          <div style="font-size:11.5px;color:#854f0b;margin-top:3px">위험증가 인자가 없었다면 ${accBase.l} 권고 → 현재 ${nE}개로 인해 상향 적용됨</div>
+          <div style="font-size:11.5px;color:#854f0b;margin-top:3px">${accBase.l==='공동 의사결정'?`위험증가 인자가 없었다면 치료 여부를 열어둔 공동 의사결정(환자와 논의, 또는 CAC로 재분류) 구간에 해당되나, 위험증가 인자 ${nE}개로 중등강도 스타틴 시작 쪽이 합리적 (COR 2a)`:`위험증가 인자가 없었다면 ${accBase.l} 권고 → 현재 ${nE}개로 인해 상향 적용됨`}</div>
         </div>`
       : isLowRisk
         ?`<div style="margin-top:8px;padding:7px 11px;background:#f8f7f5;border-radius:8px;border-left:3px solid #b4b2a9">
