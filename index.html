@@ -4999,6 +4999,25 @@ function makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt
     ]);
   }
 
+  // ── [특수1b] CAC=0 + 경동맥 plaque: 상충 소견 → 공동 의사결정 ──
+  if(acc.cac0Carotid && !anyAbs){
+    const riskPrefixCc = ageOutOfRange
+      ? ageRangeNote
+      : `PREVENT 2023 기준 10-year ASCVD risk는 ${prevAscvd.toFixed(1)}%로 ${riskLabel}에 해당`;
+    const famHxCc = g('enhFamHx')?.checked ? '조기 ASCVD 가족력 동반 — CAC=0의 재확인 신뢰도 추가 저하' : '';
+    return bl([
+      riskPrefixCc,
+      `CAC = 0 (경계·중간위험에서 스타틴 유예 합리적, COR 2a)이나, 경동맥 초음파상 plaque ≥1.5 mm가 확인되어 죽상경화가 존재함 — 유예 근거가 약화됨`,
+      famHxCc,
+      `CAC=0 + 경동맥 plaque 조합에 대한 가이드라인의 명시적 권고는 없음 → 중등강도 스타틴 vs 생활습관 교정 후 재평가를 환자와 공동 의사결정으로 결정`,
+      `치료 전 LDL-C는 ${ldl} mg/dL이며, ${txState}스타틴 시 LDL-C 목표는 <${dispLdlTgt} mg/dL`,
+      onStatin ? `${stSent('중등강도','고려')}하며, ${addonText}` : '',
+      ckdLine,
+      tgLine,
+      nntLine
+    ]);
+  }
+
   // ── [특수2] 저위험/경계위험, 스타틴 불필요 ──
   if((acc.c==='lo'||acc.c==='no') && !anyAbs && !carotidOverride){
     const riskPrefix0 = ageOutOfRange
@@ -5103,7 +5122,7 @@ function makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt
     return bl([
       riskPrefix,
       `경동맥 초음파상 plaque ≥1.5 mm가 확인됨`,
-      `ESC/EAS 2025 Class IIa 위험수정인자로서, 위험도를 경계~중간위험으로 상향 재분류하여 스타틴 치료를 고려함 (위험도와 무관한 자동 적응증이 아님)`,
+      `ESC/EAS 2025 Class IIa 위험수정인자로서, 위험도를 중간위험 이상으로 상향 재분류하여 스타틴 치료를 고려함 (위험도와 무관한 자동 적응증이 아님)`,
       `치료 전 LDL-C는 ${ldl} mg/dL이며, ${txState}LDL-C 목표는 <${dispLdlTgt} mg/dL`,
       `${stSent('중등강도','고려')}하며, ${addonText}`,
       ckdLine,
@@ -5892,6 +5911,13 @@ function upd(){
     // 고위험(≥10%)·당뇨·CKD·HIV 등 다른 위험도 무관 적응증이 이미 있으면 적용하지 않음
     else if(cac0Active && primRisk < 10 && !dmAbs && !ckdAbs && !hivAbs && (acc.c==='mo' || acc.c==='no' || acc.c==='lo')){
       const famHxNote = (g('enhFamHx')&&g('enhFamHx').checked) ? ' 다만 조기 ASCVD 가족력이 있어 CAC=0의 재확인(reassurance) 신뢰도가 낮을 수 있습니다 — 임상적 판단하에 결정하십시오.' : '';
+      if(g('carotidPlaque')?.checked && primRisk >= 3){
+        // CAC=0 + 경동맥 plaque ≥1.5 mm: 가이드라인 명시 권고 없음 — 상충 소견으로 공동 의사결정
+        acc={c:'mo',l:'중등강도 고려',ind:'CAC = 0 + 경동맥 plaque ≥1.5 mm — 상충 소견, 공동 의사결정',
+             d:['Atorvastatin 10–20 mg','Rosuvastatin 5–10 mg'],
+             n:'CAC=0으로 경계·중간위험에서 스타틴 유예가 합리적(COR 2a)이나, 경동맥 plaque ≥1.5 mm로 <b>죽상경화가 이미 확인</b>되어 유예 근거가 약화됩니다(CAC=0은 석회화 관상동맥 plaque가 없다는 의미이며, 비석회화 plaque·타 혈관의 죽상경화를 배제하지 않음).'+famHxNote+'<br>가이드라인에 이 조합에 대한 명시적 권고는 없습니다 → <b>중등강도 스타틴 vs 생활습관 교정 후 재평가</b>를 환자와 공동 의사결정으로 결정합니다. 스타틴 시 LDL-C 목표 &lt;100 mg/dL, non-HDL-C &lt;130 mg/dL.',
+             nt:'warn',ldlTgt:100,nhTgt:130,cac0Carotid:true};
+      } else
       acc={c:'no',l:'생활습관 교정 (CAC=0)',ind:'CAC = 0 — 경계·중간위험에서 스타틴 유예 합리적 (COR 2a)',
            d:[],
            n:'CAC=0: 2026 ACC/AHA Section 4.2.3.6에 따라 경계·중간위험군에서 10년간 스타틴 유예가 합리적입니다(COR 2a).'+famHxNote+' 향후 치료 결정이 바뀔 수 있으므로 일정 기간 후 CAC 재검사가 합리적입니다. LDL 목표보다는 생활습관 교정과 주기적 추적 관찰을 우선합니다.',
@@ -6241,7 +6267,7 @@ function upd(){
     g('accRecOut').innerHTML+=`<div style="margin-top:8px;padding:10px 12px;background:#e6f1fb;border-radius:8px;border-left:4px solid #185fa5">
       <div style="font-size:12.5px;font-weight:700;color:#185fa5;margin-bottom:4px">▲ 경동맥 초음파 plaque ≥1.5 mm 확인 — ESC/EAS 2025 Class IIa 위험수정인자</div>
       <div style="font-size:13.5px;color:#1a1a18;line-height:1.6">경동맥 plaque는 <b>위험도와 무관하게 스타틴을 자동 처방하는 적응증이 아닙니다.</b> ESC/EAS 2025 및 ACC/AHA 2026에 따르면, 이는 저~중간위험 환자에서 <b>위험도를 상향 재분류</b>하는 근거(위험수정인자)로 활용됩니다. 재분류된 위험도와 LDL-C 목표 기준을 충족할 때 스타틴을 고려합니다.</div>
-      <div style="font-size:11.5px;color:#185fa5;margin-top:5px;line-height:1.5">※ 비폐쇄성 plaque (&lt;50% 협착): LDL-C 목표 &lt;100 mg/dL + 생활습관 교정<br>※ 취약하거나 50–69% 협착: LDL-C 목표 &lt;70 mg/dL + 항혈소판 치료 고려<br>※ CAC가 함께 확인된 경우 CAC 기준을 우선 적용합니다.</div>
+      <div style="font-size:11.5px;color:#185fa5;margin-top:5px;line-height:1.5">※ 비폐쇄성 plaque (&lt;50% 협착): LDL-C 목표 &lt;100 mg/dL + 생활습관 교정<br>※ 취약하거나 50–69% 협착: LDL-C 목표 &lt;70 mg/dL + 항혈소판 치료 고려<br>${acc.cac0Carotid?'※ CAC=0이 함께 확인됨 — 두 소견이 상충하므로 상단 권고(공동 의사결정)를 따릅니다.':'※ CAC &gt;0이 함께 확인된 경우 CAC 기준을 우선 적용합니다.'}</div>
     </div>`;
   }
 
@@ -6261,7 +6287,13 @@ function upd(){
   if(nE>0&&!ascvd){
     const isLowRisk = primRisk < 3;
     const absNames = absInds.filter(i=>i.active && i.key!=='ascvd').map(i=>i.label.replace(/\s*[(—].*$/,''));
-    const impHtml=anyAbs
+    const cacDecided = !anyAbs && (acc.cac0Carotid || (acc.ind||'').indexOf('CAC = 0')===0);
+    const impHtml=cacDecided
+      ?`<div style="margin-top:8px;padding:7px 11px;background:#f8f7f5;border-radius:8px;border-left:3px solid #b4b2a9">
+            <div style="font-size:11.5px;font-weight:700;color:#5f5e5a;margin-bottom:2px">위험증가 인자 ${nE}개 확인 — 최종 권고는 CAC 결과로 재분류됨</div>
+            <div style="font-size:12.5px;color:#5f5e5a;line-height:1.6">위험증가 인자는 스타틴 쪽 근거이나, CAC 검사가 시행되어 CPR 흐름(Calculate → Personalize → <b>Reclassify</b>)에 따라 CAC 결과가 최종 권고에 우선 반영됩니다${acc.cac0Carotid?'. 경동맥 plaque는 위험증가 인자로 함께 집계되어 있습니다':''}. 현재 권고: <b>${acc.l}</b></div>
+          </div>`
+      : anyAbs
       ?`<div style="margin-top:8px;padding:7px 11px;background:#f8f7f5;border-radius:8px;border-left:3px solid #b4b2a9">
             <div style="font-size:11.5px;font-weight:700;color:#5f5e5a;margin-bottom:2px">위험증가 인자 ${nE}개 확인 — 처방 강도는 위험도 무관 적응증으로 이미 결정됨</div>
             <div style="font-size:12.5px;color:#5f5e5a;line-height:1.6">위험도 무관 스타틴 적응증(${absNames.join('; ')})에 해당하여 PREVENT 위험도와 관계없이 스타틴 치료가 권고됩니다. 위험증가 인자는 처방 강도 결정에 추가로 반영되지 않으며 참고 정보로 표시합니다.</div>
@@ -6296,7 +6328,7 @@ function upd(){
 
   // EMR copy summary
   if(g('emrSummary')){
-    const carotidOverride = g('carotidPlaque')?.checked && !ascvd && !anyAbs && primRisk >= 3 && primRisk < 5;
+    const carotidOverride = g('carotidPlaque')?.checked && !ascvd && !anyAbs && primRisk >= 3 && primRisk < 5 && !acc.cac0Carotid && !g('cac0')?.checked;
     const activeEnhLabels = [...document.querySelectorAll('.enh:checked')].map(el=>{
       const label = el.closest('label');
       if(!label) return '';
