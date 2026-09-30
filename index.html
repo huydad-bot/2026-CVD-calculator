@@ -757,7 +757,7 @@ var GROUPS_DATA = [
     ldl:'• 경계·중간위험 &lt;100<br>• 고위험 &lt;70',
     note:'• 남 40세·여 45세 이상이면 CAC 점수(심장 CT)로 재분류 가능' },
   { n:2, name:'중증 고콜레스테롤혈증', nameEn:'LDL-C ≥190 &amp;/or apoB ≥140 mg/dL, non-HDL-C ≥220 (e1199 *각주)',
-    def:'• <b style="color:#1d4ed8">다른 원인 질환 없이</b> 다음 중 하나 이상<br>&nbsp;&nbsp;– LDL-C ≥190 mg/dL &amp;/or apoB ≥140 mg/dL<br>&nbsp;&nbsp;– non-HDL-C ≥220 mg/dL (e1199 *각주)<br>• 가족성 고콜레스테롤혈증(FH) 포함',
+    def:'• <b onclick="openInfoModal(\'중증 고콜레스테롤혈증 — 배제해야 할 2차 원인\',\'sevHcSecondaryInfo\')" style="color:#1d4ed8;cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px" title="클릭하면 2차 원인 목록">다른 원인 질환 없이 ⓘ</b> 다음 중 하나 이상<br>&nbsp;&nbsp;– LDL-C ≥190 mg/dL &amp;/or apoB ≥140 mg/dL<br>&nbsp;&nbsp;– non-HDL-C ≥220 mg/dL (e1199 *각주)<br>• 가족성 고콜레스테롤혈증(FH) 포함',
     tool:'※ PREVENT 계산 대상 아님<br>• LDL≥190이면 계산기 적용 범위(70~189) 밖<br>• non-HDL·apoB 기준만 해당해도 일반인 위험방정식은 위험을 과소평가<br>• 대신 FH 여부를 임상기준·유전자검사로 확인',
     statin:'• <span onclick="openInfoModal(\'중증 고콜레스테롤혈증 — 언제부터 투약을 시작하는가\',\'sevHcStartInfo\')" style="cursor:pointer;color:#1d4ed8;text-decoration:underline dotted;text-underline-offset:3px" title="클릭하면 연령별 시작 시점 설명">나이·위험도 계산과 상관없이 원칙적으로 시작 ⓘ</span><br>• 최대내약(고강도) 스타틴부터',
     ldl:'• 아래 항목들 없음: &lt;100 (non-HDL &lt;130)<br>• HeFH 확진·추가 ASCVD 위험인자·관상동맥 석회화: &lt;70 (non-HDL &lt;100)<br>• 임상적 ASCVD 동반: &lt;55 (non-HDL &lt;85)',
@@ -782,7 +782,7 @@ var GROUPS_DATA = [
     note:'⚠ CAC 1–99도 "고려"가 아니라 중등도 스타틴 권고 사항<br>• "PREVENT 계산 대상 아님"은 CAC 확인 이후 얘기 — 애초에 CAC 검사를 받는 것 자체는 통상 PREVENT(중간·일부 경계위험)에서 출발함. 저위험군은 CAC 검사 적응증이 없되, 우연발견은 예외<br>• 경동맥 플라크는 근거 약함 — 위험도와 결합해서만 참고(대퇴동맥은 언급 없음)' },
   { n:6, name:'고중성지방혈증', nameEn:'Hypertriglyceridemia',
     def:'• 중성지방(TG)이 반복 측정에서 계속 높게 나옴 (공복 ≥150 / 비공복 ≥175 mg/dL)',
-    tool:'✓ PREVENT 계산 대상에 포함(TG는 계산기 적용 조건에 없음)<br>• 위험도 계산은 1군과 동일하게 진행<br>• TG 높은 원인부터 확인(음주, 조절 안 된 당뇨, 갑상선기능저하증 등)<br>• TG≥400이면 계산용 LDL-C는 직접 측정치나 non-HDL-C로 대체',
+    tool:'✓ PREVENT 계산 대상에 포함(TG는 계산기 적용 조건에 없음)<br>• 위험도 계산은 1군과 동일하게 진행<br>• <span onclick="openInfoModal(\'TG 상승 이차 원인\',\'tgSecondaryInfo\')" style="cursor:pointer;color:#1d4ed8;text-decoration:underline dotted;text-underline-offset:3px" title="클릭하면 TG 상승 이차 원인 목록">TG 높은 원인부터 확인 ⓘ</span><br>• TG≥400이면 계산용 LDL-C는 직접 측정치나 non-HDL-C로 대체',
     statin:'• 중성지방 자체보다 심장병 예방이 목적 — 스타틴이 기본 치료',
     ldl:'• LDL-C·non-HDL-C 목표도 함께 관리',
     note:'• TG ≥1000이면 췌장염 예방을 위해 TG강하제(피브레이트, 오메가-3 등)를 추가로 고려' }
@@ -6488,6 +6488,14 @@ function openInfoModal(title, contentId){
   modalContent.scrollTop = 0;
   document.body.style.overflow = 'hidden';
 }
+// Esc: 설명 창(FAQ/정보 모달)이 열려 있으면 그것만 닫고, 뒤의 팝업(6대 관리군 등)은 유지
+window.addEventListener('keydown', function(e){
+  if(e.key!=='Escape') return;
+  const bd=document.getElementById('faqModalBackdrop');
+  if(bd && bd.style.display!=='none' && bd.style.display!==''){
+    e.stopImmediatePropagation(); e.preventDefault(); closeFaqModal();
+  }
+}, true);
 function closeFaqModal(){
   const backdrop = g('faqModalBackdrop');
   if(backdrop) backdrop.style.display = 'none';
@@ -7138,6 +7146,34 @@ function buildNNTChart(el){
   • 대표 근거: 네덜란드 소아 HeFH 20년 추적 연구(Luirink, <i>NEJM</i> 2019) — 소아기에 스타틴을 시작한 HeFH 환자는 치료받지 않은 부모 세대보다 30세까지 심혈관 사건이 적었다.<br><br>
 
   <div style="padding:7px 10px;background:#f8f7f5;border-radius:6px;color:#5f5e5a;font-size:12px">※ 본 계산기는 성인용이며, 소아 기준(만 8세 이상·지속적 LDL ≥160·생활습관 3–6개월 후·목표 ≥50% 감소 및 ≤130)은 계산 로직에 포함되어 있지 않다.</div>
+  </div>
+</div>
+
+<!-- 중증 고콜레스테롤혈증 2차 원인 (6대 관리군 2군 링크) -->
+<div id="sevHcSecondaryInfo" style="display:none">
+  <div style="font-size:13px;color:#1a1a18;line-height:2">
+  🔸 갑상선 기능 저하증<br>
+  🔸 당뇨병 (조절 불량)<br>
+  🔸 신증후군<br>
+  🔸 만성 신질환<br>
+  🔸 폐쇄성 간질환<br>
+  🔸 임신<br>
+  🔸 고포화지방·케토제닉 식이<br>
+  🔸 약물: 글루코코르티코이드, cyclosporin, thiazide 이뇨제, 안드로겐, 에스트로겐, 비정형 항정신병 약물
+  </div>
+</div>
+
+<!-- TG 상승 이차 원인 (6대 관리군 6군 링크) -->
+<div id="tgSecondaryInfo" style="display:none">
+  <div style="font-size:13px;color:#1a1a18;line-height:2">
+  🔸 당뇨 (조절 불량)<br>
+  🔸 음주·과도한 알코올 섭취<br>
+  🔸 비만·대사 증후군·인슐린 저항성<br>
+  🔸 갑상선 기능 저하증<br>
+  🔸 쿠싱 증후군, 지방이영양증<br>
+  🔸 CKD, 신증후군<br>
+  🔸 임신 (3분기 특히 심함)<br>
+  🔸 약물: Thiazide·루프 이뇨제, 경구 에스트로겐, raloxifene, 타목시펜, 클로미펜, 레티노산, 비정형 항정신병 약물 (olanzapine, clozapine 등), 글루코코르티코이드, 면역억제제 (cyclosporin, tacrolimus, sirolimus), HIV PI, L-asparaginase, bexarotene
   </div>
 </div>
 </body>
