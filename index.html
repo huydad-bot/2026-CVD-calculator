@@ -759,7 +759,7 @@ var GROUPS_DATA = [
   { n:2, name:'중증 고콜레스테롤혈증', nameEn:'LDL-C ≥190 &amp;/or apoB ≥140 mg/dL, non-HDL-C ≥220 (e1199 *각주)',
     def:'• <b style="color:#1d4ed8">다른 원인 질환 없이</b> 다음 중 하나 이상<br>&nbsp;&nbsp;– LDL-C ≥190 mg/dL &amp;/or apoB ≥140 mg/dL<br>&nbsp;&nbsp;– non-HDL-C ≥220 mg/dL (e1199 *각주)<br>• 가족성 고콜레스테롤혈증(FH) 포함',
     tool:'※ PREVENT 계산 대상 아님<br>• LDL≥190이면 계산기 적용 범위(70~189) 밖<br>• non-HDL·apoB 기준만 해당해도 일반인 위험방정식은 위험을 과소평가<br>• 대신 FH 여부를 임상기준·유전자검사로 확인',
-    statin:'• 나이·위험도 계산과 상관없이 원칙적으로 시작<br>• 최대내약(고강도) 스타틴부터',
+    statin:'• <span onclick="openInfoModal(\'중증 고콜레스테롤혈증 — 언제부터 투약을 시작하는가\',\'sevHcStartInfo\')" style="cursor:pointer;color:#1d4ed8;text-decoration:underline dotted;text-underline-offset:3px" title="클릭하면 연령별 시작 시점 설명">나이·위험도 계산과 상관없이 원칙적으로 시작 ⓘ</span><br>• 최대내약(고강도) 스타틴부터',
     ldl:'• 아래 항목들 없음: &lt;100 (non-HDL &lt;130)<br>• HeFH 확진·추가 ASCVD 위험인자·관상동맥 석회화: &lt;70 (non-HDL &lt;100)<br>• 임상적 ASCVD 동반: &lt;55 (non-HDL &lt;85)',
     note:'• LDL≥160인 젊은 성인<br>• 집안에 조기 심장병 병력이 강한 경우<br>→ 더 일찍 치료 고려' },
   { n:3, name:'당뇨병', nameEn:'ASCVD 없는 당뇨',
@@ -6476,6 +6476,18 @@ function openFaqModal(headerEl, contentId){
   modalContent.scrollTop = 0;
   document.body.style.overflow = 'hidden';
 }
+function openInfoModal(title, contentId){
+  const src = g(contentId), modalContent = g('faqModalContent'), modalTitle = g('faqModalTitle'), backdrop = g('faqModalBackdrop');
+  if(!src || !modalContent || !backdrop) return;
+  modalTitle.textContent = title;
+  modalContent.innerHTML = src.innerHTML;
+  if(backdrop.parentNode !== document.body) document.body.appendChild(backdrop);
+  document.body.appendChild(backdrop);            // 다른 팝업(6대 관리군) 위에 표시되도록 맨 뒤로 이동
+  backdrop.style.zIndex = '100000';
+  backdrop.style.display = 'flex';
+  modalContent.scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+}
 function closeFaqModal(){
   const backdrop = g('faqModalBackdrop');
   if(backdrop) backdrop.style.display = 'none';
@@ -7100,6 +7112,34 @@ function buildNNTChart(el){
   window.__bempEmrLine='참고 : bempedoic acid는 국내 허가·출시 전 (2026년 9월 기준) — 허가 후 급여 기준 확인 필요';
 })();
 </script>
+
+<!-- 중증 고콜레스테롤혈증 투약 시작 시점 (6대 관리군 2군 링크) -->
+<div id="sevHcStartInfo" style="display:none">
+  <div style="font-size:12.5px;color:#1a1a18;line-height:1.8">
+  <b>① 성인(&gt;18세) — 진단 시 바로 시작</b> <span style="color:#6b6a65">(2026 ACC/AHA 4.2.4.3, e1198–1199)</span><br>
+  • 권고 대상이 "adults with severe hypercholesterolemia"로만 규정되어 <b>연령 하한·상한이 없다</b>.<br>
+  • <b>생활습관 교정 선행 기간 조건이 없다</b> — 권고 1(COR 1)에 따라 2차 원인을 배제한 뒤 권고 2(COR 1, B-R)에 따라 최대내약 스타틴을 시작한다.<br>
+  • <b>PREVENT 위험도와 무관</b>하다. 34세처럼 10년 위험이 1%여도 적용한다.<br>
+  • 실무적으로는 반복 측정으로 수치를 확인한 후 시작하는 것이 합리적이다.<br><br>
+
+  <b>② 소아·청소년 — 만 8세부터, 생활습관 교정 후 시작</b> <span style="color:#6b6a65">(4.2.8.1 권고 2, e1216, COR 1, B-R)</span><br>
+  • 대상: <b>만 8세 이상</b>, LDL-C <b>지속적 ≥160 mg/dL</b>, 임상 양상이 FH에 부합<br>
+  • 조건: <b>3–6개월 생활습관 교정</b>에도 반응이 불충분하면 스타틴을 시작하고 필요 시 다른 LLT를 추가한다.<br>
+  • 기준 수치가 성인(190)이 아니라 <b>160</b>이다. 소아·청소년 250–300명 중 1명이 LDL-C ≥160으로 HeFH에 부합한다.<br>
+  • 목표: 치료 전 대비 <b>≥50% 감소</b> 및 <b>LDL-C ≤130 mg/dL</b>이 일반적으로 권고된다 (e1218).<br>
+  • 소아 허가 연령 (e1217 표): 만 8세 이상 — rosuvastatin 5·10 mg, pitavastatin, pravastatin / 만 10세 이상 — atorvastatin, simvastatin<br><br>
+
+  <b>③ 동형접합 FH(HoFH) — 진단 즉시, 영아기 포함</b> <span style="color:#6b6a65">(e1216 각주, 4.2.4.4 참조)</span><br>
+  • 진단 시점부터 적극적 LLT가 필요하며 영아기도 예외가 아니다.<br><br>
+
+  <b>일찍 시작하는 이유 — LDL-C 누적 노출</b><br>
+  • Mendelian randomization 연구에서 평생 낮은 LDL-C는 낮은 평생 ASCVD 발생률과 연관된다.<br>
+  • 소아기의 높은 콜레스테롤은 성인기까지 지속(tracking)되며, 소아 HeFH에서 스타틴은 무증상 죽상경화 진행을 늦춘다.<br>
+  • 대표 근거: 네덜란드 소아 HeFH 20년 추적 연구(Luirink, <i>NEJM</i> 2019) — 소아기에 스타틴을 시작한 HeFH 환자는 치료받지 않은 부모 세대보다 30세까지 심혈관 사건이 적었다.<br><br>
+
+  <div style="padding:7px 10px;background:#f8f7f5;border-radius:6px;color:#5f5e5a;font-size:12px">※ 본 계산기는 성인용이며, 소아 기준(만 8세 이상·지속적 LDL ≥160·생활습관 3–6개월 후·목표 ≥50% 감소 및 ≤130)은 계산 로직에 포함되어 있지 않다.</div>
+  </div>
+</div>
 </body>
 </html>
         </div>
