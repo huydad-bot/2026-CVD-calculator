@@ -4291,6 +4291,8 @@ function calcPREVENT_30(age,sex,nonHDL,hdl,sbp,bpTx,smoker,dm,egfr,uacr,hba1c,bm
 }
 
 function clamp(v){return Math.min(100,Math.max(0,v));}
+// 표시값(소수 첫째 자리)과 위험군 판정을 일치시키기 위해 반올림 후 사용 (예: 2.97% → 3.0% → 경계위험)
+function riskR(v){return Math.round(clamp(v)*10)/10;}
 
 /* ── ACC/AHA 2026 Statin Recommendation ── */
 /* 2026 ACC/AHA/Multisociety Dyslipidemia Guideline (Blumenthal RS et al, JACC/Circulation 2026) */
@@ -4783,13 +4785,19 @@ function recommendationVerb(acc){
   if(acc.l.includes('고려') || acc.l.includes('개별') || acc.c==='no' || acc.c==='lo') return '고려';
   return '권고';
 }
+// 권고 등급에 맞춘 동사: 적응증 문구에 COR 2a/2b만 있고 COR 1이 없으면 '권고' 대신 '고려'
+function corVerb(acc){
+  const t=(acc&&acc.ind)||'';
+  return (/COR 2[ab]/.test(t) && !/COR 1\b/.test(t)) ? '고려' : null;
+}
 function statinSentence(acc, stSent){
   if(acc && acc.intol) return acc.intol==='mid' ? '비스타틴 지질강하 치료를 고려' : '비스타틴 지질강하 치료를 권고';
   if(!acc) return '스타틴 치료를 개별 판단합니다';
   const S = stSent || ((r,v)=>`${r} 스타틴 치료를 ${v}`);
-  if(acc.c==='hi') return S('고강도', acc.l.includes('고려') ? '고려' : '권고');
-  if(acc.c==='mo' && acc.l.includes('중등~고강도')) return S('중등~고강도', '권고');
-  if(acc.c==='mo') return S('중등강도', acc.l.includes('고려') ? '고려' : '권고');
+  const cv = corVerb(acc);
+  if(acc.c==='hi') return S('고강도', cv || (acc.l.includes('고려') ? '고려' : '권고'));
+  if(acc.c==='mo' && acc.l.includes('중등~고강도')) return S('중등~고강도', cv || '권고');
+  if(acc.c==='mo') return S('중등강도', cv || (acc.l.includes('고려') ? '고려' : '권고'));
   if(acc.c==='no' && acc.l==='공동 의사결정') return '공동 의사결정으로 스타틴 시작 또는 CAC 평가를 선택';
   if(acc.c==='lo' || acc.c==='no') return '생활습관 교정을 우선하며 스타틴 치료는 개별적으로 고려';
   return `${acc.l} 스타틴 치료를 ${recommendationVerb(acc)}`;
@@ -5054,8 +5062,12 @@ function makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt
   }
 
   // 위험증강인자 목록 문장 (불릿 1줄)
+  const lowStatin = !acc.dmPath && /^저위험 < 3% \+ /.test(acc.ind||'');
   const enhLine = (activeEnhLabels && activeEnhLabels.length > 0 && (acc.c==='mo'||acc.c==='hi') && !anyAbs && !carotidOverride)
-    ? `확인된 위험증강인자 (${activeEnhLabels.length}개): ${activeEnhLabels.join('; ')}${acc.dmPath?' (당뇨병 경로 판단에는 미반영)':''}`
+    ? `확인된 위험증강인자 (${activeEnhLabels.length}개): ${activeEnhLabels.join('; ')}${acc.dmPath?' (당뇨병 경로 판단에는 미반영)':''}${lowStatin?' — 저위험(<3%)에서는 처방 결정에 반영되지 않음':''}`
+    : '';
+  const lowStatinLine = lowStatin
+    ? `저위험(<3%)이나 ${(acc.ind||'').replace(/^저위험 < 3% \+ /,'').replace(/ \(COR 2a\)$/,'')} 조건에 해당하여 중등강도 스타틴 시작이 합리적 (2026 ACC/AHA 1차 예방 알고리즘, COR 2a)`
     : '';
 
   if(anyAbs && absInds){
@@ -5107,7 +5119,7 @@ function makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt
       dmAbsEnhLine,
       dmAbsSpecLine,
       `치료 전 LDL-C는 ${ldl} mg/dL이며, ${txState}LDL-C 목표는 <${dispLdlTgt} mg/dL`,
-      `${stSent(strengthText,'권고')}하며, ${addonText}`,
+      `${stSent(strengthText, corVerb(acc)||'권고')}하며, ${addonText}`,
       hivPrefLine,
       ckdLine,
       tgLine,
@@ -5161,6 +5173,7 @@ function makeEmrSummary({age, prevAscvd, preventCat, ldl, currentLdl, dispLdlTgt
     : `PREVENT 2023 기준 10-year ASCVD risk는 ${prevAscvd.toFixed(1)}%로 ${riskLabel}에 해당`;
   return bl([
     riskPrefix,
+    lowStatinLine,
     enhLine,
     dmEnhLine,
     `치료 전 LDL-C는 ${ldl} mg/dL이며, ${txState}현재 LDL-C 목표는 <${dispLdlTgt} mg/dL로 판단됨`,
@@ -5662,24 +5675,24 @@ function upd(){
 
   // PREVENT coefficient-based risk — baseline values, before statin
   const preventBase=calcPREVENT_ALL(age,sex,nonHDL,hdl,sbp,bpTx,smoker,dm,egfr,uacr,hba1c,bmi,false);
-  const prev=clamp(preventBase.y10.total_cvd*100);
-  const prevAscvd=clamp(preventBase.y10.ascvd*100);
-  const prevHf=clamp(preventBase.y10.heart_failure*100);
-  const prev30=clamp(preventBase.y30.total_cvd*100);
-  const prev30Ascvd=clamp(preventBase.y30.ascvd*100);
-  const prev30Hf=clamp(preventBase.y30.heart_failure*100);
+  const prev=riskR(preventBase.y10.total_cvd*100);
+  const prevAscvd=riskR(preventBase.y10.ascvd*100);
+  const prevHf=riskR(preventBase.y10.heart_failure*100);
+  const prev30=riskR(preventBase.y30.total_cvd*100);
+  const prev30Ascvd=riskR(preventBase.y30.ascvd*100);
+  const prev30Hf=riskR(preventBase.y30.heart_failure*100);
 
   // PREVENT/PCE on-treatment risk — current treatment/lipid values, displayed only as treatment status
   let preventTx=null, txPrev=null, txPrevAscvd=null, txPrevHf=null, txPrev30=null, txPrev30Ascvd=null, txPrev30Hf=null;
 
   if(onStatin && hasPostRisk){
     preventTx=calcPREVENT_ALL(age,sex,currentNonHDL,currentHdl,sbp,bpTx,smoker,dm,egfr,uacr,hba1c,bmi,true);
-    txPrev=clamp(preventTx.y10.total_cvd*100);
-    txPrevAscvd=clamp(preventTx.y10.ascvd*100);
-    txPrevHf=clamp(preventTx.y10.heart_failure*100);
-    txPrev30=clamp(preventTx.y30.total_cvd*100);
-    txPrev30Ascvd=clamp(preventTx.y30.ascvd*100);
-    txPrev30Hf=clamp(preventTx.y30.heart_failure*100);
+    txPrev=riskR(preventTx.y10.total_cvd*100);
+    txPrevAscvd=riskR(preventTx.y10.ascvd*100);
+    txPrevHf=riskR(preventTx.y10.heart_failure*100);
+    txPrev30=riskR(preventTx.y30.total_cvd*100);
+    txPrev30Ascvd=riskR(preventTx.y30.ascvd*100);
+    txPrev30Hf=riskR(preventTx.y30.heart_failure*100);
   }
 
   // Use baseline PREVENT ASCVD as primary risk for ACC/AHA classification and treatment indication
@@ -6308,6 +6321,11 @@ function upd(){
           </div>
           <div style="font-size:11.5px;color:#854f0b;margin-top:3px">${accBase.l==='공동 의사결정'?`위험증가 인자가 없었다면 치료 여부를 열어둔 공동 의사결정(환자와 논의, 또는 CAC로 재분류) 구간에 해당되나, 위험증가 인자 ${nE}개로 중등강도 스타틴 시작 쪽이 합리적 (COR 2a)`:`위험증가 인자가 없었다면 ${accBase.l} 권고 → 현재 ${nE}개로 인해 상향 적용됨`}</div>
         </div>`
+      : (isLowRisk && (acc.c==='mo'||acc.c==='hi'))
+        ?`<div style="margin-top:8px;padding:7px 11px;background:#f8f7f5;border-radius:8px;border-left:3px solid #b4b2a9">
+            <div style="font-size:11.5px;font-weight:700;color:#5f5e5a;margin-bottom:2px">위험증가 인자 ${nE}개 확인 — 저위험(&lt;3%)이므로 처방 결정에는 반영되지 않음</div>
+            <div style="font-size:12.5px;color:#5f5e5a;line-height:1.6">위험증강 인자는 경계·중간위험에서 스타틴 결정을 보조합니다. 현재 권고(<b>${acc.l}</b>)는 위험증강 인자가 아니라 <b>${(acc.ind||'').replace(/^저위험 < 3% \+ /,'').replace(/ \(COR 2a\)$/,'')}</b> 조건에 따른 것입니다 (2026 ACC/AHA 1차 예방 알고리즘, COR 2a).</div>
+          </div>`
       : isLowRisk
         ?`<div style="margin-top:8px;padding:7px 11px;background:#f8f7f5;border-radius:8px;border-left:3px solid #b4b2a9">
             <div style="font-size:11.5px;font-weight:700;color:#5f5e5a;margin-bottom:2px">위험증가 인자 ${nE}개 확인 — 저위험(<3%)에서는 적용 제외</div>
