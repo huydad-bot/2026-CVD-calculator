@@ -358,7 +358,110 @@ body.mode-simple .detail-only{display:none !important}
 
     <!-- 모달 본문 -->
     <div style="padding:20px 22px 24px">
+      <style>
+        #helpModal details.hs{border:1px solid #e0ddd5;border-radius:10px;margin-bottom:9px;background:#fff;overflow:hidden}
+        #helpModal details.hs>summary{list-style:none;cursor:pointer;padding:10px 13px;display:flex;align-items:center;gap:8px;font-size:14.5px;font-weight:700;color:#1a1a18;background:#f7f6f2}
+        #helpModal details.hs>summary::-webkit-details-marker{display:none}
+        #helpModal details.hs>summary::after{content:'▸';margin-left:auto;color:#888780;font-size:13px;transition:transform .15s}
+        #helpModal details.hs[open]>summary::after{transform:rotate(90deg)}
+        #helpModal details.hs>summary:hover{background:#efede6}
+        #helpModal .hs-b{padding:11px 15px 13px;font-size:13.5px;color:#1a1a18;line-height:1.75}
+        #helpModal .hs-n{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;color:#fff;font-size:13px;font-weight:800;flex-shrink:0}
+        #helpModal .hs-b ol,#helpModal .hs-b ul{margin:0;padding-left:20px}
+        #helpModal .hs-b li{margin-bottom:5px}
+        #helpModal .hs-t{width:100%;border-collapse:collapse;font-size:13px}
+        #helpModal .hs-t td{border-bottom:1px solid #eeece6;padding:6px 7px;vertical-align:top}
+        #helpModal .hs-t td:first-child{font-weight:700;white-space:nowrap;color:#2c5f7a}
+        #helpModal .hs-k{display:inline-block;padding:0 6px;border-radius:4px;background:#e6f1fb;color:#185fa5;font-weight:700;font-size:12.5px}
+      </style>
 
+      <div style="font-size:12.5px;color:#5f5e5a;margin-bottom:10px">항목을 누르면 펼쳐집니다. 처음 사용하신다면 <b>2. 간단 사용법</b>부터 보세요.</div>
+
+      <!-- 1 화면 구성 -->
+      <details class="hs">
+        <summary><span class="hs-n" style="background:#2c5f7a">1</span>화면 구성 한눈에 보기</summary>
+        <div class="hs-b">
+          <table class="hs-t">
+            <tr><td>간단 사용 / 상세 사용</td><td>간단: 필수 입력과 핵심 결과만 표시 · 상세: HIV·HeFH 확진·스타틴 불내성·ApoB 등 추가 입력과 세부 설명 표시</td></tr>
+            <tr><td>설명 감추기</td><td>켜면(기본값) 설명문이 숨겨지고, 위험증가 인자 등의 항목에 마우스를 올리면 말풍선으로 표시</td></tr>
+            <tr><td>약어·약제 검색</td><td>약어, 약제, 임상시험, 기전 용어 검색 (예: LDL, PCSK9i, REDUCE-IT)</td></tr>
+            <tr><td>6대 관리군</td><td>1차 예방 · 중증 고콜레스테롤혈증 · 당뇨병 · 2차 예방 · 무증상 죽상경화 · 고중성지방혈증 — 환자가 속하는 군과 군별 적용 원칙</td></tr>
+            <tr><td>CPR 배너</td><td>Cumulative LDL Burden · Precision Prevention · Residual Risk 개념 설명 (클릭 시 상세)</td></tr>
+            <tr><td>↺ 새 환자</td><td>기본 정보 상단 버튼 — 모든 입력값 초기화</td></tr>
+            <tr><td>인쇄/PDF · 엑셀 추출</td><td>결과 화면 저장, 입력값을 엑셀 파일로 내보내기</td></tr>
+          </table>
+        </div>
+      </details>
+
+      <!-- 2 간단 사용법 -->
+      <details class="hs" open>
+        <summary><span class="hs-n" style="background:#1a8ab4">2</span>간단 사용법 (3분 사용)</summary>
+        <div class="hs-b">
+          <ol>
+            <li><b>기본 정보 &amp; 검사</b>에 나이, 성별, 총콜레스테롤·HDL-C·LDL-C·중성지방, 수축기 혈압(고혈압 치료 중 여부), 당뇨병, 흡연, eGFR을 입력합니다.</li>
+            <li>이미 스타틴을 복용 중이면 <b>현재 스타틴 복용 중</b>을 체크하고 스타틴 강도와 치료 후 지질값을 입력합니다 — 치료 전 값이 자동 역산출됩니다.</li>
+            <li>오른쪽 <b>스타틴 처방 권고</b>에서 권고 강도·LDL 목표·결정 근거를 확인합니다.</li>
+            <li><b>결과요약 복사</b>를 눌러 전자차트에 붙여넣습니다.</li>
+          </ol>
+        </div>
+      </details>
+
+      <!-- 3 상세 사용법 -->
+      <details class="hs">
+        <summary><span class="hs-n" style="background:#5a7a3a">3</span>상세 사용법 (단계별)</summary>
+        <div class="hs-b">
+          <ol>
+            <li><b>기본 정보 &amp; 검사 입력</b> — 식후 채혈이면 <span class="hs-k">비공복</span>을 체크합니다(TG 기준이 공복 ≥150 → 비공복 ≥175로 바뀜). eGFR 미입력 시 90으로 계산합니다.</li>
+            <li><b>추가 입력 (UACR · HbA1c · 키/몸무게)</b> — UACR·HbA1c는 각각 단독으로 입력해도 PREVENT 전용 모델이 적용됩니다(둘 다 입력 시 Full model). <b>UACR은 위험도를 크게 바꾸므로 단위(mg/g)를 반드시 확인</b>하세요. BMI는 심부전 위험에만 반영됩니다.</li>
+            <li><b>현재 스타틴 복용 중</b> — 스타틴 강도별 평균 반응률로 치료 전 지질을 역산출합니다. 위험군은 <b>치료 전 baseline</b>으로 판정하고, 치료 중 위험도는 참고값으로 함께 표시합니다. 결과요약에는 현재 목표 달성 여부가 반영됩니다.</li>
+            <li><b>특수 조건 (상세 사용)</b> — HIV(안정 cART), HeFH 확진(임상 또는 유전), 스타틴 불내성(2종 이상 스타틴에서 근육 증상, 그중 1종은 최저 승인용량 — 2026 Figure 18)</li>
+            <li><b>위험 증가 인자</b> — 중성지방·알부민뇨·CKD·ABI 등은 입력값에 따라 자동 체크됩니다. <b>당뇨병 특이 위험증강인자</b>(Table 17: 유병기간·알부민뇨·eGFR&lt;60·망막병증·신경병증·ABI&lt;0.9)는 기본 정보에서 당뇨병을 체크해야 활성화됩니다.</li>
+            <li><b>Subclinical ASCVD 지표</b> — CAC 등급을 하나 선택합니다(0 / 1–99 / 100–299 또는 ≥75 백분위 / 300–999 / ≥1000 / nongated CT 우연 발견 경도·중등도~고도). ABI, 경동맥 플라크(≥1.5 mm)도 여기서 입력합니다.</li>
+            <li><b>결과 확인</b> — ① 치료 전·치료 중 위험도(30년 위험은 30–59세만 표시) ② 지질 파라미터 &amp; 목표치 ③ PREVENT 위험도 분류 ④ <b>스타틴 처방 권고</b>(권고 강도·대상 약제·결정 근거). 위험도 무관 스타틴 적응증이 있으면 별도 경고로 표시됩니다.</li>
+            <li><b>전자차트 복사용 결과요약</b> — 위험도·적응증·LDL 목표·치료 방침·NNT/NNH가 불릿 형식으로 정리됩니다.</li>
+            <li><b>LDL 목표 미달성 시 단계적 추가 치료</b> — 에제티미브 → PCSK9 mAb / inclisiran → bempedoic acid. 경로별(초고위험·2차 예방·당뇨·1차 예방·불내성) 권고 순서와 예상 LDL이 표시됩니다.</li>
+            <li><b>NNT · NNH</b> — 이 환자의 스타틴 치료 NNT와 부작용 NNH, Figure 4 기준 이득-위해(NNT vs NND) 비교</li>
+            <li><b>참고 자료</b> — 특수 상황(투석·암·이식·고령), 스타틴 상호작용 약제, 다빈도 질문, 참고 문헌</li>
+          </ol>
+        </div>
+      </details>
+
+      <!-- 4 권고 판정 원리 -->
+      <details class="hs">
+        <summary><span class="hs-n" style="background:#a32d2d">4</span>권고 판정 원리 — 결과가 왜 이렇게 나왔는가</summary>
+        <div class="hs-b">
+          <ul>
+            <li><b>판정 우선순위</b>: ASCVD(2차 예방) → 중증 고콜레스테롤혈증(LDL ≥190 / non-HDL ≥220 / apoB ≥140) → 당뇨병 → 무증상 죽상경화(CAC 등) → PREVENT 위험군. 앞 단계가 해당되면 PREVENT 점수와 무관하게 판정합니다.</li>
+            <li><b>위험군 경계</b>: PREVENT 위험도는 화면 표시값(소수 첫째 자리)으로 반올림한 뒤 판정합니다 (예: 2.97% → 3.0% → 경계위험).</li>
+            <li><b>저위험(&lt;3%)의 예외</b>: 30년 ASCVD ≥10%(30–59세) 또는 LDL-C 160–189이면 중등강도 스타틴 시작이 합리적(COR 2a). 이 경우 위험증가 인자는 처방 결정에 쓰이지 않습니다.</li>
+            <li><b>경계·중간위험</b>: 위험증가 인자는 스타틴 시작 쪽 공동 의사결정을 뒷받침합니다. <b>CAC가 시행되면 CAC 결과가 우선</b>합니다 (CPR — Calculate → Personalize → Reclassify).</li>
+            <li><b>CAC = 0 + 경동맥 플라크</b>: 상충 소견으로 보고 공동 의사결정(중등강도 스타틴 vs 생활습관 + 재평가)으로 표시합니다.</li>
+            <li><b>중증 고콜레스테롤혈증</b>: HeFH 확진·추가 위험인자·무증상 죽상경화가 있으면 LDL &lt;70, 없으면 &lt;100. 2차 원인 배제와 반복 측정이 전제입니다.</li>
+            <li><b>당뇨병</b>: 40–75세는 LDL과 무관하게 중등강도, PREVENT ≥10% 또는 다수 위험인자(≥2)면 고강도. 20–39세는 PREVENT 10년 ≥3%·30년 ≥10% 또는 당뇨 특이 인자가 있을 때 고려.</li>
+            <li><b>스타틴 불내성</b>: 원래 적응증은 유지하고 치료만 비스타틴(에제티미브·bempedoic acid·PCSK9 mAb)으로 대체합니다.</li>
+            <li><b>권고 표현</b>: 근거가 COR 2a/2b뿐이면 “권고” 대신 <b>“고려”</b>로 표기합니다.</li>
+          </ul>
+        </div>
+      </details>
+
+      <!-- 5 적용 범위와 한계 -->
+      <details class="hs">
+        <summary><span class="hs-n" style="background:#854f0b">5</span>적용 범위와 한계</summary>
+        <div class="hs-b">
+          <ul>
+            <li>PREVENT는 <b>30–79세, 기존 심혈관질환이 없는 1차 예방</b>용입니다. 2차 예방과 LDL ≥190은 PREVENT와 무관한 기준으로 판정하며, 이때 표시되는 NNT는 이득을 과소평가할 수 있습니다.</li>
+            <li>ApoB는 PREVENT 입력변수가 아니며, 위험증가 인자 판정과 목표치 평가에만 사용됩니다.</li>
+            <li>말기신질환(eGFR &lt;15·투석 수준)에서는 스타틴 신규 시작을 권고하지 않으며(COR 3), 개별 상담으로 표시됩니다.</li>
+            <li>소아·청소년 기준, HoFH 치료, LDL 분리반출술 등은 계산 로직에 포함되어 있지 않습니다.</li>
+            <li>본 도구는 임상 의사결정 보조 목적이며, 최종 처방 결정은 개별 환자 상황을 고려한 임상의 판단에 따릅니다.</li>
+          </ul>
+        </div>
+      </details>
+
+      <!-- 6 2018 → 2026 -->
+      <details class="hs">
+        <summary><span class="hs-n" style="background:#b45a1a">★</span>2018 → 2026 가이드라인 핵심 변경사항</summary>
+        <div class="hs-b">
       <!-- 2018 → 2026 핵심 변경사항 섹션 -->
       <div id="helpSections">
         <div style="margin-bottom:16px">
@@ -408,79 +511,8 @@ body.mode-simple .detail-only{display:none !important}
         document.getElementById('changeRows').innerHTML=html;
       })();
       </script>
-
-      <!-- 간단 사용법 -->
-      <div style="margin-bottom:12px">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
-          <span style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;background:#1a8ab4;color:#fff;font-size:13.5px;font-weight:800;flex-shrink:0">▶</span>
-          <span style="font-size:14.5px;font-weight:700;color:#1a1a18">간단 사용법</span>
         </div>
-        <div style="padding:12px 15px;background:#f0f8fc;border:1px solid #b8dcea;border-radius:9px;font-size:13.5px;color:#1a1a18;line-height:1.8">
-          <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px">
-            <span style="display:inline-block;padding:4px 10px;background:#1a8ab4;color:#fff;border-radius:6px;font-size:13.5px;font-weight:700;white-space:nowrap">기본 정보 &amp; 검사 입력</span>
-            <span style="color:#888780;font-size:15.5px;font-weight:700">→</span>
-            <span style="display:inline-block;padding:4px 10px;background:#1a8ab4;color:#fff;border-radius:6px;font-size:13.5px;font-weight:700;white-space:nowrap">치료 전 baseline 위험도와 치료 중 위험도 확인</span>
-            <span style="color:#888780;font-size:15.5px;font-weight:700">→</span>
-            <span style="display:inline-block;padding:4px 10px;background:#1a8ab4;color:#fff;border-radius:6px;font-size:13.5px;font-weight:700;white-space:nowrap">스타틴 처방 권고 확인</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 상세 사용법 -->
-      <div style="margin-bottom:4px">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
-          <span style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;background:#5a7a3a;color:#fff;font-size:13.5px;font-weight:800;flex-shrink:0">≡</span>
-          <span style="font-size:14.5px;font-weight:700;color:#1a1a18">상세 사용법</span>
-        </div>
-        <div style="padding:12px 15px;background:#f4f9ee;border:1px solid #c4dba8;border-radius:9px;font-size:13.5px;color:#1a1a18">
-          <div style="display:flex;flex-direction:column;gap:5px">
-            <div style="display:flex;align-items:center;gap:6px">
-              <span style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:#5a7a3a;color:#fff;font-size:11.5px;font-weight:800;flex-shrink:0">1</span>
-              <span style="display:inline-block;padding:4px 10px;background:#5a7a3a;color:#fff;border-radius:6px;font-size:13.5px;font-weight:700">기본 정보 &amp; 검사 입력</span>
-            </div>
-            <div style="margin-left:9px;width:2px;height:8px;background:#c4dba8"></div>
-            <div style="display:flex;align-items:center;gap:6px">
-              <span style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:#5a7a3a;color:#fff;font-size:11.5px;font-weight:800;flex-shrink:0">2</span>
-              <span style="display:inline-block;padding:4px 10px;background:#5a7a3a;color:#fff;border-radius:6px;font-size:13.5px;font-weight:700">PREVENT 2023 추가 입력</span>
-            </div>
-            <div style="margin-left:9px;width:2px;height:8px;background:#c4dba8"></div>
-            <div style="display:flex;align-items:center;gap:6px">
-              <span style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:#5a7a3a;color:#fff;font-size:11.5px;font-weight:800;flex-shrink:0">3</span>
-              <span style="display:inline-block;padding:4px 10px;background:#5a7a3a;color:#fff;border-radius:6px;font-size:13.5px;font-weight:700">위험증가인자 입력</span>
-            </div>
-            <div style="margin-left:9px;width:2px;height:8px;background:#c4dba8"></div>
-            <div style="display:flex;align-items:center;gap:6px">
-              <span style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:#5a7a3a;color:#fff;font-size:11.5px;font-weight:800;flex-shrink:0">4</span>
-              <span style="display:inline-block;padding:4px 10px;background:#5a7a3a;color:#fff;border-radius:6px;font-size:13.5px;font-weight:700">치료 전 baseline 위험도와 치료 중 위험도 확인</span>
-            </div>
-            <div style="margin-left:9px;width:2px;height:8px;background:#c4dba8"></div>
-            <div style="display:flex;align-items:center;gap:6px">
-              <span style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:#5a7a3a;color:#fff;font-size:11.5px;font-weight:800;flex-shrink:0">5</span>
-              <span style="display:inline-block;padding:4px 10px;background:#5a7a3a;color:#fff;border-radius:6px;font-size:13.5px;font-weight:700">지질 파라미터 &amp; 목표치 확인</span>
-            </div>
-            <div style="margin-left:9px;width:2px;height:8px;background:#c4dba8"></div>
-            <div style="display:flex;align-items:center;gap:6px">
-              <span style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:#5a7a3a;color:#fff;font-size:11.5px;font-weight:800;flex-shrink:0">6</span>
-              <span style="display:inline-block;padding:4px 10px;background:#5a7a3a;color:#fff;border-radius:6px;font-size:13.5px;font-weight:700">ACC/AHA PREVENT 위험도 분류 확인</span>
-            </div>
-            <div style="margin-left:9px;width:2px;height:8px;background:#c4dba8"></div>
-            <div style="display:flex;align-items:center;gap:6px">
-              <span style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:#5a7a3a;color:#fff;font-size:11.5px;font-weight:800;flex-shrink:0">7</span>
-              <span style="display:inline-block;padding:4px 10px;background:#5a7a3a;color:#fff;border-radius:6px;font-size:13.5px;font-weight:700">스타틴 처방 권고 확인</span>
-            </div>
-            <div style="margin-left:9px;width:2px;height:8px;background:#c4dba8"></div>
-            <div style="display:flex;align-items:center;gap:6px">
-              <span style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:#5a7a3a;color:#fff;font-size:11.5px;font-weight:800;flex-shrink:0">8</span>
-              <span style="display:inline-block;padding:4px 10px;background:#5a7a3a;color:#fff;border-radius:6px;font-size:13.5px;font-weight:700">LDL 목표 미달성 시 단계적 추가 치료 확인</span>
-            </div>
-            <div style="margin-left:9px;width:2px;height:8px;background:#c4dba8"></div>
-            <div style="display:flex;align-items:center;gap:6px">
-              <span style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:#5a7a3a;color:#fff;font-size:11.5px;font-weight:800;flex-shrink:0">9</span>
-              <span style="display:inline-block;padding:4px 10px;background:#5a7a3a;color:#fff;border-radius:6px;font-size:13.5px;font-weight:700">이 환자의 스타틴 치료 NNT 확인</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      </details>
 
       <div style="margin-top:12px;font-size:13.5px;color:#5f5e5a">
         제작 : 경북대학교병원 내분비대사내과 김정국
