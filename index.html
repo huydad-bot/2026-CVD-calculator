@@ -2134,6 +2134,16 @@ function switchRRTab(idx){
 
       <div class="nb warn" style="margin-top:5px">치료 후 값은 현재 조절 상태와 on-treatment risk 표시용입니다. 치료 적응증/기저 위험군은 치료 전 baseline 값으로 유지됩니다.</div>
     </div>
+    <!-- 상세사용 전용 추가 항목 (HIV · HeFH · 스타틴 불내성) -->
+    <div class="detail-only" style="margin-top:4px;margin-bottom:2px">
+      <div style="font-size:12.5px;color:#185fa5;font-weight:600;margin-bottom:4px">해당사항이 있는 경우 체크하세요</div>
+      <div><label class="ck"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> HIV (안정 cART 중) <input type="checkbox" id="enhHiv"></label></div>
+      <div><label class="ck"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> HeFH 확진 (임상 또는 유전) <input type="checkbox" id="heFH"></label></div>
+      <div class="intol-row" style="align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px">
+      <label class="ck" style="display:inline-flex;margin-bottom:0"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:4px;vertical-align:middle">●</span> 스타틴 불내성 <input type="checkbox" id="statinIntol"></label>
+      <span class="expl" style="font-size:12px;color:#5f5e5a;line-height:1.5">2종 이상 스타틴에서 근육 증상, 그중 1종은 최저 승인용량 (2026 Figure 18, 2차 원인 배제) · <span class="text-toggle-link" onclick="toggleSamsDetail()" style="color:#185fa5;font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px">SAMS 상세</span></span>
+    </div>
+    </div>
   </div>
 
   <div class="card" id="cardPreventExtra" style="background:#eaf7fb">
@@ -2201,17 +2211,6 @@ function switchRRTab(idx){
     </div>
     <div class="expl" style="margin-top:2px;margin-bottom:2px;padding:4px 9px;background:#f1efe8;border-radius:6px;font-size:11.5px;color:#5f5e5a">
       ※ UACR·HbA1c는 각각 단독 입력해도 PREVENT 전용 모델이 적용되어 위험도에 반영됨(둘 다 입력 시 Full model). 당뇨 여부 무관, 전당뇨(예: 6.2%)도 위험도에 반영됨.
-    </div>
-  
-    <!-- 상세사용 전용 추가 항목 (HIV · HeFH · 스타틴 불내성) -->
-    <div class="detail-only" style="margin-top:8px">
-      <div style="font-size:12.5px;color:#185fa5;font-weight:600;margin-bottom:4px">해당사항이 있는 경우 체크하세요</div>
-      <div><label class="ck"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> HIV (안정 cART 중) <input type="checkbox" id="enhHiv"></label></div>
-      <div><label class="ck"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:2px;vertical-align:middle">●</span> HeFH 확진 (임상 또는 유전) <input type="checkbox" id="heFH"></label></div>
-      <div class="intol-row" style="align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px">
-      <label class="ck" style="display:inline-flex;margin-bottom:0"><span style="font-size:13.5px;font-weight:900;color:#185fa5;margin-right:4px;vertical-align:middle">●</span> 스타틴 불내성 <input type="checkbox" id="statinIntol"></label>
-      <span class="expl" style="font-size:12px;color:#5f5e5a;line-height:1.5">2종 이상 스타틴에서 근육 증상, 그중 1종은 최저 승인용량 (2026 Figure 18, 2차 원인 배제) · <span class="text-toggle-link" onclick="toggleSamsDetail()" style="color:#185fa5;font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px">SAMS 상세</span></span>
-    </div>
     </div>
   </div>
 
