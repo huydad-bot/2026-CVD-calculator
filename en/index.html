@@ -358,7 +358,110 @@ body.mode-simple .detail-only{display:none !important}
 
     <!-- Modal body -->
     <div style="padding:20px 22px 24px">
+      <style>
+        #helpModal details.hs{border:1px solid #e0ddd5;border-radius:10px;margin-bottom:9px;background:#fff;overflow:hidden}
+        #helpModal details.hs>summary{list-style:none;cursor:pointer;padding:10px 13px;display:flex;align-items:center;gap:8px;font-size:14.5px;font-weight:700;color:#1a1a18;background:#f7f6f2}
+        #helpModal details.hs>summary::-webkit-details-marker{display:none}
+        #helpModal details.hs>summary::after{content:'▸';margin-left:auto;color:#888780;font-size:13px;transition:transform .15s}
+        #helpModal details.hs[open]>summary::after{transform:rotate(90deg)}
+        #helpModal details.hs>summary:hover{background:#efede6}
+        #helpModal .hs-b{padding:11px 15px 13px;font-size:13.5px;color:#1a1a18;line-height:1.75}
+        #helpModal .hs-n{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;color:#fff;font-size:13px;font-weight:800;flex-shrink:0}
+        #helpModal .hs-b ol,#helpModal .hs-b ul{margin:0;padding-left:20px}
+        #helpModal .hs-b li{margin-bottom:5px}
+        #helpModal .hs-t{width:100%;border-collapse:collapse;font-size:13px}
+        #helpModal .hs-t td{border-bottom:1px solid #eeece6;padding:6px 7px;vertical-align:top}
+        #helpModal .hs-t td:first-child{font-weight:700;white-space:nowrap;color:#2c5f7a}
+        #helpModal .hs-k{display:inline-block;padding:0 6px;border-radius:4px;background:#e6f1fb;color:#185fa5;font-weight:700;font-size:12.5px}
+      </style>
 
+      <div style="font-size:12.5px;color:#5f5e5a;margin-bottom:10px">Click a section to expand it. If this is your first time, start with <b>2. Quick-Start Guide</b>.</div>
+
+      <!-- 1 Screen layout -->
+      <details class="hs">
+        <summary><span class="hs-n" style="background:#2c5f7a">1</span>Screen Layout at a Glance</summary>
+        <div class="hs-b">
+          <table class="hs-t">
+            <tr><td>Simple / Detailed mode</td><td>Simple: required inputs and key results only · Detailed: adds HIV, confirmed HeFH, statin intolerance, ApoB and further explanations</td></tr>
+            <tr><td>Hide explanations</td><td>When on (default), explanatory text is hidden and shown as a tooltip when you hover over items such as risk enhancers</td></tr>
+            <tr><td>Abbreviation/drug search</td><td>Search abbreviations, drugs, trials and mechanism terms (e.g. LDL, PCSK9i, REDUCE-IT)</td></tr>
+            <tr><td>6 Groups</td><td>Primary prevention · severe hypercholesterolemia · diabetes · secondary prevention · subclinical atherosclerosis · hypertriglyceridemia — which group the patient belongs to and the rules for each</td></tr>
+            <tr><td>CPR banners</td><td>Explanations of Cumulative LDL Burden · Precision Prevention · Residual Risk (click for details)</td></tr>
+            <tr><td>↺ New patient</td><td>Button at the top of Basic Info — clears all inputs</td></tr>
+            <tr><td>Print/PDF · Export to Excel</td><td>Save the results page, export inputs to an Excel file</td></tr>
+          </table>
+        </div>
+      </details>
+
+      <!-- 2 Quick start -->
+      <details class="hs" open>
+        <summary><span class="hs-n" style="background:#1a8ab4">2</span>Quick-Start Guide (3 minutes)</summary>
+        <div class="hs-b">
+          <ol>
+            <li>In <b>Basic Info &amp; Labs</b>, enter age, sex, total cholesterol, HDL-C, LDL-C, triglycerides, systolic BP (and whether on BP treatment), diabetes, smoking and eGFR.</li>
+            <li>If the patient is already on a statin, check <b>Currently on a statin</b> and enter the statin intensity and on-treatment lipids — pre-treatment values are back-calculated automatically.</li>
+            <li>Review the recommended intensity, LDL target and decision basis in <b>Statin Prescribing Recommendation</b> on the right.</li>
+            <li>Press <b>Copy</b> in Result Summary for EMR Copy and paste it into the medical record.</li>
+          </ol>
+        </div>
+      </details>
+
+      <!-- 3 Detailed guide -->
+      <details class="hs">
+        <summary><span class="hs-n" style="background:#5a7a3a">3</span>Detailed Guide (step by step)</summary>
+        <div class="hs-b">
+          <ol>
+            <li><b>Basic Info &amp; Labs</b> — for a postprandial sample, check <span class="hs-k">Non-fasting</span> (the TG threshold changes from fasting ≥150 to non-fasting ≥175). If eGFR is left blank, 90 is used.</li>
+            <li><b>Additional inputs (UACR · HbA1c · height/weight)</b> — UACR and HbA1c each trigger the corresponding PREVENT add-on model even when entered alone (Full model if both are entered). <b>UACR changes the risk substantially, so always check the unit (mg/g).</b> BMI affects heart failure risk only.</li>
+            <li><b>Currently on a statin</b> — pre-treatment lipids are back-calculated from the average response for the selected statin intensity. The risk category is based on the <b>pre-treatment baseline</b>; on-treatment risk is shown alongside for reference. The result summary reflects whether the current target is met.</li>
+            <li><b>Special conditions (Detailed mode)</b> — HIV (stable cART), confirmed HeFH (clinical or genetic), statin intolerance (muscle symptoms on 2 or more statins, one at the lowest approved dose — 2026 Figure 18)</li>
+            <li><b>Risk enhancers</b> — triglycerides, albuminuria, CKD, ABI and others are checked automatically from the inputs. <b>Diabetes-specific risk enhancers</b> (Table 17: duration, albuminuria, eGFR&lt;60, retinopathy, neuropathy, ABI&lt;0.9) are enabled only when diabetes is checked in Basic Info.</li>
+            <li><b>Subclinical ASCVD</b> — select one CAC category (0 / 1–99 / 100–299 or ≥75th percentile / 300–999 / ≥1000 / incidental on nongated CT, mild or moderate–severe). ABI and carotid plaque (≥1.5 mm) are also entered here.</li>
+            <li><b>Reading the results</b> — ① pre-treatment and on-treatment risk (30-year risk shown only for age 30–59) ② lipid parameters &amp; targets ③ PREVENT risk category ④ <b>Statin Prescribing Recommendation</b> (intensity, agents, decision basis). Risk-category-independent statin indications are flagged separately.</li>
+            <li><b>Result Summary for EMR Copy</b> — risk, indications, LDL target, treatment plan and NNT/NNH as bullet points.</li>
+            <li><b>Stepwise add-on therapy when the LDL target is not met</b> — ezetimibe → PCSK9 mAb / inclisiran → bempedoic acid. The order and expected LDL are shown for each pathway (very high risk, secondary prevention, diabetes, primary prevention, intolerance).</li>
+            <li><b>NNT · NNH</b> — statin NNT and adverse-effect NNH for this patient, with the Figure 4 benefit-harm comparison (NNT vs NND)</li>
+            <li><b>Reference material</b> — special situations (dialysis, cancer, transplantation, older adults), statin drug interactions, FAQ, references</li>
+          </ol>
+        </div>
+      </details>
+
+      <!-- 4 How the recommendation is determined -->
+      <details class="hs">
+        <summary><span class="hs-n" style="background:#a32d2d">4</span>How the Recommendation Is Determined</summary>
+        <div class="hs-b">
+          <ul>
+            <li><b>Order of precedence</b>: ASCVD (secondary prevention) → severe hypercholesterolemia (LDL ≥190 / non-HDL ≥220 / apoB ≥140) → diabetes → subclinical atherosclerosis (CAC etc.) → PREVENT risk category. If an earlier step applies, the decision is made regardless of the PREVENT score.</li>
+            <li><b>Category boundaries</b>: PREVENT risk is rounded to the displayed precision (one decimal) before classification (e.g. 2.97% → 3.0% → borderline risk).</li>
+            <li><b>Exceptions at low risk (&lt;3%)</b>: with 30-year ASCVD ≥10% (age 30–59) or LDL-C 160–189, starting a moderate-intensity statin is reasonable (COR 2a). In this case risk enhancers are not used in the prescribing decision.</li>
+            <li><b>Borderline/intermediate risk</b>: risk enhancers support a shared decision toward starting a statin. <b>If CAC has been measured, the CAC result takes precedence</b> (CPR — Calculate → Personalize → Reclassify).</li>
+            <li><b>CAC = 0 + carotid plaque</b>: treated as conflicting findings and shown as a shared decision (moderate-intensity statin vs lifestyle + reassessment).</li>
+            <li><b>Severe hypercholesterolemia</b>: LDL &lt;70 with confirmed HeFH, additional risk factors or subclinical atherosclerosis; otherwise &lt;100. Assumes secondary causes have been excluded and values confirmed by repeat measurement.</li>
+            <li><b>Diabetes</b>: age 40–75, moderate intensity regardless of LDL; high intensity if PREVENT ≥10% or multiple risk factors (≥2). Age 20–39, considered with PREVENT 10-yr ≥3%, 30-yr ≥10% or diabetes-specific risk enhancers.</li>
+            <li><b>Statin intolerance</b>: the original indication is kept and only the therapy is replaced with nonstatins (ezetimibe, bempedoic acid, PCSK9 mAb).</li>
+            <li><b>Wording</b>: when the basis is only COR 2a/2b, “considered” is used instead of “recommended”.</li>
+          </ul>
+        </div>
+      </details>
+
+      <!-- 5 Scope and limitations -->
+      <details class="hs">
+        <summary><span class="hs-n" style="background:#854f0b">5</span>Scope and Limitations</summary>
+        <div class="hs-b">
+          <ul>
+            <li>PREVENT applies to <b>adults aged 30–79 without existing cardiovascular disease (primary prevention)</b>. Secondary prevention and LDL ≥190 are judged by criteria independent of PREVENT, and the NNT shown in these cases may underestimate the benefit.</li>
+            <li>ApoB is not a PREVENT input; it is used only for risk-enhancer detection and target assessment.</li>
+            <li>In end-stage kidney disease (eGFR &lt;15 / dialysis level), newly starting a statin is not recommended (COR 3), and individual consultation is shown.</li>
+            <li>Pediatric criteria, HoFH management and LDL apheresis are not included in the calculation logic.</li>
+            <li>This tool supports clinical decision-making; the final prescribing decision rests on the clinician’s judgment of the individual patient.</li>
+          </ul>
+        </div>
+      </details>
+
+      <!-- 6 2018 → 2026 -->
+      <details class="hs">
+        <summary><span class="hs-n" style="background:#b45a1a">★</span>Key Changes from the 2018 to the 2026 Guideline</summary>
+        <div class="hs-b">
       <!-- 2018 → 2026 key changes section -->
       <div id="helpSections">
         <div style="margin-bottom:16px">
@@ -408,79 +511,8 @@ body.mode-simple .detail-only{display:none !important}
         document.getElementById('changeRows').innerHTML=html;
       })();
       </script>
-
-      <!-- Quick-start guide -->
-      <div style="margin-bottom:12px">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
-          <span style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;background:#1a8ab4;color:#fff;font-size:13.5px;font-weight:800;flex-shrink:0">▶</span>
-          <span style="font-size:14.5px;font-weight:700;color:#1a1a18">Quick-Start Guide</span>
         </div>
-        <div style="padding:12px 15px;background:#f0f8fc;border:1px solid #b8dcea;border-radius:9px;font-size:13.5px;color:#1a1a18;line-height:1.8">
-          <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px">
-            <span style="display:inline-block;padding:4px 10px;background:#1a8ab4;color:#fff;border-radius:6px;font-size:13.5px;font-weight:700;white-space:nowrap">Enter basic info &amp; labs</span>
-            <span style="color:#888780;font-size:15.5px;font-weight:700">→</span>
-            <span style="display:inline-block;padding:4px 10px;background:#1a8ab4;color:#fff;border-radius:6px;font-size:13.5px;font-weight:700;white-space:nowrap">Check baseline vs on-treatment risk</span>
-            <span style="color:#888780;font-size:15.5px;font-weight:700">→</span>
-            <span style="display:inline-block;padding:4px 10px;background:#1a8ab4;color:#fff;border-radius:6px;font-size:13.5px;font-weight:700;white-space:nowrap">Check statin prescribing recommendation</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Detailed guide -->
-      <div style="margin-bottom:4px">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
-          <span style="display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;background:#5a7a3a;color:#fff;font-size:13.5px;font-weight:800;flex-shrink:0">≡</span>
-          <span style="font-size:14.5px;font-weight:700;color:#1a1a18">Detailed Guide</span>
-        </div>
-        <div style="padding:12px 15px;background:#f4f9ee;border:1px solid #c4dba8;border-radius:9px;font-size:13.5px;color:#1a1a18">
-          <div style="display:flex;flex-direction:column;gap:5px">
-            <div style="display:flex;align-items:center;gap:6px">
-              <span style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:#5a7a3a;color:#fff;font-size:11.5px;font-weight:800;flex-shrink:0">1</span>
-              <span style="display:inline-block;padding:4px 10px;background:#5a7a3a;color:#fff;border-radius:6px;font-size:13.5px;font-weight:700">Enter basic info &amp; labs</span>
-            </div>
-            <div style="margin-left:9px;width:2px;height:8px;background:#c4dba8"></div>
-            <div style="display:flex;align-items:center;gap:6px">
-              <span style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:#5a7a3a;color:#fff;font-size:11.5px;font-weight:800;flex-shrink:0">2</span>
-              <span style="display:inline-block;padding:4px 10px;background:#5a7a3a;color:#fff;border-radius:6px;font-size:13.5px;font-weight:700">Enter additional PREVENT 2023 inputs</span>
-            </div>
-            <div style="margin-left:9px;width:2px;height:8px;background:#c4dba8"></div>
-            <div style="display:flex;align-items:center;gap:6px">
-              <span style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:#5a7a3a;color:#fff;font-size:11.5px;font-weight:800;flex-shrink:0">3</span>
-              <span style="display:inline-block;padding:4px 10px;background:#5a7a3a;color:#fff;border-radius:6px;font-size:13.5px;font-weight:700">Enter risk-enhancing factors</span>
-            </div>
-            <div style="margin-left:9px;width:2px;height:8px;background:#c4dba8"></div>
-            <div style="display:flex;align-items:center;gap:6px">
-              <span style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:#5a7a3a;color:#fff;font-size:11.5px;font-weight:800;flex-shrink:0">4</span>
-              <span style="display:inline-block;padding:4px 10px;background:#5a7a3a;color:#fff;border-radius:6px;font-size:13.5px;font-weight:700">Check baseline vs on-treatment risk</span>
-            </div>
-            <div style="margin-left:9px;width:2px;height:8px;background:#c4dba8"></div>
-            <div style="display:flex;align-items:center;gap:6px">
-              <span style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:#5a7a3a;color:#fff;font-size:11.5px;font-weight:800;flex-shrink:0">5</span>
-              <span style="display:inline-block;padding:4px 10px;background:#5a7a3a;color:#fff;border-radius:6px;font-size:13.5px;font-weight:700">Review lipid parameters &amp; targets</span>
-            </div>
-            <div style="margin-left:9px;width:2px;height:8px;background:#c4dba8"></div>
-            <div style="display:flex;align-items:center;gap:6px">
-              <span style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:#5a7a3a;color:#fff;font-size:11.5px;font-weight:800;flex-shrink:0">6</span>
-              <span style="display:inline-block;padding:4px 10px;background:#5a7a3a;color:#fff;border-radius:6px;font-size:13.5px;font-weight:700">Review ACC/AHA PREVENT risk category</span>
-            </div>
-            <div style="margin-left:9px;width:2px;height:8px;background:#c4dba8"></div>
-            <div style="display:flex;align-items:center;gap:6px">
-              <span style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:#5a7a3a;color:#fff;font-size:11.5px;font-weight:800;flex-shrink:0">7</span>
-              <span style="display:inline-block;padding:4px 10px;background:#5a7a3a;color:#fff;border-radius:6px;font-size:13.5px;font-weight:700">Review statin prescribing recommendation</span>
-            </div>
-            <div style="margin-left:9px;width:2px;height:8px;background:#c4dba8"></div>
-            <div style="display:flex;align-items:center;gap:6px">
-              <span style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:#5a7a3a;color:#fff;font-size:11.5px;font-weight:800;flex-shrink:0">8</span>
-              <span style="display:inline-block;padding:4px 10px;background:#5a7a3a;color:#fff;border-radius:6px;font-size:13.5px;font-weight:700">Review stepwise add-on therapy if LDL target not met</span>
-            </div>
-            <div style="margin-left:9px;width:2px;height:8px;background:#c4dba8"></div>
-            <div style="display:flex;align-items:center;gap:6px">
-              <span style="display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:#5a7a3a;color:#fff;font-size:11.5px;font-weight:800;flex-shrink:0">9</span>
-              <span style="display:inline-block;padding:4px 10px;background:#5a7a3a;color:#fff;border-radius:6px;font-size:13.5px;font-weight:700">Check the statin NNT for this patient</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      </details>
 
       <div style="margin-top:12px;font-size:13.5px;color:#5f5e5a">
         Created by: Jung-Guk Kim, MD., Division of Endocrinology and Metabolism, Kyungpook National University Hospital, Daegu, South Korea
@@ -604,14 +636,14 @@ var CPR_DATA = {
       </div>\
       <div style="background:#eaf3de;border:1px solid #c0dd97;border-radius:7px;padding:9px 11px">\
         <div style="font-size:12.5px;font-weight:700;color:#3b6d11;margin-bottom:4px">CKM Syndrome (Cardiovascular-Kidney-Metabolic) — Section 4.2.3.3</div>\
-        <div style="font-size:12.5px;color:#1a1a18;line-height:1.75">A combined condition of obesity, insulin resistance, CKD, diabetes and heart failure. Listed as a risk enhancer in Table 13. The higher the CKM stage, the more the 10-year risk may be underestimated, so <b>include albuminuria, HbA1c and ZIP code in the PREVENT equation</b>whenever available.</div>\
+        <div style="font-size:12.5px;color:#1a1a18;line-height:1.75">A combined condition of obesity, insulin resistance, CKD, diabetes and heart failure. Listed as a risk enhancer in Table 13. The higher the CKM stage, the more the 10-year risk may be underestimated, so <b>include albuminuria, HbA1c and ZIP code in the PREVENT equation</b> whenever available.</div>\
       </div>'
   },
   R: {
     badge:'R', en:'Reclassify', ko:'Resolve uncertainty with CAC · reclassify',
     body: '\
       <div style="font-size:12.5px;font-weight:700;color:#888780;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px">Section 4.2.3.6 — Selective Imaging of Subclinical Atherosclerosis</div>\
-      <div style="background:#f4f9f0;border:1px solid #c0dd97;border-radius:8px;padding:10px 12px;margin-bottom:10px;font-size:12.5px;color:#1a1a18;line-height:1.8">CAC is the most powerful reclassification tool for quantifying subclinical atherosclerosis in asymptomatic adults. When the LLT decision is uncertain, <b>borderline-to-intermediate risk</b>(men ≥40, women ≥45). Radiation exposure is about 1 mSv (similar to mammography), and incidental findings (lung nodules etc.) occur in under 10%.</div>\
+      <div style="background:#f4f9f0;border:1px solid #c0dd97;border-radius:8px;padding:10px 12px;margin-bottom:10px;font-size:12.5px;color:#1a1a18;line-height:1.8">CAC is the most powerful reclassification tool for quantifying subclinical atherosclerosis in asymptomatic adults. When the LLT decision is uncertain, <b>borderline-to-intermediate risk</b> (men ≥40, women ≥45). Radiation exposure is about 1 mSv (similar to mammography), and incidental findings (lung nodules etc.) occur in under 10%.</div>\
       <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px">\
         <div style="display:flex;gap:10px;align-items:flex-start">\
           <div style="min-width:76px;padding:5px 7px;background:#eaf3de;border-radius:5px;text-align:center;font-size:13.5px;font-weight:700;color:#27500a">CAC = 0</div>\
@@ -713,7 +745,7 @@ document.addEventListener('keydown', function(e){
       <div style="margin-top:16px;padding:13px 16px;background:#f2f5ef;border-radius:10px;border:1px solid #dbe6d3">
         <div style="font-size:13.5px;font-weight:800;color:#2e5339;margin-bottom:7px">3 keys to reading this table</div>
         <ul style="margin:0;padding-left:18px;font-size:12.5px;color:#3a3a36;line-height:1.75">
-          <li><b>Groups 1–4 are defined by "who the patient is"</b>(whether the patient is a primary-prevention candidate, has LDL≥190, has diabetes, or already has ASCVD), <b>Groups 5–6 are defined by "what testing showed"</b>(whether plaque was seen on imaging, whether TG is high). So one patient can belong to several groups — e.g. if a patient with diabetes (Group 3) is incidentally found to have CAC 300 (Group 5), the stricter Group 5 target (&lt;70) applies.</li>
+          <li><b>Groups 1–4 are defined by "who the patient is"</b> (whether the patient is a primary-prevention candidate, has LDL≥190, has diabetes, or already has ASCVD), <b>Groups 5–6 are defined by "what testing showed"</b> (whether plaque was seen on imaging, whether TG is high). So one patient can belong to several groups — e.g. if a patient with diabetes (Group 3) is incidentally found to have CAC 300 (Group 5), the stricter Group 5 target (&lt;70) applies.</li>
           <li><b>The PREVENT calculator (the risk tool used in Group 1) is not used at all for Groups 2 and 4.</b> LDL ≥190 falls outside the calculator range (70–189), and a person who already has ASCVD "estimate future risk"— the answer is already known. Each of these two groups has its own separate criteria.</li>
           <li><b>Group 5 splits internally</b> — strictly speaking, the CAC pathway is not "completely independent of PREVENT"but rather "PREVENT decides whether to test, and once CAC is known that number is no longer used" — a two-step structure. CAC testing itself is recommended only at intermediate or select borderline risk (when the treatment decision is uncertain), so low-risk patients have no indication for CAC testing (except incidental findings on CT done for another reason, regardless of risk group). By contrast, the carotid-ultrasound plaque pathway keeps the PREVENT risk (intermediate or select borderline) as a standing prerequisite, so the PREVENT calculation is needed throughout.</li>
           <li><b>Groups 3 (diabetes) and 6 (hypertriglyceridemia) are included in the PREVENT calculation as usual</b>— diabetes is an input to the calculation, and TG is not a calculator eligibility criterion at all. These two groups have a "calculate as usual, with extra rules layered on top independent of the result" structure.</li>
@@ -781,7 +813,7 @@ var GROUPS_DATA = [
     tool:'<b>CAC testing indication</b>: CAC testing is recommended only at PREVENT intermediate risk (5–&lt;10%) or select borderline risk (3–&lt;5%) — not needed in low risk<br>Once CAC&gt;0 is confirmed, the subsequent goal/intensity is determined by the CAC score itself, not the PREVENT risk number<br><br>✓ Part of PREVENT calculation (carotid plaque pathway)<br>• Carotid ultrasound plaque: "LLT beneficial but current evidence insufficient for a specific goal" — statin recommended in intermediate/select borderline risk (no basis for low risk)<br><br>⚡ Exception — incidentally found coronary calcification (non-gated CT): <b>no risk-category restriction</b> — even if found incidentally in a low-risk patient on a CT done for another purpose, it should be "considered" when discussing starting or intensifying treatment (COR 1). However, unlike formal CAC testing, no specific goal is defined.',
     statin:'• CAC 1–99 & <span class="text-toggle-link" onclick="event.stopPropagation();openCacPercentileModal()" style="color:#185fa5;font-weight:700;cursor:pointer;text-decoration:underline dotted;text-underline-offset:2px">below the 75th percentile for age</span>: moderate-intensity statin recommended<br>• CAC ≥100 or top 25%: high-intensity statin recommended<br>• CAC ≥1000: high intensity mandatory<br>• Carotid plaque: LLT benefit is recognized, but evidence is insufficient for a target or a standalone indication — judged only in combination with risk<br>• Incidentally found coronary calcification (nongated CT, visual qualitative grading): mild → moderate-intensity statin / moderate–severe → high-intensity statin',
     ldl:'• CAC 1–99: &lt;100<br>• CAC ≥100: &lt;70<br>• CAC ≥1000: &lt;55<br><br>• Carotid plaque alone: no formal goal (tentatively &lt;100 as a reference)<br><br>• Incidental calcification — mild: &lt;100 / moderate–severe: no specific number given in the guideline (practically &lt;70 is reasonable)',
-    note:'⚠ CAC 1–99 is also "considered"— not merely considered, but a moderate-intensity statin recommendation<br>• "Not a PREVENT calculation target"applies only after CAC is known — CAC testing itself normally starts from PREVENT (intermediate or select borderline risk). Low-risk patients have no indication for CAC testing, except incidental findings<br>• Evidence for carotid plaque is weak — use only in combination with risk (femoral plaque not mentioned)' },
+    note:'⚠ CAC 1–99 is also a moderate-intensity statin recommendation — not merely “considered”<br>• "Not a PREVENT calculation target" applies only after CAC is known — CAC testing itself normally starts from PREVENT (intermediate or select borderline risk). Low-risk patients have no indication for CAC testing, except incidental findings<br>• Evidence for carotid plaque is weak — use only in combination with risk (femoral plaque not mentioned)' },
   { n:6, name:'Hypertriglyceridemia', nameEn:'Hypertriglyceridemia',
     def:'• Triglycerides (TG) remain high on repeated measurement (fasting ≥150 / non-fasting ≥175 mg/dL)',
     tool:'✓ Included in PREVENT calculation (TG is not a calculator eligibility criterion)<br>• Risk calculation proceeds as in Group 1<br>• <span onclick="openInfoModal(\'Secondary causes of elevated TG\',\'tgSecondaryInfo\')" style="cursor:pointer;color:#1d4ed8;text-decoration:underline dotted;text-underline-offset:3px" title="Click for the list of secondary causes of elevated TG">First check what is raising TG ⓘ</span><br>• If TG≥400, use directly measured LDL-C or non-HDL-C for calculation',
@@ -949,7 +981,7 @@ var GLOSSARY=[
   {abbr:'LOE',full:'Level of Evidence',ko:'Level of evidence',desc:'• A: multiple RCTs / meta-analyses<br>• B-R: single randomized<br>• B-NR: nonrandomized studies<br>• C-LD: limited data<br>• C-EO: expert opinion'},
   {abbr:'RCT',full:'Randomized Controlled Trial',ko:'Randomized controlled trial',desc:'Highest level of clinical evidence. LOE A = based on multiple RCTs or meta-analyses'},
   {abbr:'EPA',full:'Eicosapentaenoic Acid',ko:'Eicosapentaenoic acid (omega-3)',desc:'High-purity EPA = icosapent ethyl (Vascepa). MACE reduced 25% in statin-treated high-risk patients with ASCVD or diabetes, TG 135–499 mg/dL and LDL-C 41–100 mg/dL (REDUCE-IT). Effect differs from mixed fish-oil formulations'},
-  {abbr:'IPE',full:'Icosapent Ethyl',ko:'Icosapent ethyl (high-purity EPA ethyl ester)',desc:'*Purified high-purity EPA (eicosapentaenoic acid)-only ethyl ester (Vascepa®). 2 g twice daily (4 g/day total) with meals. A different drug from mixed EPA+DHA omega-3 products or ordinary fish-oil supplements.<br><br>*<b>Evidence — REDUCE-IT (2018, NEJM)</b>: in statin-treated patients with TG 135–499 mg/dL, LDL-C 41–100 mg/dL and ASCVD or diabetes (age ≥50 + ≥1 risk factor), MACE reduced 25% relative (HR 0.75); NNT ≈ 21 over median 4.9 years.<br><br>*<b>2026 ACC/AHA eligibility (COR 2b)</b>: ① ASCVD + persistent fasting TG 150–499 + LDL-C &lt;100 · non-HDL-C &lt;130 mg/dL on maximally tolerated statin ② diabetes age ≥50 + ≥1 ASCVD risk factor + persistent fasting TG 150–499 + LDL-C &lt;100 mg/dL on maximally tolerated statin. In the results, "IPE criteria not met"means at least one of these conditions is not satisfied.<br><br>*<b>TG ≥500 mg/dL</b>: can be used as a prescription omega-3 fatty acid to lower TG and pancreatitis risk (COR 2a; MARINE trial — about 33% TG reduction vs placebo at TG 500–2,000 mg/dL, no LDL-C rise). However, evidence for cardiovascular event reduction (REDUCE-IT) is limited to TG 150–499 mg/dL; reassess the criteria above after lowering TG below 500. Unlike EPA+DHA products, it does not raise LDL-C.<br><br>*<b>Caution</b>: slight increase in atrial fibrillation (5.3% vs 3.9%) and bleeding tendency. Controversy that the mineral-oil placebo may have raised LDL-C and hs-CRP in controls (confounding). The STRENGTH trial of an EPA+DHA product was negative.'},
+  {abbr:'IPE',full:'Icosapent Ethyl',ko:'Icosapent ethyl (high-purity EPA ethyl ester)',desc:'*Purified high-purity EPA (eicosapentaenoic acid)-only ethyl ester (Vascepa®). 2 g twice daily (4 g/day total) with meals. A different drug from mixed EPA+DHA omega-3 products or ordinary fish-oil supplements.<br><br>*<b>Evidence — REDUCE-IT (2018, NEJM)</b>: in statin-treated patients with TG 135–499 mg/dL, LDL-C 41–100 mg/dL and ASCVD or diabetes (age ≥50 + ≥1 risk factor), MACE reduced 25% relative (HR 0.75); NNT ≈ 21 over median 4.9 years.<br><br>*<b>2026 ACC/AHA eligibility (COR 2b)</b>: ① ASCVD + persistent fasting TG 150–499 + LDL-C &lt;100 · non-HDL-C &lt;130 mg/dL on maximally tolerated statin ② diabetes age ≥50 + ≥1 ASCVD risk factor + persistent fasting TG 150–499 + LDL-C &lt;100 mg/dL on maximally tolerated statin. In the results, "IPE criteria not met" means at least one of these conditions is not satisfied.<br><br>*<b>TG ≥500 mg/dL</b>: can be used as a prescription omega-3 fatty acid to lower TG and pancreatitis risk (COR 2a; MARINE trial — about 33% TG reduction vs placebo at TG 500–2,000 mg/dL, no LDL-C rise). However, evidence for cardiovascular event reduction (REDUCE-IT) is limited to TG 150–499 mg/dL; reassess the criteria above after lowering TG below 500. Unlike EPA+DHA products, it does not raise LDL-C.<br><br>*<b>Caution</b>: slight increase in atrial fibrillation (5.3% vs 3.9%) and bleeding tendency. Controversy that the mineral-oil placebo may have raised LDL-C and hs-CRP in controls (confounding). The STRENGTH trial of an EPA+DHA product was negative.'},
   {abbr:'VLDL',full:'Very Low-Density Lipoprotein',ko:'Very-low-density lipoprotein',desc:'TG-rich lipoprotein. Rises with TG↑. Included in non-HDL and remnant cholesterol'},
   {abbr:'IDL',full:'Intermediate-Density Lipoprotein',ko:'Intermediate-density lipoprotein',desc:'Metabolic intermediate from VLDL to LDL. Atherogenic. Included in non-HDL'},
   {abbr:'PTA',full:'Percutaneous Transluminal Angioplasty',ko:'Percutaneous transluminal angioplasty',desc:'Peripheral revascularization. If performed, PAD is classified as prior ASCVD (secondary prevention)'},
@@ -1231,7 +1263,7 @@ document.addEventListener('click',function(e){
         <span class="cpr-badge" style="display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:6px;background:#185fa5;color:#fff;font-size:16.5px;font-weight:800;flex-shrink:0">C</span>
         <div>
           <span style="font-size:12.5px;font-weight:700;color:#185fa5;line-height:1.3">Cumulative LDL Burden<br><span style="color:#5f5e5a;font-weight:400">Cumulative LDL burden</span></span>
-          <div class="expl" style="font-size:11.5px;color:#5f5e5a;line-height:1.6;margin-top:3px">"how high"rather than <b style="color:#1a1a18">how long the exposure lasted</b>matters more. Treat earlier, lower and longer.</div>
+          <div class="expl" style="font-size:11.5px;color:#5f5e5a;line-height:1.6;margin-top:3px">"how high" rather than <b style="color:#1a1a18">how long the exposure lasted</b>matters more. Treat earlier, lower and longer.</div>
         </div>
       </div>
       <span id="cumulativeLDLArrow" style="font-size:12.5px;color:#185fa5;font-weight:700;flex-shrink:0;margin-top:2px;transition:transform .25s;display:inline-block">▶</span>
@@ -1391,7 +1423,7 @@ document.addEventListener('click',function(e){
         <!-- Role of 30-year risk -->
         <div style="background:#e6f1fb;border-radius:8px;padding:9px 11px;margin-bottom:7px">
           <div style="font-size:12.5px;font-weight:700;color:#185fa5;margin-bottom:4px">Clinical Significance of 30-Year Risk (PREVENT 30-year risk)</div>
-          <div style="font-size:11.5px;color:#1a1a18;line-height:1.7">Even in younger adults (age 30–59) with low 10-year risk, <b>30-year risk ≥10%</b>makes a moderate-intensity statin reasonable (Class 2a, C-LD). A recommendation that applies the cumulative LDL burden concept directly to clinical decisions — "even if 10-year risk is low right now, reducing lifetime exposure is beneficial".</div>
+          <div style="font-size:11.5px;color:#1a1a18;line-height:1.7">Even in younger adults (age 30–59) with low 10-year risk, <b>30-year risk ≥10%</b> makes a moderate-intensity statin reasonable (Class 2a, C-LD). A recommendation that applies the cumulative LDL burden concept directly to clinical decisions — "even if 10-year risk is low right now, reducing lifetime exposure is beneficial".</div>
         </div>
 
         <!-- One-line summary -->
@@ -1551,7 +1583,7 @@ function switchCLTab(idx){
         <div style="font-size:11.5px;font-weight:700;color:#888780;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px">Section 4.2.3.6 — Selective Imaging of Subclinical Atherosclerosis</div>
 
         <div style="background:#f4f9f0;border:1px solid #c0dd97;border-radius:8px;padding:9px 11px;margin-bottom:8px;font-size:11.5px;color:#1a1a18;line-height:1.75">
-          CAC is the most powerful reclassification tool for quantifying subclinical atherosclerosis in asymptomatic adults. When the LLT decision is uncertain, <b>borderline-to-intermediate risk</b>(men ≥40, women ≥45), performed selectively. Radiation exposure ~1 mSv (similar to mammography). Incidental findings (lung nodules etc.) &lt;10%.
+          CAC is the most powerful reclassification tool for quantifying subclinical atherosclerosis in asymptomatic adults. When the LLT decision is uncertain, <b>borderline-to-intermediate risk</b> (men ≥40, women ≥45), performed selectively. Radiation exposure ~1 mSv (similar to mammography). Incidental findings (lung nodules etc.) &lt;10%.
         </div>
 
         <!-- Recommendations by CAC range -->
@@ -1590,7 +1622,7 @@ function switchCLTab(idx){
         <div style="font-size:11.5px;font-weight:700;color:#3b6d11;text-transform:uppercase;letter-spacing:.04em;margin-bottom:5px">ApoB — Refining Care After the LDL-C Target Is Met (Section 3.3)</div>
         <div style="background:#f4f9f0;border:1px solid #c0dd97;border-radius:8px;padding:9px 11px;margin-bottom:9px">
           <div style="font-size:12.5px;color:#1a1a18;line-height:1.75">
-            ApoB measurement is <b>during LLT, especially in adults with ASCVD, CKM syndrome, TG ≥150, diabetes or on-treatment LDL-C &lt;70 mg/dL</b>(COR 2a).<br>
+            ApoB measurement is <b>during LLT, especially in adults with ASCVD, CKM syndrome, TG ≥150, diabetes or on-treatment LDL-C &lt;70 mg/dL</b> (COR 2a).<br>
             Discordance between LDL-C and ApoB is common with elevated TG or metabolic syndrome. Using the Martin/Hopkins method to calculate LDL-C substantially reduces discordance compared with Friedewald, but ApoB still provides additional information.<br>
             ApoB can be measured in the non-fasting state and is standardized, making it practical.
           </div>
@@ -1976,7 +2008,7 @@ function switchRRTab(idx){
           <div style="font-weight:700;color:#185fa5;margin-bottom:4px">Principles for Ages Outside the PREVENT 2023 Validated Range</div>
           <b style="color:#854f0b">▸ Under age 30</b><br>
           <span style="padding-left:8px;display:block;color:#5f5e5a;word-break:keep-all;overflow-wrap:break-word">
-          - Rather than 10-year risk, <b>absolute LDL and diagnosis of the cause</b>take priority.<br>
+          - Rather than 10-year risk, <b>absolute LDL and diagnosis of the cause</b> take priority.<br>
           - LDL ≥160 → actively consider early treatment (especially in young adults); keep FH in mind<br>
           - LDL ≥190 → severe hypercholesterolemia — <b>FH must be ruled out</b>, start a high-intensity statin regardless of risk (2026 ACC/AHA)<br>
           - Exclude secondary causes: hypothyroidism · nephrotic syndrome · cholestasis (obstructive liver disease) · Cushing syndrome · pregnancy · drugs (steroids, cyclosporine, thiazides)</span>
@@ -1986,7 +2018,7 @@ function switchRRTab(idx){
           - PREVENT risk estimates are less reliable.<br>
           - Prior ASCVD (secondary prevention) → continue high-intensity statin; LDL target <b>&lt;55 mg/dL</b> (very high risk) / &lt;70 mg/dL (not very high risk)<br>
           - LDL ≥190 → use the risk-independent high-intensity statin indication section<br>
-          - Diabetes, CKD stage 3–4 → guideline recommendations apply to <b>age 40–75</b>; over age 75, with lifestyle measures, <b>shared decision (consider)</b>downgraded to<br>
+          - Diabetes, CKD stage 3–4 → guideline recommendations apply to <b>age 40–75</b>; over age 75, with lifestyle measures, <b>shared decision (consider)</b> downgraded to<br>
           - Primary prevention: shared decision based on frailty, life expectancy, polypharmacy and patient preference (2026 ACC/AHA)</span>
           <div style="text-align:right;margin-top:4px"><span class="text-toggle-link" onclick="toggleAgeRangeInfo()" style="font-size:11.5px;color:#185fa5;cursor:pointer;font-weight:600">Close ✕</span></div>
         </div>
@@ -2048,7 +2080,7 @@ function switchRRTab(idx){
         <span style="padding-left:18px;display:block;color:#5f5e5a">ACS within the past 12 months, history of MI (other than the ACS above), history of ischemic stroke, symptomatic PAD</span>
         ② <b>1 major ASCVD event + 2 or more high-risk conditions</b>
         <span style="padding-left:18px;display:block;color:#5f5e5a">Age ≥65, CABG or PCI, current smoking, diabetes, congestive heart failure, hypertension, LDL-C ≥100 mg/dL (2.6 mmol/L) despite maximally tolerated statin + ezetimibe</span>
-        <span style="display:block;color:#5f5e5a">※ <b>ASCVD + CKD stage 3 or worse (eGFR 15–59)</b>gets the same targets as very high risk (COR 1) — auto-checked when eGFR is entered</span>
+        <span style="display:block;color:#5f5e5a">※ <b>ASCVD + CKD stage 3 or worse (eGFR 15–59)</b> gets the same targets as very high risk (COR 1) — auto-checked when eGFR is entered</span>
         <span style="color:#a32d2d;font-weight:600">→ Check if applicable — applies an LDL-C target of &lt;55 mg/dL</span>
       </div>
     </div>
@@ -2964,7 +2996,7 @@ function switchRRTab(idx){
               <div style="margin-bottom:7px">In practice they are used as fixed-dose combinations of different classes — Mavyret/Maviret (glecaprevir/pibrentasvir) · Epclusa (sofosbuvir/velpatasvir) · Zepatier (elbasvir/grazoprevir) · Harvoni (ledipasvir/sofosbuvir).</div>
               <div style="font-weight:700;color:#854f0b;margin-bottom:2px">Why they matter with statins</div>
               <div style="margin-bottom:7px">Many DAAs, especially <b>the -previr class and some NS5A inhibitors</b>, inhibit OATP1B1/1B3 and BCRP, so exposure to CYP-independent rosuvastatin also rises markedly (e.g. atorvastatin AUC up about 8-fold with glecaprevir/pibrentasvir).</div>
-              <div style="padding:6px 9px;background:#f8f7f5;border-radius:6px;border-left:3px solid #d0cec8;font-size:12px;color:#5f5e5a"><b>In practice</b>: DAA therapy is short (8–12 weeks), so in primary-prevention patients <b>temporarily stopping the statin during treatment</b>is simplest. If it must be continued, reduce the dose per each drug label or switch to pravastatin.</div>
+              <div style="padding:6px 9px;background:#f8f7f5;border-radius:6px;border-left:3px solid #d0cec8;font-size:12px;color:#5f5e5a"><b>In practice</b>: DAA therapy is short (8–12 weeks), so in primary-prevention patients <b>temporarily stopping the statin during treatment</b> is simplest. If it must be continued, reduce the dose per each drug label or switch to pravastatin.</div>
             </div></div>
         </div>
       </div>
@@ -3087,8 +3119,8 @@ function switchRRTab(idx){
 
       <div style="margin-top:8px;padding:9px 12px;background:#fdf1f1;border:1px solid #e8b4b4;border-radius:8px;font-size:12.5px;line-height:1.75">
         <div style="font-weight:700;color:#a32d2d;margin-bottom:3px">▸ Practical summary</div>
-        • When interactions are a concern, <b>pravastatin</b>(first choice) or <b>fluvastatin</b>is the simplest solution<br>
-        • For short-course drugs (macrolides, azoles, fusidic acid), during the treatment period <b>temporarily stopping the statin</b>is safest<br>
+        • When interactions are a concern, <b>pravastatin</b> (first choice) or <b>fluvastatin</b> is the simplest solution<br>
+        • For short-course drugs (macrolides, azoles, fusidic acid), during the treatment period <b>temporarily stopping the statin</b> is safest<br>
         • Non-statin LDL lowering: ezetimibe (may require level monitoring) · PCSK9 mAb · inclisiran (no interactions)<br>
         • Dose limits are mainly based on US labeling; check local labeling individually
       </div>
@@ -3522,7 +3554,7 @@ function switchRRTab(idx){
               <div>&#9312; Measure CK &#8212; <b>discontinue immediately if &gt;10&#215;ULN</b></div>
               <div>&#9313; Dechallenge (symptoms resolve after stopping) &#8594; Rechallenge (do symptoms recur on re-exposure)</div>
               <div>&#9314; If symptoms recur &#8594; <b>switch to pitavastatin or pravastatin</b> or dosing every other day</div>
-              <div>&#9315; Confirmed statin intolerance (2 or more statins, one at the lowest approved dose) &#8594; 2026 Figure 18: <b>ASCVD</b>reduced-dose statin + bempedoic acid, ezetimibe, PCSK9 mAb (COR 1) · <b>High risk</b>(PREVENT ≥10%, CAC ≥300, diabetes women &gt;65 / men &gt;60): bempedoic acid/ezetimibe to LDL &lt;70 (COR 1), PCSK9 mAb if not met · <b>PREVENT 3–&lt;10%</b>: ezetimibe/bempedoic acid to LDL &lt;100 (2b)</div>
+              <div>&#9315; Confirmed statin intolerance (2 or more statins, one at the lowest approved dose) &#8594; 2026 Figure 18: <b>ASCVD</b>: reduced-dose statin + bempedoic acid, ezetimibe, PCSK9 mAb (COR 1) · <b>High risk</b> (PREVENT ≥10%, CAC ≥300, diabetes women &gt;65 / men &gt;60): bempedoic acid/ezetimibe to LDL &lt;70 (COR 1), PCSK9 mAb if not met · <b>PREVENT 3–&lt;10%</b>: ezetimibe/bempedoic acid to LDL &lt;100 (2b)</div>
             </div>
 
             <div style="font-size:11.5px;color:#a32d2d;padding:6px 10px;background:#fff0f0;border-radius:6px;border-left:2px solid #e24b4a">
@@ -3627,7 +3659,7 @@ function switchRRTab(idx){
           Statins inhibit the mevalonate pathway, which reduces not only cholesterol but also its branch product CoQ10 (ubiquinone) — one proposed mechanism for statin-associated myopathy. However, guidelines do not recommend routine CoQ10 co-administration for several reasons.<br><br>
           <b>① Inconsistent clinical evidence</b> — RCTs and meta-analyses show mixed results; even where muscle-pain symptoms were reported to improve somewhat, <b>evidence for improvement in CK (a marker of muscle injury) is even weaker</b>. Most studies are small, short and rely on subjective scales (VAS), making it hard to exclude a placebo effect.<br>
           <b>② The mechanism of myopathy is multifactorial</b> — besides CoQ10 depletion, competing mechanisms include SLCO1B1 polymorphisms, immune-mediated necrotizing myopathy (IMNM), and ryanodine receptor abnormalities, making standardization around a single supplement difficult.<br>
-          <b>③ Nocebo effect</b> — in double-blind RCTs, the difference in myalgia rates between statin and placebo groups is much smaller than in observational studies, so the actual "true myopathy needing treatment"may itself be small in magnitude.<br>
+          <b>③ Nocebo effect</b> — in double-blind RCTs, the difference in myalgia rates between statin and placebo groups is much smaller than in observational studies, so the actual "true myopathy needing treatment" may itself be small in magnitude.<br>
           <b>④ Priority of alternative strategies</b> — checking CK, switching statins, dose adjustment, alternate-day dosing, and substitution with ezetimibe/PCSK9 inhibitors are more firmly evidence-based approaches recommended first.<br><br>
           Bottom line: the mechanism is plausible, but the quality and consistency of RCT evidence are insufficient, and as a supplement rather than a drug it does not clear the bar for an official recommendation. Given its low risk, this does not preclude individualized clinical use if a patient wishes to try it.
         </div>
@@ -3656,7 +3688,7 @@ function switchRRTab(idx){
           <span id="faqArrow3" style="font-size:12px;color:#4a3a70;transition:transform .2s;flex-shrink:0;margin-left:8px">▶</span>
         </div>
         <div id="faqA3" style="display:none;padding:10px 12px;font-size:12.5px;color:#1a1a18;line-height:1.8;background:#fff">
-          <b>Timing</b> — hepatic cholesterol synthesis (HMG-CoA reductase activity) peaks at night, so for short half-life statins (simvastatin, lovastatin, fluvastatin IR; half-life 2–3 hours), <b>evening dosing</b>is classically shown to give greater LDL-C lowering. By contrast, long half-life statins (atorvastatin ~14 h, rosuvastatin ~19 h, pitavastatin) showed no difference between morning and evening dosing in several RCTs, so timing does not matter.<br>
+          <b>Timing</b> — hepatic cholesterol synthesis (HMG-CoA reductase activity) peaks at night, so for short half-life statins (simvastatin, lovastatin, fluvastatin IR; half-life 2–3 hours), <b>evening dosing</b> is classically shown to give greater LDL-C lowering. By contrast, long half-life statins (atorvastatin ~14 h, rosuvastatin ~19 h, pitavastatin) showed no difference between morning and evening dosing in several RCTs, so timing does not matter.<br>
           <b>Fasting vs fed</b> — atorvastatin, rosuvastatin and pitavastatin can be taken without regard to food, but lovastatin (IR formulation) absorption depends on dietary fat, so taking it after meals is recommended.<br>
           Bottom line: with long half-life statins now dominant, the practical benefit of the "take it at night" rule is much smaller, and guidelines instead emphasize <b>adherence — taking it at the same time every day without missing doses</b> — as the most important variable.
         </div>
@@ -3669,7 +3701,7 @@ function switchRRTab(idx){
           <span id="faqArrow4" style="font-size:12px;color:#4a3a70;transition:transform .2s;flex-shrink:0;margin-left:8px">▶</span>
         </div>
         <div id="faqA4" style="display:none;padding:10px 12px;font-size:12.5px;color:#1a1a18;line-height:1.8;background:#fff">
-          Used mainly for <b>statin-intolerant patients</b>who cannot take a statin daily, usually because of muscle symptoms. Long half-life, potent rosuvastatin and atorvastatin given every other day or 2–3 times a week lowered LDL-C by about 20–30% in small studies; the effect is smaller than daily dosing but "taking nothing at all"— clinically meaningful compared with that.<br>
+          Used mainly for <b>statin-intolerant patients</b> who cannot take a statin daily, usually because of muscle symptoms. Long half-life, potent rosuvastatin and atorvastatin given every other day or 2–3 times a week lowered LDL-C by about 20–30% in small studies; the effect is smaller than daily dosing but "taking nothing at all"— clinically meaningful compared with that.<br>
           However, this is not a standard therapy in official guidelines but <b>a salvage strategy in intolerant patients</b>, and the evidence is limited to small RCTs and observational studies (Level B–C) with scarce cardiovascular outcome data. In practice, alternate-day dosing alone often fails to reach targets, so nonstatin combinations such as ezetimibe, PCSK9 inhibitors or bempedoic acid are usually considered as well.
         </div>
       </div>
@@ -3694,8 +3726,8 @@ function switchRRTab(idx){
           <span id="faqArrow6" style="font-size:12px;color:#4a3a70;transition:transform .2s;flex-shrink:0;margin-left:8px">▶</span>
         </div>
         <div id="faqA6" style="display:none;padding:10px 12px;font-size:12.5px;color:#1a1a18;line-height:1.8;background:#fff">
-          <b>Routine monitoring</b> — early-2000s guidelines recommended routine liver function testing, but large data sets later confirmed that serious statin hepatotoxicity (acute liver failure) is extremely rare, under 1 per million people per year. Since the 2013 ACC/AHA guideline, <b>checking baseline ALT before treatment</b>is recommended, but absent specific symptoms (jaundice, fatigue, right upper quadrant pain) or risk factors, <b>routine repeat monitoring is no longer recommended.</b> Mild asymptomatic ALT elevation (&lt;3×ULN) is usually followed with repeat testing while continuing the statin, and many cases normalize spontaneously.<br><br>
-          <b>Discontinuation criteria</b> — generally, <b>ALT &gt; 3×ULN persists, or symptoms such as jaundice, marked fatigue or right upper quadrant pain occur regardless of degree</b>stopping is considered. If ALT is under 3×ULN and asymptomatic, the statin is usually continued with follow-up testing. For severity, Hy's law (ALT/AST &gt;3×ULN + total bilirubin &gt;2×ULN, normal ALP) is used as a reference.<br><br>
+          <b>Routine monitoring</b> — early-2000s guidelines recommended routine liver function testing, but large data sets later confirmed that serious statin hepatotoxicity (acute liver failure) is extremely rare, under 1 per million people per year. Since the 2013 ACC/AHA guideline, <b>checking baseline ALT before treatment</b> is recommended, but absent specific symptoms (jaundice, fatigue, right upper quadrant pain) or risk factors, <b>routine repeat monitoring is no longer recommended.</b> Mild asymptomatic ALT elevation (&lt;3×ULN) is usually followed with repeat testing while continuing the statin, and many cases normalize spontaneously.<br><br>
+          <b>Discontinuation criteria</b> — generally, <b>ALT &gt; 3×ULN persists, or symptoms such as jaundice, marked fatigue or right upper quadrant pain occur regardless of degree</b> stopping is considered. If ALT is under 3×ULN and asymptomatic, the statin is usually continued with follow-up testing. For severity, Hy's law (ALT/AST &gt;3×ULN + total bilirubin &gt;2×ULN, normal ALP) is used as a reference.<br><br>
           Chronic liver disease (including compensated cirrhosis) is not an absolute contraindication; in patients with fatty liver disease (NAFLD/MASLD) in particular, the cardiovascular benefit is generally considered to outweigh hepatic risk, and current practice trends toward continuing or initiating statins (decompensated or acute liver failure remain contraindications).
         </div>
       </div>
@@ -3725,8 +3757,8 @@ function switchRRTab(idx){
           <span id="faqArrow8" style="font-size:12px;color:#4a3a70;transition:transform .2s;flex-shrink:0;margin-left:8px">▶</span>
         </div>
         <div id="faqA8" style="display:none;padding:10px 12px;font-size:12.5px;color:#1a1a18;line-height:1.8;background:#fff">
-          Per the NLA (National Lipid Association) 2022 scientific statement: defined as one or more adverse effects associated with statin therapy that <b>improve with dose reduction or discontinuation</b>, divided into <b>complete intolerance</b>(no dose tolerated) and <b>partial intolerance</b>(the dose needed to reach the treatment target is not tolerated).<br>
-          For diagnosis, <b>at least 2 statins should be tried (one at the lowest approved dose)</b>in principle; "took it once and had pain"alone does not establish intolerance. This definition is <b>2026 ACC/AHA Figure 18</b>identical to that definition.<br>
+          Per the NLA (National Lipid Association) 2022 scientific statement: defined as one or more adverse effects associated with statin therapy that <b>improve with dose reduction or discontinuation</b>, divided into <b>complete intolerance</b> (no dose tolerated) and <b>partial intolerance</b> (the dose needed to reach the treatment target is not tolerated).<br>
+          For diagnosis, <b>at least 2 statins should be tried (one at the lowest approved dose)</b> in principle; "took it once and had pain" alone does not establish intolerance. This definition is identical to that of <b>2026 ACC/AHA Figure 18</b>.<br>
           While 5–30% of statin users report some form of intolerance, the proportion with genuine, pharmacologically confirmed intolerance on double-blind RCT testing is far lower, indicating that a substantial share reflects a nocebo effect.
         </div>
       </div>
@@ -3763,9 +3795,9 @@ function switchRRTab(idx){
           <span id="faqArrow11" style="font-size:12px;color:#4a3a70;transition:transform .2s;flex-shrink:0;margin-left:8px">▶</span>
         </div>
         <div id="faqA11" style="display:none;padding:10px 12px;font-size:12.5px;color:#1a1a18;line-height:1.8;background:#fff">
-          In large RCTs and Mendelian randomization studies, cardiovascular benefit continues to rise linearly even when LDL-C is lowered to the 20s mg/dL, and no clear "no benefit below this level"threshold has been identified — this underpins the current "lower is better, and longer is better" paradigm. PCSK9 inhibitor RCTs such as FOURIER and ODYSSEY OUTCOMES also found no significant safety signal (hemorrhagic stroke, neurocognition) down to LDL-C 20–30 mg/dL.<br>
+          In large RCTs and Mendelian randomization studies, cardiovascular benefit continues to rise linearly even when LDL-C is lowered to the 20s mg/dL, and no clear "no benefit below this level" threshold has been identified — this underpins the current "lower is better, and longer is better" paradigm. PCSK9 inhibitor RCTs such as FOURIER and ODYSSEY OUTCOMES also found no significant safety signal (hemorrhagic stroke, neurocognition) down to LDL-C 20–30 mg/dL.<br>
           However, there are reservations about asserting a complete "no lower limit". ① Most follow-up is several years long, so long-term (10+ years) data at very low LDL are limited. ② PCSK9 LOF cohorts reflect a lifelong adapted congenital state, not exactly the same as rapid drug-induced lowering. ③ Some observational studies reported associations of very low LDL-C with hemorrhagic stroke and certain cancers, but these are mostly interpreted as LDL lowering caused by underlying disease (reverse causation) rather than causation.<br>
-          Current guidelines (ESC/EAS 2019) set graded LDL-C targets by risk group, <b>very high risk &lt;55 mg/dL</b>, <b>high risk &lt;70 mg/dL</b>(each with ≥50% reduction from baseline), but "lower than this is dangerous"— no explicit lower limit of this kind is set.
+          Current guidelines (ESC/EAS 2019) set graded LDL-C targets by risk group, <b>very high risk &lt;55 mg/dL</b>, <b>high risk &lt;70 mg/dL</b> (each with ≥50% reduction from baseline), but "lower than this is dangerous"— no explicit lower limit of this kind is set.
         </div>
       </div>
 
@@ -3795,10 +3827,10 @@ function switchRRTab(idx){
           2026 ACC/AHA Section 4.2.1.1 (Statins) states that some populations, <b>particularly East Asians</b>, are prone to adverse effects because of genetic differences in drug metabolism, and that <b>initial therapy should start at a lower dose</b>. The same section describes that, along with the expected % reduction, <b>the absolute LDL-C actually achieved is also an objective treatment goal</b>, and that the actual reduction varies by population and adherence. Therefore, starting East Asian patients on moderate intensity (e.g. rosuvastatin 5–10 mg, atorvastatin 10–20 mg) and titrating after a lipid check at 4–12 weeks does not conflict with the guideline.<br><br>
 
           <b>② Continuing moderate intensity once the target is reached — not directly addressed in the guideline (interpretation)</b><br>
-          The basic direction of the guideline is "to target"— not <b>"up to the maximally tolerated dose"</b>, not just to the target. Recommendation 2 for LDL-C ≥190 calls for a maximally tolerated statin, citing greater risk reduction with high vs moderate intensity, and Recommendations 3–4 add nonstatins when the target is not met on a maximally tolerated statin. The CAC, ASCVD and high-risk diabetes pathways require "≥50% reduction <b>and</b> target"together. Not treating the target as a stopping point — "lower is better"— is the basic philosophy of the guideline.<br><br>
+          The basic direction of the guideline is "to target"— not <b>"up to the maximally tolerated dose"</b>, not just to the target. Recommendation 2 for LDL-C ≥190 calls for a maximally tolerated statin, citing greater risk reduction with high vs moderate intensity, and Recommendations 3–4 add nonstatins when the target is not met on a maximally tolerated statin. The CAC, ASCVD and high-risk diabetes pathways require "≥50% reduction <b>and</b> target" together. Not treating the target as a stopping point — "lower is better"— is the basic philosophy of the guideline.<br><br>
 
           <b>③ Statin intensity is defined by expected % reduction, not by drug name</b><br>
-          Table 6 defines high intensity as ≥50%, moderate as 30–49% and low as &lt;30% reduction. For example, from LDL-C 210 mg/dL, reaching &lt;100 requires about 53% or more; with an average response (30–49%), moderate intensity would leave LDL at 107–147 mg/dL. A patient who reaches &lt;100 on moderate intensity has shown <b>an individual high-intensity-level response (≥50%)</b>, effectively meeting the high-intensity goal. In this case, continuing moderate intensity for tolerability is "maximally tolerated"and "reaching target"— a reasonable choice that satisfies both.<br>
+          Table 6 defines high intensity as ≥50%, moderate as 30–49% and low as &lt;30% reduction. For example, from LDL-C 210 mg/dL, reaching &lt;100 requires about 53% or more; with an average response (30–49%), moderate intensity would leave LDL at 107–147 mg/dL. A patient who reaches &lt;100 on moderate intensity has shown <b>an individual high-intensity-level response (≥50%)</b>, effectively meeting the high-intensity goal. In this case, continuing moderate intensity for tolerability is "maximally tolerated" and "reaching target"— a reasonable choice that satisfies both.<br>
           Conversely, if the target is met but the reduction is under 50% (e.g. LDL-C 150 → 95, a 37% reduction), in pathways requiring high intensity or ≥50% reduction, titrating up within tolerance is closer to the intent of the guideline.<br><br>
 
           <b>Practical summary</b><br>
@@ -3868,7 +3900,7 @@ function switchRRTab(idx){
     <div id="noResultHint" style="font-size:13.5px;color:#185fa5;font-weight:600;margin-top:5px">Results will appear once you fill in the basic information fields.</div>
     <div style="font-size:12.5px;color:#185fa5;margin-top:3px">30-year risk is shown only for ages 30–59 (per PREVENT 2023)</div>
     <div id="ascvdHxNotice" style="display:none;margin-top:8px;padding:8px 11px;background:#faeeda;border-radius:7px;border-left:3px solid #ef9f27">
-      <span style="font-size:12.5px;color:#854f0b">⚠ <b>Prior ASCVD</b>is used not for risk calculation but to <b>switch the treatment-decision pathway</b>. The PREVENT score is a primary-prevention tool and does not apply to this patient; see the <b>Statin Prescribing Recommendation</b> on the right.</span>
+      <span style="font-size:12.5px;color:#854f0b">⚠ <b>Prior ASCVD</b> is used not for risk calculation but to <b>switch the treatment-decision pathway</b>. The PREVENT score is a primary-prevention tool and does not apply to this patient; see the <b>Statin Prescribing Recommendation</b> on the right.</span>
     </div>
   </div>
 
@@ -4697,7 +4729,7 @@ function makeFlow(acc,preventCat,ldl,ascvd,vhr,onStatin=false,baselineLdl=null,t
       'PCSK9 mAb may be used alone or combined without ezetimibe first — choose by the reduction needed and patient preference.');
     const need3=afterEze>tgt;
     html+=rbox(3,'Inclisiran (Leqvio®) <span style="font-size:11.5px;font-weight:400;color:#854f0b">(COR 2a)</span>',
-      '284 mg SC: initial → after 3 months → then every 6 months (LDL ~48% reduction)<br><span style="font-size:11.5px;color:#854f0b">PCSK9 mAb <b>is not tolerated or unavailable</b>, or <b>less frequent dosing is strongly preferred</b>is preferred. CV outcome trials ongoing — second-choice PCSK9 inhibitor.</span>',
+      '284 mg SC: initial → after 3 months → then every 6 months (LDL ~48% reduction)<br><span style="font-size:11.5px;color:#854f0b">PCSK9 mAb <b>is not tolerated or unavailable</b>, or <b>less frequent dosing is strongly preferred</b>. CV outcome trials ongoing — second-choice PCSK9 inhibitor.</span>',
       afterIncl,need3,!need3,'');
     const val4=Math.round(val2*0.80);
     const need4=val2>tgt;
@@ -4855,7 +4887,7 @@ function htgInfo(o){
   let group='', steps=[], emr='';
   const common = li(`① Identify and manage secondary causes (uncontrolled diabetes, hypothyroidism, nephrotic syndrome/CKD, excess alcohol, drugs etc.) ${cor('1')}`)
                + li(`② Diet (reduce added sugar, alcohol, saturated fat), physical activity, 5–10% weight loss ${cor('1')}`)
-               + li(`※ At TG ≥150 mg/dL, use <b>non-HDL-C or apoB</b>as the primary marker rather than LDL-C ${cor('2a')}`);
+               + li(`※ At TG ≥150 mg/dL, use <b>non-HDL-C or apoB</b> as the primary marker rather than LDL-C ${cor('2a')}`);
   const persistNote = persist ? '' : li(`<span style="color:#854f0b">▸ "Persistent fasting hypertriglyceridemia" needs to be confirmed${fasting?'':' — <b>fasting recheck</b>'} (after correcting secondary causes, 4–12 weeks of lifestyle changes and a stable maximally tolerated statin). If not present, monitor adherence and response ${cor('1')}</span>`);
   const lipidOk = (ldl<100 && nonHdl!=null && nonHdl<130);
   if(fcs && tg>=1000){
@@ -4870,7 +4902,7 @@ function htgInfo(o){
     group='TG ≥500 mg/dL (Figure 17)';
     steps.push(persistNote);
     steps.push(li(`③ Estimate PREVENT-ASCVD 10-year risk${prevAscvd!=null?` (currently ${prevAscvd.toFixed(1)}%)`:''} ${cor('1')}`));
-    steps.push(li(`④ Benefit-harm discussion; lifestyle and <b>maximize LLT including statins</b>to reach LDL-C and non-HDL-C targets ${cor('1')} · optional apoB target ${cor('2a')}`));
+    steps.push(li(`④ Benefit-harm discussion; lifestyle and <b>maximize LLT including statins</b> to reach LDL-C and non-HDL-C targets ${cor('1')} · optional apoB target ${cor('2a')}`));
     steps.push(li(`⑤ <b>Fibrate or prescription omega-3 fatty acid</b> addition — lowers TG and pancreatitis risk ${cor('2a')}`));
     if(tg>=1000) steps.push(li(`<span style="color:#a32d2d">▸ TG ≥1000: risk of acute pancreatitis is especially high — prioritize TG lowering. <b>FCS screening</b> consider (if FCS confirmed: lipid specialist referral, olezarsen pathway)</span>`));
     steps.push(li(`▸ Selective interventions: registered dietitian referral · FCS screening · lipid specialist referral`));
@@ -6301,7 +6333,7 @@ function upd(){
         <div style="font-size:12.5px;color:#1a1a18;line-height:1.6">
           ① Evaluate secondary causes of muscle symptoms (COR 1) — hypothyroidism, drug interactions, excess alcohol, strenuous exercise, chronic liver/kidney disease, muscle disease etc.<br>
           ② With severe myalgia or weakness, objective strength assessment and CK measurement (COR 1)<br>
-          ③ Benefit-harm discussion — acknowledge the concerns of the patient, <b>increased ASCVD risk when statins are stopped</b>is explained, and alternative therapy offered (COR 1)<br>
+          ③ Benefit-harm discussion — acknowledge the concerns of the patient, <b>increased ASCVD risk when statins are stopped</b> is explained, and alternative therapy offered (COR 1)<br>
           <span style="font-size:11.5px;color:#5f5e5a">Table 24 risk factors: age ≥65, low body weight or obesity, female sex, hypothyroidism, diabetes, chronic liver/kidney disease, alcohol use, strenuous exercise, high-dose statin, muscle disease, metabolically interacting drugs, genetic variants such as SLCO1B1</span>
           ${acc.intol?'':'<br><span style="color:#854f0b">▸ The current situation (PREVENT &lt;3% etc.) is not covered by the intolerance recommendations, so the general pathway is followed.</span>'}
           <br><span style="font-size:11.5px;color:#5f5e5a">※ Statin-based NNH (new diabetes, SAMS) does not apply to nonstatin therapy.</span>
@@ -6312,7 +6344,7 @@ function upd(){
   if(((g('cacCheck')&&g('cacCheck').checked)||(g('cac300')&&g('cac300').checked))&&!ascvd){
     g('accRecOut').innerHTML+=`<div style="margin-top:8px;padding:10px 12px;background:#fcebeb;border-radius:8px;border-left:4px solid #a32d2d">
       <div style="font-size:12.5px;font-weight:700;color:#a32d2d;margin-bottom:4px">▲ CAC ≥100 confirmed — a sufficient condition for statin therapy</div>
-      <div style="font-size:13.5px;color:#1a1a18;line-height:1.6">CAC ≥100 or ≥75th percentile is objective evidence of subclinical atherosclerotic plaque, and <b>the 2026 ACC/AHA guideline specifies this as a "compelling reason to initiate statin therapy"listed as such</b>. Starting a statin is strongly recommended regardless of the calculated PREVENT risk.</div>
+      <div style="font-size:13.5px;color:#1a1a18;line-height:1.6">CAC ≥100 or ≥75th percentile is objective evidence of subclinical atherosclerotic plaque, and <b>the 2026 ACC/AHA guideline specifies this as a "compelling reason to initiate statin therapy" listed as such</b>. Starting a statin is strongly recommended regardless of the calculated PREVENT risk.</div>
       <div style="font-size:11.5px;color:#a32d2d;margin-top:5px;line-height:1.5">※ Unlike other risk enhancers, CAC ≥100 alone is sufficient basis for a treatment decision.<br>※ Conversely, CAC = 0 makes deferring a statin for 10 years reasonable in borderline/intermediate risk.</div>
     </div>`;
   }
@@ -7210,7 +7242,7 @@ function buildNNTChart(el){
   • Population: <b>age ≥8</b>, LDL-C <b>persistently ≥160 mg/dL</b>, clinical picture consistent with FH<br>
   • Condition: <b>3–6 months of lifestyle modification</b>— if the response is insufficient, start a statin and add other LLT as needed.<br>
   • The threshold is not the adult value (190) but <b>160</b>. About 1 in 250–300 children and adolescents has LDL-C ≥160 consistent with HeFH.<br>
-  • Target: relative to pre-treatment, <b>≥50% reduction</b> and <b>LDL-C ≤130 mg/dL</b>is generally recommended (e1218).<br>
+  • Target: relative to pre-treatment, <b>≥50% reduction</b> and <b>LDL-C ≤130 mg/dL</b> is generally recommended (e1218).<br>
   • Pediatric approved ages (e1217 table): age ≥8 — rosuvastatin 5 and 10 mg, pitavastatin, pravastatin / age ≥10 — atorvastatin, simvastatin<br><br>
 
   <b>③ Homozygous FH (HoFH) — immediately at diagnosis, including infancy</b> <span style="color:#6b6a65">(e1216 footnote, see 4.2.4.4)</span><br>
