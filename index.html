@@ -12,6 +12,34 @@
   gtag('config', 'G-8RM1HWKB9B');
 </script>
 <title>ACC/AHA PREVENT ASCVD 위험도 & 지질치료 결정 도구</title>
+<style id="themeStyle">
+/* ── 야간 모드: 페이지 전체를 부드럽게 반전 (흰 배경 → 짙은 회색, 검은 글씨 → 밝은 회색, 색상 hue 유지) ── */
+html{background:#f4f3f0}
+html.theme-dark{filter:invert(.88) hue-rotate(180deg) saturate(.9)}
+html.theme-anim{transition:filter .4s ease}
+/* 모달 배경막: 반전 후에도 어둡게 보이도록 */
+html.theme-dark [style*="inset:0"][style*="rgba(0,0,0"],
+html.theme-dark [style*="inset: 0"][style*="rgba(0, 0, 0"],
+html.theme-dark #ckmPanelBackdrop{background:rgba(255,255,255,.5)!important}
+/* 진한 색 제목줄·버튼은 원래 색조를 유지하되 채도·밝기를 낮춰 눈부심 감소 */
+html.theme-dark .sec,html.theme-dark .pbtn{filter:invert(.88) hue-rotate(180deg)}
+@media print{html.theme-dark{filter:none!important}}
+</style>
+<script>
+(function(){
+  var mq=window.matchMedia?matchMedia('(prefers-color-scheme: dark)'):null;
+  function isNight(){var h=new Date().getHours();return h>=19||h<7}
+  function apply(){
+    var dark = (mq&&mq.matches) || isNight();
+    document.documentElement.classList.toggle('theme-dark',dark);
+  }
+  apply();
+  document.addEventListener('DOMContentLoaded',apply);
+  if(mq){ if(mq.addEventListener) mq.addEventListener('change',apply); else if(mq.addListener) mq.addListener(apply); }
+  setInterval(apply,60000);
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)apply()});
+})();
+</script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Noto Sans KR','Segoe UI',sans-serif;font-size:15px;background:#f4f3f0;color:#1a1a18;line-height:1.6;-webkit-text-size-adjust:100%;text-size-adjust:100%}
